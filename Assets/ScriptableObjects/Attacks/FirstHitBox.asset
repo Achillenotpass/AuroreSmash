@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 029697ded40d3944bbac8d4379a3055e, type: 3}
-  m_Name: Tests 5
+  m_Script: {fileID: 11500000, guid: e1e4d1e5bce45b743966423002cae695, type: 3}
+  m_Name: FirstHitBox
   m_EditorClassIdentifier: 
-  m_UpdateType: 1
-  m_CustomInterval: 1
-  m_Multiplier: 53.52
+  m_Damages: 10
+  m_HitBoxType: 1
+  m_RelativePosition: {x: 1, y: 0, z: 0}
+  m_Radius: 0.5
+  m_Size: {x: 1, y: 1, z: 1}
+  m_BeforeLag: 35
+  m_Duration: 70
