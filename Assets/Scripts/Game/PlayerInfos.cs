@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerInfos : MonoBehaviour
 {
     [SerializeField]
+    private LayerMask m_AttackableLayers;
+    public LayerMask AttackableLayers { get { return m_AttackableLayers; } }
+    [SerializeField]
     private int m_DeviceID = 1;
     public int DeviceID { get { return m_DeviceID; } }
     static public int s_CurrentGamepad = 0;
