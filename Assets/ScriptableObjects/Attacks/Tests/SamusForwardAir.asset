@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9429130b45672f544a28491ecf3e44f1, type: 3}
+  m_Name: SamusForwardAir
+  m_EditorClassIdentifier: 
+  m_AfterLag: 15
+  m_Hits:
+  - {fileID: 11400000, guid: 0a7a6b2d8964ff6409e70624af17c30f, type: 2}
+  - {fileID: 11400000, guid: 39ebd31e01758764b8c1d33f8eb15f0c, type: 2}
+  - {fileID: 11400000, guid: 64c32dbc84d7b1943866787fc9701368, type: 2}
+  - {fileID: 11400000, guid: ebf7451e106ede04498771cdb4c31d70, type: 2}
+  m_Projectiles: []

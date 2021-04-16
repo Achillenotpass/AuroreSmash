@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b595265a0ac470743841ee0cc909263a, type: 3}
-  m_Name: FirstHit
+  m_Name: Hit4
   m_EditorClassIdentifier: 
   m_HitBoxes:
-  - {fileID: 11400000, guid: 5eb61461685a38344bf626047e7247f0, type: 2}
+  - {fileID: 11400000, guid: 88ae3950f8a39d7458d194a37f11a6f3, type: 2}
