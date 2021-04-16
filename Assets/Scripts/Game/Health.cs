@@ -17,10 +17,14 @@ public class Health : MonoBehaviour
 
 
     #region Functions
-    public void TakeDamages(float p_Damages)
+    public void TakeDamages(SO_HitBox p_HitBox, int p_PlayerDirection)
     {
-        m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_Damages, 0.0f, m_MaxHealth);
+        m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_HitBox.Damages, 0.0f, m_MaxHealth);
         Debug.Log(m_CurrentHealth);
+    }
+    public void TakeDamages(SO_Projectile p_Projectile)
+    {
+
     }
     #endregion
 }
