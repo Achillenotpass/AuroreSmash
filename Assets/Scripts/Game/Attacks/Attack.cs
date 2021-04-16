@@ -30,6 +30,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     private EAttackState m_LastAttack = EAttackState.Nothing;
     private Vector2 m_AimDirection = Vector2.zero;
     public bool m_IsAerial = false;
+    private Movement m_PlayerMovements = null;
     public int m_PlayerDirection = 1; //1 = Right/-1 = left
     [SerializeField]
     private float m_JoystickDeadZone = 0.2f;
