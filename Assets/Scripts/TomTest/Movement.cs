@@ -55,6 +55,10 @@ public class Movement : MonoBehaviour
     private bool m_StartVelocityCheck = false;
     private bool m_EndVelocityCheck = false;
 
+    private float m_CharacterOrientation = 1;
+
+    private float m_CharacterMovementControl = 1;
+
     private void Awake()
     {
         m_CharacterController = GetComponent<CharacterController>();
@@ -62,6 +66,7 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        m_CharacterOrientation = transform.localScale.x;
         m_IsGrounded = Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask);
         if(m_IsGrounded)
         {
@@ -83,6 +88,7 @@ public class Movement : MonoBehaviour
         GroundJump();
         AirJump();
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * Time.deltaTime;
+        m_PlayerGeneralDirection *= m_CharacterMovementControl;
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
     }
@@ -91,7 +97,7 @@ public class Movement : MonoBehaviour
     {
         if (p_Context.started)
         {
-
+            m_StartVelocityCheck = true;
         }
         if(p_Context.performed)
         {
@@ -101,6 +107,8 @@ public class Movement : MonoBehaviour
         }
         if(p_Context.canceled)
         {
+            m_StartVelocityCheck = false;
+            m_EndVelocityCheck = false;
             m_PlayerDesiredDirection = Vector3.zero;
         }
     }
@@ -109,7 +117,8 @@ public class Movement : MonoBehaviour
     {
         if(p_Context.performed)
         {
-            transform.localScale = new Vector3(p_Context.ReadValue<Vector2>().x/ Mathf.Abs(p_Context.ReadValue<Vector2>().x), transform.localScale.y, transform.localScale.z);
+            if(p_Context.ReadValue<Vector2>().x != 0)
+                transform.localScale = new Vector3(p_Context.ReadValue<Vector2>().x/ Mathf.Abs(p_Context.ReadValue<Vector2>().x), transform.localScale.y, transform.localScale.z);
         }
     }
 
@@ -157,7 +166,11 @@ public class Movement : MonoBehaviour
 
     private void GroundJump()
     {
-        if(m_IsGroundJumping)
+        if(Physics.Raycast(transform.position, transform.up, 1f, LayerMask.NameToLayer("Ground")) && m_IsGroundJumping)
+        {
+            m_IsGroundJumping = false;
+        }
+        if (m_IsGroundJumping)
         {
             //Debug.Log(m_JumpMark.y + m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].value + (transform.position.y - m_PlayerGroundCheck.position.y));
             if (m_TimerGroundJump <= m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time)
@@ -177,6 +190,10 @@ public class Movement : MonoBehaviour
 
     private void AirJump()
     {
+        if (Physics.Raycast(transform.position, transform.up, 1f, LayerMask.NameToLayer("Ground")) && m_IsAirJumping)
+        {
+            m_IsAirJumping = false;
+        }
         if (m_IsAirJumping)
         {
             //Debug.Log(m_JumpMark.y + m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].value + (transform.position.y - m_PlayerGroundCheck.position.y));
@@ -194,4 +211,22 @@ public class Movement : MonoBehaviour
             }
         }
     }
+
+    public bool IsGrounded
+    {
+        get { return m_IsGrounded; }
+    }
+
+    public float CharacterOrientation
+    {
+        get { return m_CharacterOrientation; }
+    }
+
+    public float CharacterSpeed
+    {
+        get { return m_CharacterSpeed; }
+
+        set { m_CharacterSpeed = value; }
+    }
+
 }
