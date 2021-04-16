@@ -15,14 +15,15 @@ public class UpdateManager : MonoBehaviour
         if (m_Settings.UpdateType != EUpdateType.FixedUpdate)
             return;
 
-        Debug.Log("FixedUpdate " + name);
-
-        foreach (IUpdateUser user in m_Users)
+        for (int i = 0; i < m_Users.Count; i++)
         {
-            user.CustomUpdate(Time.fixedDeltaTime * m_Settings.Multiplier);
+            m_Users[i].CustomUpdate(Time.fixedDeltaTime * m_Settings.Multiplier);
         }
-
-        Debug.LogWarning("@todo Update Layer from FixedUpdate()");
+        //foreach (IUpdateUser user in m_Users)
+        //{
+        //    user.CustomUpdate(Time.fixedDeltaTime * m_Settings.Multiplier);
+        //}
+        
     }
 
     private void Update()
@@ -36,8 +37,7 @@ public class UpdateManager : MonoBehaviour
         {
             user.CustomUpdate(Time.deltaTime * m_Settings.Multiplier);
         }
-
-        Debug.LogWarning("@todo Update layer from Update()");
+        
     }
 
     public static void Bind(SO_UpdateLayerSettings p_Settings, IUpdateUser p_User)
