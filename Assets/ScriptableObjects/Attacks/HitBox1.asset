@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: HitBox1
   m_EditorClassIdentifier: 
   m_Damages: 10
-  m_HitBoxType: 1
+  m_EjectionPower: 10
+  m_EjectionAngle: 10
+  m_HitBoxType: 0
   m_RelativePosition: {x: 1, y: 0, z: 0}
   m_Radius: 1
   m_Size: {x: 1, y: 1, z: 1}

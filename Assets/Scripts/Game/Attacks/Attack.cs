@@ -20,19 +20,20 @@ public class Attack : MonoBehaviour, IUpdateUser
     #endregion
 
     #region Variables
-    private EAttackState m_CurrentAttackState = EAttackState.Nothing;
     private int m_CurrentFrameCount = 0;
     private float m_CurrentTimeCount = 0.0f;
     private PlayerInfos m_PlayerInfos = null;
     private int m_MaxFrameCount = 0;
     private Dictionary<SO_Hit, List<Health>> m_PlayersHit = new Dictionary<SO_Hit, List<Health>>();
+    private SO_Attack m_CurrentAttack = null;
 
     //ATTAQUES/INPUTS
-    private EAttackState m_LastAttack = EAttackState.Nothing;
+    private SO_Attack m_LastAttack = null;
     private Vector2 m_AimDirection = Vector2.zero;
     public bool m_IsAerial = false;
     private Movement m_PlayerMovements = null;
     public int m_PlayerDirection = 1; //1 = Right/-1 = left
+    private SO_Attack m_ComboBuffer = null;
     [SerializeField]
     private float m_JoystickDeadZone = 0.2f;
     [SerializeField]
@@ -50,7 +51,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
         if (p_Context.canceled)
         {
-            m_LastAttack = EAttackState.Nothing;
+            m_LastAttack = null;
         }
         else
         {
@@ -65,7 +66,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         }
         else
         {
-            m_LastAttack = EAttackState.Nothing;
+            m_LastAttack = null;
         }
     }
     public void LeftJoystickUsed(InputAction.CallbackContext p_Context)
@@ -81,10 +82,10 @@ public class Attack : MonoBehaviour, IUpdateUser
     }
     public void CustomUpdate(float p_DeltaTime)
     {
-        Debug.Log(m_CurrentFrameCount);
-        //Si on est en train d'attaquer on augmente le timer en secondes depuis le déubt de l'attaque
-        if (m_CurrentAttackState != EAttackState.Nothing)
+        //Si on est en train d'attaquer on augmente le timer en secondes depuis le début de l'attaque
+        if (m_CurrentAttack != null)
         {
+            CheckAttackFrames(m_CurrentAttack);
             m_CurrentTimeCount = m_CurrentTimeCount + p_DeltaTime;
             //On multiplie par 60 pour avoir le nombre de frames
             m_CurrentFrameCount = Mathf.RoundToInt(m_CurrentTimeCount * 60.0f);
@@ -94,48 +95,11 @@ public class Attack : MonoBehaviour, IUpdateUser
                 //On finit l'attaque
                 InterruptAttack();
             }
+
         }
         else
         {
-            //Et si on et pas en train d'attaquer on remet le timer à 0
-            m_CurrentTimeCount = 0.0f;
-            //Ainsi que le nombre de frames
-            m_CurrentFrameCount = 0;
-            m_MaxFrameCount = 0;
-        }
-
-        Debug.Log(m_CurrentAttackState);
-        switch (m_CurrentAttackState)
-        {
-            case EAttackState.Nothing:
-                break;
-            case EAttackState.Jab:
-                CheckAttackFrames(m_Attacks.m_Jab);
-                break;
-            case EAttackState.SideTilt:
-                CheckAttackFrames(m_Attacks.m_SideTilt);
-                break;
-            case EAttackState.UpTilt:
-                CheckAttackFrames(m_Attacks.m_UpTilt);
-                break;
-            case EAttackState.DownTilt:
-                CheckAttackFrames(m_Attacks.m_DownTilt);
-                break;
-            case EAttackState.ForwardAir:
-                CheckAttackFrames(m_Attacks.m_ForwardAir);
-                break;
-            case EAttackState.UpAir:
-                CheckAttackFrames(m_Attacks.m_UpAir);
-                break;
-            case EAttackState.DownAir:
-                CheckAttackFrames(m_Attacks.m_DownAir);
-                break;
-            case EAttackState.BackAir:
-                CheckAttackFrames(m_Attacks.m_BackAir);
-                break;
-            case EAttackState.NeutralAir:
-                CheckAttackFrames(m_Attacks.m_NeutralAir);
-                break;
+        //    ResetFramesCounters();
         }
     }
     #endregion
@@ -144,20 +108,46 @@ public class Attack : MonoBehaviour, IUpdateUser
     //INTERRUPTION DE L'ATTAQUE
     public void InterruptAttack()
     {
-        //On passe dan un état où on n'attaque plus
-        m_CurrentAttackState = EAttackState.Nothing;
-        //On réinitialise la liste des joueurs touchés par l'attaque
-        m_PlayersHit.Clear();
-        //On envoie les feedbacks
-        m_AttackEvents.m_InterruptAttack.Invoke();
+        if (m_ComboBuffer != null)
+        {
+            //On passe dan un état où on n'attaque plus
+            m_CurrentAttack = m_ComboBuffer;
+            m_ComboBuffer = null;
+            //On réinitialise la liste des joueurs touchés par l'attaque
+            m_PlayersHit.Clear();
+
+            SetMaxAttackDuration(m_CurrentAttack);
+        }
+        else
+        {
+            //On passe dan un état où on n'attaque plus
+            m_CurrentAttack = null;
+            //On réinitialise la liste des joueurs touchés par l'attaque
+            m_PlayersHit.Clear();
+            //On envoie les feedbacks
+            m_AttackEvents.m_InterruptAttack.Invoke();
+
+            m_MaxFrameCount = 0;
+        }
+
+        //Et si on et pas en train d'attaquer on remet le timer à 0
+        m_CurrentTimeCount = 0.0f;
+        //Ainsi que le nombre de frames
+        m_CurrentFrameCount = 0;
     }
     public void CheckAttackInput(Vector2 p_JoyStickInput)
     {
         //On calcule l'angle de la direction du joystick par rapport à un vecteur 1,0,0 (vers la droite)
         float l_Angle = Vector2.Angle(new Vector2(1.0f, 0.0f), p_JoyStickInput.normalized);
         l_Angle = l_Angle * Mathf.Sign(m_AimDirection.y);
-
-        if (m_CurrentAttackState == EAttackState.Nothing && m_LastAttack == EAttackState.Nothing)
+        if (m_CurrentAttack != null)
+        {
+            if (m_CurrentAttack.Combo != null && m_LastAttack == null)
+            {
+                m_ComboBuffer = m_CurrentAttack.Combo;
+            }
+        }
+        else if (m_LastAttack == null)
         {
             if (!m_IsAerial)
             {
@@ -167,7 +157,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     if (l_Angle >= 135.0f)
                     {//Penser à retourner le joueur si nécessaire
                         TurnLeft(true);
-                        m_CurrentAttackState = EAttackState.SideTilt;
+                        m_CurrentAttack = m_Attacks.m_SideTilt;
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
@@ -175,7 +165,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers le haut
                     else if (l_Angle >= 45.0f)
                     {
-                        m_CurrentAttackState = EAttackState.UpTilt;
+                        m_CurrentAttack = m_Attacks.m_UpTilt;
                         SetMaxAttackDuration(m_Attacks.m_UpTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartUpTilt.Invoke();
@@ -184,7 +174,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     else if (l_Angle >= -45.0f)
                     {//Penser à retourner le joueur si nécessaire
                         TurnLeft(false);
-                        m_CurrentAttackState = EAttackState.SideTilt;
+                        m_CurrentAttack = m_Attacks.m_SideTilt;
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
@@ -192,7 +182,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers le bas
                     else if (l_Angle >= -135.0f)
                     {
-                        m_CurrentAttackState = EAttackState.DownTilt;
+                        m_CurrentAttack = m_Attacks.m_DownTilt;
                         SetMaxAttackDuration(m_Attacks.m_DownTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartDownTilt.Invoke();
@@ -201,7 +191,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     else
                     {//Penser à retourner le joueur si nécessaire
                         TurnLeft(true);
-                        m_CurrentAttackState = EAttackState.SideTilt;
+                        m_CurrentAttack = m_Attacks.m_SideTilt;
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
@@ -209,7 +199,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                 }
                 else
                 {
-                    m_CurrentAttackState = EAttackState.Jab;
+                    m_CurrentAttack = m_Attacks.m_Jab;
                     SetMaxAttackDuration(m_Attacks.m_Jab);
                     //On envoie les feedbacks
                     m_AttackEvents.m_StartJab.Invoke();
@@ -225,14 +215,14 @@ public class Attack : MonoBehaviour, IUpdateUser
                     {
                         if (m_PlayerDirection == 1)
                         {
-                            m_CurrentAttackState = EAttackState.BackAir;
+                            m_CurrentAttack = m_Attacks.m_BackAir;
                             SetMaxAttackDuration(m_Attacks.m_BackAir);
                             //On envoie les feedbacks
                             m_AttackEvents.m_StartBackAir.Invoke();
                         }
                         else
                         {
-                            m_CurrentAttackState = EAttackState.ForwardAir;
+                            m_CurrentAttack = m_Attacks.m_ForwardAir;
                             SetMaxAttackDuration(m_Attacks.m_ForwardAir);
                             //On envoie les feedbacks
                             m_AttackEvents.m_StartForwardAir.Invoke();
@@ -241,7 +231,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers le haut
                     else if (l_Angle >= 45.0f)
                     {
-                        m_CurrentAttackState = EAttackState.UpAir;
+                        m_CurrentAttack = m_Attacks.m_UpAir;
                         SetMaxAttackDuration(m_Attacks.m_UpAir);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartUpAir.Invoke();
@@ -251,14 +241,14 @@ public class Attack : MonoBehaviour, IUpdateUser
                     {
                         if (m_PlayerDirection == 1)
                         {
-                            m_CurrentAttackState = EAttackState.ForwardAir;
+                            m_CurrentAttack = m_Attacks.m_ForwardAir;
                             SetMaxAttackDuration(m_Attacks.m_ForwardAir);
                             //On envoie les feedbacks
                             m_AttackEvents.m_StartForwardAir.Invoke();
                         }
                         else
                         {
-                            m_CurrentAttackState = EAttackState.BackAir;
+                            m_CurrentAttack = m_Attacks.m_BackAir;
                             SetMaxAttackDuration(m_Attacks.m_BackAir);
                             //On envoie les feedbacks
                             m_AttackEvents.m_StartBackAir.Invoke();
@@ -267,7 +257,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers le bas
                     else if (l_Angle >= -135.0f)
                     {
-                        m_CurrentAttackState = EAttackState.DownAir;
+                        m_CurrentAttack = m_Attacks.m_DownAir;
                         SetMaxAttackDuration(m_Attacks.m_DownAir);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartDownAir.Invoke();
@@ -277,14 +267,14 @@ public class Attack : MonoBehaviour, IUpdateUser
                     {
                         if (m_PlayerDirection == 1)
                         {
-                            m_CurrentAttackState = EAttackState.BackAir;
+                            m_CurrentAttack = m_Attacks.m_BackAir;
                             SetMaxAttackDuration(m_Attacks.m_BackAir);
                             //On envoie les feedbacks
                             m_AttackEvents.m_StartBackAir.Invoke();
                         }
                         else
                         {
-                            m_CurrentAttackState = EAttackState.ForwardAir;
+                            m_CurrentAttack = m_Attacks.m_ForwardAir;
                             SetMaxAttackDuration(m_Attacks.m_ForwardAir);
                             //On envoie les feedbacks
                             m_AttackEvents.m_StartForwardAir.Invoke();
@@ -293,7 +283,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                 }
                 else
                 {
-                    m_CurrentAttackState = EAttackState.NeutralAir;
+                    m_CurrentAttack = m_Attacks.m_NeutralAir;
                     SetMaxAttackDuration(m_Attacks.m_NeutralAir);
                     //On envoie les feedbacks
                     m_AttackEvents.m_StartNeutralAir.Invoke();
@@ -459,37 +449,9 @@ public class Attack : MonoBehaviour, IUpdateUser
     #region Gizmos
     private void OnDrawGizmos()
     {
-        switch (m_CurrentAttackState)
+        if (m_CurrentAttack != null)
         {
-            case EAttackState.Nothing:
-                break;
-            case EAttackState.Jab:
-                GizmosFunction(m_Attacks.m_Jab);
-                break;
-            case EAttackState.SideTilt:
-                GizmosFunction(m_Attacks.m_SideTilt);
-                break;
-            case EAttackState.UpTilt:
-                GizmosFunction(m_Attacks.m_UpTilt);
-                break;
-            case EAttackState.DownTilt:
-                GizmosFunction(m_Attacks.m_DownTilt);
-                break;
-            case EAttackState.ForwardAir:
-                GizmosFunction(m_Attacks.m_ForwardAir);
-                break;
-            case EAttackState.UpAir:
-                GizmosFunction(m_Attacks.m_UpAir);
-                break;
-            case EAttackState.DownAir:
-                GizmosFunction(m_Attacks.m_DownAir);
-                break;
-            case EAttackState.BackAir:
-                GizmosFunction(m_Attacks.m_BackAir);
-                break;
-            case EAttackState.NeutralAir:
-                GizmosFunction(m_Attacks.m_NeutralAir);
-                break;
+            GizmosFunction(m_CurrentAttack);
         }
     }
     public void GizmosFunction(SO_Attack p_Attack)
@@ -520,20 +482,6 @@ public class Attack : MonoBehaviour, IUpdateUser
         }
     }
     #endregion
-}
-
-public enum EAttackState
-{
-    Nothing,
-    Jab,
-    SideTilt,
-    UpTilt,
-    DownTilt,
-    NeutralAir,
-    ForwardAir,
-    BackAir,
-    DownAir,
-    UpAir,
 }
 
 #region Classes

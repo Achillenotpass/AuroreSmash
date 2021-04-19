@@ -158,6 +158,17 @@ public class @Controls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""59419bce-66bd-448d-8fc5-56bc31a0c86b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""3ae48e00-9719-4303-aef8-ba323ea8f3ae"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",

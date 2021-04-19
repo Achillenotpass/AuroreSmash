@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1e4d1e5bce45b743966423002cae695, type: 3}
-  m_Name: HitBox2
+  m_Name: HitBox3
   m_EditorClassIdentifier: 
   m_Damages: 10
   m_EjectionPower: 10
   m_EjectionAngle: 10
   m_HitBoxType: 0
-  m_RelativePosition: {x: 2.15, y: 0, z: 0}
+  m_RelativePosition: {x: 1.84, y: 0.56, z: 0}
   m_Radius: 0.21
   m_Size: {x: 1, y: 1, z: 1}
   m_BeforeLag: 15

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9429130b45672f544a28491ecf3e44f1, type: 3}
   m_Name: Mist_SideTilt
   m_EditorClassIdentifier: 
-  m_AfterLag: 10
+  m_AfterLag: 0
   m_Hits:
   - {fileID: 11400000, guid: 7405f3e068941b04b93bbb537cb0a2da, type: 2}
   m_Projectiles: []
+  m_Combo: {fileID: 0}

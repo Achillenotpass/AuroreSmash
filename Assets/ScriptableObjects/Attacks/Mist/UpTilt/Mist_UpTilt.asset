@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9429130b45672f544a28491ecf3e44f1, type: 3}
   m_Name: Mist_UpTilt
   m_EditorClassIdentifier: 
-  m_AfterLag: 15
+  m_AfterLag: 0
   m_Hits:
   - {fileID: 11400000, guid: c220ba903617e3c4fa7cc8157a7e2a66, type: 2}
   - {fileID: 11400000, guid: 1182be759a3a9564a937b6c2c3635a3c, type: 2}
   - {fileID: 11400000, guid: e394d52c35a212844a3b72e8cada62ce, type: 2}
   m_Projectiles: []
+  m_Combo: {fileID: 0}
