@@ -10,17 +10,23 @@ public class SO_HitBox : ScriptableObject
     private float m_Damages = 10.0f;
     public float Damages { get { return m_Damages; } }
     [SerializeField]
+    private float m_EjectionPower = 10.0f;
+    public float EjectionPower { get { return m_EjectionPower; } }
+    [SerializeField]
+    private float m_EjectionAngle = 10.0f;
+    public float EjectionAngle { get { return m_EjectionAngle; } }
+    [SerializeField]
     private EHitBOxType m_HitBoxType = EHitBOxType.Square;
     public EHitBOxType HitBoxType { get { return m_HitBoxType; } }
-    //GENERIC
+    [Header("Position")]
     [SerializeField]
     private Vector3 m_RelativePosition = Vector3.zero;
     public Vector3 RelativePosition { get { return m_RelativePosition; } }
-    //SPECIFIC TO SPHERE
+    [Header("Sphere size")]
     [SerializeField]
     private float m_Radius = 0.5f;
     public float Radius { get { return m_Radius; } }
-    //SPECIFIC TO SQUARE
+    [Header("Box size")]
     [SerializeField]
     private Vector3 m_Size = Vector3.one;
     public Vector3 Size { get { return m_Size; } }
