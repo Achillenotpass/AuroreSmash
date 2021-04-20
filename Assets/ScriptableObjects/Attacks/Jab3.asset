@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9429130b45672f544a28491ecf3e44f1, type: 3}
   m_Name: Jab3
   m_EditorClassIdentifier: 
-  m_AfterLag: 30
+  m_AfterLag: 0
   m_Hits:
   - {fileID: 11400000, guid: 66e65de52262df94e901ffc38836f251, type: 2}
   m_Projectiles: []
-  m_Combo: {fileID: 11400000, guid: c0c99f8e8646b6041bec1968312114ae, type: 2}
+  m_Combo: {fileID: 0}
