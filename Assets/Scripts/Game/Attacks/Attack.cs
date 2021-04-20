@@ -53,7 +53,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         {
             m_LastAttack = null;
         }
-        else
+        else if (p_Context.started)
         {
             CheckAttackInput(m_AimDirection.normalized);
         }
@@ -85,21 +85,23 @@ public class Attack : MonoBehaviour, IUpdateUser
         //Si on est en train d'attaquer on augmente le timer en secondes depuis le début de l'attaque
         if (m_CurrentAttack != null)
         {
+
             CheckAttackFrames(m_CurrentAttack);
             m_CurrentTimeCount = m_CurrentTimeCount + p_DeltaTime;
             //On multiplie par 60 pour avoir le nombre de frames
             m_CurrentFrameCount = Mathf.RoundToInt(m_CurrentTimeCount * 60.0f);
             //Si on dépasse le nombre de frame maximal de l'attaque (lag compris)
+
+            //On modifie la vitesse du personnage
+            //m_PlayerMovements.SpeedModifyer = m_CurrentAttack.PlayerInfluenceOnSpeed.Evaluate(m_CurrentFrameCount);
+            //On empêche le joueur de se retourner pendant l'attaque
+            //m_PlayerMovements.CanTurnAround = false;
             if (m_CurrentFrameCount >= m_MaxFrameCount)
             {
                 //On finit l'attaque
                 InterruptAttack();
             }
 
-        }
-        else
-        {
-        //    ResetFramesCounters();
         }
     }
     #endregion
@@ -128,6 +130,11 @@ public class Attack : MonoBehaviour, IUpdateUser
             m_AttackEvents.m_InterruptAttack.Invoke();
 
             m_MaxFrameCount = 0;
+
+            //Remettre la vitesse du joueur à la normale
+            //m_PlayerMovements.SpeedModifyer = 1;
+            //On permet au joueur de se retourner
+            //m_PlayerMovements.CanTurnAround = true;
         }
 
         //Et si on et pas en train d'attaquer on remet le timer à 0

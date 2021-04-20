@@ -19,4 +19,7 @@ public class SO_Attack : ScriptableObject
     [SerializeField]
     private SO_Attack m_Combo = null;
     public SO_Attack Combo { get { return m_Combo; } }
+    [SerializeField]
+    private AnimationCurve m_PlayerInfluenceOnSpeed = new AnimationCurve();
+    public AnimationCurve PlayerInfluenceOnCurve { get { return m_PlayerInfluenceOnSpeed; } }
 }
