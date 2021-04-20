@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private float m_MaxCharacterSpeed = 10f;
     private float m_CharacterSpeed = 10f;
+    private float m_EditableCharacterSpeed = 1f;
     
     [SerializeField]
     private AnimationCurve m_GroundJumpCurve = null;
@@ -59,6 +60,10 @@ public class Movement : MonoBehaviour
 
     private float m_CharacterMovementControl = 1;
 
+    private Vector3 m_PastDirection = Vector3.zero;
+
+    private float m_TimerForDeadZone = 0;
+
     private void Awake()
     {
         m_CharacterController = GetComponent<CharacterController>();
@@ -85,9 +90,16 @@ public class Movement : MonoBehaviour
         {
             m_PlayerGeneralDirection += new Vector3(0, m_CharacterGravity * Time.deltaTime, 0);
         }
+        if (Physics.Raycast(transform.position, transform.up, 1f))
+        {
+            m_IsGroundJumping = false;
+            m_IsAirJumping = false;
+        }
         GroundJump();
         AirJump();
-        m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * Time.deltaTime;
+        StartGainVelocity();
+        EndLossVelocity();
+        m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * Time.deltaTime * m_EditableCharacterSpeed;
         m_PlayerGeneralDirection *= m_CharacterMovementControl;
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
@@ -95,31 +107,82 @@ public class Movement : MonoBehaviour
 
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
+        Debug.Log(p_Context.ReadValue<Vector2>().magnitude);
         if (p_Context.started)
         {
             m_StartVelocityCheck = true;
+            m_EndVelocityCheck = false;
+            m_StartVelocityTimer = 0;
+            m_EndVelocityTimer = 0;
         }
         if(p_Context.performed)
         {
-            m_PlayerDesiredDirection = new Vector3(p_Context.ReadValue<Vector2>().x, 0, 0);
-            m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(p_Context.ReadValue<Vector2>().x);
-            m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(p_Context.ReadValue<Vector2>().x);
+            if (p_Context.ReadValue<Vector2>().x >= 0.2f || p_Context.ReadValue<Vector2>().x <= -0.2f)
+            {
+                m_PlayerDesiredDirection = new Vector3(p_Context.ReadValue<Vector2>().x, 0, 0);
+                m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(p_Context.ReadValue<Vector2>().x);
+                m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(p_Context.ReadValue<Vector2>().x);
+                m_PastDirection = m_PlayerDesiredDirection;
+            }
         }
         if(p_Context.canceled)
         {
             m_StartVelocityCheck = false;
-            m_EndVelocityCheck = false;
+            m_EndVelocityCheck = true;
+            m_StartVelocityTimer = 0;
+            m_EndVelocityTimer = 0;
             m_PlayerDesiredDirection = Vector3.zero;
         }
     }
 
-    public void PlayerOrientation(InputAction.CallbackContext p_Context)
+    private void StartGainVelocity()
+    {
+        if(m_StartVelocityCheck)
+        {
+            m_StartVelocityTimer += Time.deltaTime;
+            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterStartVelocity.Evaluate(m_StartVelocityTimer);
+        }
+        if(m_StartVelocityTimer >= m_CharacterStartVelocity.keys[m_CharacterStartVelocity.keys.Length - 1].time)
+        {
+            m_StartVelocityCheck = false;
+            m_StartVelocityTimer = 0;
+        }
+    }
+
+    private void EndLossVelocity()
+    {
+        /*if (m_EndVelocityCheck)
+        {
+            m_EndVelocityTimer += Time.deltaTime;
+            CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndVelocity.Evaluate(m_EndVelocityTimer);
+            m_PlayerDesiredDirection = m_PastDirection;
+        }
+        if (m_EndVelocityTimer >= m_CharacterEndVelocity.keys[m_CharacterEndVelocity.keys.Length - 1].time)
+        {
+            m_EndVelocityCheck = false;
+            m_EndVelocityTimer = 0;
+        }*/
+    }
+
+    public void PlayerMovementOrientation(InputAction.CallbackContext p_Context)
     {
         if(p_Context.performed)
         {
-            if(p_Context.ReadValue<Vector2>().x != 0)
-                transform.localScale = new Vector3(p_Context.ReadValue<Vector2>().x/ Mathf.Abs(p_Context.ReadValue<Vector2>().x), transform.localScale.y, transform.localScale.z);
+            if (p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
+            {
+                m_TimerForDeadZone += Time.deltaTime;
+                PlayerOrientation(p_Context.ReadValue<Vector2>().x / Mathf.Abs(p_Context.ReadValue<Vector2>().x));
+                /*if (m_TimerForDeadZone >= 0.5f)
+                    PlayerOrientation(p_Context.ReadValue<Vector2>().x / Mathf.Abs(p_Context.ReadValue<Vector2>().x));
+                else
+                    m_TimerForDeadZone = 0;*/
+            }
         }
+    }
+
+    public void PlayerOrientation(float p_Orientation)
+    {
+        transform.localScale = new Vector3(p_Orientation / Mathf.Abs(p_Orientation), transform.localScale.y, transform.localScale.z);
     }
 
     public void PlayerAirDownMovement(InputAction.CallbackContext p_Context)
@@ -166,10 +229,7 @@ public class Movement : MonoBehaviour
 
     private void GroundJump()
     {
-        if(Physics.Raycast(transform.position, transform.up, 1f, LayerMask.NameToLayer("Ground")) && m_IsGroundJumping)
-        {
-            m_IsGroundJumping = false;
-        }
+        
         if (m_IsGroundJumping)
         {
             //Debug.Log(m_JumpMark.y + m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].value + (transform.position.y - m_PlayerGroundCheck.position.y));
@@ -190,10 +250,6 @@ public class Movement : MonoBehaviour
 
     private void AirJump()
     {
-        if (Physics.Raycast(transform.position, transform.up, 1f, LayerMask.NameToLayer("Ground")) && m_IsAirJumping)
-        {
-            m_IsAirJumping = false;
-        }
         if (m_IsAirJumping)
         {
             //Debug.Log(m_JumpMark.y + m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].value + (transform.position.y - m_PlayerGroundCheck.position.y));
@@ -228,5 +284,14 @@ public class Movement : MonoBehaviour
 
         set { m_CharacterSpeed = value; }
     }
+
+    public float EditableCharacterSpeed
+    {
+        get { return m_EditableCharacterSpeed; }
+        
+        set { m_EditableCharacterSpeed = value; }
+    }
+
+
 
 }

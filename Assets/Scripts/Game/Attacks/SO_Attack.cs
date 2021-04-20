@@ -16,4 +16,10 @@ public class SO_Attack : ScriptableObject
     [SerializeField]
     private List<SO_Projectile> m_Projectiles = new List<SO_Projectile>();
     public List<SO_Projectile> Projectiles { get { return m_Projectiles; } }
+    [SerializeField]
+    private SO_Attack m_Combo = null;
+    public SO_Attack Combo { get { return m_Combo; } }
+    [SerializeField]
+    private AnimationCurve m_PlayerInfluenceOnSpeed = new AnimationCurve();
+    public AnimationCurve PlayerInfluenceOnCurve { get { return m_PlayerInfluenceOnSpeed; } }
 }
