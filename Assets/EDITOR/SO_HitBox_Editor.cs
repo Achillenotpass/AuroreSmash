@@ -9,7 +9,7 @@ public class SO_HitBox_Editor : Editor
 
     private void OnSceneGUI()
     {
-        
+        //chpa faire apparaîte des gizmos
     }
 
 }
