@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour, IUpdateUser
             {
                 if (l_HitObject.GetComponent<Health>())
                 {
-                    l_HitObject.GetComponent<Health>().TakeDamages(m_ProjectileStats);
+                    l_HitObject.GetComponent<Health>().TakeDamages(m_ProjectileStats, 1.0f);
                     Destroy(gameObject);
                     break;
                 }

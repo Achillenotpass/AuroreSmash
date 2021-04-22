@@ -9,7 +9,7 @@ public class PlayerInfos : MonoBehaviour
     private LayerMask m_AttackableLayers;
     public LayerMask AttackableLayers { get { return m_AttackableLayers; } }
     [SerializeField]
-    private int m_DeviceID = 1;
+    private int m_DeviceID = -1;
     public int DeviceID { get { return m_DeviceID; } }
     static public int s_CurrentGamepad = 0;
 
@@ -17,7 +17,10 @@ public class PlayerInfos : MonoBehaviour
     private void Start()
     {
         var l_AllGamepads = Gamepad.all;
-        m_DeviceID = l_AllGamepads[s_CurrentGamepad].deviceId;
-        s_CurrentGamepad = s_CurrentGamepad + 1;
+        if (s_CurrentGamepad < l_AllGamepads.Count)
+        {
+            m_DeviceID = l_AllGamepads[s_CurrentGamepad].deviceId;
+            s_CurrentGamepad = s_CurrentGamepad + 1;
+        }
     }
 }
