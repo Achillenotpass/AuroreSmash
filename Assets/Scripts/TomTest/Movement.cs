@@ -64,6 +64,9 @@ public class Movement : MonoBehaviour
 
     private float m_TimerForDeadZone = 0;
 
+    private float m_TimerForTurnaround = 0.2f;
+    private float m_IndexForTurnaround = 0;
+
     private void Awake()
     {
         m_CharacterController = GetComponent<CharacterController>();
@@ -107,7 +110,12 @@ public class Movement : MonoBehaviour
 
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
-        Debug.Log(p_Context.ReadValue<Vector2>().magnitude);
+        m_TimerForTurnaround -= Time.deltaTime;
+        if (m_TimerForTurnaround <= 0)
+        {
+            m_IndexForTurnaround = p_Context.ReadValue<Vector2>().x;
+            m_TimerForTurnaround = 0.2f;
+        }
         if (p_Context.started)
         {
             m_StartVelocityCheck = true;
@@ -119,6 +127,11 @@ public class Movement : MonoBehaviour
         {
             if (p_Context.ReadValue<Vector2>().x >= 0.2f || p_Context.ReadValue<Vector2>().x <= -0.2f)
             {
+                if (Mathf.Abs(m_IndexForTurnaround - p_Context.ReadValue<Vector2>().x) >= 1.5f)
+                {
+                    Debug.Log("aaa");
+                    m_IndexForTurnaround = p_Context.ReadValue<Vector2>().x;
+                }
                 m_PlayerDesiredDirection = new Vector3(p_Context.ReadValue<Vector2>().x, 0, 0);
                 m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(p_Context.ReadValue<Vector2>().x);
                 m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(p_Context.ReadValue<Vector2>().x);
@@ -151,17 +164,17 @@ public class Movement : MonoBehaviour
 
     private void EndLossVelocity()
     {
-        /*if (m_EndVelocityCheck)
+        if (m_EndVelocityCheck)
         {
             m_EndVelocityTimer += Time.deltaTime;
-            CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndVelocity.Evaluate(m_EndVelocityTimer);
+            CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndVelocity.Evaluate(m_EndVelocityTimer) * Mathf.Abs(m_PastDirection.x);
             m_PlayerDesiredDirection = m_PastDirection;
         }
         if (m_EndVelocityTimer >= m_CharacterEndVelocity.keys[m_CharacterEndVelocity.keys.Length - 1].time)
         {
             m_EndVelocityCheck = false;
             m_EndVelocityTimer = 0;
-        }*/
+        }
     }
 
     public void PlayerMovementOrientation(InputAction.CallbackContext p_Context)
@@ -193,7 +206,6 @@ public class Movement : MonoBehaviour
             {
                 if (p_Context.ReadValue<Vector2>().y < -0.8f)
                 {
-                    Debug.Log("aaa");
                     m_CharacterGravity *= 1.1f;
                 }
             }
