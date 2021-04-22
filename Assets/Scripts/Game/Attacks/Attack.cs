@@ -23,6 +23,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     private int m_CurrentFrameCount = 0;
     private float m_CurrentTimeCount = 0.0f;
     private PlayerInfos m_PlayerInfos = null;
+    private CharacterInfos m_CharacterInfos = null;
     private int m_MaxFrameCount = 0;
     private Dictionary<SO_Hit, List<Health>> m_PlayersHit = new Dictionary<SO_Hit, List<Health>>();
     private SO_Attack m_CurrentAttack = null;
@@ -79,23 +80,21 @@ public class Attack : MonoBehaviour, IUpdateUser
     private void Awake()
     {
         m_PlayerInfos = GetComponent<PlayerInfos>();
+        m_CharacterInfos = GetComponent<CharacterInfos>();
     }
     public void CustomUpdate(float p_DeltaTime)
     {
         //Si on est en train d'attaquer on augmente le timer en secondes depuis le début de l'attaque
         if (m_CurrentAttack != null)
         {
-
             CheckAttackFrames(m_CurrentAttack);
-            m_CurrentTimeCount = m_CurrentTimeCount + p_DeltaTime;
-            //On multiplie par 60 pour avoir le nombre de frames
-            m_CurrentFrameCount = Mathf.RoundToInt(m_CurrentTimeCount * 60.0f);
-            //Si on dépasse le nombre de frame maximal de l'attaque (lag compris)
+            m_CurrentFrameCount = m_CurrentFrameCount + 1;
 
             //On modifie la vitesse du personnage
             //m_PlayerMovements.SpeedModifyer = m_CurrentAttack.PlayerInfluenceOnSpeed.Evaluate(m_CurrentFrameCount);
             //On empêche le joueur de se retourner pendant l'attaque
-            //m_PlayerMovements.CanTurnAround = false;
+            //m_CharacterInfos.IsAttacking = true;
+            //Si on dépasse le nombre de frame maximal de l'attaque (lag compris)
             if (m_CurrentFrameCount >= m_MaxFrameCount)
             {
                 //On finit l'attaque
@@ -133,8 +132,8 @@ public class Attack : MonoBehaviour, IUpdateUser
 
             //Remettre la vitesse du joueur à la normale
             //m_PlayerMovements.SpeedModifyer = 1;
-            //On permet au joueur de se retourner
-            //m_PlayerMovements.CanTurnAround = true;
+            //On informe que le joueur n'est plus en train d'attaquer
+            m_CharacterInfos.IsAttacking = false;
         }
 
         //Et si on et pas en train d'attaquer on remet le timer à 0

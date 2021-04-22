@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
+  m_Name: Jab
+  m_EditorClassIdentifier: 
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: f99c8606999284c45b9b099d8a83714e, type: 3}
+    m_FramesAfterLastSprite: 0
+  - m_FrameSprite: {fileID: 21300000, guid: d6374d89bf08bf44a83ecb6232b3e98e, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 90a2045df3d77f04da64d3aac1d42da9, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 33656f55ff10df942ac53e58bc47d1a6, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: dced93f99e6489f40ad12afda8fcdd39, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: f48acd2d43a2fb741bbf0b0e091a377e, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 97a65e2e288c57e4cab09ec616dd115d, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 8d9163788dc7e064686fdcc5cc990436, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 34cd50a34c58d3a4e86e2b04d5412205, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 39d52f9fd4154a2408a828c1e85053b4, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 41cd1ea5ee708f348b948005a224af61, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 013750f1c303c604d883b9bbb1e9a142, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 0c4a65a9d822e624e9c83f3e380ab2e5, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 9bdcd7cb655a04347bcd8d1ad95067de, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: f82ce61be80695142a8d9cff8e085395, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: f5e37359f48c8f840bd656541579af59, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 3c2af19d7c02ed149be533e19fc3b44e, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 274accb83d6791d4eae380261e6c770e, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: ebc3f315ef8d9324c8e37e0d2e2d5a6c, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 5d275a5529967194693f2f3f9b725837, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: f531977f9c06c00438020d25e8c64e6b, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 71ea30d9b1834474fa41ad2f51bc7d2a, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 96043aa9c932af9418fde95daf4acafc, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 3f93c2a0587dc284bbaef9ad8aca6d2d, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: ff4000877278f3545a17bf5a769d7a00, type: 3}
+    m_FramesAfterLastSprite: 2
+  m_LagFrameCount: 0

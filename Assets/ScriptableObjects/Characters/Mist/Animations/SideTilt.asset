@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
+  m_Name: SideTilt
+  m_EditorClassIdentifier: 
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: cf3bcfc3b5986a942b5f30913c25ab05, type: 3}
+    m_FramesAfterLastSprite: 0
+  - m_FrameSprite: {fileID: 21300000, guid: a370098134904b54bb77a8147efec175, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: e2c8320aa98bd62458dd60714f774d1e, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 04668fe7a26b1e644b9f5e36df3a0323, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: a5ce05aee4eaf104199d59c215dd6267, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: b160fc87686715f4dbbbefb52ce0be2c, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: f821df0569b07a4458266e0e96571260, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: fd20b788a9cdd104c8b958924e311da1, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 1feab8b93cbdf254b8391d5d88923c20, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: f557acc343f429649a2ed0b2f242e7c9, type: 3}
+    m_FramesAfterLastSprite: 2
+  m_LagFrameCount: 10
