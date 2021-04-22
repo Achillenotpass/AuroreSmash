@@ -21,7 +21,6 @@ public class Attack : MonoBehaviour, IUpdateUser
 
     #region Variables
     private int m_CurrentFrameCount = 0;
-    private float m_CurrentTimeCount = 0.0f;
     private PlayerInfos m_PlayerInfos = null;
     private CharacterInfos m_CharacterInfos = null;
     private int m_MaxFrameCount = 0;
@@ -49,30 +48,39 @@ public class Attack : MonoBehaviour, IUpdateUser
     #region Input
     public void AttackInputPressed(InputAction.CallbackContext p_Context)
     {
-        //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
-        if (p_Context.canceled)
+        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            m_LastAttack = null;
-        }
-        else if (p_Context.started)
-        {
-            CheckAttackInput(m_AimDirection.normalized);
+            //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
+            if (p_Context.canceled)
+            {
+                m_LastAttack = null;
+            }
+            else if (p_Context.started)
+            {
+                CheckAttackInput(m_AimDirection.normalized);
+            }
         }
     }
     public void RightJoystickUsed(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
+        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
-        }
-        else
-        {
-            m_LastAttack = null;
+            if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
+            {
+                CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
+            }
+            else
+            {
+                m_LastAttack = null;
+            }
         }
     }
     public void LeftJoystickUsed(InputAction.CallbackContext p_Context)
     {
-        m_AimDirection = p_Context.ReadValue<Vector2>();
+        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+        {
+            m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
+        }
     }
     #endregion
 
@@ -81,6 +89,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         m_PlayerInfos = GetComponent<PlayerInfos>();
         m_CharacterInfos = GetComponent<CharacterInfos>();
+        m_PlayerMovements = GetComponent<Movement>();
     }
     public void CustomUpdate(float p_DeltaTime)
     {
@@ -91,16 +100,15 @@ public class Attack : MonoBehaviour, IUpdateUser
             m_CurrentFrameCount = m_CurrentFrameCount + 1;
 
             //On modifie la vitesse du personnage
-            //m_PlayerMovements.SpeedModifyer = m_CurrentAttack.PlayerInfluenceOnSpeed.Evaluate(m_CurrentFrameCount);
+            m_PlayerMovements.EditableCharacterSpeed = m_CurrentAttack.PlayerInfluenceOnSpeed.Evaluate(m_CurrentFrameCount);
             //On empêche le joueur de se retourner pendant l'attaque
-            //m_CharacterInfos.IsAttacking = true;
+            m_CharacterInfos.IsAttacking = true;
             //Si on dépasse le nombre de frame maximal de l'attaque (lag compris)
             if (m_CurrentFrameCount >= m_MaxFrameCount)
             {
                 //On finit l'attaque
                 InterruptAttack();
             }
-
         }
     }
     #endregion
@@ -109,6 +117,8 @@ public class Attack : MonoBehaviour, IUpdateUser
     //INTERRUPTION DE L'ATTAQUE
     public void InterruptAttack()
     {
+        m_MaxFrameCount = 0;
+        m_CurrentFrameCount = 0;
         if (m_ComboBuffer != null)
         {
             //On passe dan un état où on n'attaque plus
@@ -128,24 +138,22 @@ public class Attack : MonoBehaviour, IUpdateUser
             //On envoie les feedbacks
             m_AttackEvents.m_InterruptAttack.Invoke();
 
-            m_MaxFrameCount = 0;
 
-            //Remettre la vitesse du joueur à la normale
-            //m_PlayerMovements.SpeedModifyer = 1;
-            //On informe que le joueur n'est plus en train d'attaquer
+            //On permet joueur de se retourner pendant l'attaque
             m_CharacterInfos.IsAttacking = false;
+            //On rend au joueur sa vitesse normale
+            m_PlayerMovements.EditableCharacterSpeed = 1.0f;
         }
-
-        //Et si on et pas en train d'attaquer on remet le timer à 0
-        m_CurrentTimeCount = 0.0f;
-        //Ainsi que le nombre de frames
-        m_CurrentFrameCount = 0;
     }
     public void CheckAttackInput(Vector2 p_JoyStickInput)
     {
+        if (m_CharacterInfos.IsHitLagging)
+        {
+            return;
+        }
         //On calcule l'angle de la direction du joystick par rapport à un vecteur 1,0,0 (vers la droite)
         float l_Angle = Vector2.Angle(new Vector2(1.0f, 0.0f), p_JoyStickInput.normalized);
-        l_Angle = l_Angle * Mathf.Sign(m_AimDirection.y);
+        l_Angle = l_Angle * Mathf.Sign(p_JoyStickInput.y);
         if (m_CurrentAttack != null)
         {
             if (m_CurrentAttack.Combo != null && m_LastAttack == null)
@@ -305,10 +313,12 @@ public class Attack : MonoBehaviour, IUpdateUser
         if (p_Left)
         {
             m_PlayerDirection = -1;
+            m_PlayerMovements.PlayerOrientation(-1.0f);
         }
         else
         {
             m_PlayerDirection = 1;
+            m_PlayerMovements.PlayerOrientation(1.0f);
         }
     }
     //CALCUL DE LA DUREE MAX DE L'ATTAQUE
@@ -408,7 +418,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     public void ApplyDamages(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
         //Oninflige les dégâts au joueur touché
-        p_PlayerHit.TakeDamages(p_HitBox, m_PlayerDirection);
+        p_PlayerHit.TakeDamages(p_HitBox, m_PlayerDirection, 1.0f);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
     }
@@ -477,7 +487,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     switch (l_HitBox.HitBoxType)
                     {
                         case EHitBOxType.Square:
-                            Gizmos.DrawCube(l_HitBoxPosition, l_HitBox.Size);
+                            Gizmos.DrawCube(l_HitBoxPosition, l_HitBox.Size * 2.0f);
                             break;
                         case EHitBOxType.Sphere:
                             Gizmos.DrawSphere(l_HitBoxPosition, l_HitBox.Radius);
