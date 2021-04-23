@@ -234,7 +234,8 @@ GameObject:
   - component: {fileID: 471444631}
   - component: {fileID: 471444637}
   - component: {fileID: 471444638}
-  m_Layer: 0
+  - component: {fileID: 471444639}
+  m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b01824f565d0d48a16a0eb48235e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
   m_MaxCharacterSpeed: 10
   m_GroundJumpCurve:
     serializedVersion: 2
@@ -639,6 +641,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d42bb9d487d53419f9ec4981cbe1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &471444639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471444630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5512832e66e7fe4eb11459d2bd74a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AttackableLayers:
+    serializedVersion: 2
+    m_Bits: 14336
+  m_DeviceID: -1
 --- !u!1 &486129801
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,7 +866,7 @@ GameObject:
   - component: {fileID: 504481263}
   - component: {fileID: 504481266}
   - component: {fileID: 504481265}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -929,7 +947,7 @@ GameObject:
   - component: {fileID: 544057632}
   - component: {fileID: 544057634}
   - component: {fileID: 544057633}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2233,7 +2251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2120882856}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerGroundDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}

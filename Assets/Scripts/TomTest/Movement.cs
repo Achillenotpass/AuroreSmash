@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour, IUpdateUser
 {
+    #region CustomUpdate
     [SerializeField]
     private SO_UpdateLayerSettings m_UpdateSettings = null;
     private void OnEnable()
@@ -15,6 +16,7 @@ public class Movement : MonoBehaviour, IUpdateUser
     {
         m_UpdateSettings.Unbind(this);
     }
+    #endregion
     private CharacterController m_CharacterController = null;
 
     private Vector3 m_PlayerGeneralDirection = Vector3.zero;
