@@ -15,6 +15,7 @@ MonoBehaviour:
   m_Damages: 10
   m_EjectionPower: 10
   m_EjectionAngle: 10
+  m_HitLag: 0.2
   m_HitBoxType: 1
   m_RelativePosition: {x: 0.48, y: 0.45, z: 0}
   m_Radius: 1.2
