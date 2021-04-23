@@ -151,7 +151,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             {
                 if (p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().y < 0.9f && p_Context.ReadValue<Vector2>().y > -0.7f || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().y < 0.9f && p_Context.ReadValue<Vector2>().y > -0.7f)
                 {
-                    m_PlayerDesiredDirection = new Vector3(p_Context.ReadValue<Vector2>().x, 0, 0);
+                    m_PlayerDesiredDirection = new Vector3(p_Context.ReadValue<Vector2>().x/Mathf.Abs(p_Context.ReadValue<Vector2>().x), 0, 0);
                     m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f;
                     m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f;
                     m_PastDirection = m_PlayerDesiredDirection;
