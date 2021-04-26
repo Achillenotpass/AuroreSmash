@@ -8,7 +8,7 @@ public class CharacterInfos : MonoBehaviour
     public bool IsAttacking { get { return m_IsAttacking; } set { m_IsAttacking = value; } }
 
     private bool m_IsHitLagging = false;
-    public bool IsHitLagging { get { return m_IsAttacking; } set { m_IsHitLagging = value; } }
+    public bool IsHitLagging { get { return m_IsHitLagging; } set { m_IsHitLagging = value; } }
 
     [SerializeField]
     private float m_MaxCharacterSpeed = 10f;

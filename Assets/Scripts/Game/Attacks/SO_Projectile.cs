@@ -18,6 +18,9 @@ public class SO_Projectile : ScriptableObject
     private float m_EjectionAngle = 10.0f;
     public float EjectionAngle { get { return m_EjectionAngle; } }
     [SerializeField]
+    private float m_HitLag = 0.5f;
+    public float HitLag { get { return m_HitLag; } }
+    [SerializeField]
     private Vector3 m_RelativeStartPosition = Vector3.zero;
     public Vector3 RelativeStartPosition { get { return m_RelativeStartPosition; } }
     [SerializeField]
