@@ -229,7 +229,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             {
                 if (p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
                 {
-                    PlayerOrientation(p_Context.ReadValue<Vector2>().x / Mathf.Abs(p_Context.ReadValue<Vector2>().x));
+                    PlayerOrientation(p_Context.ReadValue<Vector2>().x);
                 }
             }
         }
@@ -237,7 +237,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     public void PlayerOrientation(float p_Orientation)
     {
-        transform.localScale = new Vector3(p_Orientation / Mathf.Abs(p_Orientation), transform.localScale.y, transform.localScale.z);
+        if (transform.localScale.x / Mathf.Abs(transform.localScale.x) != p_Orientation / Mathf.Abs(p_Orientation))
+        {
+            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
     }
     #endregion
     #region Jump

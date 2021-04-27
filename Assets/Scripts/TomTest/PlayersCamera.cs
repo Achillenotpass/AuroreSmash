@@ -32,10 +32,22 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
 
     private float m_GreaterDistancePlayers = 0;
 
+    [SerializeField]
+    private GameObject m_LevelCenter = null;
+
+    private Bounds m_LevelBounds;
+
+    private float m_HalfBoundsX = 30f;
+    private float m_HalfBoundsY = 10f;
+
     private void Start()
     {
         m_ListOfAllPlayers = FindObjectsOfType<CharacterInfos>();
         m_MainCamera = this.gameObject;
+        Bounds l_Bounds = new Bounds();
+        l_Bounds.Encapsulate(new Vector3(transform.position.x - m_HalfBoundsX, transform.position.y - m_HalfBoundsY, transform.position.z - 50));
+        l_Bounds.Encapsulate(new Vector3(transform.position.x + m_HalfBoundsX, transform.position.y + m_HalfBoundsY, transform.position.z + 50));
+        m_LevelBounds = l_Bounds;
     }
 
     public void CustomUpdate(float p_DeltaTime)
@@ -56,7 +68,6 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
                 }
             }
         }
-        Debug.Log(m_GreaterDistancePlayers);
         m_MainCamera.transform.position = m_AveragePositionPlayers + new Vector3(0, 0, m_CameraZoomCurve.Evaluate(m_GreaterDistancePlayers/2));
         
         
