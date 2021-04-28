@@ -10,6 +10,9 @@ public class CharacterInfos : MonoBehaviour
     private bool m_IsHitLagging = false;
     public bool IsHitLagging { get { return m_IsHitLagging; } set { m_IsHitLagging = value; } }
 
+    private bool m_IsShielding = false;
+    public bool IsShielding { get { return m_IsShielding; } set { m_IsShielding = value; } }
+
     [SerializeField]
     private float m_MaxCharacterSpeed = 10f;
     public float MaxCharacterSpeed { get { return m_MaxCharacterSpeed; } }

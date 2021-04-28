@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b595265a0ac470743841ee0cc909263a, type: 3}
-  m_Name: Hit1
+  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
+  m_Name: Idle
   m_EditorClassIdentifier: 
-  m_HitBoxes:
-  - {fileID: 11400000, guid: 82266e890dc250948939b2cd0e72c2f8, type: 2}
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: f96b9221a7d04af4faa8550bd83fb951, type: 3}
+    m_FramesAfterLastSprite: 4
+  m_LastFrameDuration: 4

@@ -50,14 +50,17 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
-            if (p_Context.canceled)
+            if (!m_CharacterInfos.IsShielding)
             {
-                m_LastAttack = null;
-            }
-            else if (p_Context.started)
-            {
-                CheckAttackInput(m_AimDirection.normalized);
+                //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
+                if (p_Context.canceled)
+                {
+                    m_LastAttack = null;
+                }
+                else if (p_Context.started)
+                {
+                    CheckAttackInput(m_AimDirection.normalized);
+                }
             }
         }
     }
@@ -65,13 +68,16 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
+            if (!m_CharacterInfos.IsShielding)
             {
-                CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
-            }
-            else
-            {
-                m_LastAttack = null;
+                if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
+                {
+                    CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
+                }
+                else
+                {
+                    m_LastAttack = null;
+                }
             }
         }
     }
@@ -79,7 +85,10 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
+            if (!m_CharacterInfos.IsShielding)
+            {
+                m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
+            }
         }
     }
     #endregion
