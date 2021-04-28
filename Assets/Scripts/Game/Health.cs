@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
 
 
     #region Functions
-    public void TakeDamages(SO_HitBox p_HitBox, int p_PlayerDirection)
+    public void TakeDamages(SO_HitBox p_HitBox)
     {
         m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_HitBox.Damages, 0.0f, m_MaxHealth);
 
