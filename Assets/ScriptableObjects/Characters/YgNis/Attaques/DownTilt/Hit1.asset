@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Hit1
   m_EditorClassIdentifier: 
   m_HitBoxes:
-  - {fileID: 11400000, guid: 82266e890dc250948939b2cd0e72c2f8, type: 2}
+  - {fileID: 11400000, guid: a5cb4e094b11d6a49b3833af2a7c659a, type: 2}
