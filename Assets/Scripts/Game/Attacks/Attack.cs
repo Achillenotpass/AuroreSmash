@@ -378,7 +378,44 @@ public class Attack : MonoBehaviour, IUpdateUser
                 break;
         }
         if (l_HitObjects != null)
-        {
+        {//Pour chaque collider trouvé précédemment
+            foreach (Collider l_HitObject in l_HitObjects)
+            {
+                //On vérifie si c'est un  bouclier
+                if (l_HitObject.gameObject.tag == "Shield")
+                {
+                    Health l_HitObjectHealth = l_HitObject.gameObject.GetComponentInParent<Health>();
+                    if (l_HitObjectHealth != null)
+                    {
+                        //On regarde si le coup actuellement en cours a déjà touché quelqu'un
+                        if (m_PlayersHit.TryGetValue(p_Hit, out List<Health> l_HitPlayers))
+                        {
+                            bool l_AlreadyHit = false;
+                            //Si oui, on regarde s'il a déjà touché ce joueur
+                            for (int i = 0; i < l_HitPlayers.Count; i++)
+                            {
+                                if (l_HitPlayers[i] == l_HitObjectHealth)
+                                {
+                                    l_AlreadyHit = true;
+                                    break;
+                                }
+                            }
+                            if (!l_AlreadyHit)
+                            {
+                                //Si le coup n'a pas touché ce joueur on applique les dégâts
+                                ApplyDamagesShield(p_Hit, p_HitBox, l_HitObjectHealth);
+                            }
+                        }
+                        //Si le coup n'a touché personne on applique les dégâts
+                        else
+                        {
+                            ApplyDamagesShield(p_Hit, p_HitBox, l_HitObjectHealth);
+                        }
+                    }
+                }
+            }
+
+
             //Pour chaque collider trouvé précédemment
             foreach (Collider l_HitObject in l_HitObjects)
             {
@@ -418,7 +455,14 @@ public class Attack : MonoBehaviour, IUpdateUser
     public void ApplyDamages(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
         //Oninflige les dégâts au joueur touché
-        p_PlayerHit.TakeDamages(p_HitBox, m_PlayerDirection);
+        p_PlayerHit.TakeDamages(p_HitBox);
+        //On ajoute le joueur touché à la liste des joueurs touchés
+        AddPlayerToDictionary(p_Hit, p_PlayerHit);
+    }
+    public void ApplyDamagesShield(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
+    {
+        //Oninflige les dégâts au joueur touché
+        p_PlayerHit.GetComponent<Shield>().TakeShieldDamages(p_HitBox);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
     }
