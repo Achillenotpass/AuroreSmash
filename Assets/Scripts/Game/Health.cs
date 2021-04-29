@@ -22,18 +22,18 @@ public class Health : MonoBehaviour
 
 
     #region Functions
-    public void TakeDamages(SO_HitBox p_HitBox, int p_PlayerDirection, float p_LagDuration)
+    public void TakeDamages(SO_HitBox p_HitBox)
     {
         m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_HitBox.Damages, 0.0f, m_MaxHealth);
 
         m_CharacterInfos.IsHitLagging = true;
-        Invoke(nameof(StopHitLag), p_LagDuration);
+        Invoke(nameof(StopHitLag), p_HitBox.HitLag);
         GetComponent<MeshRenderer>().enabled = true;
     }
-    public void TakeDamages(SO_Projectile p_Projectile, float p_LagDuration)
+    public void TakeDamages(SO_Projectile p_Projectile)
     {
         m_CharacterInfos.IsHitLagging = true;
-        Invoke(nameof(StopHitLag), p_LagDuration);
+        Invoke(nameof(StopHitLag), p_Projectile.HitLag);
         GetComponent<MeshRenderer>().enabled = true;
     }
     public void StopHitLag()

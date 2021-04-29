@@ -50,14 +50,17 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
-            if (p_Context.canceled)
+            if (!m_CharacterInfos.IsShielding)
             {
-                m_LastAttack = null;
-            }
-            else if (p_Context.started)
-            {
-                CheckAttackInput(m_AimDirection.normalized);
+                //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
+                if (p_Context.canceled)
+                {
+                    m_LastAttack = null;
+                }
+                else if (p_Context.started)
+                {
+                    CheckAttackInput(m_AimDirection.normalized);
+                }
             }
         }
     }
@@ -65,13 +68,16 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
+            if (!m_CharacterInfos.IsShielding)
             {
-                CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
-            }
-            else
-            {
-                m_LastAttack = null;
+                if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
+                {
+                    CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
+                }
+                else
+                {
+                    m_LastAttack = null;
+                }
             }
         }
     }
@@ -79,7 +85,10 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
+            if (!m_CharacterInfos.IsShielding)
+            {
+                m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
+            }
         }
     }
     #endregion
@@ -163,7 +172,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         }
         else if (m_LastAttack == null)
         {
-            if (!m_IsAerial)
+            if (m_PlayerMovements.IsGrounded)
             {
                 if (p_JoyStickInput.magnitude >= m_JoystickDeadZone)
                 {
@@ -378,7 +387,44 @@ public class Attack : MonoBehaviour, IUpdateUser
                 break;
         }
         if (l_HitObjects != null)
-        {
+        {//Pour chaque collider trouvé précédemment
+            foreach (Collider l_HitObject in l_HitObjects)
+            {
+                //On vérifie si c'est un  bouclier
+                if (l_HitObject.gameObject.tag == "Shield")
+                {
+                    Health l_HitObjectHealth = l_HitObject.gameObject.GetComponentInParent<Health>();
+                    if (l_HitObjectHealth != null)
+                    {
+                        //On regarde si le coup actuellement en cours a déjà touché quelqu'un
+                        if (m_PlayersHit.TryGetValue(p_Hit, out List<Health> l_HitPlayers))
+                        {
+                            bool l_AlreadyHit = false;
+                            //Si oui, on regarde s'il a déjà touché ce joueur
+                            for (int i = 0; i < l_HitPlayers.Count; i++)
+                            {
+                                if (l_HitPlayers[i] == l_HitObjectHealth)
+                                {
+                                    l_AlreadyHit = true;
+                                    break;
+                                }
+                            }
+                            if (!l_AlreadyHit)
+                            {
+                                //Si le coup n'a pas touché ce joueur on applique les dégâts
+                                ApplyDamagesShield(p_Hit, p_HitBox, l_HitObjectHealth);
+                            }
+                        }
+                        //Si le coup n'a touché personne on applique les dégâts
+                        else
+                        {
+                            ApplyDamagesShield(p_Hit, p_HitBox, l_HitObjectHealth);
+                        }
+                    }
+                }
+            }
+
+
             //Pour chaque collider trouvé précédemment
             foreach (Collider l_HitObject in l_HitObjects)
             {
@@ -418,7 +464,14 @@ public class Attack : MonoBehaviour, IUpdateUser
     public void ApplyDamages(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
         //Oninflige les dégâts au joueur touché
-        p_PlayerHit.TakeDamages(p_HitBox, m_PlayerDirection, 1.0f);
+        p_PlayerHit.TakeDamages(p_HitBox);
+        //On ajoute le joueur touché à la liste des joueurs touchés
+        AddPlayerToDictionary(p_Hit, p_PlayerHit);
+    }
+    public void ApplyDamagesShield(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
+    {
+        //Oninflige les dégâts au joueur touché
+        p_PlayerHit.GetComponent<Shield>().TakeShieldDamages(p_HitBox);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
     }
