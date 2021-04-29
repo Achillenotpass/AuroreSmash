@@ -283,6 +283,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         {
             m_MovementEvents.m_EventChangeOrientation.Invoke();
             transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            m_CharacterOrientation = transform.localScale.x;
         }
     }
     #endregion
