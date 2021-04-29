@@ -28,6 +28,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Movement
     private Vector3 m_PlayerGeneralDirection = Vector3.zero;
     private Vector3 m_PlayerDesiredDirection = Vector3.zero;
+    private Vector3 m_PlayerExternalDirection = Vector3.zero;
     #endregion
     #region Speed
     private float m_MaxCharacterSpeed = 10f;
@@ -161,6 +162,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         EndGroundLossVelocity(p_DeltaTime);
         EndAirLossVelocity(p_DeltaTime);
         StartGainVelocity(p_DeltaTime);
+        m_PlayerGeneralDirection += m_PlayerExternalDirection * p_DeltaTime;
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
@@ -393,4 +395,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         set { m_EditableCharacterSpeed = value; }
     }
     #endregion
+
+    public Vector3 PlayerExternalDirection
+    {
+        get { return m_PlayerExternalDirection; }
+        set { m_PlayerExternalDirection = value; }
+    }
 }
