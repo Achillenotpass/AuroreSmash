@@ -36,6 +36,9 @@ public class CharacterInfos : MonoBehaviour
     private AnimationCurve m_CharacterStartVelocity = null;
     public AnimationCurve CharacterStartVelocity { get { return m_CharacterStartVelocity; } }
     [SerializeField]
-    private AnimationCurve m_CharacterEndVelocity = null;
-    public AnimationCurve CharacterEndVelocity { get { return m_CharacterEndVelocity; } }
+    private AnimationCurve m_CharacterEndGroundVelocity = null;
+    public AnimationCurve CharacterEndGroundVelocity { get { return m_CharacterEndGroundVelocity; } }
+    [SerializeField]
+    private AnimationCurve m_CharacterEndAirVelocity = null;
+    public AnimationCurve CharacterEndAirVelocity { get { return m_CharacterEndAirVelocity; } }
 }
