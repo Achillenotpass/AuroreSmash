@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9429130b45672f544a28491ecf3e44f1, type: 3}
-  m_Name: YgNisSideTilt
+  m_Name: YgNisNeutralAir
   m_EditorClassIdentifier: 
-  m_AfterLag: 22
+  m_AfterLag: 8
   m_Hits:
-  - {fileID: 11400000, guid: 188ff702ae8a3d44fa2963a91d66ccf9, type: 2}
+  - {fileID: 11400000, guid: c0d6fdf371f36db4d93fff7c879d1eee, type: 2}
   m_Projectiles: []
   m_Combo: {fileID: 0}
   m_PlayerInfluenceOnSpeed:
@@ -25,25 +25,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_CharacterXMovement:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 50
-      value: 0.1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

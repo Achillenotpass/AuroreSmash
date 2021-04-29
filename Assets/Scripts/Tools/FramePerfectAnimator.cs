@@ -47,7 +47,10 @@ public class FramePerfectAnimator : MonoBehaviour, IUpdateUser
         //Vérifier si on a atteint la dernière frame de l'animation
         if (m_CurrentFrameCount >= m_CurrentAnimation.m_Animation.EndFrame)
         {
-            m_CurrentFrameCount = 0;
+            if (m_CurrentAnimation.m_Animation.Loop)
+            {
+                m_CurrentFrameCount = 0;
+            }
         }
         else
         {

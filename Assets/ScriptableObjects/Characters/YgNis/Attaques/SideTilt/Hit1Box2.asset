@@ -20,5 +20,5 @@ MonoBehaviour:
   m_RelativePosition: {x: 1.55, y: 0.3, z: 0}
   m_Radius: 0.5
   m_Size: {x: 0.9, y: 0.54, z: 1}
-  m_BeforeLag: 28
+  m_BeforeLag: 16
   m_Duration: 4

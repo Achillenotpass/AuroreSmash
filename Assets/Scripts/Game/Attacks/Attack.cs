@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using System;
 
 public class Attack : MonoBehaviour, IUpdateUser
 {
@@ -31,7 +32,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     private SO_Attack m_LastAttack = null;
     private Vector2 m_AimDirection = Vector2.zero;
     public bool m_IsAerial = false;
-    private Movement m_PlayerMovements = null;
+    private CharacterMovement m_PlayerMovements = null;
     public int m_PlayerDirection = 1; //1 = Right/-1 = left
     private SO_Attack m_ComboBuffer = null;
     [SerializeField]
@@ -98,13 +99,14 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         m_PlayerInfos = GetComponent<PlayerInfos>();
         m_CharacterInfos = GetComponent<CharacterInfos>();
-        m_PlayerMovements = GetComponent<Movement>();
+        m_PlayerMovements = GetComponent<CharacterMovement>();
     }
     public void CustomUpdate(float p_DeltaTime)
     {
         //Si on est en train d'attaquer on augmente le timer en secondes depuis le début de l'attaque
         if (m_CurrentAttack != null)
         {
+            AttackMovePlayer(m_CurrentAttack);
             CheckAttackFrames(m_CurrentAttack);
             m_CurrentFrameCount = m_CurrentFrameCount + 1;
 
@@ -153,6 +155,7 @@ public class Attack : MonoBehaviour, IUpdateUser
             //On rend au joueur sa vitesse normale
             m_PlayerMovements.EditableCharacterSpeed = 1.0f;
         }
+        m_PlayerMovements.PlayerExternalDirection = Vector3.zero;
     }
     public void CheckAttackInput(Vector2 p_JoyStickInput)
     {
@@ -236,7 +239,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers la gauche
                     if (l_Angle >= 135.0f)
                     {
-                        if (m_PlayerDirection == 1)
+                        if (m_PlayerMovements.CharacterOrientation > 0)
                         {
                             m_CurrentAttack = m_Attacks.m_BackAir;
                             SetMaxAttackDuration(m_Attacks.m_BackAir);
@@ -262,7 +265,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers la droite
                     else if (l_Angle >= -45.0f)
                     {
-                        if (m_PlayerDirection == 1)
+                        if (m_PlayerMovements.CharacterOrientation > 0)
                         {
                             m_CurrentAttack = m_Attacks.m_ForwardAir;
                             SetMaxAttackDuration(m_Attacks.m_ForwardAir);
@@ -288,7 +291,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers la gauche
                     else
                     {
-                        if (m_PlayerDirection == 1)
+                        if (m_PlayerMovements.CharacterOrientation > 0)
                         {
                             m_CurrentAttack = m_Attacks.m_BackAir;
                             SetMaxAttackDuration(m_Attacks.m_BackAir);
@@ -512,6 +515,14 @@ public class Attack : MonoBehaviour, IUpdateUser
         m_InstantiatedProjectile.GetComponent<Projectile>().AttackableLayer = m_PlayerInfos.AttackableLayers;
         //Et on lui donne ses statistiques
         m_InstantiatedProjectile.GetComponent<Projectile>().ProjectileStats = p_Projectile;
+    }
+    private void AttackMovePlayer(SO_Attack m_CurrentAttack)
+    {
+        Vector3 l_MoveDirection = Vector3.zero;
+        l_MoveDirection.x = m_CurrentAttack.CharacterXMovement.Evaluate(m_CurrentFrameCount);
+        l_MoveDirection.y = m_CurrentAttack.CharacterYMovement.Evaluate(m_CurrentFrameCount);
+
+        m_PlayerMovements.PlayerExternalDirection = l_MoveDirection;
     }
     #endregion
 
