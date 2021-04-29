@@ -99,7 +99,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         m_PlayerInfos = GetComponent<PlayerInfos>();
         m_CharacterInfos = GetComponent<CharacterInfos>();
-        m_PlayerMovements = GetComponent<Movement>();
+        m_PlayerMovements = GetComponent<CharacterMovement>();
     }
     public void CustomUpdate(float p_DeltaTime)
     {
@@ -121,11 +121,6 @@ public class Attack : MonoBehaviour, IUpdateUser
                 InterruptAttack();
             }
         }
-    }
-
-    private void AttackMovePlayer(SO_Attack m_CurrentAttack)
-    {
-        
     }
     #endregion
 
@@ -160,6 +155,7 @@ public class Attack : MonoBehaviour, IUpdateUser
             //On rend au joueur sa vitesse normale
             m_PlayerMovements.EditableCharacterSpeed = 1.0f;
         }
+        m_PlayerMovements.PlayerExternalDirection = Vector3.zero;
     }
     public void CheckAttackInput(Vector2 p_JoyStickInput)
     {
@@ -519,6 +515,14 @@ public class Attack : MonoBehaviour, IUpdateUser
         m_InstantiatedProjectile.GetComponent<Projectile>().AttackableLayer = m_PlayerInfos.AttackableLayers;
         //Et on lui donne ses statistiques
         m_InstantiatedProjectile.GetComponent<Projectile>().ProjectileStats = p_Projectile;
+    }
+    private void AttackMovePlayer(SO_Attack m_CurrentAttack)
+    {
+        Vector3 l_MoveDirection = Vector3.zero;
+        l_MoveDirection.x = m_CurrentAttack.CharacterXMovement.Evaluate(m_CurrentFrameCount);
+        l_MoveDirection.y = m_CurrentAttack.CharacterYMovement.Evaluate(m_CurrentFrameCount);
+
+        m_PlayerMovements.PlayerExternalDirection = l_MoveDirection;
     }
     #endregion
 
