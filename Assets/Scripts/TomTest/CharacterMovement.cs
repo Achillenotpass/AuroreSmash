@@ -65,6 +65,8 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #endregion
     #region Orientation
     private float m_CharacterOrientation = 1;
+    [SerializeField]
+    private GameObject m_CharacterView = null;
     #endregion
     #region MovementMomentum
     private AnimationCurve m_CharacterStartVelocity = null;
@@ -155,7 +157,8 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Movement
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID
+            && m_CharacterInfos.CanMove)
         {
             if (p_Context.started)
             {
@@ -203,116 +206,135 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void StartGainVelocity(float p_DeltaTime)
     {
-        if (m_StartVelocityCheck)
+        if (m_CharacterInfos.CanMove)
         {
-            m_StartVelocityTimer += p_DeltaTime;
-            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterStartVelocity.Evaluate(m_StartVelocityTimer);
-        }
-        if (m_StartVelocityTimer >= m_CharacterStartVelocity.keys[m_CharacterStartVelocity.keys.Length - 1].time)
-        {
-            m_StartVelocityCheck = false;
-            m_StartVelocityTimer = 0;
+            if (m_StartVelocityCheck)
+            {
+                m_StartVelocityTimer += p_DeltaTime;
+                m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterStartVelocity.Evaluate(m_StartVelocityTimer);
+            }
+            if (m_StartVelocityTimer >= m_CharacterStartVelocity.keys[m_CharacterStartVelocity.keys.Length - 1].time)
+            {
+                m_StartVelocityCheck = false;
+                m_StartVelocityTimer = 0;
+            }
         }
     }
 
     private void EndGroundLossVelocity(float p_DeltaTime)
     {
-        if(m_CharacterSpeed <= 0)
+        if (m_CharacterInfos.CanMove)
         {
-            m_CharacterSpeed = 0;
-            m_EndGroundVelocityCheck = false;
-            m_EndGroundVelocityTimer = 0;
-        }
-        if (m_EndGroundVelocityCheck)
-        {
-            m_EndGroundVelocityTimer += p_DeltaTime;
-            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndGroundVelocity.Evaluate(m_EndGroundVelocityTimer) * Mathf.Abs(m_PastDirection.x);
-            m_PlayerDesiredDirection = m_PastDirection;
+            if (m_CharacterSpeed <= 0)
+            {
+                m_CharacterSpeed = 0;
+                m_EndGroundVelocityCheck = false;
+                m_EndGroundVelocityTimer = 0;
+            }
+            if (m_EndGroundVelocityCheck)
+            {
+                m_EndGroundVelocityTimer += p_DeltaTime;
+                m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndGroundVelocity.Evaluate(m_EndGroundVelocityTimer) * Mathf.Abs(m_PastDirection.x);
+                m_PlayerDesiredDirection = m_PastDirection;
+            }
         }
     }
 
     private void EndAirLossVelocity(float p_DeltaTime)
     {
-        if (m_CharacterSpeed <= 0)
+        if (m_CharacterInfos.CanMove)
         {
-            m_CharacterSpeed = 0;
-            m_EndAirVelocityCheck = false;
-            m_EndAirVelocityTimer = 0;
-        }
-        if(m_EndAirVelocityInverseCheck)
-        {
-            m_EndAirVelocityCheck = false;
-            m_EndAirVelocityInverseCheck = false;
-            m_CharacterSpeed = 0;
-            m_EndAirVelocityTimer = 0;
-        }
-        if (m_EndAirVelocityCheck)
-        {
-            m_EndAirVelocityTimer += p_DeltaTime;
-            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
-            m_PlayerDesiredDirection = m_PastDirection;
+            if (m_CharacterSpeed <= 0)
+            {
+                m_CharacterSpeed = 0;
+                m_EndAirVelocityCheck = false;
+                m_EndAirVelocityTimer = 0;
+            }
+            if (m_EndAirVelocityInverseCheck)
+            {
+                m_EndAirVelocityCheck = false;
+                m_EndAirVelocityInverseCheck = false;
+                m_CharacterSpeed = 0;
+                m_EndAirVelocityTimer = 0;
+            }
+            if (m_EndAirVelocityCheck)
+            {
+                m_EndAirVelocityTimer += p_DeltaTime;
+                m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
+                m_PlayerDesiredDirection = m_PastDirection;
+            }
         }
     }
 
     public void PlayerAirDownMovement(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID 
-            && p_Context.performed 
-            && !m_IsAirJumping && !m_IsGroundJumping 
-            && p_Context.ReadValue<Vector2>().y < -0.8f) 
+        if (m_CharacterInfos.CanMove)
         {
-            m_MovementEvents.m_EventJumpDownMovement.Invoke();
-            m_CharacterGravity *= 1.1f;
+            if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID
+                && p_Context.performed
+                && !m_IsAirJumping && !m_IsGroundJumping
+                && p_Context.ReadValue<Vector2>().y < -0.8f)
+            {
+                m_MovementEvents.m_EventJumpDownMovement.Invoke();
+                m_CharacterGravity *= 1.1f;
+            }
         }
     }
     #endregion
     #region Orientation
     public void PlayerMovementOrientation(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID && 
-            p_Context.performed 
-            && p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
+        if (m_CharacterInfos.CanMove)
         {
-            PlayerOrientation(p_Context.ReadValue<Vector2>().x);
+            if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID &&
+                p_Context.performed
+                && p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
+            {
+                PlayerOrientation(p_Context.ReadValue<Vector2>().x);
+            }
         }
     }
 
     public void PlayerOrientation(float p_Orientation)
     {
-        if (transform.localScale.x / Mathf.Abs(transform.localScale.x) != p_Orientation / Mathf.Abs(p_Orientation))
+        if (m_CharacterView.transform.localScale.x / Mathf.Abs(m_CharacterView.transform.localScale.x) != p_Orientation / Mathf.Abs(p_Orientation))
         {
             m_MovementEvents.m_EventChangeOrientation.Invoke();
-            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            m_CharacterView.transform.localScale = new Vector3(-1 * m_CharacterView.transform.localScale.x, m_CharacterView.transform.localScale.y, m_CharacterView.transform.localScale.z);
+            m_CharacterOrientation = m_CharacterView.transform.localScale.x;
         }
     }
     #endregion
     #region Jump
     public void Jump(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+        if (m_CharacterInfos.CanMove)
         {
-            if (m_IsGrounded)
+            if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
             {
-                if (p_Context.started)
-                {
-                    m_MovementEvents.m_EventBeginGroundJump.Invoke();
-                    m_JumpMark = m_PlayerGroundCheck.position;
-                    m_IsGroundJumping = true;
-                    m_TimerGroundJump = 0;
-                }
-            }
-            else
-            {
-                if (m_CharacterAirJump > 0)
+                if (m_IsGrounded)
                 {
                     if (p_Context.started)
                     {
-                        m_MovementEvents.m_EventBeginAirJump.Invoke();
-                        m_CharacterAirJump -= 1;
+                        m_MovementEvents.m_EventBeginGroundJump.Invoke();
                         m_JumpMark = m_PlayerGroundCheck.position;
-                        m_IsAirJumping = true;
-                        m_TimerAirJump = 0;
-                        m_IsGroundJumping = false;
+                        m_IsGroundJumping = true;
+                        m_TimerGroundJump = 0;
+                    }
+                }
+                else
+                {
+                    if (m_CharacterAirJump > 0)
+                    {
+                        if (p_Context.started)
+                        {
+                            m_MovementEvents.m_EventBeginAirJump.Invoke();
+                            m_CharacterAirJump -= 1;
+                            m_JumpMark = m_PlayerGroundCheck.position;
+                            m_IsAirJumping = true;
+                            m_TimerAirJump = 0;
+                            m_IsGroundJumping = false;
+                        }
                     }
                 }
             }
