@@ -29,6 +29,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     private Vector3 m_PlayerGeneralDirection = Vector3.zero;
     private Vector3 m_PlayerDesiredDirection = Vector3.zero;
     private Vector3 m_PlayerExternalDirection = Vector3.zero;
+    private Vector3 m_PlayerEjectionDirection = Vector3.zero;
     #endregion
     #region Speed
     private float m_MaxCharacterSpeed = 10f;
@@ -115,7 +116,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Update
     public void CustomUpdate(float p_DeltaTime)
     {
-        m_CharacterOrientation = transform.localScale.x;
+        m_CharacterOrientation = m_CharacterView.transform.localScale.x;
         m_IsGrounded = Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask);
         if (m_IsGrounded)
         {
@@ -301,7 +302,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         {
             m_MovementEvents.m_EventChangeOrientation.Invoke();
             m_CharacterView.transform.localScale = new Vector3(-1 * m_CharacterView.transform.localScale.x, m_CharacterView.transform.localScale.y, m_CharacterView.transform.localScale.z);
-            m_CharacterOrientation = m_CharacterView.transform.localScale.x;
+           
         }
     }
     #endregion
