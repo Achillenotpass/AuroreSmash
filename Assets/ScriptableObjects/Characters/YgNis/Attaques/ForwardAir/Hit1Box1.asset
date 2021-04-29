@@ -17,8 +17,8 @@ MonoBehaviour:
   m_EjectionAngle: 10
   m_HitLag: 0.5
   m_HitBoxType: 0
-  m_RelativePosition: {x: 1.18, y: -0.84, z: 0}
+  m_RelativePosition: {x: 1.59, y: 0.27, z: 0}
   m_Radius: 0.5
   m_Size: {x: 0.88, y: 0.26, z: 1}
-  m_BeforeLag: 12
-  m_Duration: 8
+  m_BeforeLag: 15
+  m_Duration: 9

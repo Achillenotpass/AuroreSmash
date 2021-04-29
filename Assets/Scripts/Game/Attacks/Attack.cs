@@ -239,7 +239,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers la gauche
                     if (l_Angle >= 135.0f)
                     {
-                        if (m_PlayerDirection == 1)
+                        if (m_PlayerMovements.CharacterOrientation > 0)
                         {
                             m_CurrentAttack = m_Attacks.m_BackAir;
                             SetMaxAttackDuration(m_Attacks.m_BackAir);
@@ -265,7 +265,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers la droite
                     else if (l_Angle >= -45.0f)
                     {
-                        if (m_PlayerDirection == 1)
+                        if (m_PlayerMovements.CharacterOrientation > 0)
                         {
                             m_CurrentAttack = m_Attacks.m_ForwardAir;
                             SetMaxAttackDuration(m_Attacks.m_ForwardAir);
@@ -291,7 +291,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers la gauche
                     else
                     {
-                        if (m_PlayerDirection == 1)
+                        if (m_PlayerMovements.CharacterOrientation > 0)
                         {
                             m_CurrentAttack = m_Attacks.m_BackAir;
                             SetMaxAttackDuration(m_Attacks.m_BackAir);
