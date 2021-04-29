@@ -40,9 +40,19 @@ public class Projectile : MonoBehaviour, IUpdateUser
         {
             foreach (Collider l_HitObject in m_HitObjects)
             {
+                if(l_HitObject.gameObject.tag == "Shield")
+                {
+                    Shield l_HitShield = l_HitObject.GetComponentInParent<Shield>();
+                    if (l_HitShield != null)
+                    {
+                        l_HitShield.TakeShieldDamages(m_ProjectileStats);
+                        Destroy(gameObject);
+                        return;
+                    }
+                }
                 if (l_HitObject.GetComponent<Health>())
                 {
-                    l_HitObject.GetComponent<Health>().TakeDamages(m_ProjectileStats, 1.0f);
+                    l_HitObject.GetComponent<Health>().TakeDamages(m_ProjectileStats);
                     Destroy(gameObject);
                     break;
                 }
