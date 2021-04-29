@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9429130b45672f544a28491ecf3e44f1, type: 3}
+  m_Name: YgNisUpAir
+  m_EditorClassIdentifier: 
+  m_AfterLag: 8
+  m_Hits:
+  - {fileID: 11400000, guid: e7777464a2e710e44b7b4040ca65bc87, type: 2}
+  m_Projectiles: []
+  m_Combo: {fileID: 0}
+  m_PlayerInfluenceOnSpeed:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

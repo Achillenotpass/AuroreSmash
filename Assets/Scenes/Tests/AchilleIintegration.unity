@@ -1752,9 +1752,21 @@ PrefabInstance:
       value: YgNis
       objectReference: {fileID: 0}
     - target: {fileID: 2691356960346415117, guid: 3bc50216af2e94b478a4f5fe7df8c664, type: 3}
+      propertyPath: m_Attacks.m_UpAir
+      value: 
+      objectReference: {fileID: 11400000, guid: b6a2889cba6eecf44be829596a5a2d39, type: 2}
+    - target: {fileID: 2691356960346415117, guid: 3bc50216af2e94b478a4f5fe7df8c664, type: 3}
       propertyPath: m_Attacks.m_UpTilt
       value: 
       objectReference: {fileID: 11400000, guid: 173b35b0879eb8f42a231eb355a2e257, type: 2}
+    - target: {fileID: 2691356960346415117, guid: 3bc50216af2e94b478a4f5fe7df8c664, type: 3}
+      propertyPath: m_Attacks.m_BackAir
+      value: 
+      objectReference: {fileID: 11400000, guid: d617fc35793e61348ad920c1869f9492, type: 2}
+    - target: {fileID: 2691356960346415117, guid: 3bc50216af2e94b478a4f5fe7df8c664, type: 3}
+      propertyPath: m_Attacks.m_DownAir
+      value: 
+      objectReference: {fileID: 11400000, guid: 6cfb5d5505dcd64419a33afd24083b00, type: 2}
     - target: {fileID: 2691356960346415117, guid: 3bc50216af2e94b478a4f5fe7df8c664, type: 3}
       propertyPath: m_Attacks.m_DownTilt
       value: 
@@ -1763,6 +1775,14 @@ PrefabInstance:
       propertyPath: m_Attacks.m_SideTilt
       value: 
       objectReference: {fileID: 11400000, guid: 8cc929e65832fcf48b0f13ca3e2ff8fc, type: 2}
+    - target: {fileID: 2691356960346415117, guid: 3bc50216af2e94b478a4f5fe7df8c664, type: 3}
+      propertyPath: m_Attacks.m_ForwardAir
+      value: 
+      objectReference: {fileID: 11400000, guid: 524b6c026b881174ca2db55e300d8c3f, type: 2}
+    - target: {fileID: 2691356960346415117, guid: 3bc50216af2e94b478a4f5fe7df8c664, type: 3}
+      propertyPath: m_Attacks.m_NeutralAir
+      value: 
+      objectReference: {fileID: 11400000, guid: 43aaaadae9e75ea4797cb53b99577c08, type: 2}
     - target: {fileID: 2691356960346415117, guid: 3bc50216af2e94b478a4f5fe7df8c664, type: 3}
       propertyPath: m_AttackEvents.m_StartUpAir.m_PersistentCalls.m_Calls.Array.size
       value: 1

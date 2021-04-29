@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using System;
 
 public class Attack : MonoBehaviour, IUpdateUser
 {
@@ -105,6 +106,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         //Si on est en train d'attaquer on augmente le timer en secondes depuis le début de l'attaque
         if (m_CurrentAttack != null)
         {
+            AttackMovePlayer(m_CurrentAttack);
             CheckAttackFrames(m_CurrentAttack);
             m_CurrentFrameCount = m_CurrentFrameCount + 1;
 
@@ -119,6 +121,11 @@ public class Attack : MonoBehaviour, IUpdateUser
                 InterruptAttack();
             }
         }
+    }
+
+    private void AttackMovePlayer(SO_Attack m_CurrentAttack)
+    {
+        
     }
     #endregion
 
