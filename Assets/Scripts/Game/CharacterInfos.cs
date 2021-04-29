@@ -41,4 +41,12 @@ public class CharacterInfos : MonoBehaviour
     [SerializeField]
     private AnimationCurve m_CharacterEndAirVelocity = null;
     public AnimationCurve CharacterEndAirVelocity { get { return m_CharacterEndAirVelocity; } }
+
+    private bool m_CanMove = true;
+    [SerializeField]
+    public bool CanMove
+    {
+        get { return m_CanMove; }
+        set { m_CanMove = value; }
+    }
 }
