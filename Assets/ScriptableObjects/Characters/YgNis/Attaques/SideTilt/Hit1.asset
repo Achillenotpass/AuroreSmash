@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b595265a0ac470743841ee0cc909263a, type: 3}
+  m_Name: Hit1
+  m_EditorClassIdentifier: 
+  m_HitBoxes:
+  - {fileID: 11400000, guid: e614c3a82e49ee5448e03c35e328ea09, type: 2}
+  - {fileID: 11400000, guid: 3a5c09c499f950f4f82ff1c04730fc55, type: 2}
