@@ -85,25 +85,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #endregion
     #region Events
     [SerializeField]
-    UnityEvent m_EventStartMovement;
-    [SerializeField]
-    UnityEvent m_EventMovement;
-    [SerializeField]
-    UnityEvent m_EventEndMovement;
-
-    [SerializeField]
-    UnityEvent m_EventBeginGroundJump;
-    [SerializeField]
-    UnityEvent m_EventBeginAirJump;
-    [SerializeField]
-    UnityEvent m_EventJump;
-    [SerializeField]
-    UnityEvent m_EventEndJump;
-    [SerializeField]
-    UnityEvent m_EventJumpDownMovement;
-
-    [SerializeField]
-    UnityEvent m_EventChangeOrientation;
+    private MovementEvents m_MovementEvents = new MovementEvents();
     #endregion
     #endregion
 
@@ -184,7 +166,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_StartVelocityTimer = 0;
                 m_EndGroundVelocityTimer = 0;
                 m_EndAirVelocityTimer = 0;
-                m_EventStartMovement.Invoke();
+                m_MovementEvents.m_EventStartMovement.Invoke();
             }
             if (p_Context.performed)
             {
@@ -194,7 +176,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                     m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f;
                     m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f;
                     m_PastDirection = m_PlayerDesiredDirection;
-                    m_EventMovement.Invoke();
+                    m_MovementEvents.m_EventMovement.Invoke();
                 }
                 if (p_Context.ReadValue<Vector2>().y >= 0.9f || p_Context.ReadValue<Vector2>().y <= -0.7f)
                 {
@@ -214,7 +196,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_EndGroundVelocityTimer = 0;
                 m_EndAirVelocityTimer = 0;
                 m_PlayerDesiredDirection = Vector3.zero;
-                m_EventEndMovement.Invoke();
+                m_MovementEvents.m_EventEndMovement.Invoke();
             }
         }
     }
@@ -279,7 +261,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             && !m_IsAirJumping && !m_IsGroundJumping 
             && p_Context.ReadValue<Vector2>().y < -0.8f) 
         {
-            m_EventJumpDownMovement.Invoke();
+            m_MovementEvents.m_EventJumpDownMovement.Invoke();
             m_CharacterGravity *= 1.1f;
         }
     }
@@ -299,7 +281,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (transform.localScale.x / Mathf.Abs(transform.localScale.x) != p_Orientation / Mathf.Abs(p_Orientation))
         {
-            m_EventChangeOrientation.Invoke();
+            m_MovementEvents.m_EventChangeOrientation.Invoke();
             transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
     }
@@ -313,7 +295,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             {
                 if (p_Context.started)
                 {
-                    m_EventBeginGroundJump.Invoke();
+                    m_MovementEvents.m_EventBeginGroundJump.Invoke();
                     m_JumpMark = m_PlayerGroundCheck.position;
                     m_IsGroundJumping = true;
                     m_TimerGroundJump = 0;
@@ -325,7 +307,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 {
                     if (p_Context.started)
                     {
-                        m_EventBeginAirJump.Invoke();
+                        m_MovementEvents.m_EventBeginAirJump.Invoke();
                         m_CharacterAirJump -= 1;
                         m_JumpMark = m_PlayerGroundCheck.position;
                         m_IsAirJumping = true;
@@ -343,7 +325,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         {
             if (m_TimerGroundJump <= m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time)
             {
-                m_EventJump.Invoke();
+                m_MovementEvents.m_EventJump.Invoke();
                 m_CharacterController.enabled = false;
                 m_CharacterController.transform.position = new Vector3(transform.position.x, m_JumpMark.y + m_GroundJumpCurve.Evaluate(m_TimerGroundJump) + (transform.position.y - m_PlayerGroundCheck.position.y), transform.position.z);
                 m_CharacterController.enabled = true;
@@ -362,7 +344,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         {
             if (m_TimerAirJump <= m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time)
             {
-                m_EventJump.Invoke();
+                m_MovementEvents.m_EventJump.Invoke();
                 m_CharacterController.enabled = false;
                 m_CharacterController.transform.position = new Vector3(transform.position.x, m_JumpMark.y + m_AirJumpCurve.Evaluate(m_TimerAirJump) + (transform.position.y - m_PlayerGroundCheck.position.y), transform.position.z);
                 m_CharacterController.enabled = true;
@@ -394,11 +376,36 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
         set { m_EditableCharacterSpeed = value; }
     }
-    #endregion
 
     public Vector3 PlayerExternalDirection
     {
         get { return m_PlayerExternalDirection; }
         set { m_PlayerExternalDirection = value; }
     }
+    #endregion
+}
+
+[System.Serializable]
+public class MovementEvents
+{
+    [SerializeField]
+    public UnityEvent m_EventStartMovement;
+    [SerializeField]
+    public UnityEvent m_EventMovement;
+    [SerializeField]
+    public UnityEvent m_EventEndMovement;
+
+    [SerializeField]
+    public UnityEvent m_EventBeginGroundJump;
+    [SerializeField]
+    public UnityEvent m_EventBeginAirJump;
+    [SerializeField]
+    public UnityEvent m_EventJump;
+    [SerializeField]
+    public UnityEvent m_EventEndJump;
+    [SerializeField]
+    public UnityEvent m_EventJumpDownMovement;
+
+    [SerializeField]
+    public UnityEvent m_EventChangeOrientation;
 }
