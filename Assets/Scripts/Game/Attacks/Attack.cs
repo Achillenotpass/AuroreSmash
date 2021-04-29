@@ -32,7 +32,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     private SO_Attack m_LastAttack = null;
     private Vector2 m_AimDirection = Vector2.zero;
     public bool m_IsAerial = false;
-    private Movement m_PlayerMovements = null;
+    private CharacterMovement m_PlayerMovements = null;
     public int m_PlayerDirection = 1; //1 = Right/-1 = left
     private SO_Attack m_ComboBuffer = null;
     [SerializeField]
