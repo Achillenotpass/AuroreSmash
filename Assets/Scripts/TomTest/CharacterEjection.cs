@@ -39,6 +39,5 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
 
     public void CalculateEjection(float p_EjectionPower, float p_EjectionAngle)
     {
-        
     }
 }
