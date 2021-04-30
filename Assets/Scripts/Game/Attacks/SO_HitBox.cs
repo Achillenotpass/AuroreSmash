@@ -8,10 +8,10 @@ public class SO_HitBox : ScriptableObject
     [Header("SHAPE AND SIZE")]
     [SerializeField]
     private float m_Damages = 10.0f;
-    public float Damages { get { return m_Damages; } }
+    public float Damages { get { return m_Damages; }set { m_Damages = Mathf.Clamp(value, 0.0f, 100.0f); } }
     [SerializeField]
     private float m_EjectionPower = 10.0f;
-    public float EjectionPower { get { return m_EjectionPower; } }
+    public float EjectionPower { get { return m_EjectionPower; } set { m_EjectionPower = Mathf.Clamp(value, 0.0f, 100.0f); } }
     [SerializeField]
     private float m_EjectionAngle = 10.0f;
     public float EjectionAngle { get { return m_EjectionAngle; } }
