@@ -33,7 +33,6 @@ public class Attack : MonoBehaviour, IUpdateUser
     private Vector2 m_AimDirection = Vector2.zero;
     public bool m_IsAerial = false;
     private CharacterMovement m_PlayerMovements = null;
-    public int m_PlayerDirection = 1; //1 = Right/-1 = left
     private SO_Attack m_ComboBuffer = null;
     [SerializeField]
     private float m_JoystickDeadZone = 0.2f;
@@ -232,6 +231,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                 }
 
             }
+            //AERIALS
             else
             {
                 if (p_JoyStickInput.magnitude >= m_JoystickDeadZone)
@@ -324,12 +324,10 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Left)
         {
-            m_PlayerDirection = -1;
             m_PlayerMovements.PlayerOrientation(-1.0f);
         }
         else
         {
-            m_PlayerDirection = 1;
             m_PlayerMovements.PlayerOrientation(1.0f);
         }
     }
@@ -367,7 +365,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         //On regarde pour chaque projectile de l'attaque si on est à la frame d'instantiation
         foreach (SO_Projectile l_ProjectileStat in p_AttackStats.Projectiles)
         {
-            if (m_CurrentFrameCount == l_ProjectileStat.InstantiationFrame)
+            if (m_CurrentFrameCount == l_ProjectileStat.InstantiationFrame - 1)
             {
                 FireProjectile(l_ProjectileStat);
             }
@@ -378,7 +376,8 @@ public class Attack : MonoBehaviour, IUpdateUser
         Collider[] l_HitObjects = null;
         Vector3 l_HitBoxPosition = Vector3.zero;
         l_HitBoxPosition.y = transform.position.y + p_HitBox.RelativePosition.y;
-        l_HitBoxPosition.x = transform.position.x + (p_HitBox.RelativePosition.x * m_PlayerDirection);
+        Debug.Log(Mathf.Sign(m_PlayerMovements.CharacterOrientation));
+        l_HitBoxPosition.x = transform.position.x + (p_HitBox.RelativePosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
         //On récupère tous les objets qui ont un collider qu'on peut attaquer dans la hitbox
         switch (p_HitBox.HitBoxType)
         {
@@ -498,10 +497,10 @@ public class Attack : MonoBehaviour, IUpdateUser
         //On instancie le projectile
         Vector3 l_ProjectilePosition = Vector3.zero;
         l_ProjectilePosition.y = transform.position.y + p_Projectile.RelativeStartPosition.y;
-        l_ProjectilePosition.x = transform.position.x + (p_Projectile.RelativeStartPosition.x * m_PlayerDirection);
+        l_ProjectilePosition.x = transform.position.x + (p_Projectile.RelativeStartPosition.x * m_PlayerMovements.CharacterOrientation);
         m_InstantiatedProjectile = Instantiate(p_Projectile.ProjectilePrefab, l_ProjectilePosition, Quaternion.identity);
         //On le met dans la bonne direction
-        if (m_PlayerDirection == 1)
+        if (m_PlayerMovements.CharacterOrientation > 0)
         {
             //Si le joueur regarde à droite, on garde l'angle de base
             m_InstantiatedProjectile.transform.Rotate(Vector3.forward, p_Projectile.ShootAngle);
@@ -547,7 +546,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                 {
                     Vector3 l_HitBoxPosition = Vector3.zero;
                     l_HitBoxPosition.y = transform.position.y + l_HitBox.RelativePosition.y;
-                    l_HitBoxPosition.x = transform.position.x + (l_HitBox.RelativePosition.x * m_PlayerDirection);
+                    l_HitBoxPosition.x = transform.position.x + (l_HitBox.RelativePosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
                     switch (l_HitBox.HitBoxType)
                     {
                         case EHitBOxType.Square:
@@ -558,6 +557,16 @@ public class Attack : MonoBehaviour, IUpdateUser
                             break;
                     }
                 }
+            }
+        }
+        foreach (SO_Projectile l_ProjectileStat in p_Attack.Projectiles)
+        {
+            if (m_CurrentFrameCount == l_ProjectileStat.InstantiationFrame)
+            {
+                Vector3 l_InstantiationPosition = Vector3.zero;
+                l_InstantiationPosition.x = transform.position.x + (l_ProjectileStat.RelativeStartPosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
+                l_InstantiationPosition.y = transform.position.y + l_ProjectileStat.RelativeStartPosition.y;
+                Gizmos.DrawSphere(l_InstantiationPosition, 0.5f);
             }
         }
     }

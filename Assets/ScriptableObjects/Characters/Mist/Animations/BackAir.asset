@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
+  m_Name: BackAir
+  m_EditorClassIdentifier: 
+  m_Loop: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 2a816867c2bdbde49a4b66463fc26e4e, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 66a88a6904918af4da194271460c24c0, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 4fdd83f41005d16419760a210ef4fa63, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: b639fba9fc0b03b4a881d28e57fb7430, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: f615812ab70e3e4419f88f032767eaab, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: b733b9aa0f4e01740bfa5571ab311109, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 3ffd730185125e8439b6a4e87d498e64, type: 3}
+    m_FramesAfterLastSprite: 3
+  m_LastFrameDuration: 3
