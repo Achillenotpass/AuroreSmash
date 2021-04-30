@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
-  m_Name: Idle
+  m_Script: {fileID: 11500000, guid: b595265a0ac470743841ee0cc909263a, type: 3}
+  m_Name: Hit1
   m_EditorClassIdentifier: 
-  m_Loop: 0
-  m_AnimationFrames:
-  - m_FrameSprite: {fileID: 21300000, guid: cf3bcfc3b5986a942b5f30913c25ab05, type: 3}
-    m_FramesAfterLastSprite: 0
-  m_LastFrameDuration: 0
+  m_HitBoxes:
+  - {fileID: 11400000, guid: a73ff9b0408904b4983f42bfb56c6a0c, type: 2}
+  - {fileID: 11400000, guid: 4e06e61e719326d40b3941cb8d97e0c4, type: 2}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
+  m_Name: UpAir
+  m_EditorClassIdentifier: 
+  m_Loop: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 9b720c810e54a3b42bebe9a44ec80322, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: f48c838ff47ae8e438fe71250d8a059a, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 4ca9ba22f94460a4e8f509afce05a4f1, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 29d8bf7be80a7d544b780b65a6e25f24, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 15ac20ac164146b4ba117f5ac3586b99, type: 3}
+    m_FramesAfterLastSprite: 3
+  m_LastFrameDuration: 3
