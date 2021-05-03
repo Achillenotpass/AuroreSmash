@@ -27,19 +27,19 @@ public class Health : MonoBehaviour
     {
         m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_HitBox.Damages, 0.0f, m_MaxHealth);
 
-        m_CharacterInfos.IsHitLagging = true;
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
         Invoke(nameof(StopHitLag), p_HitBox.HitLag);
         GetComponent<MeshRenderer>().enabled = true;
     }
     public void TakeDamages(SO_Projectile p_Projectile)
     {
-        m_CharacterInfos.IsHitLagging = true;
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
         Invoke(nameof(StopHitLag), p_Projectile.HitLag);
         GetComponent<MeshRenderer>().enabled = true;
     }
     public void StopHitLag()
     {
-        m_CharacterInfos.IsHitLagging = false;
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
         GetComponent<MeshRenderer>().enabled = false;
     }
     #endregion
