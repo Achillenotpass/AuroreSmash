@@ -80,7 +80,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private bool m_StartVelocityCheck = false;
     private bool m_EndGroundVelocityCheck = false;
-    private bool m_EndGroundVelocityInverseCheck = false;
     private bool m_EndAirVelocityCheck = false;
     private bool m_EndAirVelocityInverseCheck = false;
 
@@ -148,6 +147,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         EndAirLossVelocity(p_DeltaTime);
         StartGainVelocity(p_DeltaTime);
         m_PlayerGeneralDirection += m_PlayerExternalDirection * p_DeltaTime;
+        m_PlayerGeneralDirection += m_PlayerEjectionDirection * p_DeltaTime;
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
@@ -405,9 +405,16 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         get { return m_PlayerExternalDirection; }
         set { m_PlayerExternalDirection = value; }
     }
+
+    public Vector3 PlayerEjectionDirection
+    {
+        get { return m_PlayerEjectionDirection; }
+        set { m_PlayerEjectionDirection = value; }
+    }
     #endregion
 }
 
+#region Events
 [System.Serializable]
 public class MovementEvents
 {
@@ -432,3 +439,4 @@ public class MovementEvents
     [SerializeField]
     public UnityEvent m_EventChangeOrientation;
 }
+#endregion
