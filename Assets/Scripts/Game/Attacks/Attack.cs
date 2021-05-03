@@ -50,7 +50,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (!m_CharacterInfos.IsShielding)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             {
                 //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
                 if (p_Context.canceled)
@@ -68,7 +68,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (!m_CharacterInfos.IsShielding)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             {
                 if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
                 {
@@ -85,10 +85,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (!m_CharacterInfos.IsShielding)
-            {
-                m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
-            }
+            m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
         }
     }
     #endregion
@@ -112,7 +109,7 @@ public class Attack : MonoBehaviour, IUpdateUser
             //On modifie la vitesse du personnage
             m_PlayerMovements.EditableCharacterSpeed = m_CurrentAttack.PlayerInfluenceOnSpeed.Evaluate(m_CurrentFrameCount);
             //On empêche le joueur de se retourner pendant l'attaque
-            m_CharacterInfos.IsAttacking = true;
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Attacking;
             //Si on dépasse le nombre de frame maximal de l'attaque (lag compris)
             if (m_CurrentFrameCount >= m_MaxFrameCount)
             {
@@ -150,7 +147,7 @@ public class Attack : MonoBehaviour, IUpdateUser
 
 
             //On permet joueur de se retourner pendant l'attaque
-            m_CharacterInfos.IsAttacking = false;
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
             //On rend au joueur sa vitesse normale
             m_PlayerMovements.EditableCharacterSpeed = 1.0f;
         }
@@ -158,10 +155,6 @@ public class Attack : MonoBehaviour, IUpdateUser
     }
     public void CheckAttackInput(Vector2 p_JoyStickInput)
     {
-        if (m_CharacterInfos.IsHitLagging)
-        {
-            return;
-        }
         //On calcule l'angle de la direction du joystick par rapport à un vecteur 1,0,0 (vers la droite)
         float l_Angle = Vector2.Angle(new Vector2(1.0f, 0.0f), p_JoyStickInput.normalized);
         l_Angle = l_Angle * Mathf.Sign(p_JoyStickInput.y);

@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class CharacterInfos : MonoBehaviour
 {
-    private bool m_IsAttacking = false;
-    public bool IsAttacking { get { return m_IsAttacking; } set { m_IsAttacking = value; } }
-
-    private bool m_IsHitLagging = false;
-    public bool IsHitLagging { get { return m_IsHitLagging; } set { m_IsHitLagging = value; } }
-
-    private bool m_IsShielding = false;
-    public bool IsShielding { get { return m_IsShielding; } set { m_IsShielding = value; } }
+    private CharacterState m_CurrentCharacterState = CharacterState.Idle;
+    public CharacterState CurrentCharacterState { get { return m_CurrentCharacterState; } set { m_CurrentCharacterState = value; } }
 
     [SerializeField]
     private float m_MaxCharacterSpeed = 10f;
@@ -49,4 +43,17 @@ public class CharacterInfos : MonoBehaviour
         get { return m_CanMove; }
         set { m_CanMove = value; }
     }
+}
+
+public enum CharacterState
+{
+    Idle,
+    Moving,
+    Attacking,
+    Shielding,
+    Grabbing,
+    Grabbed,
+    Hitlag,
+    Lag,
+    Death,
 }
