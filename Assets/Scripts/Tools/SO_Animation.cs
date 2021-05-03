@@ -6,6 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewAnimation", menuName = "ScriptableObjects/Graphs/NewAnimation")]
 public class SO_Animation : ScriptableObject
 {
+    [SerializeField]
+    private bool m_Loop = true;
+    public bool Loop { get { return m_Loop; } }
     private int m_EndFrame = 0;
     public int EndFrame { get { return m_EndFrame; } }
     [SerializeField]

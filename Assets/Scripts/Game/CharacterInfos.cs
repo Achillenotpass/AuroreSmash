@@ -10,6 +10,9 @@ public class CharacterInfos : MonoBehaviour
     private bool m_IsHitLagging = false;
     public bool IsHitLagging { get { return m_IsHitLagging; } set { m_IsHitLagging = value; } }
 
+    private bool m_IsShielding = false;
+    public bool IsShielding { get { return m_IsShielding; } set { m_IsShielding = value; } }
+
     [SerializeField]
     private float m_MaxCharacterSpeed = 10f;
     public float MaxCharacterSpeed { get { return m_MaxCharacterSpeed; } }
@@ -33,6 +36,17 @@ public class CharacterInfos : MonoBehaviour
     private AnimationCurve m_CharacterStartVelocity = null;
     public AnimationCurve CharacterStartVelocity { get { return m_CharacterStartVelocity; } }
     [SerializeField]
-    private AnimationCurve m_CharacterEndVelocity = null;
-    public AnimationCurve CharacterEndVelocity { get { return m_CharacterEndVelocity; } }
+    private AnimationCurve m_CharacterEndGroundVelocity = null;
+    public AnimationCurve CharacterEndGroundVelocity { get { return m_CharacterEndGroundVelocity; } }
+    [SerializeField]
+    private AnimationCurve m_CharacterEndAirVelocity = null;
+    public AnimationCurve CharacterEndAirVelocity { get { return m_CharacterEndAirVelocity; } }
+
+    private bool m_CanMove = true;
+    [SerializeField]
+    public bool CanMove
+    {
+        get { return m_CanMove; }
+        set { m_CanMove = value; }
+    }
 }

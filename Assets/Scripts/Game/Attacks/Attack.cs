@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using System;
 
 public class Attack : MonoBehaviour, IUpdateUser
 {
@@ -31,8 +32,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     private SO_Attack m_LastAttack = null;
     private Vector2 m_AimDirection = Vector2.zero;
     public bool m_IsAerial = false;
-    private Movement m_PlayerMovements = null;
-    public int m_PlayerDirection = 1; //1 = Right/-1 = left
+    private CharacterMovement m_PlayerMovements = null;
     private SO_Attack m_ComboBuffer = null;
     [SerializeField]
     private float m_JoystickDeadZone = 0.2f;
@@ -50,14 +50,17 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
-            if (p_Context.canceled)
+            if (!m_CharacterInfos.IsShielding)
             {
-                m_LastAttack = null;
-            }
-            else if (p_Context.started)
-            {
-                CheckAttackInput(m_AimDirection.normalized);
+                //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
+                if (p_Context.canceled)
+                {
+                    m_LastAttack = null;
+                }
+                else if (p_Context.started)
+                {
+                    CheckAttackInput(m_AimDirection.normalized);
+                }
             }
         }
     }
@@ -65,13 +68,16 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
+            if (!m_CharacterInfos.IsShielding)
             {
-                CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
-            }
-            else
-            {
-                m_LastAttack = null;
+                if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
+                {
+                    CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
+                }
+                else
+                {
+                    m_LastAttack = null;
+                }
             }
         }
     }
@@ -79,7 +85,10 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
+            if (!m_CharacterInfos.IsShielding)
+            {
+                m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
+            }
         }
     }
     #endregion
@@ -89,13 +98,14 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         m_PlayerInfos = GetComponent<PlayerInfos>();
         m_CharacterInfos = GetComponent<CharacterInfos>();
-        m_PlayerMovements = GetComponent<Movement>();
+        m_PlayerMovements = GetComponent<CharacterMovement>();
     }
     public void CustomUpdate(float p_DeltaTime)
     {
         //Si on est en train d'attaquer on augmente le timer en secondes depuis le début de l'attaque
         if (m_CurrentAttack != null)
         {
+            AttackMovePlayer(m_CurrentAttack);
             CheckAttackFrames(m_CurrentAttack);
             m_CurrentFrameCount = m_CurrentFrameCount + 1;
 
@@ -144,6 +154,7 @@ public class Attack : MonoBehaviour, IUpdateUser
             //On rend au joueur sa vitesse normale
             m_PlayerMovements.EditableCharacterSpeed = 1.0f;
         }
+        m_PlayerMovements.PlayerExternalDirection = Vector3.zero;
     }
     public void CheckAttackInput(Vector2 p_JoyStickInput)
     {
@@ -220,6 +231,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                 }
 
             }
+            //AERIALS
             else
             {
                 if (p_JoyStickInput.magnitude >= m_JoystickDeadZone)
@@ -227,7 +239,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers la gauche
                     if (l_Angle >= 135.0f)
                     {
-                        if (m_PlayerDirection == 1)
+                        if (m_PlayerMovements.CharacterOrientation > 0)
                         {
                             m_CurrentAttack = m_Attacks.m_BackAir;
                             SetMaxAttackDuration(m_Attacks.m_BackAir);
@@ -253,7 +265,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers la droite
                     else if (l_Angle >= -45.0f)
                     {
-                        if (m_PlayerDirection == 1)
+                        if (m_PlayerMovements.CharacterOrientation > 0)
                         {
                             m_CurrentAttack = m_Attacks.m_ForwardAir;
                             SetMaxAttackDuration(m_Attacks.m_ForwardAir);
@@ -279,7 +291,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     //Vers la gauche
                     else
                     {
-                        if (m_PlayerDirection == 1)
+                        if (m_PlayerMovements.CharacterOrientation > 0)
                         {
                             m_CurrentAttack = m_Attacks.m_BackAir;
                             SetMaxAttackDuration(m_Attacks.m_BackAir);
@@ -312,12 +324,10 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Left)
         {
-            m_PlayerDirection = -1;
             m_PlayerMovements.PlayerOrientation(-1.0f);
         }
         else
         {
-            m_PlayerDirection = 1;
             m_PlayerMovements.PlayerOrientation(1.0f);
         }
     }
@@ -355,7 +365,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         //On regarde pour chaque projectile de l'attaque si on est à la frame d'instantiation
         foreach (SO_Projectile l_ProjectileStat in p_AttackStats.Projectiles)
         {
-            if (m_CurrentFrameCount == l_ProjectileStat.InstantiationFrame)
+            if (m_CurrentFrameCount == l_ProjectileStat.InstantiationFrame - 1)
             {
                 FireProjectile(l_ProjectileStat);
             }
@@ -366,7 +376,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         Collider[] l_HitObjects = null;
         Vector3 l_HitBoxPosition = Vector3.zero;
         l_HitBoxPosition.y = transform.position.y + p_HitBox.RelativePosition.y;
-        l_HitBoxPosition.x = transform.position.x + (p_HitBox.RelativePosition.x * m_PlayerDirection);
+        l_HitBoxPosition.x = transform.position.x + (p_HitBox.RelativePosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
         //On récupère tous les objets qui ont un collider qu'on peut attaquer dans la hitbox
         switch (p_HitBox.HitBoxType)
         {
@@ -486,10 +496,10 @@ public class Attack : MonoBehaviour, IUpdateUser
         //On instancie le projectile
         Vector3 l_ProjectilePosition = Vector3.zero;
         l_ProjectilePosition.y = transform.position.y + p_Projectile.RelativeStartPosition.y;
-        l_ProjectilePosition.x = transform.position.x + (p_Projectile.RelativeStartPosition.x * m_PlayerDirection);
+        l_ProjectilePosition.x = transform.position.x + (p_Projectile.RelativeStartPosition.x * m_PlayerMovements.CharacterOrientation);
         m_InstantiatedProjectile = Instantiate(p_Projectile.ProjectilePrefab, l_ProjectilePosition, Quaternion.identity);
         //On le met dans la bonne direction
-        if (m_PlayerDirection == 1)
+        if (m_PlayerMovements.CharacterOrientation > 0)
         {
             //Si le joueur regarde à droite, on garde l'angle de base
             m_InstantiatedProjectile.transform.Rotate(Vector3.forward, p_Projectile.ShootAngle);
@@ -503,6 +513,14 @@ public class Attack : MonoBehaviour, IUpdateUser
         m_InstantiatedProjectile.GetComponent<Projectile>().AttackableLayer = m_PlayerInfos.AttackableLayers;
         //Et on lui donne ses statistiques
         m_InstantiatedProjectile.GetComponent<Projectile>().ProjectileStats = p_Projectile;
+    }
+    private void AttackMovePlayer(SO_Attack m_CurrentAttack)
+    {
+        Vector3 l_MoveDirection = Vector3.zero;
+        l_MoveDirection.x = m_CurrentAttack.CharacterXMovement.Evaluate(m_CurrentFrameCount);
+        l_MoveDirection.y = m_CurrentAttack.CharacterYMovement.Evaluate(m_CurrentFrameCount);
+
+        m_PlayerMovements.PlayerExternalDirection = l_MoveDirection;
     }
     #endregion
 
@@ -527,7 +545,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                 {
                     Vector3 l_HitBoxPosition = Vector3.zero;
                     l_HitBoxPosition.y = transform.position.y + l_HitBox.RelativePosition.y;
-                    l_HitBoxPosition.x = transform.position.x + (l_HitBox.RelativePosition.x * m_PlayerDirection);
+                    l_HitBoxPosition.x = transform.position.x + (l_HitBox.RelativePosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
                     switch (l_HitBox.HitBoxType)
                     {
                         case EHitBOxType.Square:
@@ -538,6 +556,16 @@ public class Attack : MonoBehaviour, IUpdateUser
                             break;
                     }
                 }
+            }
+        }
+        foreach (SO_Projectile l_ProjectileStat in p_Attack.Projectiles)
+        {
+            if (m_CurrentFrameCount == l_ProjectileStat.InstantiationFrame)
+            {
+                Vector3 l_InstantiationPosition = Vector3.zero;
+                l_InstantiationPosition.x = transform.position.x + (l_ProjectileStat.RelativeStartPosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
+                l_InstantiationPosition.y = transform.position.y + l_ProjectileStat.RelativeStartPosition.y;
+                Gizmos.DrawSphere(l_InstantiationPosition, 0.5f);
             }
         }
     }
