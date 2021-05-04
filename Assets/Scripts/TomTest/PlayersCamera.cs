@@ -62,18 +62,19 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
             m_AveragePositionPlayers += m_ListOfAllPlayers[i].transform.position;
         }
         m_AveragePositionPlayers /= m_ListOfAllPlayers.Length;
-        //m_GreaterDistancePlayers = 0;
-        //for (int i = 0; i < m_ListOfAllPlayers.Length; i++)
-        //{
-        //    for (int v = 0; v < m_ListOfAllPlayers.Length; v++)
-        //    {
-        //        if (m_GreaterDistancePlayers < Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position))
-        //        {
-        //            m_GreaterDistancePlayers = Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position);
-        //        }
-        //    }
-        //}
-        m_MainCamera.transform.position = m_AveragePositionPlayers;// + new Vector3(0, 0, m_CameraZoomCurve.Evaluate(m_GreaterDistancePlayers / 2));
+        m_GreaterDistancePlayers = 0;
+        for (int i = 0; i < m_ListOfAllPlayers.Length; i++)
+        {
+            for (int v = 0; v < m_ListOfAllPlayers.Length; v++)
+            {
+                if (m_GreaterDistancePlayers < Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position))
+                {
+                    m_GreaterDistancePlayers = Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position);
+                }
+            }
+        }
+        m_MainCamera.transform.position = m_AveragePositionPlayers + new Vector3(0, 0, m_CameraZoomCurve.Evaluate(m_GreaterDistancePlayers / 2));
+        m_AveragePositionPlayers = Vector3.zero;
     }
 
     private void CameraShake(float p_ShakePower)

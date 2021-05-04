@@ -774,6 +774,7 @@ GameObject:
   - component: {fileID: 7326282991860863275}
   - component: {fileID: 7326282991860863274}
   - component: {fileID: 7326282991860863269}
+  - component: {fileID: 4717280539556895526}
   m_Layer: 10
   m_Name: Mist
   m_TagString: Untagged
@@ -1268,10 +1269,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4717280539556895526}
+        m_TargetAssemblyTypeName: Grab, Assembly-CSharp
+        m_MethodName: ThrowInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ef2c27a2-0fda-446c-adb3-f1c5825b3fd6
     m_ActionName: Player/Tilts[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4717280539556895526}
+        m_TargetAssemblyTypeName: Grab, Assembly-CSharp
+        m_MethodName: GrabInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 87271e31-7c6b-46cc-80d1-db5dc072fd23
     m_ActionName: Player/Grab
   m_NeverAutoSwitchControlSchemes: 0
@@ -1510,3 +1535,21 @@ MonoBehaviour:
   - {fileID: 4808374153565198129}
   - {fileID: 4808374154542703032}
   - {fileID: 4808374155139832344}
+--- !u!114 &4717280539556895526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7326282991860863268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac14d87953c537e4aa64893281138f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
+  m_PreLag: 10
+  m_GrabDuration: 10
+  m_GrabHoldDuration: 10
+  m_PostLag: 10
+  m_FailedLag: 10

@@ -30,7 +30,7 @@ public class Grab : MonoBehaviour, IUpdateUser
     [SerializeField]
     private int m_GrabDuration = 10;
     [SerializeField]
-    private int m_GrabHoldDuration = 10;
+    private int m_GrabHoldDuration = 120;
     [SerializeField]
     private int m_PostLag = 10;
     [SerializeField]
@@ -45,6 +45,7 @@ public class Grab : MonoBehaviour, IUpdateUser
     }
     public void CustomUpdate(float p_DeltaTime)
     {
+        Debug.Log(m_CurrentGrabState);
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Grabbing)
         {
             if (m_Target == null)
@@ -62,6 +63,7 @@ public class Grab : MonoBehaviour, IUpdateUser
                         break;
                     case GrabState.Grabbing:
                         TryGrab();
+
                         if (m_CurrentFrameCount >= m_GrabDuration)
                         {
                             m_CurrentGrabState = GrabState.FailedLag;
@@ -114,6 +116,21 @@ public class Grab : MonoBehaviour, IUpdateUser
 
                 m_CharacterInfos.CurrentCharacterState = CharacterState.Grabbing;
                 m_CurrentGrabState = GrabState.PreLag;
+            }
+        }
+    }
+    public void ThrowInput(InputAction.CallbackContext p_Context)
+    {
+        if (m_Target != null)
+        {
+            Vector2 l_ThrowDirection = p_Context.ReadValue<Vector2>();
+            if (l_ThrowDirection.magnitude >= 0.2f)
+            {
+                SO_HitBox l_HitBox = new SO_HitBox();
+
+                m_Target.GetComponent<Health>().TakeDamages(l_HitBox);
+                m_Target = null;
+                m_CurrentGrabState = GrabState.PostLag;
             }
         }
     }
