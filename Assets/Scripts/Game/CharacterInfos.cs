@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class CharacterInfos : MonoBehaviour
 {
-    private bool m_IsAttacking = false;
-    public bool IsAttacking { get { return m_IsAttacking; } set { m_IsAttacking = value; } }
-
-    private bool m_IsHitLagging = false;
-    public bool IsHitLagging { get { return m_IsHitLagging; } set { m_IsHitLagging = value; } }
+    private CharacterState m_CurrentCharacterState = CharacterState.Idle;
+    public CharacterState CurrentCharacterState { get { return m_CurrentCharacterState; } set { m_CurrentCharacterState = value; } }
 
     [SerializeField]
     private float m_MaxCharacterSpeed = 10f;
@@ -33,6 +30,30 @@ public class CharacterInfos : MonoBehaviour
     private AnimationCurve m_CharacterStartVelocity = null;
     public AnimationCurve CharacterStartVelocity { get { return m_CharacterStartVelocity; } }
     [SerializeField]
-    private AnimationCurve m_CharacterEndVelocity = null;
-    public AnimationCurve CharacterEndVelocity { get { return m_CharacterEndVelocity; } }
+    private AnimationCurve m_CharacterEndGroundVelocity = null;
+    public AnimationCurve CharacterEndGroundVelocity { get { return m_CharacterEndGroundVelocity; } }
+    [SerializeField]
+    private AnimationCurve m_CharacterEndAirVelocity = null;
+    public AnimationCurve CharacterEndAirVelocity { get { return m_CharacterEndAirVelocity; } }
+
+    private bool m_CanMove = true;
+    [SerializeField]
+    public bool CanMove
+    {
+        get { return m_CanMove; }
+        set { m_CanMove = value; }
+    }
+}
+
+public enum CharacterState
+{
+    Idle,
+    Moving,
+    Attacking,
+    Shielding,
+    Grabbing,
+    Grabbed,
+    Hitlag,
+    Lag,
+    Death,
 }

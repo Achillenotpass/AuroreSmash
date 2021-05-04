@@ -32,15 +32,32 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
 
     private float m_GreaterDistancePlayers = 0;
 
+    [SerializeField]
+    private GameObject m_LevelCenter = null;
+
+    private Bounds m_LevelBounds;
+
+    private float m_HalfBoundsX = 30f;
+    private float m_HalfBoundsY = 10f;
+
     private void Start()
     {
         m_ListOfAllPlayers = FindObjectsOfType<CharacterInfos>();
         m_MainCamera = this.gameObject;
+        Bounds l_Bounds = new Bounds();
+        l_Bounds.Encapsulate(new Vector3(transform.position.x - m_HalfBoundsX, transform.position.y - m_HalfBoundsY, transform.position.z - 50));
+        l_Bounds.Encapsulate(new Vector3(transform.position.x + m_HalfBoundsX, transform.position.y + m_HalfBoundsY, transform.position.z + 50));
+        m_LevelBounds = l_Bounds;
     }
 
     public void CustomUpdate(float p_DeltaTime)
     {
-        for(int i = 0; i < m_ListOfAllPlayers.Length; i++)
+        CameraPositioning(p_DeltaTime);
+    }
+
+    private void CameraPositioning(float p_DeltaTime)
+    {
+        for (int i = 0; i < m_ListOfAllPlayers.Length; i++)
         {
             m_AveragePositionPlayers += m_ListOfAllPlayers[i].transform.position;
         }
@@ -50,15 +67,17 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         {
             for (int v = 0; v < m_ListOfAllPlayers.Length; v++)
             {
-                if(m_GreaterDistancePlayers < Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position))
+                if (m_GreaterDistancePlayers < Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position))
                 {
                     m_GreaterDistancePlayers = Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position);
                 }
             }
         }
-        Debug.Log(m_GreaterDistancePlayers);
-        m_MainCamera.transform.position = m_AveragePositionPlayers + new Vector3(0, 0, m_CameraZoomCurve.Evaluate(m_GreaterDistancePlayers/2));
-        
-        
+        m_MainCamera.transform.position = m_AveragePositionPlayers + new Vector3(0, 0, m_CameraZoomCurve.Evaluate(m_GreaterDistancePlayers / 2));
+    }
+
+    private void CameraShake(float p_ShakePower)
+    {
+
     }
 }

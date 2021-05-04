@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
+  m_Name: Up_Air
+  m_EditorClassIdentifier: 
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 0d3b9ac3ce84add438bc8818d8b16839, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: a6c8419449ff18a49bc77e4ab952ecf0, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: a93637ac8cf84f84a8c0f3b3f43835aa, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 800efbbab2a90ef44ac065941f1a82df, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 8e2d73380b5c10142a5340ea9fe8a09c, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 78c8d497a70fbe74e962b490deb5499e, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: d7f692a071d969c44beea72d1d2a0e7e, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 0ac8af666bcbe8046b18127fb3d0a064, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 8962a7dabe0752e4e995eff23cfe53ed, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: d685b51d3735b3b4db74557e5aa96905, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: d4cc5b1d2ac63db428874e9c2b605dba, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: d9bf509b6213c064fa51b09cdc8ec0ac, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 6ca4239bec801b741bb2bce4bb04464b, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 4f4967bd22b2fed4f8fe0a0f43721d09, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 6a23292a572c70340be5c7f9244e6ac1, type: 3}
+    m_FramesAfterLastSprite: 2
+  m_LastFrameDuration: 2
