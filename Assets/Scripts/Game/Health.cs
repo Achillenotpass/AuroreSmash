@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     #region Variables
     [SerializeField]
     private float m_MaxHealth = 100.0f;
+    [SerializeField]
     private float m_CurrentHealth = 100.0f;
     private CharacterInfos m_CharacterInfos = null;
     #endregion
@@ -42,4 +43,14 @@ public class Health : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = false;
     }
     #endregion
+
+    public float MaxHealth
+    {
+        get { return m_MaxHealth; }
+    }
+
+    public float CurrentHealth
+    {
+        get { return m_CurrentHealth; }
+    }
 }

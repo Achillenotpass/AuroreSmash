@@ -80,7 +80,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private bool m_StartVelocityCheck = false;
     private bool m_EndGroundVelocityCheck = false;
-    private bool m_EndGroundVelocityInverseCheck = false;
     private bool m_EndAirVelocityCheck = false;
     private bool m_EndAirVelocityInverseCheck = false;
 
@@ -148,7 +147,9 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         EndAirLossVelocity(p_DeltaTime);
         StartGainVelocity(p_DeltaTime);
         m_PlayerGeneralDirection += m_PlayerExternalDirection * p_DeltaTime;
+        m_PlayerGeneralDirection += m_PlayerEjectionDirection * p_DeltaTime;
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
+        Debug.Log(m_PlayerGeneralDirection);
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
     }
@@ -159,7 +160,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID
-            && m_CharacterInfos.CanMove)
+            && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
             if (p_Context.started)
             {
@@ -171,6 +172,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_EndGroundVelocityTimer = 0;
                 m_EndAirVelocityTimer = 0;
                 m_MovementEvents.m_EventStartMovement.Invoke();
+                m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
             }
             if (p_Context.performed)
             {
@@ -207,10 +209,12 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void StartGainVelocity(float p_DeltaTime)
     {
-        if (m_CharacterInfos.CanMove)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
             if (m_StartVelocityCheck)
             {
+                m_EndAirVelocityCheck = false;
+                m_EndGroundVelocityCheck = false;
                 m_StartVelocityTimer += p_DeltaTime;
                 m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterStartVelocity.Evaluate(m_StartVelocityTimer);
             }
@@ -224,7 +228,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void EndGroundLossVelocity(float p_DeltaTime)
     {
-        if (m_CharacterInfos.CanMove)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
             if (m_CharacterSpeed <= 0)
             {
@@ -243,7 +247,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void EndAirLossVelocity(float p_DeltaTime)
     {
-        if (m_CharacterInfos.CanMove)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
             if (m_CharacterSpeed <= 0)
             {
@@ -269,7 +273,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     public void PlayerAirDownMovement(InputAction.CallbackContext p_Context)
     {
-        if (m_CharacterInfos.CanMove)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
             if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID
                 && p_Context.performed
@@ -285,7 +289,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Orientation
     public void PlayerMovementOrientation(InputAction.CallbackContext p_Context)
     {
-        if (m_CharacterInfos.CanMove)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
             if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID &&
                 p_Context.performed
@@ -309,10 +313,13 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Jump
     public void Jump(InputAction.CallbackContext p_Context)
     {
-        if (m_CharacterInfos.CanMove)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
             if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
             {
+                m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
+                m_EndAirVelocityCheck = false;
+                m_EndGroundVelocityCheck = false;
                 if (m_IsGrounded)
                 {
                     if (p_Context.started)
@@ -405,9 +412,16 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         get { return m_PlayerExternalDirection; }
         set { m_PlayerExternalDirection = value; }
     }
+
+    public Vector3 PlayerEjectionDirection
+    {
+        get { return m_PlayerEjectionDirection; }
+        set { m_PlayerEjectionDirection = value; }
+    }
     #endregion
 }
 
+#region Events
 [System.Serializable]
 public class MovementEvents
 {
@@ -432,3 +446,4 @@ public class MovementEvents
     [SerializeField]
     public UnityEvent m_EventChangeOrientation;
 }
+#endregion
