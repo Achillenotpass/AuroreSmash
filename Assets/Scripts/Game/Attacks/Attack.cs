@@ -376,6 +376,8 @@ public class Attack : MonoBehaviour, IUpdateUser
         l_HitBoxPosition.x = transform.position.x + (p_HitBox.RelativePosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
         l_HitBoxPosition.z = transform.position.z;
 
+        Debug.Log(l_HitBoxPosition);
+
         //On récupère tous les objets qui ont un collider qu'on peut attaquer dans la hitbox
         switch (p_HitBox.HitBoxType)
         {

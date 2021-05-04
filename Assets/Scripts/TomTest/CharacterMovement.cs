@@ -149,7 +149,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_PlayerGeneralDirection += m_PlayerExternalDirection * p_DeltaTime;
         m_PlayerGeneralDirection += m_PlayerEjectionDirection * p_DeltaTime;
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
-        Debug.Log(m_PlayerGeneralDirection);
+        //Debug.Log(m_PlayerGeneralDirection);
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
     }
