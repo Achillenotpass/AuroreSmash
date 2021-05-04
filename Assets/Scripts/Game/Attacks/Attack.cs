@@ -50,7 +50,9 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle 
+                || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving
+                || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
             {
                 //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
                 if (p_Context.canceled)
@@ -68,7 +70,9 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle
+                || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving
+                || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
             {
                 if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
                 {
