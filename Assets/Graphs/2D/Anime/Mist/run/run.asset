@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
+  m_Name: run
+  m_EditorClassIdentifier: 
+  m_Loop: 1
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 29131d593d5ddbf4dbd2d38190ea6bbc, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: f9e0168bfe9f68045bd0ca5f8f2cece5, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 484c4fbbdf88d0141bc18b1759ebbbd7, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 6c7cdcf31f050874985e07f410cf5859, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: bd2ce04d37e985243a89c07492a09c1a, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 41270f1788afcf74cbee1b18e48d478d, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: c4392fcb3a3496545b8fe8da66e3d546, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 971cbfb4ba1014a49be44b91da200653, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 6272f296eecf8414b87a7c0280e9a43b, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 67dbc0e46fc169d4194c65f88b465ac4, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 6753fabe4178dc94ab4d77b8da623723, type: 3}
+    m_FramesAfterLastSprite: 2
+  - m_FrameSprite: {fileID: 21300000, guid: 7c9b014bf91a9694d8c70690c2d01c72, type: 3}
+    m_FramesAfterLastSprite: 2
+  m_LastFrameDuration: 2
