@@ -368,7 +368,8 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (m_IsGroundJumping)
         {
-            if (m_TimerGroundJump <= m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time)
+            if (m_TimerGroundJump <= m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time
+                && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
             {
                 m_MovementEvents.m_EventJump.Invoke();
                 m_CharacterController.enabled = false;
@@ -390,7 +391,8 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (m_IsAirJumping)
         {
-            if (m_TimerAirJump <= m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time)
+            if (m_TimerAirJump <= m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time
+                && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
             {
                 m_MovementEvents.m_EventJump.Invoke();
                 m_CharacterController.enabled = false;
