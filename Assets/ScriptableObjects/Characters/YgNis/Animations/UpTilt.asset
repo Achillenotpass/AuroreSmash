@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
   m_Name: UpTilt
   m_EditorClassIdentifier: 
+  m_Loop: 1
   m_AnimationFrames:
   - m_FrameSprite: {fileID: 21300000, guid: ab5b058c6ff815b4ca6cf5e84eb1590b, type: 3}
-    m_FramesAfterLastSprite: 4
+    m_FramesAfterLastSprite: 2
   - m_FrameSprite: {fileID: 21300000, guid: 37c52688e19ab5347bc6b68efd975126, type: 3}
-    m_FramesAfterLastSprite: 4
+    m_FramesAfterLastSprite: 2
   - m_FrameSprite: {fileID: 21300000, guid: c3a169a5e6ed7a744a56f477072222ab, type: 3}
-    m_FramesAfterLastSprite: 4
+    m_FramesAfterLastSprite: 2
   - m_FrameSprite: {fileID: 21300000, guid: f4cb4c51636216544b0925aeb28bd2e6, type: 3}
-    m_FramesAfterLastSprite: 4
+    m_FramesAfterLastSprite: 2
   - m_FrameSprite: {fileID: 21300000, guid: 4b5fe2aa3f23dbb4b961df7eb5cbe084, type: 3}
-    m_FramesAfterLastSprite: 4
+    m_FramesAfterLastSprite: 2
   - m_FrameSprite: {fileID: 21300000, guid: ed6c8d70fcc5ea14488fa52d68095d4d, type: 3}
     m_FramesAfterLastSprite: 4
   - m_FrameSprite: {fileID: 21300000, guid: 8475eec40859495488348cb1b74e0ded, type: 3}

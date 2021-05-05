@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     #region Variables
     [SerializeField]
     private float m_MaxHealth = 100.0f;
+    [SerializeField]
     private float m_CurrentHealth = 100.0f;
     private CharacterInfos m_CharacterInfos = null;
     #endregion
@@ -26,20 +27,30 @@ public class Health : MonoBehaviour
     {
         m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_HitBox.Damages, 0.0f, m_MaxHealth);
 
-        m_CharacterInfos.IsHitLagging = true;
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
         Invoke(nameof(StopHitLag), p_HitBox.HitLag);
         GetComponent<MeshRenderer>().enabled = true;
     }
     public void TakeDamages(SO_Projectile p_Projectile)
     {
-        m_CharacterInfos.IsHitLagging = true;
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
         Invoke(nameof(StopHitLag), p_Projectile.HitLag);
         GetComponent<MeshRenderer>().enabled = true;
     }
     public void StopHitLag()
     {
-        m_CharacterInfos.IsHitLagging = false;
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
         GetComponent<MeshRenderer>().enabled = false;
     }
     #endregion
+
+    public float MaxHealth
+    {
+        get { return m_MaxHealth; }
+    }
+
+    public float CurrentHealth
+    {
+        get { return m_CurrentHealth; }
+    }
 }

@@ -46,7 +46,7 @@ public class Shield : MonoBehaviour, IUpdateUser
     }
     public void CustomUpdate(float p_DeltaTime)
     {
-        if (m_CharacterInfos.IsShielding)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Shielding)
         {
             m_NewShieldState = GetShieldState(m_CurrentShieldDirection);
         }
@@ -67,11 +67,11 @@ public class Shield : MonoBehaviour, IUpdateUser
         {
             if (p_Context.performed)
             {
-                m_CharacterInfos.IsShielding = true;
+                m_CharacterInfos.CurrentCharacterState = CharacterState.Shielding;
             }
             else if (p_Context.canceled)
             {
-                m_CharacterInfos.IsShielding = false;
+                m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
             }
         }
     }
@@ -163,11 +163,17 @@ public class Shield : MonoBehaviour, IUpdateUser
 
     public void TakeShieldDamages(SO_HitBox p_Hitbox)
     {
-        
+        SO_HitBox l_ShieldedHitBox = new SO_HitBox();
+        l_ShieldedHitBox.Damages = p_Hitbox.Damages * m_DamageReduction / 100.0f;
+        l_ShieldedHitBox.EjectionPower = 0.0f;
+        GetComponent<Health>().TakeDamages(l_ShieldedHitBox);
     }
     public void TakeShieldDamages(SO_Projectile p_Projectile)
     {
-
+        SO_Projectile l_ShieldedProjectile = new SO_Projectile();
+        l_ShieldedProjectile.Damages = p_Projectile.Damages * m_DamageReduction / 100.0f;
+        l_ShieldedProjectile.EjectionPower = 0.0f;
+        GetComponent<Health>().TakeDamages(l_ShieldedProjectile);
     }
 }
 

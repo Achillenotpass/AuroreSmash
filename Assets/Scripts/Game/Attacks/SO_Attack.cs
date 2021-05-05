@@ -22,4 +22,10 @@ public class SO_Attack : ScriptableObject
     [SerializeField]
     private AnimationCurve m_PlayerInfluenceOnSpeed = new AnimationCurve();
     public AnimationCurve PlayerInfluenceOnSpeed { get { return m_PlayerInfluenceOnSpeed; } }
+    [SerializeField]
+    private AnimationCurve m_CharacterXMovement = new AnimationCurve();
+    public AnimationCurve CharacterXMovement { get { return m_CharacterXMovement; } }
+    [SerializeField]
+    private AnimationCurve m_CharacterYMovement = new AnimationCurve();
+    public AnimationCurve CharacterYMovement { get { return m_CharacterYMovement; } }
 }
