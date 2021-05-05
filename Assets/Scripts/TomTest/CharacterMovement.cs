@@ -80,6 +80,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private bool m_StartVelocityCheck = false;
     private bool m_EndGroundVelocityCheck = false;
+    private bool m_EndGroundVelocityInverseCheck = false;
     private bool m_EndAirVelocityCheck = false;
     private bool m_EndAirVelocityInverseCheck = false;
 
@@ -109,6 +110,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_CharacterStartVelocity = m_CharacterInfos.CharacterStartVelocity;
         m_CharacterEndGroundVelocity = m_CharacterInfos.CharacterEndGroundVelocity;
         m_CharacterEndAirVelocity = m_CharacterInfos.CharacterEndAirVelocity;
+        m_CharacterSpeed = m_MaxCharacterSpeed;
 }
     #endregion
 
@@ -123,6 +125,11 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_CharacterGravity = m_CharacterMaxGravity;
             if(m_EndAirVelocityCheck)
                 m_EndAirVelocityInverseCheck = true;
+        }
+        if (m_EndGroundVelocityCheck && m_CharacterSpeed <= 0 || m_EndAirVelocityCheck && m_CharacterSpeed <= 0)
+        {
+            m_EndGroundVelocityInverseCheck = true;
+            m_EndAirVelocityInverseCheck = true;
         }
         if (m_IsGroundJumping)
         {
@@ -144,12 +151,11 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         GroundJump();
         AirJump();
         EndGroundLossVelocity(p_DeltaTime);
-        EndAirLossVelocity(p_DeltaTime);
+        //EndAirLossVelocity(p_DeltaTime);
         StartGainVelocity(p_DeltaTime);
         m_PlayerGeneralDirection += m_PlayerExternalDirection * p_DeltaTime;
         m_PlayerGeneralDirection += m_PlayerEjectionDirection * p_DeltaTime;
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
-        //Debug.Log(m_PlayerGeneralDirection);
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
     }
@@ -164,8 +170,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         {
             if (p_Context.started)
             {
-                if(m_IsGrounded)
+                if (m_IsGrounded)
                     m_StartVelocityCheck = true;
+                else
+                    m_CharacterSpeed = m_MaxCharacterSpeed;
                 m_EndGroundVelocityCheck = false;
                 m_EndAirVelocityCheck = false;
                 m_StartVelocityTimer = 0;
@@ -211,17 +219,17 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
+            if (m_StartVelocityTimer >= m_CharacterStartVelocity.keys[m_CharacterStartVelocity.keys.Length - 1].time)
+            {
+                m_StartVelocityCheck = false;
+                m_StartVelocityTimer = 0;
+            }
             if (m_StartVelocityCheck)
             {
                 m_EndAirVelocityCheck = false;
                 m_EndGroundVelocityCheck = false;
                 m_StartVelocityTimer += p_DeltaTime;
                 m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterStartVelocity.Evaluate(m_StartVelocityTimer);
-            }
-            if (m_StartVelocityTimer >= m_CharacterStartVelocity.keys[m_CharacterStartVelocity.keys.Length - 1].time)
-            {
-                m_StartVelocityCheck = false;
-                m_StartVelocityTimer = 0;
             }
         }
     }
@@ -236,8 +244,16 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_EndGroundVelocityCheck = false;
                 m_EndGroundVelocityTimer = 0;
             }
+            if (m_EndGroundVelocityInverseCheck)
+            {
+                m_EndGroundVelocityCheck = false;
+                m_EndGroundVelocityInverseCheck = false;
+                m_CharacterSpeed = 0;
+                m_EndGroundVelocityTimer = 0;
+            }
             if (m_EndGroundVelocityCheck)
             {
+                m_StartVelocityCheck = false;
                 m_EndGroundVelocityTimer += p_DeltaTime;
                 m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndGroundVelocity.Evaluate(m_EndGroundVelocityTimer) * Mathf.Abs(m_PastDirection.x);
                 m_PlayerDesiredDirection = m_PastDirection;
@@ -264,6 +280,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             }
             if (m_EndAirVelocityCheck)
             {
+                m_StartVelocityCheck = false;
                 m_EndAirVelocityTimer += p_DeltaTime;
                 m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
                 m_PlayerDesiredDirection = m_PastDirection;
@@ -318,8 +335,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
             {
                 m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
-                m_EndAirVelocityCheck = false;
-                m_EndGroundVelocityCheck = false;
                 if (m_IsGrounded)
                 {
                     if (p_Context.started)
@@ -359,9 +374,12 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_CharacterController.enabled = false;
                 m_CharacterController.transform.position = new Vector3(transform.position.x, m_JumpMark.y + m_GroundJumpCurve.Evaluate(m_TimerGroundJump) + (transform.position.y - m_PlayerGroundCheck.position.y), transform.position.z);
                 m_CharacterController.enabled = true;
+                m_EndAirVelocityCheck = false;
+                m_EndGroundVelocityCheck = false;
             }
             else
             {
+                m_MovementEvents.m_EventEndJump.Invoke();
                 m_TimerGroundJump = 0;
                 m_IsGroundJumping = false;
             }
@@ -378,9 +396,12 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_CharacterController.enabled = false;
                 m_CharacterController.transform.position = new Vector3(transform.position.x, m_JumpMark.y + m_AirJumpCurve.Evaluate(m_TimerAirJump) + (transform.position.y - m_PlayerGroundCheck.position.y), transform.position.z);
                 m_CharacterController.enabled = true;
+                m_EndAirVelocityCheck = false;
+                m_EndGroundVelocityCheck = false;
             }
             else
             {
+                m_MovementEvents.m_EventEndJump.Invoke();
                 m_TimerAirJump = 0;
                 m_IsAirJumping = false;
             }
