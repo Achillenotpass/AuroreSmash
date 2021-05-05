@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class Grab : MonoBehaviour, IUpdateUser
 {
+    
     #region UpdateMangaer
     [SerializeField]
     private SO_UpdateLayerSettings m_UpdateSettings = null;
@@ -32,9 +34,20 @@ public class Grab : MonoBehaviour, IUpdateUser
     [SerializeField]
     private int m_GrabHoldDuration = 120;
     [SerializeField]
-    private int m_PostLag = 10;
+    private int m_ThrowDuration = 10;
     [SerializeField]
     private int m_FailedLag = 10;
+
+    //Events
+    [SerializeField]
+    private UnityEvent m_StartGrabEvent = null;
+    [SerializeField]
+    private UnityEvent m_GrabEnemy = null;
+    [SerializeField]
+    private UnityEvent m_ThrowEnemy = null;
+    [SerializeField]
+    private UnityEvent m_EndGrab = null;
+
     #endregion
 
     #region Update/Awake/Start
@@ -71,11 +84,13 @@ public class Grab : MonoBehaviour, IUpdateUser
                         }
                         break;
                     case GrabState.PostLag:
-                        if (m_CurrentFrameCount >= m_PostLag)
+                        if (m_CurrentFrameCount >= m_ThrowDuration)
                         {
                             m_CurrentGrabState = GrabState.NotGrabbing;
                             m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
                             m_CurrentFrameCount = 0;
+
+                            m_EndGrab.Invoke();
                         }
                         break;
                     case GrabState.FailedLag:
@@ -84,6 +99,8 @@ public class Grab : MonoBehaviour, IUpdateUser
                             m_CurrentGrabState = GrabState.NotGrabbing;
                             m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
                             m_CurrentFrameCount = 0;
+
+                            m_EndGrab.Invoke();
                         }
                         break;
                 }
@@ -116,6 +133,8 @@ public class Grab : MonoBehaviour, IUpdateUser
 
                 m_CharacterInfos.CurrentCharacterState = CharacterState.Grabbing;
                 m_CurrentGrabState = GrabState.PreLag;
+
+                m_StartGrabEvent.Invoke();
             }
         }
     }
@@ -131,6 +150,8 @@ public class Grab : MonoBehaviour, IUpdateUser
                 m_Target.GetComponent<Health>().TakeDamages(l_HitBox);
                 m_Target = null;
                 m_CurrentGrabState = GrabState.PostLag;
+
+                m_ThrowEnemy.Invoke();
             }
         }
     }
@@ -152,6 +173,8 @@ public class Grab : MonoBehaviour, IUpdateUser
                         l_HitCharacter.CurrentCharacterState = CharacterState.Grabbed;
 
                         m_Target = l_HitCharacter;
+
+                        m_GrabEnemy.Invoke();
                     }
                 }
             }
