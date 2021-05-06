@@ -42,9 +42,11 @@ public class Projectile : MonoBehaviour, IUpdateUser
             {
                 if(l_HitObject.gameObject.tag == "Shield")
                 {
+                    Debug.Log("shield hit");
                     Shield l_HitShield = l_HitObject.GetComponentInParent<Shield>();
                     if (l_HitShield != null)
                     {
+                        Debug.Log("compoenent shield got");
                         l_HitShield.TakeShieldDamages(m_ProjectileStats);
                         Destroy(gameObject);
                         return;
@@ -52,6 +54,7 @@ public class Projectile : MonoBehaviour, IUpdateUser
                 }
                 if (l_HitObject.GetComponent<Health>())
                 {
+                    Debug.Log("hit health");
                     l_HitObject.GetComponent<Health>().TakeDamages(m_ProjectileStats);
                     Destroy(gameObject);
                     break;
