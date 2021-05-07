@@ -25,6 +25,12 @@ public class Grab : MonoBehaviour, IUpdateUser
 
     private CharacterInfos m_Target = null;
 
+    //Hitbox
+    [SerializeField]
+    private Vector3 m_HitboxRelativePosition = Vector3.zero;
+    [SerializeField]
+    private float m_HitboxRadius = 0.0f;
+
     private GrabState m_CurrentGrabState = GrabState.NotGrabbing;
     private int m_CurrentFrameCount = 0;
     [SerializeField]
@@ -58,7 +64,6 @@ public class Grab : MonoBehaviour, IUpdateUser
     }
     public void CustomUpdate(float p_DeltaTime)
     {
-        Debug.Log(m_CurrentGrabState);
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Grabbing)
         {
             if (m_Target == null)
@@ -150,8 +155,8 @@ public class Grab : MonoBehaviour, IUpdateUser
                 m_Target.GetComponent<Health>().TakeDamages(l_HitBox);
                 m_Target = null;
                 m_CurrentGrabState = GrabState.PostLag;
-
                 m_ThrowEnemy.Invoke();
+                m_CurrentFrameCount = 0;
             }
         }
     }
@@ -160,7 +165,7 @@ public class Grab : MonoBehaviour, IUpdateUser
     #region Functions
     private void TryGrab()
     {
-        Collider[] l_HitObjects =  Physics.OverlapSphere(transform.position + new Vector3(0.5f, 0.0f, 0.0f), 1.0f, m_PlayerInfos.AttackableLayers);
+        Collider[] l_HitObjects =  Physics.OverlapSphere(transform.position + m_HitboxRelativePosition, m_HitboxRadius, m_PlayerInfos.AttackableLayers);
         if (l_HitObjects != null)
         {
             foreach (Collider l_Collider in l_HitObjects)
