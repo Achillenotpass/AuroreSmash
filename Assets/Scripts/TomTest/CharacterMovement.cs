@@ -236,8 +236,8 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void EndGroundLossVelocity(float p_DeltaTime)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
-        {
+        //if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+        //{
             if (m_CharacterSpeed <= 0)
             {
                 m_CharacterSpeed = 0;
@@ -258,7 +258,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndGroundVelocity.Evaluate(m_EndGroundVelocityTimer) * Mathf.Abs(m_PastDirection.x);
                 m_PlayerDesiredDirection = m_PastDirection;
             }
-        }
+        //}
     }
 
     private void EndAirLossVelocity(float p_DeltaTime)

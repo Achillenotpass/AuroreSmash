@@ -26,6 +26,8 @@ public class Shield : MonoBehaviour, IUpdateUser
     private ShieldState m_NewShieldState = ShieldState.NoShield;
     [SerializeField]
     private float m_DamageReduction = 80.0f;
+
+    private int m_CurrentFrameCount = 0;
     [SerializeField]
     private int m_LagBefore = 1;
     [SerializeField]
@@ -48,7 +50,38 @@ public class Shield : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Shielding)
         {
-            m_NewShieldState = GetShieldState(m_CurrentShieldDirection);
+            switch (m_CurrentShieldState)
+            {
+                case ShieldState.LagBefore:
+                    m_CurrentFrameCount = m_CurrentFrameCount + 1;
+                    if (m_CurrentFrameCount > m_LagBefore)
+                    {
+                        m_NewShieldState = GetShieldState(m_CurrentShieldDirection);
+                        m_CurrentFrameCount = 0;
+                    }
+                    break;
+                case ShieldState.LagAfter:
+                    m_CurrentFrameCount = m_CurrentFrameCount + 1;
+                    if (m_CurrentFrameCount > m_LagAfter)
+                    {
+                        m_NewShieldState = ShieldState.NoShield;
+                        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+                        m_CurrentFrameCount = 0;
+                    }
+                    break;
+                case ShieldState.LagAfterOmni:
+                    m_CurrentFrameCount = m_CurrentFrameCount + 1;
+                    if (m_CurrentFrameCount > m_LagAfterOmni)
+                    {
+                        m_NewShieldState = ShieldState.NoShield;
+                        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+                        m_CurrentFrameCount = 0;
+                    }
+                    break;
+                default:
+                    m_NewShieldState = GetShieldState(m_CurrentShieldDirection);
+                    break;
+            }
         }
         else
         {
@@ -65,13 +98,32 @@ public class Shield : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (p_Context.performed)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             {
-                m_CharacterInfos.CurrentCharacterState = CharacterState.Shielding;
+                if (p_Context.started)
+                {
+                    m_CharacterInfos.CurrentCharacterState = CharacterState.Shielding;
+                    m_CurrentShieldState = ShieldState.LagBefore;
+                    m_NewShieldState = ShieldState.LagBefore;
+                }
             }
-            else if (p_Context.canceled)
+            if (p_Context.canceled)
             {
-                m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+                switch (m_CurrentShieldState)
+                {
+                    case ShieldState.Omni:
+                        m_NewShieldState = ShieldState.LagAfterOmni;
+                        m_CurrentShieldState = ShieldState.LagAfterOmni;
+                        SetShieldRotation(ShieldState.NoShield);
+                        m_CurrentFrameCount = 0;
+                        break;
+                    default:
+                        m_NewShieldState = ShieldState.LagAfter;
+                        m_CurrentShieldState = ShieldState.LagAfter;
+                        SetShieldRotation(ShieldState.NoShield);
+                        m_CurrentFrameCount = 0;
+                        break;
+                }
             }
         }
     }
@@ -175,15 +227,20 @@ public class Shield : MonoBehaviour, IUpdateUser
         l_ShieldedProjectile.EjectionPower = 0.0f;
         //GetComponent<Health>().TakeDamages(l_ShieldedProjectile);
     }
+
+    public enum ShieldState
+    {
+        NoShield,
+        LagBefore,
+        LagAfter,
+        LagAfterOmni,
+        Right,
+        UpRight,
+        Up,
+        UpLeft,
+        Left,
+        Omni,
+    }
 }
 
-public enum ShieldState
-{
-    NoShield,
-    Right,
-    UpRight,
-    Up,
-    UpLeft,
-    Left,
-    Omni,
-}
+
