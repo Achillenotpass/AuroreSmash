@@ -151,7 +151,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         GroundJump();
         AirJump();
         EndGroundLossVelocity(p_DeltaTime);
-        //EndAirLossVelocity(p_DeltaTime);
+        EndAirLossVelocity(p_DeltaTime);
         StartGainVelocity(p_DeltaTime);
         m_PlayerGeneralDirection += m_PlayerExternalDirection * p_DeltaTime;
         m_PlayerGeneralDirection += m_PlayerEjectionDirection * p_DeltaTime;
@@ -380,7 +380,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             }
             else
             {
-                m_MovementEvents.m_EventEndJump.Invoke();
+                if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+                {
+                    m_MovementEvents.m_EventEndJump.Invoke();
+                }
                 m_TimerGroundJump = 0;
                 m_IsGroundJumping = false;
             }
@@ -403,7 +406,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             }
             else
             {
-                m_MovementEvents.m_EventEndJump.Invoke();
+                if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+                {
+                    m_MovementEvents.m_EventEndJump.Invoke();
+                }
                 m_TimerAirJump = 0;
                 m_IsAirJumping = false;
             }

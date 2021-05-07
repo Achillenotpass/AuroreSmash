@@ -50,7 +50,9 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle 
+                || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving
+                || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
             {
                 //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
                 if (p_Context.canceled)
@@ -68,7 +70,9 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
         {
-            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle
+                || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving
+                || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
             {
                 if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
                 {
@@ -370,6 +374,9 @@ public class Attack : MonoBehaviour, IUpdateUser
         Vector3 l_HitBoxPosition = Vector3.zero;
         l_HitBoxPosition.y = transform.position.y + p_HitBox.RelativePosition.y;
         l_HitBoxPosition.x = transform.position.x + (p_HitBox.RelativePosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
+        l_HitBoxPosition.z = transform.position.z;
+
+
         //On récupère tous les objets qui ont un collider qu'on peut attaquer dans la hitbox
         switch (p_HitBox.HitBoxType)
         {
