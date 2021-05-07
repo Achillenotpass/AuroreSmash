@@ -251,7 +251,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_CharacterSpeed = 0;
             m_EndGroundVelocityTimer = 0;
         }
-        if (m_EndGroundVelocityCheck && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+        if (m_EndGroundVelocityCheck)
         {
             m_StartVelocityCheck = false;
             m_EndGroundVelocityTimer += p_DeltaTime;
@@ -275,7 +275,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_CharacterSpeed = 0;
             m_EndAirVelocityTimer = 0;
         }
-        if (m_EndAirVelocityCheck && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+        if (m_EndAirVelocityCheck)
         {
             Debug.Log("aaa");
             m_StartVelocityCheck = false;
