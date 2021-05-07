@@ -199,23 +199,21 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                     m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(p_Context.ReadValue<Vector2>().x);
                 }
             }
-            if (p_Context.canceled)
+        }
+        if (p_Context.canceled)
+        {
+            m_StartVelocityCheck = false;
+            if (m_IsGrounded)
+                m_EndGroundVelocityCheck = true;
+            else
             {
-                Debug.Log("bbb");
-                m_StartVelocityCheck = false;
-                if (m_IsGrounded)
-                    m_EndGroundVelocityCheck = true;
-                else
-                {
-                    m_EndAirVelocityCheck = true;
-                    Debug.Log("ccc");
-                }
-                m_StartVelocityTimer = 0;
-                m_EndGroundVelocityTimer = 0;
-                m_EndAirVelocityTimer = 0;
-                m_PlayerDesiredDirection = Vector3.zero;
-                m_MovementEvents.m_EventEndMovement.Invoke();
+                m_EndAirVelocityCheck = true;
             }
+            m_StartVelocityTimer = 0;
+            m_EndGroundVelocityTimer = 0;
+            m_EndAirVelocityTimer = 0;
+            m_PlayerDesiredDirection = Vector3.zero;
+            m_MovementEvents.m_EventEndMovement.Invoke();
         }
     }
 
@@ -240,7 +238,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterSpeed <= 0)
         {
-            m_CharacterSpeed = 0;
+            ZeroCharacterSpeed();
             m_EndGroundVelocityCheck = false;
             m_EndGroundVelocityTimer = 0;
         }
@@ -248,7 +246,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         {
             m_EndGroundVelocityCheck = false;
             m_EndGroundVelocityInverseCheck = false;
-            m_CharacterSpeed = 0;
+            ZeroCharacterSpeed();
             m_EndGroundVelocityTimer = 0;
         }
         if (m_EndGroundVelocityCheck)
@@ -264,7 +262,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterSpeed <= 0)
         {
-            m_CharacterSpeed = 0;
+            ZeroCharacterSpeed();
             m_EndAirVelocityCheck = false;
             m_EndAirVelocityTimer = 0;
         }
@@ -272,17 +270,22 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         {
             m_EndAirVelocityCheck = false;
             m_EndAirVelocityInverseCheck = false;
-            m_CharacterSpeed = 0;
+            ZeroCharacterSpeed();
             m_EndAirVelocityTimer = 0;
         }
         if (m_EndAirVelocityCheck)
         {
-            Debug.Log("aaa");
             m_StartVelocityCheck = false;
             m_EndAirVelocityTimer += p_DeltaTime;
             m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
             m_PlayerDesiredDirection = m_PastDirection;
         }
+    }
+
+    private void ZeroCharacterSpeed()
+    {
+        m_CharacterSpeed = 0;
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
     }
 
     public void PlayerAirDownMovement(InputAction.CallbackContext p_Context)
