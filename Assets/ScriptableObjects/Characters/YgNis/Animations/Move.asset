@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
-  m_Name: Run
+  m_Name: Move
   m_EditorClassIdentifier: 
   m_Loop: 1
   m_AnimationFrames:
   - m_FrameSprite: {fileID: 21300000, guid: 583953d4f58b7bb41a6b328dd1fcf664, type: 3}
-    m_FramesAfterLastSprite: 2
+    m_FramesAfterLastSprite: 3
   - m_FrameSprite: {fileID: 21300000, guid: 1b62f09bfbcd6db4f9aaf5553ba52970, type: 3}
-    m_FramesAfterLastSprite: 2
+    m_FramesAfterLastSprite: 3
   - m_FrameSprite: {fileID: 21300000, guid: 81845af1dbf7e574b8b41b4564c8a458, type: 3}
-    m_FramesAfterLastSprite: 2
+    m_FramesAfterLastSprite: 3
   - m_FrameSprite: {fileID: 21300000, guid: cbcdbceac4d5ad040b056e41ea7d66b3, type: 3}
-    m_FramesAfterLastSprite: 2
+    m_FramesAfterLastSprite: 3
   - m_FrameSprite: {fileID: 21300000, guid: 48bc81d1d342b5a42a566670d854bed9, type: 3}
-    m_FramesAfterLastSprite: 2
+    m_FramesAfterLastSprite: 3
   - m_FrameSprite: {fileID: 21300000, guid: 58f1cfa788f26b3458cfef7aa85f9846, type: 3}
-    m_FramesAfterLastSprite: 2
-  m_LastFrameDuration: 2
+    m_FramesAfterLastSprite: 3
+  m_LastFrameDuration: 3
