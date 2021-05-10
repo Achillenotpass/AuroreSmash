@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/PlayTestsMaps/TestFirstScene.unity
     guid: 38f4df22cd4849f4bb04ada823b42a72
+  - enabled: 1
+    path: Assets/Scenes/Tests/AchilleInputTests.unity
+    guid: b2052c924659d2544bd93b015134db78
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 70aa63e3d773ef2428c7e98ca16a18ae, type: 2}
