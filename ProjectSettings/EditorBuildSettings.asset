@@ -8,8 +8,17 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tests/Achille.unity
     guid: 349122e5b8aa4e844810f2f8a45dcdd0
+  - enabled: 1
+    path: Assets/Scenes/PlayTestsMaps/ControllerPlatformer.unity
+    guid: b3e5e47635daa504081e486adc272b75
+  - enabled: 0
+    path: Assets/Scenes/PlayTestsMaps/Shield.unity
+    guid: 8bedc6740c2e44c4b848849efb1351fc
+  - enabled: 0
+    path: Assets/Scenes/PlayTestsMaps/TestFirstScene.unity
+    guid: 38f4df22cd4849f4bb04ada823b42a72
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 70aa63e3d773ef2428c7e98ca16a18ae, type: 2}

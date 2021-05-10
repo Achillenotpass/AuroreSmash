@@ -234,9 +234,9 @@ GameObject:
   - component: {fileID: 471444638}
   - component: {fileID: 471444639}
   - component: {fileID: 471444640}
-  - component: {fileID: 471444637}
   - component: {fileID: 471444631}
   - component: {fileID: 471444641}
+  - component: {fileID: 471444637}
   m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -251,15 +251,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471444630}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2ecf9dd0bab80945bbe510f159cbc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
-  m_TestAngle: 50
-  m_TestPower: 50
-  m_TimerEjection: 0.5
+  m_TestAngle: 90
+  m_TestPower: 25
+  m_MaxTimerEjection: 1
 --- !u!143 &471444632
 CharacterController:
   m_ObjectHideFlags: 0
@@ -450,7 +450,19 @@ MonoBehaviour:
     m_ActionId: ef2c27a2-0fda-446c-adb3-f1c5825b3fd6
     m_ActionName: Player/Tilts
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 471444631}
+        m_TargetAssemblyTypeName: CharacterEjection, Assembly-CSharp
+        m_MethodName: Ejection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 87271e31-7c6b-46cc-80d1-db5dc072fd23
     m_ActionName: Player/Grab
   m_NeverAutoSwitchControlSchemes: 0
@@ -654,10 +666,19 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.5
+      time: 1.5
+      value: 0.3
+      inSlope: -0.98333323
+      outSlope: -0.98333323
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.7
       value: 0
-      inSlope: -2
-      outSlope: -2
+      inSlope: -1.4999998
+      outSlope: -1.4999998
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -735,7 +756,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471444630}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4861933b989ed8f48b4e680e95153648, type: 3}
   m_Name: 

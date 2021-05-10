@@ -23,6 +23,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     [SerializeField]
     private int m_TestPower = 0;
     [SerializeField]
+    private float m_MaxTimerEjection = 1;
     private float m_TimerEjection = 1;
 
     private bool m_IsEjected = false;
@@ -30,6 +31,11 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     private Health m_Health = null;
 
     private CharacterMovement m_CharacterMovement = null;
+
+    private Vector3 m_BasePosition = Vector3.zero;
+
+    private Vector3 m_ActualEjectionPoint = Vector3.zero;
+    private Vector3 m_PreviousEjectionPoint = Vector3.zero;
     #endregion
 
     #region Awake/Start
@@ -48,16 +54,33 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     public void CustomUpdate(float p_DeltaTime)
     {
         EjectionTime();
+        CalculateEjection();
     }
     #endregion
 
 
-    public void CalculateEjection(InputAction.CallbackContext p_Context/*float p_EjectionPower, float p_EjectionAngle*/)
+    public void Ejection(InputAction.CallbackContext p_Context/*float p_EjectionPower, float p_EjectionAngle*/)
     {
-        m_CharacterMovement.PlayerEjectionDirection = new Vector3(Mathf.Cos(m_TestAngle * Mathf.Deg2Rad), Mathf.Sin(m_TestAngle * Mathf.Deg2Rad), 0) * m_TestPower;
+        m_BasePosition = transform.position;
+        //m_CharacterMovement.PlayerEjectionDirection = new Vector3(Mathf.Cos(m_TestAngle * Mathf.Deg2Rad), Mathf.Sin(m_TestAngle * Mathf.Deg2Rad), 0) * m_TestPower;
         m_IsEjected = true;
-        m_TimerEjection = 0.1f * m_TestPower * (100.1f - (100 * (m_Health.CurrentHealth / m_Health.MaxHealth)));
+        m_TimerEjection = 1;
         Debug.Log(m_TimerEjection);
+    }
+
+    private void CalculateEjection()
+    {
+        if (m_IsEjected)
+        {
+            m_ActualEjectionPoint = new Vector3(m_TestPower * (m_Health.CurrentHealth / m_Health.MaxHealth * 100) * Mathf.Cos(m_TestAngle * Mathf.Deg2Rad) * m_TimerEjection, m_TestPower * Mathf.Sin(m_TestAngle * Mathf.Deg2Rad) * m_TimerEjection, 0);
+            if (m_PreviousEjectionPoint != Vector3.zero)
+                m_CharacterMovement.PlayerEjectionDirection += m_ActualEjectionPoint - m_PreviousEjectionPoint;
+            else
+                m_CharacterMovement.PlayerEjectionDirection = m_ActualEjectionPoint;
+            m_PreviousEjectionPoint = m_ActualEjectionPoint;
+           //m_CharacterMovement.PlayerEjectionDirection = m_ActualEjectionPoint;
+
+        }
     }
 
     public void EjectionTime()
