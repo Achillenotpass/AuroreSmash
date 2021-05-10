@@ -96,49 +96,43 @@ public class Shield : MonoBehaviour, IUpdateUser
     }
     public void ShieldInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
         {
-            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+            if (p_Context.started)
             {
-                if (p_Context.started)
-                {
-                    m_CharacterInfos.CurrentCharacterState = CharacterState.Shielding;
-                    m_CurrentShieldState = ShieldState.LagBefore;
-                    m_NewShieldState = ShieldState.LagBefore;
-                }
+                m_CharacterInfos.CurrentCharacterState = CharacterState.Shielding;
+                m_CurrentShieldState = ShieldState.LagBefore;
+                m_NewShieldState = ShieldState.LagBefore;
             }
-            if (p_Context.canceled)
+        }
+        if (p_Context.canceled)
+        {
+            switch (m_CurrentShieldState)
             {
-                switch (m_CurrentShieldState)
-                {
-                    case ShieldState.Omni:
-                        m_NewShieldState = ShieldState.LagAfterOmni;
-                        m_CurrentShieldState = ShieldState.LagAfterOmni;
-                        SetShieldRotation(ShieldState.NoShield);
-                        m_CurrentFrameCount = 0;
-                        break;
-                    default:
-                        m_NewShieldState = ShieldState.LagAfter;
-                        m_CurrentShieldState = ShieldState.LagAfter;
-                        SetShieldRotation(ShieldState.NoShield);
-                        m_CurrentFrameCount = 0;
-                        break;
-                }
+                case ShieldState.Omni:
+                    m_NewShieldState = ShieldState.LagAfterOmni;
+                    m_CurrentShieldState = ShieldState.LagAfterOmni;
+                    SetShieldRotation(ShieldState.NoShield);
+                    m_CurrentFrameCount = 0;
+                    break;
+                default:
+                    m_NewShieldState = ShieldState.LagAfter;
+                    m_CurrentShieldState = ShieldState.LagAfter;
+                    SetShieldRotation(ShieldState.NoShield);
+                    m_CurrentFrameCount = 0;
+                    break;
             }
         }
     }
     public void ShieldDirectionInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+        if (p_Context.ReadValue<Vector2>().magnitude > 0.2f)
         {
-            if (p_Context.ReadValue<Vector2>().magnitude > 0.2f)
-            {
-                m_CurrentShieldDirection = p_Context.ReadValue<Vector2>();
-            }
-            else
-            {
-                m_CurrentShieldDirection = Vector2.zero;
-            }
+            m_CurrentShieldDirection = p_Context.ReadValue<Vector2>();
+        }
+        else
+        {
+            m_CurrentShieldDirection = Vector2.zero;
         }
     }
     private ShieldState GetShieldState(Vector2 p_ShieldInputDirection)
