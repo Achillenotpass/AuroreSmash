@@ -627,9 +627,15 @@ MonoBehaviour:
   - m_AnimationName: BackAir
     m_Animation: {fileID: 11400000, guid: c635cec33c2027a4e8477d9865e36ed4, type: 2}
   - m_AnimationName: UpAir
-    m_Animation: {fileID: 11400000, guid: 633aca9d181ad584d90a0ca836386930, type: 2}
+    m_Animation: {fileID: 11400000, guid: 797e54efb4143e14bb38c4d2dc542bce, type: 2}
   - m_AnimationName: DownAir
     m_Animation: {fileID: 11400000, guid: bac81ec84c8b81548ac726600c64d6ce, type: 2}
+  - m_AnimationName: Move
+    m_Animation: {fileID: 11400000, guid: d979c99b947532a4b9f91fcfde026623, type: 2}
+  - m_AnimationName: Jump
+    m_Animation: {fileID: 11400000, guid: 870f04baacf4ad440b3753a06622df1e, type: 2}
+  - m_AnimationName: Grab
+    m_Animation: {fileID: 11400000, guid: d18eca96065f4584c8970088b6923f7b, type: 2}
 --- !u!1 &6393736191472783979
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,6 +780,7 @@ GameObject:
   - component: {fileID: 9200278381566710897}
   - component: {fileID: 9200278381566710896}
   - component: {fileID: 9200278381566710911}
+  - component: {fileID: 5123021735009848120}
   m_Layer: 10
   m_Name: YgNis
   m_TagString: Untagged
@@ -1092,13 +1099,37 @@ MonoBehaviour:
   m_MovementEvents:
     m_EventStartMovement:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 6393736191229132231}
+          m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+          m_MethodName: ChangeAnimationTo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Move
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventMovement:
       m_PersistentCalls:
         m_Calls: []
     m_EventEndMovement:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 6393736191229132231}
+          m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+          m_MethodName: ChangeAnimationTo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Idle
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventBeginGroundJump:
       m_PersistentCalls:
         m_Calls: []
@@ -1486,6 +1517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxHealth: 100
+  m_CurrentHealth: 100
 --- !u!114 &9200278381566710911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1510,3 +1542,21 @@ MonoBehaviour:
   - {fileID: 6393736191472783979}
   - {fileID: 6393736190637958370}
   - {fileID: 6393736190970847042}
+--- !u!114 &5123021735009848120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200278381566710910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac14d87953c537e4aa64893281138f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
+  m_PreLag: 10
+  m_GrabDuration: 10
+  m_GrabHoldDuration: 120
+  m_PostLag: 10
+  m_FailedLag: 10
