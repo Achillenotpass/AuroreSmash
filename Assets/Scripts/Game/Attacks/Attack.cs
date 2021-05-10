@@ -48,49 +48,40 @@ public class Attack : MonoBehaviour, IUpdateUser
     #region Input
     public void AttackInputPressed(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
         {
-            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle 
-                || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving
-                || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
+            //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
+            if (p_Context.canceled)
             {
-                //Le joueur doit relâcher la touche d'attaque avant de pouvoir s'en servir de nouveau
-                if (p_Context.canceled)
-                {
-                    m_LastAttack = null;
-                }
-                else if (p_Context.started)
-                {
-                    CheckAttackInput(m_AimDirection.normalized);
-                }
+                m_LastAttack = null;
+            }
+            else if (p_Context.started)
+            {
+                CheckAttackInput(m_AimDirection.normalized);
             }
         }
     }
     public void RightJoystickUsed(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
         {
-            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle
-                || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving
-                || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
+            if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
             {
-                if (p_Context.ReadValue<Vector2>().magnitude >= m_JoystickDeadZone)
-                {
-                    CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
-                }
-                else
-                {
-                    m_LastAttack = null;
-                }
+                CheckAttackInput(p_Context.ReadValue<Vector2>().normalized);
+            }
+            else
+            {
+                m_LastAttack = null;
             }
         }
     }
     public void LeftJoystickUsed(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
-        {
-            m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
-        }
+        m_AimDirection = p_Context.ReadValue<Vector2>().normalized;
     }
     #endregion
 
