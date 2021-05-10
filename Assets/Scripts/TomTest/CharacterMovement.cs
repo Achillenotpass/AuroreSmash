@@ -158,6 +158,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
+        Debug.Log(m_PlayerDesiredDirection);
     }
     #endregion
 
@@ -166,8 +167,9 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
         if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID
-            && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+            && ( m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle ))
         {
+            Debug.Log("aaa");
             if (p_Context.started)
             {
                 if (m_IsGrounded)
@@ -284,8 +286,11 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void ZeroCharacterSpeed()
     {
-        m_CharacterSpeed = 0;
-        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        {
+            m_CharacterSpeed = 0;
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+        }
     }
 
     public void PlayerAirDownMovement(InputAction.CallbackContext p_Context)
@@ -301,6 +306,11 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_CharacterGravity *= 1.1f;
             }
         }
+    }
+
+    public void ZeroMovementInput()
+    {
+        m_PlayerDesiredDirection = Vector3.zero;
     }
     #endregion
     #region Orientation
@@ -371,7 +381,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         if (m_IsGroundJumping)
         {
             if (m_TimerGroundJump <= m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time
-                && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+                && ( m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle ))
             {
                 m_MovementEvents.m_EventJump.Invoke();
                 m_CharacterController.enabled = false;
@@ -395,7 +405,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         if (m_IsAirJumping)
         {
             if (m_TimerAirJump <= m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time
-                && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+                && ( m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle ))
             {
                 m_MovementEvents.m_EventJump.Invoke();
                 m_CharacterController.enabled = false;
@@ -444,6 +454,20 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         get { return m_PlayerEjectionDirection; }
         set { m_PlayerEjectionDirection = value; }
+    }
+
+    public bool EndGroundVelocityInverseCheck
+    {
+        get { return m_EndGroundVelocityInverseCheck; }
+
+        set { m_EndGroundVelocityInverseCheck = value; }
+    }
+
+    public bool EndAirVelocityInverseCheck
+    {
+        get { return m_EndAirVelocityInverseCheck; }
+
+        set { m_EndAirVelocityInverseCheck = value; }
     }
     #endregion
 }
