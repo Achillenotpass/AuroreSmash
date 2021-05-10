@@ -40,6 +40,8 @@ public class Grab : MonoBehaviour, IUpdateUser
     [SerializeField]
     private int m_GrabHoldDuration = 120;
     [SerializeField]
+    private int m_ThrowAttackFrame = 0;
+    [SerializeField]
     private int m_ThrowDuration = 10;
     [SerializeField]
     private int m_FailedLag = 10;
@@ -145,24 +147,31 @@ public class Grab : MonoBehaviour, IUpdateUser
     }
     public void ThrowInput(InputAction.CallbackContext p_Context)
     {
-        if (m_Target != null)
+        if (m_CurrentGrabState == GrabState.Holding)
         {
             Vector2 l_ThrowDirection = p_Context.ReadValue<Vector2>();
             if (l_ThrowDirection.magnitude >= 0.2f)
             {
-                SO_HitBox l_HitBox = new SO_HitBox();
+                m_CurrentFrameCount = 0;
 
-                m_Target.GetComponent<Health>().TakeDamages(l_HitBox);
-                m_Target = null;
+                Invoke(nameof(ThrowAttack), (float)m_ThrowAttackFrame / 60.0f);
+
                 m_CurrentGrabState = GrabState.PostLag;
                 m_ThrowEnemy.Invoke();
-                m_CurrentFrameCount = 0;
+
             }
         }
     }
     #endregion
 
     #region Functions
+    private void ThrowAttack()
+    {
+        SO_HitBox l_HitBox = new SO_HitBox();
+
+        m_Target.GetComponent<Health>().TakeDamages(l_HitBox);
+        m_Target = null;
+    }
     private void TryGrab()
     {
         Collider[] l_HitObjects =  Physics.OverlapSphere(transform.position + m_HitboxRelativePosition, m_HitboxRadius, m_PlayerInfos.AttackableLayers);
@@ -180,6 +189,8 @@ public class Grab : MonoBehaviour, IUpdateUser
                         m_Target = l_HitCharacter;
 
                         m_GrabEnemy.Invoke();
+
+                        m_CurrentGrabState = GrabState.Holding;
                     }
                 }
             }
@@ -194,5 +205,6 @@ public class Grab : MonoBehaviour, IUpdateUser
         Grabbing,
         PostLag,
         FailedLag,
+        Holding,
     }
 }
