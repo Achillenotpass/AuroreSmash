@@ -297,6 +297,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
         {
             m_CharacterSpeed = 0;
+            m_PlayerDesiredDirection = Vector3.zero;
             m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
         }
     }
