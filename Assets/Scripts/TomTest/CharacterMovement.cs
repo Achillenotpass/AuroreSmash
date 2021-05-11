@@ -250,12 +250,15 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             ZeroCharacterSpeed();
             m_EndGroundVelocityTimer = 0;
         }
-        if (m_EndGroundVelocityCheck)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
         {
-            m_StartVelocityCheck = false;
-            m_EndGroundVelocityTimer += p_DeltaTime;
-            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndGroundVelocity.Evaluate(m_EndGroundVelocityTimer) * Mathf.Abs(m_PastDirection.x);
-            m_PlayerDesiredDirection = m_PastDirection;
+            if (m_EndGroundVelocityCheck)
+            {
+                m_StartVelocityCheck = false;
+                m_EndGroundVelocityTimer += p_DeltaTime;
+                m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndGroundVelocity.Evaluate(m_EndGroundVelocityTimer) * Mathf.Abs(m_PastDirection.x);
+                m_PlayerDesiredDirection = m_PastDirection;
+            }
         }
     }
 
@@ -277,12 +280,15 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             ZeroCharacterSpeed();
             m_EndAirVelocityTimer = 0;
         }
-        if (m_EndAirVelocityCheck)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
         {
-            m_StartVelocityCheck = false;
-            m_EndAirVelocityTimer += p_DeltaTime;
-            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
-            m_PlayerDesiredDirection = m_PastDirection;
+            if (m_EndAirVelocityCheck)
+            {
+                m_StartVelocityCheck = false;
+                m_EndAirVelocityTimer += p_DeltaTime;
+                m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
+                m_PlayerDesiredDirection = m_PastDirection;
+            }
         }
     }
 
