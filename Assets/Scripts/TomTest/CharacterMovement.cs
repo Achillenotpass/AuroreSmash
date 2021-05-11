@@ -166,8 +166,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Movement
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID
-            && ( m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle ))
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
             Debug.Log("aaa");
             if (p_Context.started)
@@ -221,28 +220,28 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void StartGainVelocity(float p_DeltaTime)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+        if (m_StartVelocityTimer >= m_CharacterStartVelocity.keys[m_CharacterStartVelocity.keys.Length - 1].time)
         {
-            if (m_StartVelocityTimer >= m_CharacterStartVelocity.keys[m_CharacterStartVelocity.keys.Length - 1].time)
-            {
-                m_StartVelocityCheck = false;
-                m_StartVelocityTimer = 0;
-            }
-            if (m_StartVelocityCheck)
-            {
-                m_StartVelocityTimer += p_DeltaTime;
-                m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterStartVelocity.Evaluate(m_StartVelocityTimer);
-            }
+            m_StartVelocityCheck = false;
+            m_StartVelocityTimer = 0;
+        }
+        if (m_StartVelocityCheck)
+        {
+            m_StartVelocityTimer += p_DeltaTime;
+            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterStartVelocity.Evaluate(m_StartVelocityTimer);
         }
     }
 
     private void EndGroundLossVelocity(float p_DeltaTime)
     {
-        if (m_CharacterSpeed <= 0)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
         {
-            ZeroCharacterSpeed();
-            m_EndGroundVelocityCheck = false;
-            m_EndGroundVelocityTimer = 0;
+            if (m_CharacterSpeed <= 0)
+            {
+                ZeroCharacterSpeed();
+                m_EndGroundVelocityCheck = false;
+                m_EndGroundVelocityTimer = 0;
+            }
         }
         if (m_EndGroundVelocityInverseCheck)
         {
@@ -262,11 +261,14 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void EndAirLossVelocity(float p_DeltaTime)
     {
-        if (m_CharacterSpeed <= 0)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
         {
-            ZeroCharacterSpeed();
-            m_EndAirVelocityCheck = false;
-            m_EndAirVelocityTimer = 0;
+            if (m_CharacterSpeed <= 0)
+            {
+                ZeroCharacterSpeed();
+                m_EndAirVelocityCheck = false;
+                m_EndAirVelocityTimer = 0;
+            }
         }
         if (m_EndAirVelocityInverseCheck)
         {
@@ -297,10 +299,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
-            if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID
-                && p_Context.performed
-                && !m_IsAirJumping && !m_IsGroundJumping
-                && p_Context.ReadValue<Vector2>().y < -0.8f)
+            if (p_Context.performed && !m_IsAirJumping && !m_IsGroundJumping && p_Context.ReadValue<Vector2>().y < -0.8f)
             {
                 m_MovementEvents.m_EventJumpDownMovement.Invoke();
                 m_CharacterGravity *= 1.1f;
@@ -318,8 +317,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
-            if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID &&
-                p_Context.performed
+            if (p_Context.performed
                 && p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
             {
                 PlayerOrientation(p_Context.ReadValue<Vector2>().x);
@@ -342,34 +340,31 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
-            if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
+            m_EndAirVelocityCheck = false;
+            m_EndGroundVelocityCheck = false;
+            if (m_IsGrounded)
             {
-                m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
-                m_EndAirVelocityCheck = false;
-                m_EndGroundVelocityCheck = false;
-                if (m_IsGrounded)
+                if (p_Context.started)
+                {
+                    m_MovementEvents.m_EventBeginGroundJump.Invoke();
+                    m_JumpMark = m_PlayerGroundCheck.position;
+                    m_IsGroundJumping = true;
+                    m_TimerGroundJump = 0;
+                }
+            }
+            else
+            {
+                if (m_CharacterAirJump > 0)
                 {
                     if (p_Context.started)
                     {
-                        m_MovementEvents.m_EventBeginGroundJump.Invoke();
+                        m_MovementEvents.m_EventBeginAirJump.Invoke();
+                        m_CharacterAirJump -= 1;
                         m_JumpMark = m_PlayerGroundCheck.position;
-                        m_IsGroundJumping = true;
-                        m_TimerGroundJump = 0;
-                    }
-                }
-                else
-                {
-                    if (m_CharacterAirJump > 0)
-                    {
-                        if (p_Context.started)
-                        {
-                            m_MovementEvents.m_EventBeginAirJump.Invoke();
-                            m_CharacterAirJump -= 1;
-                            m_JumpMark = m_PlayerGroundCheck.position;
-                            m_IsAirJumping = true;
-                            m_TimerAirJump = 0;
-                            m_IsGroundJumping = false;
-                        }
+                        m_IsAirJumping = true;
+                        m_TimerAirJump = 0;
+                        m_IsGroundJumping = false;
                     }
                 }
             }
