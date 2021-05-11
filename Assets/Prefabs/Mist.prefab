@@ -214,6 +214,18 @@ MonoBehaviour:
     m_Animation: {fileID: 11400000, guid: c2df1855b04c0c542a06ff4bf6ae39e7, type: 2}
   - m_AnimationName: DownAir
     m_Animation: {fileID: 11400000, guid: afa63c57e8589e149b0494b85473f18f, type: 2}
+  - m_AnimationName: Grab
+    m_Animation: {fileID: 11400000, guid: 3db5cbf36d669914783cf537f4020f15, type: 2}
+  - m_AnimationName: Throw
+    m_Animation: {fileID: 11400000, guid: 3e37022eb195856479862af639c54c52, type: 2}
+  - m_AnimationName: Move
+    m_Animation: {fileID: 11400000, guid: 5361619d10a319f4c8190e828f98687d, type: 2}
+  - m_AnimationName: GroundJump
+    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
+  - m_AnimationName: AirJump
+    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
+  - m_AnimationName: Shield
+    m_Animation: {fileID: 11400000, guid: 227fbc3b3e6f84f4394db4afcb56217b, type: 2}
 --- !u!1 &4808374153565198129
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,13 +937,13 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.47
-      value: 3.8
-      inSlope: -6.936493
-      outSlope: -6.936493
+      time: 0.5510925
+      value: 3.78298
+      inSlope: -2.0068805
+      outSlope: -2.0068805
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.43784812
+      inWeight: 0.16959499
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1125,16 +1137,52 @@ MonoBehaviour:
           m_CallState: 2
     m_EventBeginGroundJump:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4808374153321281693}
+          m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+          m_MethodName: ChangeAnimationTo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: GroundJump
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventBeginAirJump:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4808374153321281693}
+          m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+          m_MethodName: ChangeAnimationTo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: AirJump
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventJump:
       m_PersistentCalls:
         m_Calls: []
     m_EventEndJump:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4808374153321281693}
+          m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+          m_MethodName: ChangeAnimationTo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Idle
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventJumpDownMovement:
       m_PersistentCalls:
         m_Calls: []
@@ -1549,9 +1597,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
   m_DamageReduction: 80
-  m_LagBefore: 1
-  m_LagAfter: 1
-  m_LagAfterOmni: 1
+  m_LagBefore: 30
+  m_LagAfter: 10
+  m_LagAfterOmni: 30
   m_ShieldPositions:
   - {fileID: 4808374155164885801}
   - {fileID: 4808374153303659193}
@@ -1572,23 +1620,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
-  m_HitboxRelativePosition: {x: 0, y: 0, z: 0}
-  m_HitboxRadius: 1
-  m_PreLag: 10
-  m_GrabDuration: 10
-  m_GrabHoldDuration: 10
-  m_ThrowAttackFrame: 0
-  m_ThrowDuration: 10
-  m_FailedLag: 10
+  m_HitboxRelativePosition: {x: 0.6, y: 0.35, z: 0}
+  m_HitboxRadius: 0.7
+  m_PreLag: 3
+  m_GrabDuration: 9
+  m_GrabHoldDuration: 120
+  m_ThrowAttackFrame: 10
+  m_ThrowDuration: 30
+  m_FailedLag: 20
   m_StartGrabEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4808374153321281693}
+        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+        m_MethodName: ChangeAnimationTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Grab
+          m_BoolArgument: 0
+        m_CallState: 2
   m_GrabEnemy:
     m_PersistentCalls:
       m_Calls: []
   m_ThrowEnemy:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4808374153321281693}
+        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+        m_MethodName: ChangeAnimationTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Throw
+          m_BoolArgument: 0
+        m_CallState: 2
   m_EndGrab:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4808374153321281693}
+        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+        m_MethodName: ChangeAnimationTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Idle
+          m_BoolArgument: 0
+        m_CallState: 2
