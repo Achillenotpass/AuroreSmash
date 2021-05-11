@@ -66,6 +66,7 @@ public class Grab : MonoBehaviour, IUpdateUser
     }
     public void CustomUpdate(float p_DeltaTime)
     {
+        Debug.Log(m_CharacterInfos.CurrentCharacterState);
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Grabbing)
         {
             if (m_Target == null)

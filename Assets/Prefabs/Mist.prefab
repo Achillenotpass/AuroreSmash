@@ -863,7 +863,6 @@ MonoBehaviour:
   m_AttackableLayers:
     serializedVersion: 2
     m_Bits: 2048
-  m_DeviceID: -1
 --- !u!114 &7326282991860863279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1573,8 +1572,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
+  m_HitboxRelativePosition: {x: 0, y: 0, z: 0}
+  m_HitboxRadius: 1
   m_PreLag: 10
   m_GrabDuration: 10
   m_GrabHoldDuration: 10
-  m_PostLag: 10
+  m_ThrowAttackFrame: 0
+  m_ThrowDuration: 10
   m_FailedLag: 10
+  m_StartGrabEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_GrabEnemy:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ThrowEnemy:
+    m_PersistentCalls:
+      m_Calls: []
+  m_EndGrab:
+    m_PersistentCalls:
+      m_Calls: []

@@ -87,7 +87,6 @@ public class Shield : MonoBehaviour, IUpdateUser
         {
             m_NewShieldState = ShieldState.NoShield;
         }
-
         if (m_CurrentShieldState != m_NewShieldState)
         {
             m_CurrentShieldState = m_NewShieldState;
@@ -96,31 +95,34 @@ public class Shield : MonoBehaviour, IUpdateUser
     }
     public void ShieldInput(InputAction.CallbackContext p_Context)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        if (p_Context.ReadValueAsButton())
         {
-            if (p_Context.started)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             {
                 m_CharacterInfos.CurrentCharacterState = CharacterState.Shielding;
                 m_CurrentShieldState = ShieldState.LagBefore;
                 m_NewShieldState = ShieldState.LagBefore;
             }
         }
-        if (p_Context.canceled)
+        else
         {
-            switch (m_CurrentShieldState)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Shielding)
             {
-                case ShieldState.Omni:
-                    m_NewShieldState = ShieldState.LagAfterOmni;
-                    m_CurrentShieldState = ShieldState.LagAfterOmni;
-                    SetShieldRotation(ShieldState.NoShield);
-                    m_CurrentFrameCount = 0;
-                    break;
-                default:
-                    m_NewShieldState = ShieldState.LagAfter;
-                    m_CurrentShieldState = ShieldState.LagAfter;
-                    SetShieldRotation(ShieldState.NoShield);
-                    m_CurrentFrameCount = 0;
-                    break;
+                switch (m_CurrentShieldState)
+                {
+                    case ShieldState.Omni:
+                        m_NewShieldState = ShieldState.LagAfterOmni;
+                        m_CurrentShieldState = ShieldState.LagAfterOmni;
+                        SetShieldRotation(ShieldState.NoShield);
+                        m_CurrentFrameCount = 0;
+                        break;
+                    default:
+                        m_NewShieldState = ShieldState.LagAfter;
+                        m_CurrentShieldState = ShieldState.LagAfter;
+                        SetShieldRotation(ShieldState.NoShield);
+                        m_CurrentFrameCount = 0;
+                        break;
+                }
             }
         }
     }
