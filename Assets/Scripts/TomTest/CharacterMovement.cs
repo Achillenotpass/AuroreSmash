@@ -119,6 +119,23 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         m_CharacterOrientation = m_CharacterView.transform.localScale.x;
         m_IsGrounded = Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask);
+
+
+        if (m_IsGrounded && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving && !(m_IsAirJumping || m_IsGroundJumping))
+        {
+            m_MovementEvents.m_StartMoveAnimation.Invoke();
+        }
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+        {
+            m_MovementEvents.m_StartGroundIdleAnimation.Invoke();
+        }
+        if (!m_IsGrounded && !(m_IsAirJumping || m_IsGroundJumping)
+            && (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving))
+        {
+            m_MovementEvents.m_StartAirIdleAnimation.Invoke();
+        }
+
+
         if (m_IsGrounded)
         {
             m_CharacterAirJump = m_CharacterMaxAirJump;
@@ -501,5 +518,9 @@ public class MovementEvents
 
     [SerializeField]
     public UnityEvent m_EventChangeOrientation;
+
+    public UnityEvent m_StartMoveAnimation;
+    public UnityEvent m_StartGroundIdleAnimation;
+    public UnityEvent m_StartAirIdleAnimation;
 }
 #endregion

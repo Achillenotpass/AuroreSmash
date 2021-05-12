@@ -1110,19 +1110,7 @@ MonoBehaviour:
         m_Calls: []
     m_EventEndMovement:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4808374153321281693}
-          m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
-          m_MethodName: ChangeAnimationTo
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Idle
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     m_EventBeginGroundJump:
       m_PersistentCalls:
         m_Calls:
@@ -1158,19 +1146,7 @@ MonoBehaviour:
         m_Calls: []
     m_EventEndJump:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4808374153321281693}
-          m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
-          m_MethodName: ChangeAnimationTo
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Idle
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     m_EventJumpDownMovement:
       m_PersistentCalls:
         m_Calls: []
@@ -1190,6 +1166,36 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Move
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_StartGroundIdleAnimation:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4808374153321281693}
+          m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+          m_MethodName: ChangeAnimationTo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Idle
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_StartAirIdleAnimation:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4808374153321281693}
+          m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+          m_MethodName: ChangeAnimationTo
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Idle
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!114 &7326282991860863278
