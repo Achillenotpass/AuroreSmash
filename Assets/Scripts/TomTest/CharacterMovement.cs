@@ -327,7 +327,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             if (p_Context.performed
                 && p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
             {
-                PlayerOrientation(p_Context.ReadValue<Vector2>().x);
+                if (m_IsGrounded)
+                {
+                    PlayerOrientation(p_Context.ReadValue<Vector2>().x);
+                }
             }
         }
     }
