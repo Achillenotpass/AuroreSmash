@@ -745,6 +745,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mist
       objectReference: {fileID: 0}
+    - target: {fileID: 7326282991860863268, guid: a54c1ec3efd3d2e458ee52f601622c08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7326282991860863283, guid: a54c1ec3efd3d2e458ee52f601622c08, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1117,7 +1121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b9c2d84e7eef5f468619c0f8c6752a5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.7
+      value: -8.38
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b9c2d84e7eef5f468619c0f8c6752a5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1125,7 +1129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b9c2d84e7eef5f468619c0f8c6752a5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.3
+      value: 1.18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b9c2d84e7eef5f468619c0f8c6752a5, type: 3}
       propertyPath: m_LocalRotation.w
