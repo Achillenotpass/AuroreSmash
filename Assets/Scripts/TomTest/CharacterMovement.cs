@@ -117,6 +117,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Update
     public void CustomUpdate(float p_DeltaTime)
     {
+        Debug.Log(m_EndGroundVelocityCheck);
         m_CharacterOrientation = m_CharacterView.transform.localScale.x;
         m_IsGrounded = Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask);
         if (m_IsGrounded)
@@ -158,7 +159,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
-        Debug.Log(m_PlayerDesiredDirection);
     }
     #endregion
 
@@ -168,7 +168,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
         {
-            Debug.Log("aaa");
             if (p_Context.started)
             {
                 if (m_IsGrounded)
@@ -437,6 +436,13 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     public float CharacterOrientation
     {
         get { return m_CharacterOrientation; }
+    }
+
+    public Vector3 PlayerDesiredDirection
+    {
+        get { return m_PlayerDesiredDirection; }
+
+        set { m_PlayerDesiredDirection = value; }
     }
 
     public float EditableCharacterSpeed
