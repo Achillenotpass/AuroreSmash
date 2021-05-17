@@ -19,9 +19,9 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     #endregion
     #region Variables
     [SerializeField]
-    private int m_TestAngle = 0;
+    private float m_EjectionAngle = 0;
     [SerializeField]
-    private int m_TestPower = 0;
+    private float m_EjectionPower = 0;
     [SerializeField]
     private float m_MaxTimerEjection = 1;
     private float m_TimerEjection = 1;
@@ -57,17 +57,22 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     public void CustomUpdate(float p_DeltaTime)
     {
         EjectionTime();
-        Debug.Log(m_CharacterInfos.CurrentCharacterState);
         CalculateEjection();
     }
     #endregion
 
 
-    public void Ejection(InputAction.CallbackContext p_Context/*float p_EjectionPower, float p_EjectionAngle*/)
+    public void Ejection(float p_EjectionPower, float p_EjectionAngle)
     {
-        m_BasePosition = transform.position;
-        m_IsEjected = true;
-        m_TimerEjection = 1;
+        if (!m_IsEjected)
+        {
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
+            m_EjectionPower = p_EjectionPower;
+            m_EjectionAngle = p_EjectionAngle;
+            m_BasePosition = transform.position;
+            m_IsEjected = true;
+            m_TimerEjection = m_MaxTimerEjection + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 400f);
+        }
     }
 
     private void CalculateEjection()
@@ -75,7 +80,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
         if (m_IsEjected)
         {
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
-            m_ActualEjectionPoint = new Vector3(m_TestPower /** (m_Health.CurrentHealth / m_Health.MaxHealth * 100)*/ * Mathf.Cos(m_TestAngle * Mathf.Deg2Rad) * m_TimerEjection, m_TestPower * Mathf.Sin(m_TestAngle * Mathf.Deg2Rad) * m_TimerEjection, 0);
+            m_ActualEjectionPoint = new Vector3(m_EjectionPower * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Cos(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection, m_EjectionPower * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Sin(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection, 0);
             if (m_PreviousEjectionPoint != Vector3.zero)
                 m_CharacterMovement.PlayerEjectionDirection += m_ActualEjectionPoint - m_PreviousEjectionPoint;
             else
@@ -97,6 +102,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
                 m_CharacterMovement.PlayerEjectionDirection = Vector3.zero;
                 m_IsEjected = false;
                 m_CharacterMovement.EditableCharacterSpeed = 1;
+                m_CharacterMovement.PlayerDesiredDirection = Vector3.zero;
             }
             m_TimerEjection -= Time.deltaTime;
         }
