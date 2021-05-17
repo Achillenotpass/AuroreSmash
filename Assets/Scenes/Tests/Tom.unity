@@ -237,6 +237,9 @@ GameObject:
   - component: {fileID: 471444631}
   - component: {fileID: 471444641}
   - component: {fileID: 471444637}
+  - component: {fileID: 471444644}
+  - component: {fileID: 471444643}
+  - component: {fileID: 471444642}
   m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -257,8 +260,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
-  m_TestAngle: 90
-  m_TestPower: 25
+  m_TestAngle: 70
+  m_TestPower: 20
   m_MaxTimerEjection: 1
 --- !u!143 &471444632
 CharacterController:
@@ -348,7 +351,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471444630}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.4222202, y: 1.5499997, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5499997, z: 0}
   m_LocalScale: {x: 1, y: 1.8, z: 0.5}
   m_Children:
   - {fileID: 2120882856}
@@ -762,6 +765,113 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 100
   m_CurrentHealth: 100
+--- !u!114 &471444642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471444630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac14d87953c537e4aa64893281138f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UpdateSettings: {fileID: 0}
+  m_HitboxRelativePosition: {x: 0, y: 0, z: 0}
+  m_HitboxRadius: 0
+  m_PreLag: 10
+  m_GrabDuration: 10
+  m_GrabHoldDuration: 120
+  m_ThrowAttackFrame: 0
+  m_ThrowDuration: 10
+  m_FailedLag: 10
+  m_StartGrabEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_GrabEnemy:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ThrowEnemy:
+    m_PersistentCalls:
+      m_Calls: []
+  m_EndGrab:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &471444643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471444630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4471748e1ea43447b6a581dbed43741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UpdateSettings: {fileID: 0}
+  m_DamageReduction: 80
+  m_LagBefore: 1
+  m_LagAfter: 1
+  m_LagAfterOmni: 1
+  m_ShieldPositions: []
+--- !u!114 &471444644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471444630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa986e5e172a10640803a0b6aaab6382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UpdateSettings: {fileID: 0}
+  m_IsAerial: 0
+  m_JoystickDeadZone: 0.2
+  m_Attacks:
+    m_Jab: {fileID: 0}
+    m_SideTilt: {fileID: 0}
+    m_UpTilt: {fileID: 0}
+    m_DownTilt: {fileID: 0}
+    m_NeutralAir: {fileID: 0}
+    m_ForwardAir: {fileID: 0}
+    m_UpAir: {fileID: 0}
+    m_DownAir: {fileID: 0}
+    m_BackAir: {fileID: 0}
+  m_AttackEvents:
+    m_InterruptAttack:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartJab:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartSideTilt:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartUpTilt:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartDownTilt:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartNeutralAir:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartForwardAir:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartUpAir:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartDownAir:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartBackAir:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &486129801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,7 +1612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96cf6148ef2f2814fade6127d83facf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TimeScale: 1
+  m_TimeScale: 0
 --- !u!4 &973605634
 Transform:
   m_ObjectHideFlags: 0
