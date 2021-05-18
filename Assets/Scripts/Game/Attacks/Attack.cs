@@ -105,8 +105,6 @@ public class Attack : MonoBehaviour, IUpdateUser
 
             //On modifie la vitesse du personnage
             m_PlayerMovements.EditableCharacterSpeed = m_CurrentAttack.PlayerInfluenceOnSpeed.Evaluate(m_CurrentFrameCount);
-            //On empêche le joueur de se retourner pendant l'attaque
-            m_CharacterInfos.CurrentCharacterState = CharacterState.Attacking;
             //Si on dépasse le nombre de frame maximal de l'attaque (lag compris)
             if (m_CurrentFrameCount >= m_MaxFrameCount)
             {
@@ -324,6 +322,8 @@ public class Attack : MonoBehaviour, IUpdateUser
     //CALCUL DE LA DUREE MAX DE L'ATTAQUE
     public void SetMaxAttackDuration(SO_Attack p_AttackStats)
     {
+        //On passe le joueur en état d'attaque
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Attacking;
         foreach (SO_Hit l_Hit in p_AttackStats.Hits)
         {
             foreach (SO_HitBox l_HitBox in l_Hit.HitBoxes)

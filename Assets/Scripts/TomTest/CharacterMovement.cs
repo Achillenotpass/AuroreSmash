@@ -117,7 +117,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Update
     public void CustomUpdate(float p_DeltaTime)
     {
-        Debug.Log(m_EndGroundVelocityCheck);
         m_CharacterOrientation = m_CharacterView.transform.localScale.x;
         m_IsGrounded = Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask);
 

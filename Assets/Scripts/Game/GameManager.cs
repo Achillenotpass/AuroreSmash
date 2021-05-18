@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour, IUpdateUser
 {
@@ -18,58 +19,81 @@ public class GameManager : MonoBehaviour, IUpdateUser
         m_UpdateSettings.Unbind(this);
     }
     #endregion
+    #region Variables
+    //Users datas
+    private UsersManager m_UsersManager = null;
 
+    //Game datas
     private int m_PlayerCount = 2;
     public int PlayerCount { get { return m_PlayerCount; } }
     private List<PlayerInfos> m_PlayersAlive = new List<PlayerInfos>();
+    private List<Health> m_Characters = new List<Health>();
     [SerializeField]
     private float m_GameTimer = 60.0f;
     public float GameTimer { get { return m_GameTimer; } set { value = m_GameTimer; } }
     private float m_CurrentGameTimer = 60.0f;
     public float CurrentGameTimer { get { return m_CurrentGameTimer; } }
-    [SerializeField]
-    private UnityEvent m_LoseLifeEvent = null;
-    [SerializeField]
-    private UnityEvent m_EndGameEvent = null;
-    private List<Health> m_Characters = new List<Health>();
-    public void Register(Health p_Health)
-    {
-        m_Characters.Add(p_Health);
-    }
-    public void UnRegister(Health p_Health)
-    {
-        m_Characters.Remove(p_Health);
-    }
+    private EGameState m_GameState = EGameState.WaitingForStart;
     [SerializeField]
     private Vector2 m_MapCenterPosition = Vector2.zero;
     [SerializeField]
     private Vector2 m_MapSize = Vector2.one;
 
+    //Events
+    [SerializeField]
+    private UnityEvent m_LoseLifeEvent = null;
+    [SerializeField]
+    private UnityEvent m_EndGameEvent = null;
+    #endregion
 
+    #region Awake/Start/Update
+    private void Awake()
+    {
+        m_UsersManager = FindObjectOfType<UsersManager>();
+    }
     private void Start()
     {
-        m_CurrentGameTimer = GameTimer;
-
-        m_PlayersAlive = new List<PlayerInfos>(FindObjectsOfType<PlayerInfos>());
-        m_PlayerCount = m_PlayersAlive.Count;
-        m_Characters = new List<Health>(FindObjectsOfType<Health>());
-
-        if (m_PlayersAlive.Count != m_Characters.Count)
-        {
-            Debug.Log("Players and characters aren't in the same quantity");
-        }
-
+        SetupGame();
     }
     public void CustomUpdate(float p_DeltaTime)
     {
-        foreach (Health l_Health in m_Characters)
-        {
-            CheckEjection(l_Health);
-            CheckLives(l_Health);
-        }
+        if (m_GameState == EGameState.Running)
+            foreach (Health l_Health in m_Characters)
+            {
+                CheckEjection(l_Health);
+                CheckLives(l_Health);
+            }
         CheckEndGameLives();
 
         CheckTimer(p_DeltaTime);
+    }
+    #endregion
+
+    #region Functions
+    private void SetupGame()
+    {
+        foreach (UserInfos l_UserInfos in m_UsersManager.UsersInfos)
+        {
+            PlayerInfos l_SpawnedPLayer = SpawnPlayer(l_UserInfos);
+            m_PlayersAlive.Add(l_SpawnedPLayer);
+            m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
+        }
+
+        m_PlayerCount = m_PlayersAlive.Count;
+        StartGame();
+    }
+    private PlayerInfos SpawnPlayer(UserInfos p_UserInfos)
+    {
+        PlayerInput l_SpawnedPlayer = PlayerInput.Instantiate(p_UserInfos.UserCharacter.CharacterPrefab, -1, null, -1, p_UserInfos.UserInputDevice);
+        //Changer position du joueur
+        //Changer parent du joueur
+        return l_SpawnedPlayer.GetComponent<PlayerInfos>();
+    }
+    private void StartGame()
+    {
+        m_CurrentGameTimer = GameTimer;
+
+        m_GameState = EGameState.Running;
     }
     private void CheckEjection(Health p_Character)
     {
@@ -107,12 +131,24 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     private void EndGame(PlayerInfos p_WinnerPlayerInfo)
     {
+        m_GameState = EGameState.Ended;
         Debug.Log("Winning player is :" + p_WinnerPlayerInfo.PlayerName);
         m_EndGameEvent.Invoke();
     }
+    #endregion
+
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(new Vector3(m_MapCenterPosition.x, m_MapCenterPosition.y, 0), new Vector3(m_MapSize.x, m_MapSize.y, 0));
     }
+
+    private enum EGameState
+    {
+        WaitingForStart,
+        Running,
+        Paused,
+        Ended,
+    }
 }
+

@@ -872,6 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5512832e66e7fe4eb11459d2bd74a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerName: Naruto
   m_AttackableLayers:
     serializedVersion: 2
     m_Bits: 2048
@@ -1590,6 +1591,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4861933b989ed8f48b4e680e95153648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxLives: 3
+  m_CurrentLives: 3
   m_MaxHealth: 100
   m_CurrentHealth: 100
 --- !u!114 &7326282991860863269
