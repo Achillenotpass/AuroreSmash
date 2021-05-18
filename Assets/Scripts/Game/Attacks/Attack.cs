@@ -24,6 +24,7 @@ public class Attack : MonoBehaviour, IUpdateUser
     private int m_CurrentFrameCount = 0;
     private PlayerInfos m_PlayerInfos = null;
     private CharacterInfos m_CharacterInfos = null;
+    private CharacterEjection m_CharacterEjection = null;
     private int m_MaxFrameCount = 0;
     private Dictionary<SO_Hit, List<Health>> m_PlayersHit = new Dictionary<SO_Hit, List<Health>>();
     private SO_Attack m_CurrentAttack = null;
@@ -91,6 +92,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         m_PlayerInfos = GetComponent<PlayerInfos>();
         m_CharacterInfos = GetComponent<CharacterInfos>();
         m_PlayerMovements = GetComponent<CharacterMovement>();
+        m_CharacterEjection = GetComponent<CharacterEjection>();
     }
     public void CustomUpdate(float p_DeltaTime)
     {
@@ -459,6 +461,8 @@ public class Attack : MonoBehaviour, IUpdateUser
         p_PlayerHit.TakeDamages(p_HitBox);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
+        //On appelle la fonction apliquant l'éjection sur le joueur touché 
+        p_PlayerHit.gameObject.GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle);
     }
     public void ApplyDamagesShield(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
