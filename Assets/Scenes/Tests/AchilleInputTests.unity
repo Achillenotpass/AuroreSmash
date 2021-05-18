@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 1487432935}
   - component: {fileID: 1487432934}
   m_Layer: 0
-  m_Name: LifeLosux
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -816,6 +816,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff1867c67c927a48a83705e2b5db203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_LoseLifeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_EndGameEvent:
+    m_PersistentCalls:
+      m_Calls: []
   m_MapCenterPosition: {x: 0, y: 8}
   m_MapSize: {x: 20, y: 20}
 --- !u!4 &1487432935
@@ -937,6 +943,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4861933b989ed8f48b4e680e95153648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxLives: 3
+  m_CurrentLives: 3
   m_MaxHealth: 100
   m_CurrentHealth: 100
 --- !u!4 &2019519217

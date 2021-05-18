@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
     #region Variables
+    [SerializeField]
+    private int m_MaxLives = 3;
+    public int MaxLives { get { return m_MaxLives; } }
+    [SerializeField]
+    private int m_CurrentLives = 3;
+    public int CurrentLives { get { return m_CurrentLives; } set { m_CurrentLives = Mathf.Clamp(value, 0, m_MaxLives); } }
+
     [SerializeField]
     private float m_MaxHealth = 100.0f;
     [SerializeField]
@@ -19,6 +27,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         m_CurrentHealth = m_MaxHealth;
+        m_CurrentLives = m_MaxLives;
     }
 
 
@@ -41,6 +50,10 @@ public class Health : MonoBehaviour
     {
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
         GetComponent<MeshRenderer>().enabled = false;
+    }
+    public void LoseLife()
+    {
+        CurrentLives = CurrentLives - 1;
     }
     #endregion
 
