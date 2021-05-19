@@ -14,7 +14,7 @@ public class SO_HitBox : ScriptableObject
     public float EjectionPower { get { return m_EjectionPower; } set { m_EjectionPower = Mathf.Clamp(value, 0.0f, 100.0f); } }
     [SerializeField]
     private float m_EjectionAngle = 10.0f;
-    public float EjectionAngle { get { return m_EjectionAngle; } }
+    public float EjectionAngle { get { return m_EjectionAngle; } set { m_EjectionAngle = value; } }
     [SerializeField]
     private float m_HitLag = 0.5f;
     public float HitLag { get { return m_HitLag; } }

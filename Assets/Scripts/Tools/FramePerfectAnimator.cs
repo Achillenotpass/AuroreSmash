@@ -78,6 +78,11 @@ public class FramePerfectAnimator : MonoBehaviour, IUpdateUser
     }
     public void ChangeAnimationTo(string p_AnimationName)
     {
+        if (m_CurrentAnimation != null
+            && m_CurrentAnimation.m_AnimationName == p_AnimationName)
+        {
+            return;
+        }
         foreach (Animation l_Animation in m_Animations)
         {
             if (l_Animation.m_AnimationName == p_AnimationName)

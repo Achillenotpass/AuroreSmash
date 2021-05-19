@@ -18,7 +18,8 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
     }
     #endregion
 
-    private CharacterInfos[] m_ListOfAllPlayers;
+    private List<CharacterInfos> m_ListOfAllPlayers = new List<CharacterInfos>();
+    public List<CharacterInfos> ListOfAllPlayers { get { return m_ListOfAllPlayers; } }
 
     private GameObject m_MainCamera = null;
 
@@ -44,7 +45,6 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
 
     private void Start()
     {
-        m_ListOfAllPlayers = FindObjectsOfType<CharacterInfos>();
         m_MainCamera = this.gameObject;
         Bounds l_Bounds = new Bounds();
         l_Bounds.Encapsulate(new Vector3(transform.position.x - m_HalfBoundsX, transform.position.y - m_HalfBoundsY, transform.position.z - 50));
@@ -55,21 +55,24 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
 
     public void CustomUpdate(float p_DeltaTime)
     {
-        CameraPositioning(p_DeltaTime);
+        if (m_ListOfAllPlayers.Count != 0)
+        {
+            CameraPositioning(p_DeltaTime);
+        }
     }
 
     private void CameraPositioning(float p_DeltaTime)
     {
-        for (int i = 0; i < m_ListOfAllPlayers.Length; i++)
+        for (int i = 0; i < m_ListOfAllPlayers.Count; i++)
         {
             m_AveragePositionPlayers += m_ListOfAllPlayers[i].transform.position;
         }
-        m_AveragePositionPlayers /= m_ListOfAllPlayers.Length;
+        m_AveragePositionPlayers /= m_ListOfAllPlayers.Count;
         m_AveragePositionPlayers = new Vector3(m_AveragePositionPlayers.x, m_AveragePositionPlayers.y, 0);
         m_GreaterDistancePlayers = 0;
-        for (int i = 0; i < m_ListOfAllPlayers.Length; i++)
+        for (int i = 0; i < m_ListOfAllPlayers.Count; i++)
         {
-            for (int v = 0; v < m_ListOfAllPlayers.Length; v++)
+            for (int v = 0; v < m_ListOfAllPlayers.Count; v++)
             {
                 if (m_GreaterDistancePlayers < Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position))
                 {
