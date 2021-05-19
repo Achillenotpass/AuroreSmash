@@ -287,6 +287,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "1c92f112-1cf5-4aec-ad42-1453ff76815f",
+            "actions": [
+                {
+                    "name": "Resume",
+                    "type": "Button",
+                    "id": "c3ced617-dbaf-4460-affe-72658ee90a72",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "78d71f6f-a8ce-4cfa-8e93-de3887bdaf64",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Resume",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
