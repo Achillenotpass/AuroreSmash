@@ -18,6 +18,8 @@ public class Health : MonoBehaviour
     [SerializeField]
     private float m_CurrentHealth = 100.0f;
     private CharacterInfos m_CharacterInfos = null;
+
+    //Feedbacks
     #endregion
 
     private void Awake()

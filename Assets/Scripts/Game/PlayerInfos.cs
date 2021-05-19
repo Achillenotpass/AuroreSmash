@@ -10,5 +10,5 @@ public class PlayerInfos : MonoBehaviour
     public string PlayerName { get { return m_PlayerName; } }
     [SerializeField]
     private LayerMask m_AttackableLayers;
-    public LayerMask AttackableLayers { get { return m_AttackableLayers; } }
+    public LayerMask AttackableLayers { get { return m_AttackableLayers; } set { m_AttackableLayers = value; } }
 }
