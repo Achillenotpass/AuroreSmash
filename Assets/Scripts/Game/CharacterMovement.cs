@@ -262,14 +262,11 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void EndAirLossVelocity(float p_DeltaTime)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        if (m_CharacterSpeed <= 0)
         {
-            if (m_CharacterSpeed <= 0)
-            {
-                ZeroCharacterSpeed();
-                m_EndAirVelocityCheck = false;
-                m_EndAirVelocityTimer = 0;
-            }
+            ZeroCharacterSpeed();
+            m_EndAirVelocityCheck = false;
+            m_EndAirVelocityTimer = 0;
         }
         if (m_EndAirVelocityInverseCheck)
         {
@@ -278,15 +275,12 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             ZeroCharacterSpeed();
             m_EndAirVelocityTimer = 0;
         }
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        if (m_EndAirVelocityCheck)
         {
-            if (m_EndAirVelocityCheck)
-            {
-                m_StartVelocityCheck = false;
-                m_EndAirVelocityTimer += p_DeltaTime;
-                m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
-                m_PlayerDesiredDirection = m_PastDirection;
-            }
+            m_StartVelocityCheck = false;
+            m_EndAirVelocityTimer += p_DeltaTime;
+            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
+            m_PlayerDesiredDirection = m_PastDirection;
         }
     }
 
@@ -315,6 +309,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     public void ZeroMovementInput()
     {
         m_PlayerDesiredDirection = Vector3.zero;
+        if (m_EndGroundVelocityCheck)
+            m_EndGroundVelocityInverseCheck = true;
+        if (m_EndAirVelocityCheck)
+            m_EndGroundVelocityInverseCheck = true;
     }
     #endregion
     #region Orientation

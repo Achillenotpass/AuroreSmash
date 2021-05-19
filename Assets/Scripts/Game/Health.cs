@@ -30,12 +30,15 @@ public class Health : MonoBehaviour
         m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
         Invoke(nameof(StopHitLag), p_HitBox.HitLag);
         GetComponent<MeshRenderer>().enabled = true;
+        //On appelle la fonction apliquant l'éjection sur le joueur touché 
+        GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle);
     }
     public void TakeDamages(SO_Projectile p_Projectile)
     {
         m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
         Invoke(nameof(StopHitLag), p_Projectile.HitLag);
         GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle);
     }
     public void StopHitLag()
     {

@@ -176,6 +176,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
+                        m_PlayerMovements.ZeroMovementInput();
                     }
                     //Vers le haut
                     else if (l_Angle >= 45.0f)
@@ -184,6 +185,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_UpTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartUpTilt.Invoke();
+                        m_PlayerMovements.ZeroMovementInput();
                     }
                     //Vers la droite
                     else if (l_Angle >= -45.0f)
@@ -193,6 +195,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
+                        m_PlayerMovements.ZeroMovementInput();
                     }
                     //Vers le bas
                     else if (l_Angle >= -135.0f)
@@ -201,6 +204,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_DownTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartDownTilt.Invoke();
+                        m_PlayerMovements.ZeroMovementInput();
                     }
                     //Vers la gauche
                     else
@@ -210,6 +214,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
+                        m_PlayerMovements.ZeroMovementInput();
                     }
                 }
                 else
@@ -218,6 +223,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     SetMaxAttackDuration(m_Attacks.m_Jab);
                     //On envoie les feedbacks
                     m_AttackEvents.m_StartJab.Invoke();
+                    m_PlayerMovements.ZeroMovementInput();
                 }
 
             }
@@ -461,8 +467,6 @@ public class Attack : MonoBehaviour, IUpdateUser
         p_PlayerHit.TakeDamages(p_HitBox);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
-        //On appelle la fonction apliquant l'éjection sur le joueur touché 
-        p_PlayerHit.gameObject.GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle);
     }
     public void ApplyDamagesShield(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
