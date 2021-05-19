@@ -18,8 +18,8 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
     }
     #endregion
 
-    //private CharacterInfos[] m_ListOfAllPlayers;
     private List<CharacterInfos> m_ListOfAllPlayers = new List<CharacterInfos>();
+    public List<CharacterInfos> ListOfAllPlayers { get { return m_ListOfAllPlayers; } }
 
     private GameObject m_MainCamera = null;
 
@@ -55,7 +55,7 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
 
     public void CustomUpdate(float p_DeltaTime)
     {
-        if (m_ListOfAllPlayers.Count == 0)
+        if (m_ListOfAllPlayers.Count != 0)
         {
             CameraPositioning(p_DeltaTime);
         }

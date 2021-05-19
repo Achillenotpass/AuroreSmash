@@ -117,7 +117,7 @@ public class Attack : MonoBehaviour, IUpdateUser
 
     #region Functions
     //INTERRUPTION DE L'ATTAQUE
-    public void InterruptAttack()
+    private void InterruptAttack()
     {
         m_MaxFrameCount = 0;
         m_CurrentFrameCount = 0;
@@ -146,6 +146,25 @@ public class Attack : MonoBehaviour, IUpdateUser
             //On rend au joueur sa vitesse normale
             m_PlayerMovements.EditableCharacterSpeed = 1.0f;
         }
+        m_PlayerMovements.PlayerExternalDirection = Vector3.zero;
+    }
+    public void InterruptAttackOutside()
+    {
+        m_MaxFrameCount = 0;
+        m_CurrentFrameCount = 0;
+        //On passe dan un état où on n'attaque plus
+        m_CurrentAttack = null;
+        //On réinitialise la liste des joueurs touchés par l'attaque
+        m_PlayersHit.Clear();
+        //On envoie les feedbacks
+        m_AttackEvents.m_InterruptAttack.Invoke();
+
+
+        //On permet joueur de se retourner pendant l'attaque
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+        //On rend au joueur sa vitesse normale
+        m_PlayerMovements.EditableCharacterSpeed = 1.0f;
+
         m_PlayerMovements.PlayerExternalDirection = Vector3.zero;
     }
     public void CheckAttackInput(Vector2 p_JoyStickInput)
@@ -492,6 +511,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         Vector3 l_ProjectilePosition = Vector3.zero;
         l_ProjectilePosition.y = transform.position.y + p_Projectile.RelativeStartPosition.y;
         l_ProjectilePosition.x = transform.position.x + (p_Projectile.RelativeStartPosition.x * m_PlayerMovements.CharacterOrientation);
+        l_ProjectilePosition.z = transform.position.z;
         m_InstantiatedProjectile = Instantiate(p_Projectile.ProjectilePrefab, l_ProjectilePosition, Quaternion.identity);
         //On le met dans la bonne direction
         if (m_PlayerMovements.CharacterOrientation > 0)

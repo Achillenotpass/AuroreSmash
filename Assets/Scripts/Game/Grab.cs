@@ -31,6 +31,13 @@ public class Grab : MonoBehaviour, IUpdateUser
     [SerializeField]
     private float m_HitboxRadius = 0.0f;
 
+    [SerializeField]
+    private float m_ThrowDamage = 10.0f;
+    [SerializeField]
+    private float m_EjectionPower = 10.0f;
+    [SerializeField]
+    private float m_EjectionAngle = 10.0f;
+
     private GrabState m_CurrentGrabState = GrabState.NotGrabbing;
     private int m_CurrentFrameCount = 0;
     [SerializeField]
@@ -169,6 +176,9 @@ public class Grab : MonoBehaviour, IUpdateUser
     private void ThrowAttack()
     {
         SO_HitBox l_HitBox = new SO_HitBox();
+        l_HitBox.Damages = m_ThrowDamage;
+        l_HitBox.EjectionAngle = m_EjectionAngle;
+        l_HitBox.EjectionPower = m_EjectionPower;
 
         m_Target.GetComponent<Health>().TakeDamages(l_HitBox);
         m_Target = null;

@@ -1381,6 +1381,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 87271e31-7c6b-46cc-80d1-db5dc072fd23
     m_ActionName: Player/Grab
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fc184c56-3d75-48d9-865f-579357e7b0ac
+    m_ActionName: Player/Select[/XInputControllerWindows/select,/XInputControllerWindows/select]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c3ced617-dbaf-4460-affe-72658ee90a72
+    m_ActionName: UI/Resume[/XInputControllerWindows/rightShoulder,/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1635,6 +1643,9 @@ MonoBehaviour:
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
   m_HitboxRelativePosition: {x: 0.6, y: 0.35, z: 0}
   m_HitboxRadius: 0.7
+  m_ThrowDamage: 10
+  m_EjectionPower: 10
+  m_EjectionAngle: 45
   m_PreLag: 3
   m_GrabDuration: 9
   m_GrabHoldDuration: 120

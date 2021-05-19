@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class Health : MonoBehaviour
     private CharacterInfos m_CharacterInfos = null;
 
     //Feedbacks
+    private Slider m_HealthBar = null;
+    public Slider HealthBar { set { m_HealthBar = value; } }
     #endregion
 
     private void Awake()
@@ -30,6 +33,13 @@ public class Health : MonoBehaviour
     {
         m_CurrentHealth = m_MaxHealth;
         m_CurrentLives = m_MaxLives;
+    }
+    private void Update()
+    {
+        if (m_HealthBar != null)
+        {
+            m_HealthBar.value = m_CurrentHealth;
+        }
     }
 
 
@@ -67,5 +77,6 @@ public class Health : MonoBehaviour
     public float CurrentHealth
     {
         get { return m_CurrentHealth; }
+        set { m_CurrentHealth = value; }
     }
 }

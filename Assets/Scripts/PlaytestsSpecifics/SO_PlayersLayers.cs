@@ -6,8 +6,8 @@ using UnityEngine;
 public class SO_PlayersLayers : ScriptableObject
 {
     [SerializeField]
-    private LayerMask m_PlayerLayer;
-    public LayerMask PlayerLayer { get { return m_PlayerLayer; } }
+    private int m_PlayerLayer;
+    public int PlayerLayer { get { return m_PlayerLayer; } }
 
     [SerializeField]
     private LayerMask m_AttackableLayer;
