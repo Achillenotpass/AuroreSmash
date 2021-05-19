@@ -65,6 +65,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc184c56-3d75-48d9-865f-579357e7b0ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -298,6 +306,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77472c83-aa7f-48da-b2a2-994a4bb74047"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -339,6 +358,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Player_Defence = m_Player.FindAction("Defence", throwIfNotFound: true);
         m_Player_Tilts = m_Player.FindAction("Tilts", throwIfNotFound: true);
         m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
+        m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Resume = m_UI.FindAction("Resume", throwIfNotFound: true);
@@ -397,6 +417,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Defence;
     private readonly InputAction m_Player_Tilts;
     private readonly InputAction m_Player_Grab;
+    private readonly InputAction m_Player_Select;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -407,6 +428,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Defence => m_Wrapper.m_Player_Defence;
         public InputAction @Tilts => m_Wrapper.m_Player_Tilts;
         public InputAction @Grab => m_Wrapper.m_Player_Grab;
+        public InputAction @Select => m_Wrapper.m_Player_Select;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -434,6 +456,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Grab.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGrab;
                 @Grab.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGrab;
                 @Grab.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGrab;
+                @Select.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -456,6 +481,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Grab.started += instance.OnGrab;
                 @Grab.performed += instance.OnGrab;
                 @Grab.canceled += instance.OnGrab;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
             }
         }
     }
@@ -501,6 +529,7 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnDefence(InputAction.CallbackContext context);
         void OnTilts(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
