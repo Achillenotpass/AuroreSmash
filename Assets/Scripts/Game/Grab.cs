@@ -184,7 +184,7 @@ public class Grab : MonoBehaviour, IUpdateUser
         l_HitBox.EjectionAngle = m_EjectionAngle;
         l_HitBox.EjectionPower = m_EjectionPower;
 
-        m_Target.GetComponent<Health>().TakeDamages(l_HitBox);
+        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, this.gameObject);
         m_Target = null;
     }
     private void TryGrab()

@@ -38,6 +38,8 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
 
     private Vector3 m_ActualEjectionPoint = Vector3.zero;
     private Vector3 m_PreviousEjectionPoint = Vector3.zero;
+
+    private float m_EjectionDirection = 0.0f;
     #endregion
 
     #region Awake/Start
@@ -62,7 +64,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     #endregion
 
 
-    public void Ejection(float p_EjectionPower, float p_EjectionAngle)
+    public void Ejection(float p_EjectionPower, float p_EjectionAngle, GameObject p_Attacker)
     {
         if (!m_IsEjected)
         {
@@ -72,6 +74,15 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
             m_BasePosition = transform.position;
             m_IsEjected = true;
             m_TimerEjection = m_MaxTimerEjection + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 400f);
+
+            if (p_Attacker.transform.position.x > transform.position.x)
+            {
+                m_EjectionDirection = -1.0f;
+            }
+            else
+            {
+                m_EjectionDirection = 1.0f;
+            }
         }
     }
 
@@ -80,7 +91,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
         if (m_IsEjected)
         {
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
-            m_ActualEjectionPoint = new Vector3(m_EjectionPower * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Cos(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection, m_EjectionPower * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Sin(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection, 0);
+            m_ActualEjectionPoint = new Vector3(m_EjectionPower * (m_EjectionDirection * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Cos(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection), m_EjectionPower * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Sin(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection, 0);
             if (m_PreviousEjectionPoint != Vector3.zero)
                 m_CharacterMovement.PlayerEjectionDirection += m_ActualEjectionPoint - m_PreviousEjectionPoint;
             else
