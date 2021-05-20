@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private Vector2 m_MapCenterPosition = Vector2.zero;
     [SerializeField]
     private Vector2 m_MapSize = Vector2.one;
+    [SerializeField]
+    private Transform m_PlayersSpawn = null;
 
     //Events
     [SerializeField]
@@ -58,11 +60,13 @@ public class GameManager : MonoBehaviour, IUpdateUser
     public void CustomUpdate(float p_DeltaTime)
     {
         if (m_GameState == EGameState.Running)
-            foreach (Health l_Health in m_Characters)
+        {
+            for (int i = 0; i < m_Characters.Count; i++)
             {
-                CheckEjection(l_Health);
-                CheckLives(l_Health);
+                CheckEjection(m_Characters[i]);
+                CheckLives(m_Characters[i]);
             }
+        }
         CheckEndGameLives();
 
         CheckTimer(p_DeltaTime);
@@ -86,7 +90,12 @@ public class GameManager : MonoBehaviour, IUpdateUser
     {
         PlayerInput l_SpawnedPlayer = PlayerInput.Instantiate(p_UserInfos.UserCharacter.CharacterPrefab, -1, null, -1, p_UserInfos.UserInputDevice);
         //Changer position du joueur
+        l_SpawnedPlayer.GetComponent<CharacterController>().enabled = false;
+        l_SpawnedPlayer.transform.position = m_PlayersSpawn.position;
+        l_SpawnedPlayer.GetComponent<CharacterController>().enabled = true;
         //Changer parent du joueur
+        l_SpawnedPlayer.transform.SetParent(m_PlayersSpawn);
+
         return l_SpawnedPlayer.GetComponent<PlayerInfos>();
     }
     private void StartGame()

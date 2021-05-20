@@ -76,11 +76,13 @@ public class CharacterSelector : MonoBehaviour
     #endregion
 }
 
+[System.Serializable]
 public class UserInfos
 {
     #region Variables
     private InputDevice m_UserInputDevice = null;
     public InputDevice UserInputDevice { get { return m_UserInputDevice; } set { m_UserInputDevice = value; } }
+    [SerializeField]
     private SO_Character m_UserCharacter = null;
     public SO_Character UserCharacter { get { return m_UserCharacter; } set { m_UserCharacter = value; } }
     #endregion
