@@ -49,6 +49,7 @@ public enum CharacterState
 {
     Idle,
     Moving,
+    Jumping,
     Attacking,
     Shielding,
     Grabbing,

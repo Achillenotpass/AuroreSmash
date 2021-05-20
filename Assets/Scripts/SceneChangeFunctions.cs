@@ -16,7 +16,7 @@ public class SceneChangeFunctions : MonoBehaviour
         Translator[] l_Translators = FindObjectsOfType<Translator>();
         foreach (Translator l_Translator in l_Translators)
         {
-            m_UserManager.Devices.Add(l_Translator.GetComponent<PlayerInput>().user.pairedDevices[0]);
+            //m_UserManager.Devices.Add(l_Translator.GetComponent<PlayerInput>().user.pairedDevices[0]);
         }
         SceneManager.LoadScene(p_GoToScene);
     }

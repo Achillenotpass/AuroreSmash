@@ -65,6 +65,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc184c56-3d75-48d9-865f-579357e7b0ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -298,6 +306,44 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77472c83-aa7f-48da-b2a2-994a4bb74047"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""1c92f112-1cf5-4aec-ad42-1453ff76815f"",
+            ""actions"": [
+                {
+                    ""name"": ""Resume"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3ced617-dbaf-4460-affe-72658ee90a72"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""78d71f6f-a8ce-4cfa-8e93-de3887bdaf64"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Resume"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -312,6 +358,10 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Player_Defence = m_Player.FindAction("Defence", throwIfNotFound: true);
         m_Player_Tilts = m_Player.FindAction("Tilts", throwIfNotFound: true);
         m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
+        m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Resume = m_UI.FindAction("Resume", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -367,6 +417,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Defence;
     private readonly InputAction m_Player_Tilts;
     private readonly InputAction m_Player_Grab;
+    private readonly InputAction m_Player_Select;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -377,6 +428,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Defence => m_Wrapper.m_Player_Defence;
         public InputAction @Tilts => m_Wrapper.m_Player_Tilts;
         public InputAction @Grab => m_Wrapper.m_Player_Grab;
+        public InputAction @Select => m_Wrapper.m_Player_Select;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -404,6 +456,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Grab.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGrab;
                 @Grab.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGrab;
                 @Grab.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGrab;
+                @Select.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -426,10 +481,46 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Grab.started += instance.OnGrab;
                 @Grab.performed += instance.OnGrab;
                 @Grab.canceled += instance.OnGrab;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_Resume;
+    public struct UIActions
+    {
+        private @Controls m_Wrapper;
+        public UIActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Resume => m_Wrapper.m_UI_Resume;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @Resume.started -= m_Wrapper.m_UIActionsCallbackInterface.OnResume;
+                @Resume.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnResume;
+                @Resume.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnResume;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Resume.started += instance.OnResume;
+                @Resume.performed += instance.OnResume;
+                @Resume.canceled += instance.OnResume;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -438,5 +529,10 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnDefence(InputAction.CallbackContext context);
         void OnTilts(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnResume(InputAction.CallbackContext context);
     }
 }
