@@ -102,7 +102,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
                 m_CharacterMovement.PlayerEjectionDirection = Vector3.zero;
                 m_IsEjected = false;
                 m_CharacterMovement.EditableCharacterSpeed = 1;
-                m_CharacterMovement.PlayerDesiredDirection = Vector3.zero;
+                m_CharacterMovement.ZeroMovementInput();
             }
             m_TimerEjection -= Time.deltaTime;
         }
