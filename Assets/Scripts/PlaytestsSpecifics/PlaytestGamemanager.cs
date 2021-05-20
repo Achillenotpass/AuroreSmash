@@ -20,6 +20,14 @@ public class PlaytestGamemanager : MonoBehaviour
     private List<SO_PlayersLayers> m_PlayersLayers = new List<SO_PlayersLayers>();
     [SerializeField]
     private List<Slider> m_HealthBars = new List<Slider>();
+    //Game
+    [SerializeField]
+    private float m_GameTimer = 90.0f;
+    [SerializeField]
+    private float m_StartTimer = 5.0f;
+    private float m_CurrentTimer = 0.0f;
+    [SerializeField]
+    private Text m_TimerUI = null;
 
     public void SetupPlayerJoined(PlayerInput p_PlayerInput)
     {
@@ -37,12 +45,19 @@ public class PlaytestGamemanager : MonoBehaviour
         {
             m_Players[i].GetComponent<PlayerInfos>().AttackableLayers = m_PlayersLayers[i].AttackableLayer;
             m_Players[i].gameObject.layer = m_PlayersLayers[i].PlayerLayer;
+            foreach (Transform l_Child in m_Players[i].gameObject.GetComponentsInChildren<Transform>())
+            {
+                l_Child.gameObject.layer = m_PlayersLayers[i].PlayerLayer;
+            }
 
             l_Camera.ListOfAllPlayers.Add(m_Players[i].GetComponent<CharacterInfos>());
 
             m_Players[i].GetComponent<Health>().HealthBar = m_HealthBars[i];
         }
         l_Camera.enabled = true;
+
+        m_GameState = EPlayTestGameState.Running;
+        StartCoroutine(RunTimer(m_GameTimer));
     }
 
     private void Update()
@@ -50,15 +65,15 @@ public class PlaytestGamemanager : MonoBehaviour
         if (m_Players.Count == 2 && m_GameState == EPlayTestGameState.WaitingForPlayers)
         {
             m_GameState = EPlayTestGameState.WaitingForStart;
-        }
-        if (m_GameState == EPlayTestGameState.WaitingForStart)
-        {
-            SetupPlayersLayers();
-            m_GameState = EPlayTestGameState.Running;
+            StartCoroutine(RunTimer(m_StartTimer));
         }
         foreach (PlayerInput l_Player in m_Players)
         {
             CheckEjection(l_Player.GetComponent<Health>());
+        }
+        if (m_TimerUI != null)
+        {
+            m_TimerUI.text = ((int)m_CurrentTimer).ToString();
         }
     }
     private void CheckEjection(Health p_Character)
@@ -69,6 +84,7 @@ public class PlaytestGamemanager : MonoBehaviour
             || p_Character.transform.position.y <= m_MapCenterPosition.y - m_MapSize.y / 2)
         {
             SpawnPlayer(p_Character);
+            p_Character.LoseLife();
         }
     }
     private void SpawnPlayer(Health p_Character)
@@ -77,6 +93,42 @@ public class PlaytestGamemanager : MonoBehaviour
         p_Character.GetComponent<CharacterController>().enabled = false;
         p_Character.transform.position = m_SpawnPoint.position;
         p_Character.GetComponent<CharacterController>().enabled = true;
+    }
+
+    private IEnumerator RunTimer(float p_TimerDuration)
+    {
+        m_CurrentTimer = p_TimerDuration;
+        while (m_CurrentTimer > 0.0f)
+        {
+            m_CurrentTimer = m_CurrentTimer - Time.deltaTime;
+            yield return null;
+        }
+        if (m_GameState == EPlayTestGameState.Running)
+        {
+            m_GameState = EPlayTestGameState.Ended;
+            if (m_Players[0].GetComponent<Health>().CurrentLives > m_Players[1].GetComponent<Health>().CurrentLives)
+            {
+                Debug.Log("PLAYER 1 IS THE WINNER");
+                Destroy(m_Players[1].gameObject);
+            }
+            else if (m_Players[0].GetComponent<Health>().CurrentLives < m_Players[1].GetComponent<Health>().CurrentLives)
+            {
+                Debug.Log("PLAYER 2 IS THE WINNER");
+                PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>();
+                l_Camera.ListOfAllPlayers.Remove(m_Players[0].GetComponent<CharacterInfos>());
+                Destroy(m_Players[0].gameObject);
+                m_Players.Remove(m_Players[0]);
+            }
+            else
+            {
+                Debug.Log("IT'S A DRAW");
+            }
+        }
+        if (m_GameState == EPlayTestGameState.WaitingForStart)
+        {
+            SetupPlayersLayers();
+            m_GameState = EPlayTestGameState.Running;
+        }
     }
 
     private enum EPlayTestGameState
