@@ -182,7 +182,9 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Movement
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving 
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle 
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking && !m_IsGrounded)
         {
             if (p_Context.started)
             {
@@ -279,15 +281,20 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void EndAirLossVelocity(float p_DeltaTime)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        if (m_CharacterSpeed <= 0)
         {
-            if (m_CharacterSpeed <= 0)
-            {
-                ZeroCharacterSpeed();
-                m_EndAirVelocityCheck = false;
-                m_EndAirVelocityTimer = 0;
-            }
+            ZeroCharacterSpeed();
+            m_EndAirVelocityCheck = false;
+            m_EndAirVelocityTimer = 0;
         }
+        /*if (m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
+        {
+            m_EndGroundVelocityCheck = false;
+            m_EndGroundVelocityTimer = 0;
+            m_CharacterSpeed = 0;
+            m_PlayerDesiredDirection = Vector3.zero;
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+        }*/
         if (m_EndAirVelocityInverseCheck)
         {
             m_EndAirVelocityCheck = false;
@@ -295,26 +302,22 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             ZeroCharacterSpeed();
             m_EndAirVelocityTimer = 0;
         }
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        if (m_EndAirVelocityCheck)
         {
-            if (m_EndAirVelocityCheck)
-            {
-                m_StartVelocityCheck = false;
-                m_EndAirVelocityTimer += p_DeltaTime;
-                m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
-                m_PlayerDesiredDirection = m_PastDirection;
-            }
+            Debug.Log("aaa");
+            m_StartVelocityCheck = false;
+            m_EndAirVelocityTimer += p_DeltaTime;
+            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
+            m_PlayerDesiredDirection = m_PastDirection;
         }
     }
 
     private void ZeroCharacterSpeed()
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
-        {
-            m_CharacterSpeed = 0;
-            m_PlayerDesiredDirection = Vector3.zero;
+        m_CharacterSpeed = 0;
+        m_PlayerDesiredDirection = Vector3.zero;
+        if(m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-        }
     }
 
     public void PlayerAirDownMovement(InputAction.CallbackContext p_Context)
@@ -332,6 +335,18 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     public void ZeroMovementInput()
     {
         m_PlayerDesiredDirection = Vector3.zero;
+        if (m_EndGroundVelocityCheck)
+            m_EndGroundVelocityInverseCheck = true;
+        if (m_EndAirVelocityCheck)
+            m_EndGroundVelocityInverseCheck = true;
+    }
+
+    public void TerminateMomentum()
+    {
+        m_CharacterSpeed = 0;
+        m_PlayerDesiredDirection = Vector3.zero;
+        m_EndGroundVelocityCheck = false;
+        m_EndGroundVelocityTimer = 0;
     }
     #endregion
     #region Orientation
