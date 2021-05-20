@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
+  m_Name: JabYgNis
+  m_EditorClassIdentifier: 
+  m_Loop: 1
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 1f782457893d8a64a8bd18184c3e8feb, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: a352e82e3a148344581887465c25e25b, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 71fa7f1428b5cb845a436696416d1cac, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: d79826c90d552de47964bd47cac2533c, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 371a176872382564fa135b12524b5954, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 4535e12f487224a4ab400a5fb3dc7fbd, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 8f44fc70b3a20914da3c6587e868b95e, type: 3}
+    m_FramesAfterLastSprite: 6
+  - m_FrameSprite: {fileID: 21300000, guid: 9632e73877fbba045a7d64843d96f7ea, type: 3}
+    m_FramesAfterLastSprite: 6
+  - m_FrameSprite: {fileID: 21300000, guid: 3b560c4f7822dac40a58ff494245fd99, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 4f35b5cb1c9f8eb42a59e17ecd5ba884, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 03c898fbb110a32449fa50ecfdc0df1f, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 7d56abd1c89a48648b09a3d6f05b9990, type: 3}
+    m_FramesAfterLastSprite: 6
+  - m_FrameSprite: {fileID: 21300000, guid: 47cd31002a178df449658d91c6a81f6e, type: 3}
+    m_FramesAfterLastSprite: 6
+  - m_FrameSprite: {fileID: 21300000, guid: d151fdcc97d9acc459ebc5e6b2bf4304, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 8a1d0dbbf4d47a14392eee3d7e146ad1, type: 3}
+    m_FramesAfterLastSprite: 3
+  - m_FrameSprite: {fileID: 21300000, guid: 03ecb383ec59d0444b53670525563a06, type: 3}
+    m_FramesAfterLastSprite: 3
+  m_LastFrameDuration: 3

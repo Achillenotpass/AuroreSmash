@@ -161,7 +161,7 @@ MonoBehaviour:
   m_HealthBars:
   - {fileID: 1730286175}
   - {fileID: 1369358603}
-  m_GameTimer: 10
+  m_GameTimer: 120
   m_StartTimer: 5
   m_TimerUI: {fileID: 819401960}
 --- !u!4 &7745094
@@ -2119,7 +2119,7 @@ MonoBehaviour:
         m_Action: Join
         m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 7326282991860863268, guid: a54c1ec3efd3d2e458ee52f601622c08, type: 3}
+  m_PlayerPrefab: {fileID: 7326282991860863268, guid: d2ee50ccb98f2be4e82c4169cc63ff09, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
