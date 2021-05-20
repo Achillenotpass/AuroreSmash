@@ -54,6 +54,8 @@ public class Health : MonoBehaviour
     }
     public void TakeDamages(SO_Projectile p_Projectile)
     {
+        m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_Projectile.Damages, 0.0f, m_MaxHealth);
+
         m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
         Invoke(nameof(StopHitLag), p_Projectile.HitLag);
         GetComponent<MeshRenderer>().enabled = true;
