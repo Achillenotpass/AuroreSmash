@@ -182,7 +182,9 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Movement
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving 
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle 
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking && !m_IsGrounded)
         {
             if (p_Context.started)
             {
@@ -285,6 +287,14 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_EndAirVelocityCheck = false;
             m_EndAirVelocityTimer = 0;
         }
+        /*if (m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking)
+        {
+            m_EndGroundVelocityCheck = false;
+            m_EndGroundVelocityTimer = 0;
+            m_CharacterSpeed = 0;
+            m_PlayerDesiredDirection = Vector3.zero;
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+        }*/
         if (m_EndAirVelocityInverseCheck)
         {
             m_EndAirVelocityCheck = false;
@@ -294,6 +304,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         }
         if (m_EndAirVelocityCheck)
         {
+            Debug.Log("aaa");
             m_StartVelocityCheck = false;
             m_EndAirVelocityTimer += p_DeltaTime;
             m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
@@ -303,12 +314,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void ZeroCharacterSpeed()
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
-        {
-            m_CharacterSpeed = 0;
-            m_PlayerDesiredDirection = Vector3.zero;
+        m_CharacterSpeed = 0;
+        m_PlayerDesiredDirection = Vector3.zero;
+        if(m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-        }
     }
 
     public void PlayerAirDownMovement(InputAction.CallbackContext p_Context)
@@ -330,6 +339,14 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_EndGroundVelocityInverseCheck = true;
         if (m_EndAirVelocityCheck)
             m_EndGroundVelocityInverseCheck = true;
+    }
+
+    public void TerminateMomentum()
+    {
+        m_CharacterSpeed = 0;
+        m_PlayerDesiredDirection = Vector3.zero;
+        m_EndGroundVelocityCheck = false;
+        m_EndGroundVelocityTimer = 0;
     }
     #endregion
     #region Orientation

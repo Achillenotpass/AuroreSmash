@@ -193,7 +193,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
-                        m_PlayerMovements.ZeroMovementInput();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                     //Vers le haut
                     else if (l_Angle >= 45.0f)
@@ -202,7 +202,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_UpTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartUpTilt.Invoke();
-                        m_PlayerMovements.ZeroMovementInput();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                     //Vers la droite
                     else if (l_Angle >= -45.0f)
@@ -212,7 +212,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
-                        m_PlayerMovements.ZeroMovementInput();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                     //Vers le bas
                     else if (l_Angle >= -135.0f)
@@ -221,7 +221,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_DownTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartDownTilt.Invoke();
-                        m_PlayerMovements.ZeroMovementInput();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                     //Vers la gauche
                     else
@@ -231,7 +231,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
-                        m_PlayerMovements.ZeroMovementInput();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                 }
                 else
@@ -240,7 +240,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     SetMaxAttackDuration(m_Attacks.m_Jab);
                     //On envoie les feedbacks
                     m_AttackEvents.m_StartJab.Invoke();
-                    m_PlayerMovements.ZeroMovementInput();
+                    m_PlayerMovements.TerminateMomentum();
                 }
 
             }

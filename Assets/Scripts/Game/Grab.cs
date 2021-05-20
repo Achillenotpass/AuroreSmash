@@ -25,6 +25,8 @@ public class Grab : MonoBehaviour, IUpdateUser
 
     private CharacterInfos m_Target = null;
 
+    private CharacterMovement m_CharacterMovement = null;
+
     //Hitbox
     [SerializeField]
     private Vector3 m_HitboxRelativePosition = Vector3.zero;
@@ -70,6 +72,7 @@ public class Grab : MonoBehaviour, IUpdateUser
     {
         m_PlayerInfos = GetComponent<PlayerInfos>();
         m_CharacterInfos = GetComponent<CharacterInfos>();
+        m_CharacterMovement = GetComponent<CharacterMovement>();
     }
     public void CustomUpdate(float p_DeltaTime)
     {
@@ -141,8 +144,8 @@ public class Grab : MonoBehaviour, IUpdateUser
     {
         if (p_Context.started)
         {
-            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle
-                || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle && m_CharacterMovement.IsGrounded
+                || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving && m_CharacterMovement.IsGrounded)
             {
                 m_CurrentFrameCount = 0;
 
@@ -150,6 +153,7 @@ public class Grab : MonoBehaviour, IUpdateUser
                 m_CurrentGrabState = GrabState.PreLag;
 
                 m_StartGrabEvent.Invoke();
+                m_CharacterMovement.TerminateMomentum();
             }
         }
     }
