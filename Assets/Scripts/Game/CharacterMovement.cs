@@ -144,7 +144,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_CharacterGravity = m_CharacterMaxGravity;
             if(m_EndAirVelocityCheck)
                 m_EndAirVelocityInverseCheck = true;
-            ChangeOrientationGround();
         }
         if (m_EndGroundVelocityCheck && m_CharacterSpeed <= 0 || m_EndAirVelocityCheck && m_CharacterSpeed <= 0)
         {
@@ -360,22 +359,25 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             if (p_Context.performed
                 && p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
             {
-                m_InputOrientation = p_Context.ReadValue<Vector2>();
+                PlayerOrientation(p_Context.ReadValue<Vector2>().x);
             }
         }
     }
 
-    private void ChangeOrientationGround()
+/*    private void ChangeOrientationGround()
     {
         PlayerOrientation(m_InputOrientation.x);
-    }
+    }*/
 
     public void PlayerOrientation(float p_Orientation)
     {
-        if (m_CharacterView.transform.localScale.x / Mathf.Abs(m_CharacterView.transform.localScale.x) != p_Orientation / Mathf.Abs(p_Orientation))
+        if (m_IsGrounded)
         {
-            m_MovementEvents.m_EventChangeOrientation.Invoke();
-            m_CharacterView.transform.localScale = new Vector3(-1 * m_CharacterView.transform.localScale.x, m_CharacterView.transform.localScale.y, m_CharacterView.transform.localScale.z);
+            if (m_CharacterView.transform.localScale.x / Mathf.Abs(m_CharacterView.transform.localScale.x) != p_Orientation / Mathf.Abs(p_Orientation))
+            {
+                m_MovementEvents.m_EventChangeOrientation.Invoke();
+                m_CharacterView.transform.localScale = new Vector3(-1 * m_CharacterView.transform.localScale.x, m_CharacterView.transform.localScale.y, m_CharacterView.transform.localScale.z);
+            }
         }
     }
     #endregion
