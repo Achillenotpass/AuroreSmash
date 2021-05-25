@@ -105,8 +105,6 @@ public class Attack : MonoBehaviour, IUpdateUser
 
             //On modifie la vitesse du personnage
             m_PlayerMovements.EditableCharacterSpeed = m_CurrentAttack.PlayerInfluenceOnSpeed.Evaluate(m_CurrentFrameCount);
-            //On empêche le joueur de se retourner pendant l'attaque
-            m_CharacterInfos.CurrentCharacterState = CharacterState.Attacking;
             //Si on dépasse le nombre de frame maximal de l'attaque (lag compris)
             if (m_CurrentFrameCount >= m_MaxFrameCount)
             {
@@ -119,7 +117,7 @@ public class Attack : MonoBehaviour, IUpdateUser
 
     #region Functions
     //INTERRUPTION DE L'ATTAQUE
-    public void InterruptAttack()
+    private void InterruptAttack()
     {
         m_MaxFrameCount = 0;
         m_CurrentFrameCount = 0;
@@ -150,6 +148,25 @@ public class Attack : MonoBehaviour, IUpdateUser
         }
         m_PlayerMovements.PlayerExternalDirection = Vector3.zero;
     }
+    public void InterruptAttackOutside()
+    {
+        m_MaxFrameCount = 0;
+        m_CurrentFrameCount = 0;
+        //On passe dan un état où on n'attaque plus
+        m_CurrentAttack = null;
+        //On réinitialise la liste des joueurs touchés par l'attaque
+        m_PlayersHit.Clear();
+        //On envoie les feedbacks
+        m_AttackEvents.m_InterruptAttack.Invoke();
+
+
+        //On permet joueur de se retourner pendant l'attaque
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+        //On rend au joueur sa vitesse normale
+        m_PlayerMovements.EditableCharacterSpeed = 1.0f;
+
+        m_PlayerMovements.PlayerExternalDirection = Vector3.zero;
+    }
     public void CheckAttackInput(Vector2 p_JoyStickInput)
     {
         //On calcule l'angle de la direction du joystick par rapport à un vecteur 1,0,0 (vers la droite)
@@ -176,6 +193,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                     //Vers le haut
                     else if (l_Angle >= 45.0f)
@@ -184,6 +202,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_UpTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartUpTilt.Invoke();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                     //Vers la droite
                     else if (l_Angle >= -45.0f)
@@ -193,6 +212,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                     //Vers le bas
                     else if (l_Angle >= -135.0f)
@@ -201,6 +221,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_DownTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartDownTilt.Invoke();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                     //Vers la gauche
                     else
@@ -210,6 +231,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                         SetMaxAttackDuration(m_Attacks.m_SideTilt);
                         //On envoie les feedbacks
                         m_AttackEvents.m_StartSideTilt.Invoke();
+                        m_PlayerMovements.TerminateMomentum();
                     }
                 }
                 else
@@ -218,6 +240,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     SetMaxAttackDuration(m_Attacks.m_Jab);
                     //On envoie les feedbacks
                     m_AttackEvents.m_StartJab.Invoke();
+                    m_PlayerMovements.TerminateMomentum();
                 }
 
             }
@@ -324,6 +347,8 @@ public class Attack : MonoBehaviour, IUpdateUser
     //CALCUL DE LA DUREE MAX DE L'ATTAQUE
     public void SetMaxAttackDuration(SO_Attack p_AttackStats)
     {
+        //On passe le joueur en état d'attaque
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Attacking;
         foreach (SO_Hit l_Hit in p_AttackStats.Hits)
         {
             foreach (SO_HitBox l_HitBox in l_Hit.HitBoxes)
@@ -458,16 +483,14 @@ public class Attack : MonoBehaviour, IUpdateUser
     public void ApplyDamages(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
         //Oninflige les dégâts au joueur touché
-        p_PlayerHit.TakeDamages(p_HitBox);
+        p_PlayerHit.TakeDamages(p_HitBox, this.gameObject);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
-        //On appelle la fonction apliquant l'éjection sur le joueur touché 
-        p_PlayerHit.gameObject.GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle);
     }
     public void ApplyDamagesShield(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
         //Oninflige les dégâts au joueur touché
-        p_PlayerHit.GetComponent<Shield>().TakeShieldDamages(p_HitBox);
+        p_PlayerHit.GetComponent<Shield>().TakeShieldDamages(p_HitBox, this.gameObject);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
     }
@@ -492,6 +515,7 @@ public class Attack : MonoBehaviour, IUpdateUser
         Vector3 l_ProjectilePosition = Vector3.zero;
         l_ProjectilePosition.y = transform.position.y + p_Projectile.RelativeStartPosition.y;
         l_ProjectilePosition.x = transform.position.x + (p_Projectile.RelativeStartPosition.x * m_PlayerMovements.CharacterOrientation);
+        l_ProjectilePosition.z = transform.position.z;
         m_InstantiatedProjectile = Instantiate(p_Projectile.ProjectilePrefab, l_ProjectilePosition, Quaternion.identity);
         //On le met dans la bonne direction
         if (m_PlayerMovements.CharacterOrientation > 0)
