@@ -781,6 +781,7 @@ GameObject:
   - component: {fileID: 9200278381566710896}
   - component: {fileID: 9200278381566710911}
   - component: {fileID: 5123021735009848120}
+  - component: {fileID: -7509473996006968434}
   m_Layer: 10
   m_Name: YgNis
   m_TagString: Untagged
@@ -866,10 +867,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5512832e66e7fe4eb11459d2bd74a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerName: Naruto
   m_AttackableLayers:
     serializedVersion: 2
     m_Bits: 2048
-  m_DeviceID: -1
 --- !u!114 &9200278381566710901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,6 +1149,15 @@ MonoBehaviour:
     m_EventChangeOrientation:
       m_PersistentCalls:
         m_Calls: []
+    m_StartMoveAnimation:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartGroundIdleAnimation:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartAirIdleAnimation:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &9200278381566710900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1305,6 +1315,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 87271e31-7c6b-46cc-80d1-db5dc072fd23
     m_ActionName: Player/Grab
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fc184c56-3d75-48d9-865f-579357e7b0ac
+    m_ActionName: Player/Select[/XInputControllerWindows/select]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c3ced617-dbaf-4460-affe-72658ee90a72
+    m_ActionName: UI/Resume[/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1516,6 +1534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4861933b989ed8f48b4e680e95153648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxLives: 3
+  m_CurrentLives: 3
   m_MaxHealth: 100
   m_CurrentHealth: 100
 --- !u!114 &9200278381566710911
@@ -1555,8 +1575,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
+  m_HitboxRelativePosition: {x: 0, y: 0, z: 0}
+  m_HitboxRadius: 0
+  m_ThrowDamage: 10
+  m_EjectionPower: 10
+  m_EjectionAngle: 10
   m_PreLag: 10
   m_GrabDuration: 10
   m_GrabHoldDuration: 120
-  m_PostLag: 10
+  m_ThrowAttackFrame: 0
+  m_ThrowDuration: 10
   m_FailedLag: 10
+  m_StartGrabEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_GrabEnemy:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ThrowEnemy:
+    m_PersistentCalls:
+      m_Calls: []
+  m_EndGrab:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-7509473996006968434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200278381566710910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46200fbdd286fbe43bc5b2bb9aa5021d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
