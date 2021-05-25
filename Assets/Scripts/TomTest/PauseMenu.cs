@@ -36,6 +36,8 @@ public class PauseMenu : MonoBehaviour
             for (int i = 0; i < m_PlayersInput.Length; i++)
             {
                 m_PlayersInput[i].currentActionMap = m_InputActionControls.UI;
+                m_PlayersInput[i].actions.FindActionMap("Player").Disable();
+                m_PlayersInput[i].actions.FindActionMap("UI").Enable();
             }
         }
     }
@@ -50,6 +52,8 @@ public class PauseMenu : MonoBehaviour
             for (int i = 0; i < m_PlayersInput.Length; i++)
             {
                 m_PlayersInput[i].currentActionMap = m_InputActionControls.Player;
+                m_PlayersInput[i].actions.FindActionMap("UI").Disable();
+                m_PlayersInput[i].actions.FindActionMap("Player").Enable();
             }
         }
     }

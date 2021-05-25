@@ -68,6 +68,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     private float m_CharacterOrientation = 1;
     [SerializeField]
     private GameObject m_CharacterView = null;
+    private Vector2 m_InputOrientation = Vector2.one;
     #endregion
     #region MovementMomentum
     private AnimationCurve m_CharacterStartVelocity = null;
@@ -120,6 +121,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_CharacterOrientation = m_CharacterView.transform.localScale.x;
         m_IsGrounded = Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask);
 
+        Debug.Log(m_CharacterInfos.CurrentCharacterState);
 
         if (m_IsGrounded && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving && !(m_IsAirJumping || m_IsGroundJumping))
         {
@@ -142,6 +144,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_CharacterGravity = m_CharacterMaxGravity;
             if(m_EndAirVelocityCheck)
                 m_EndAirVelocityInverseCheck = true;
+            ChangeOrientationGround();
         }
         if (m_EndGroundVelocityCheck && m_CharacterSpeed <= 0 || m_EndAirVelocityCheck && m_CharacterSpeed <= 0)
         {
@@ -182,7 +185,9 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Movement
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving 
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle 
+            || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking && !m_IsGrounded)
         {
             if (p_Context.started)
             {
@@ -242,6 +247,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         }
         if (m_StartVelocityCheck)
         {
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
             m_StartVelocityTimer += p_DeltaTime;
             m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterStartVelocity.Evaluate(m_StartVelocityTimer);
         }
@@ -279,14 +285,11 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void EndAirLossVelocity(float p_DeltaTime)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        if (m_CharacterSpeed <= 0)
         {
-            if (m_CharacterSpeed <= 0)
-            {
-                ZeroCharacterSpeed();
-                m_EndAirVelocityCheck = false;
-                m_EndAirVelocityTimer = 0;
-            }
+            ZeroCharacterSpeed();
+            m_EndAirVelocityCheck = false;
+            m_EndAirVelocityTimer = 0;
         }
         if (m_EndAirVelocityInverseCheck)
         {
@@ -295,26 +298,22 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             ZeroCharacterSpeed();
             m_EndAirVelocityTimer = 0;
         }
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        if (m_EndAirVelocityCheck)
         {
-            if (m_EndAirVelocityCheck)
-            {
-                m_StartVelocityCheck = false;
-                m_EndAirVelocityTimer += p_DeltaTime;
-                m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
-                m_PlayerDesiredDirection = m_PastDirection;
-            }
+            Debug.Log("aaa");
+            m_StartVelocityCheck = false;
+            m_EndAirVelocityTimer += p_DeltaTime;
+            m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
+            m_PlayerDesiredDirection = m_PastDirection;
         }
     }
 
     private void ZeroCharacterSpeed()
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
-        {
-            m_CharacterSpeed = 0;
-            m_PlayerDesiredDirection = Vector3.zero;
+        m_CharacterSpeed = 0;
+        m_PlayerDesiredDirection = Vector3.zero;
+        if(m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-        }
     }
 
     public void PlayerAirDownMovement(InputAction.CallbackContext p_Context)
@@ -332,6 +331,18 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     public void ZeroMovementInput()
     {
         m_PlayerDesiredDirection = Vector3.zero;
+        if (m_EndGroundVelocityCheck)
+            m_EndGroundVelocityInverseCheck = true;
+        if (m_EndAirVelocityCheck)
+            m_EndGroundVelocityInverseCheck = true;
+    }
+
+    public void TerminateMomentum()
+    {
+        m_CharacterSpeed = 0;
+        m_PlayerDesiredDirection = Vector3.zero;
+        m_EndGroundVelocityCheck = false;
+        m_EndGroundVelocityTimer = 0;
     }
     #endregion
     #region Orientation
@@ -342,12 +353,14 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             if (p_Context.performed
                 && p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
             {
-                if (m_IsGrounded)
-                {
-                    PlayerOrientation(p_Context.ReadValue<Vector2>().x);
-                }
+                m_InputOrientation = p_Context.ReadValue<Vector2>();
             }
         }
+    }
+
+    private void ChangeOrientationGround()
+    {
+        PlayerOrientation(m_InputOrientation.x);
     }
 
     public void PlayerOrientation(float p_Orientation)
@@ -356,7 +369,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         {
             m_MovementEvents.m_EventChangeOrientation.Invoke();
             m_CharacterView.transform.localScale = new Vector3(-1 * m_CharacterView.transform.localScale.x, m_CharacterView.transform.localScale.y, m_CharacterView.transform.localScale.z);
-           
         }
     }
     #endregion

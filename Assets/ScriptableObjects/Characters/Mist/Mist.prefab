@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4808374153303659199}
   m_Layer: 10
   m_Name: Right
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 4808374153565198135}
   m_Layer: 10
   m_Name: Up
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 4808374154542703038}
   m_Layer: 10
   m_Name: UpLeft
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 4808374154713975641}
   m_Layer: 10
   m_Name: UpRight
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -591,7 +591,7 @@ GameObject:
   - component: {fileID: 4808374155139832350}
   m_Layer: 10
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 4808374155164885807}
   m_Layer: 10
   m_Name: Omni
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1628,6 +1628,21 @@ MonoBehaviour:
   - {fileID: 4808374153565198129}
   - {fileID: 4808374154542703032}
   - {fileID: 4808374155139832344}
+  m_StartShieldEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4808374153321281693}
+        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+        m_MethodName: ChangeAnimationTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shield
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4717280539556895526
 MonoBehaviour:
   m_ObjectHideFlags: 0

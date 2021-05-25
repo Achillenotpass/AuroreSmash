@@ -19,8 +19,7 @@ public class Shield : MonoBehaviour, IUpdateUser
         m_UpdateSettings.Unbind(this);
     }
     #endregion
-
-    private bool m_IsShielding = false;
+    #region Variables
     private Vector2 m_CurrentShieldDirection = Vector2.zero;
     private ShieldState m_CurrentShieldState = ShieldState.NoShield;
     private ShieldState m_NewShieldState = ShieldState.NoShield;
@@ -40,6 +39,10 @@ public class Shield : MonoBehaviour, IUpdateUser
     private PlayerInfos m_PlayerInfos = null;
     private CharacterInfos m_CharacterInfos = null;
 
+    [SerializeField]
+    private UnityEvent m_StartShieldEvent = null;
+    #endregion
+
 
     private void Awake()
     {
@@ -50,6 +53,7 @@ public class Shield : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Shielding)
         {
+            m_StartShieldEvent.Invoke();
             switch (m_CurrentShieldState)
             {
                 case ShieldState.LagBefore:
@@ -209,19 +213,19 @@ public class Shield : MonoBehaviour, IUpdateUser
         }
     }
 
-    public void TakeShieldDamages(SO_HitBox p_Hitbox)
+    public void TakeShieldDamages(SO_HitBox p_Hitbox, GameObject p_Attacker)
     {
         SO_HitBox l_ShieldedHitBox = new SO_HitBox();
         l_ShieldedHitBox.Damages = p_Hitbox.Damages * m_DamageReduction / 100.0f;
         l_ShieldedHitBox.EjectionPower = 0.0f;
-        //GetComponent<Health>().TakeDamages(l_ShieldedHitBox);
+        GetComponent<Health>().TakeDamages(l_ShieldedHitBox, p_Attacker);
     }
-    public void TakeShieldDamages(SO_Projectile p_Projectile)
+    public void TakeShieldDamages(SO_Projectile p_Projectile, GameObject p_ProjectileObject)
     {
         SO_Projectile l_ShieldedProjectile = new SO_Projectile();
         l_ShieldedProjectile.Damages = p_Projectile.Damages * m_DamageReduction / 100.0f;
         l_ShieldedProjectile.EjectionPower = 0.0f;
-        //GetComponent<Health>().TakeDamages(l_ShieldedProjectile);
+        GetComponent<Health>().TakeDamages(l_ShieldedProjectile, p_ProjectileObject);
     }
 
     public enum ShieldState
