@@ -868,7 +868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5512832e66e7fe4eb11459d2bd74a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerName: Naruto
+  m_PlayerName: YgNis
   m_AttackableLayers:
     serializedVersion: 2
     m_Bits: 2048

@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private Text m_TimerText = null;
     [SerializeField]
     private List<Slider> m_HealthBars = new List<Slider>();
+    [SerializeField]
+    private Text m_VictoryText;
 
     //Events
     [SerializeField]
@@ -197,7 +199,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private void CheckTimer(float p_DeltaTime)
     {
         m_CurrentGameTimer = m_CurrentGameTimer - p_DeltaTime;
-        m_TimerText.text = m_CurrentGameTimer.ToString();
+        m_TimerText.text = ((int)m_CurrentGameTimer).ToString();
         if (m_CurrentGameTimer <= 0.0f)
         {
             //On vérifie les vies de tous les joueurs
@@ -235,13 +237,13 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private void EndGame(PlayerInfos p_WinnerPlayerInfo)
     {
         m_GameState = EGameState.Ended;
-        Debug.Log("Winning player is :" + p_WinnerPlayerInfo.PlayerName);
+        m_VictoryText.text = "Winning player is : " + p_WinnerPlayerInfo.PlayerName;
         m_EndGameEvent.Invoke();
     }
     private void EndGameDraw()
     {
         m_GameState = EGameState.Ended;
-        Debug.Log("IT'S A DRAW !");
+        m_VictoryText.text = "IT'S A DRAW";
         m_EndGameEvent.Invoke();
     }
     #endregion
