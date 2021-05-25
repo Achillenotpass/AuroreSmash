@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PlayTestsMaps/CharacterSelection.unity
     guid: aca503ad62db8f24db1b89b7f0359c11
   - enabled: 1
-    path: Assets/Scenes/PlayTestsMaps/FightSelectedCharacter.unity
+    path: Assets/Scenes/MainGame/Caldista.unity
     guid: 5309d72f057142b489e0220ba88af02b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 70aa63e3d773ef2428c7e98ca16a18ae, type: 2}

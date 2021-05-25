@@ -12,6 +12,6 @@ public class UserCharacterSelectionTest : MonoBehaviour
     public void RegisterUser()
     {
         m_UserInfos.UserInputDevice = GetComponent<PlayerInput>().devices[0];
-        FindObjectOfType<UsersManager>().RegisterUser(m_UserInfos);
+        UsersManager.RegisterUser(m_UserInfos);
     }
 }
