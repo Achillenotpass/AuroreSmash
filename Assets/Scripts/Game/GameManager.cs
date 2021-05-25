@@ -120,9 +120,12 @@ public class GameManager : MonoBehaviour, IUpdateUser
             {
                 Health l_PlayerHealth = p_PlayerInfos.GetComponent<Health>();
                 Slider l_HealthBar = m_HealthBars[i];
+                Debug.Log(l_HealthBar + "/" + l_PlayerHealth);
                 l_PlayerHealth.HealthBar = m_HealthBars[i];
                 l_HealthBar.maxValue = l_PlayerHealth.MaxHealth;
                 l_HealthBar.value = l_HealthBar.maxValue;
+
+                break;
             }
             else
             {
@@ -137,12 +140,15 @@ public class GameManager : MonoBehaviour, IUpdateUser
         {
             m_PlayersAlive[i].AttackableLayers = m_PlayersLayers[i].AttackableLayer;
             m_PlayersAlive[i].gameObject.layer = m_PlayersLayers[i].PlayerLayer;
-            foreach (Transform l_Child in m_PlayersAlive[i].gameObject.GetComponentsInChildren<Transform>())
+            foreach (Transform l_Child in m_PlayersAlive[i].gameObject.GetComponentsInChildren(typeof(Transform), true))
             {
+                Debug.Log(l_Child.gameObject.name + " : " + l_Child.gameObject.layer);
                 l_Child.gameObject.layer = m_PlayersLayers[i].PlayerLayer;
             }
             l_Camera.ListOfAllPlayers.Add(m_PlayersAlive[i].GetComponent<CharacterInfos>());
         }
+
+        l_Camera.enabled = true;
     }
     private void StartGame()
     {
@@ -191,6 +197,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private void CheckTimer(float p_DeltaTime)
     {
         m_CurrentGameTimer = m_CurrentGameTimer - p_DeltaTime;
+        m_TimerText.text = m_CurrentGameTimer.ToString();
         if (m_CurrentGameTimer <= 0.0f)
         {
             //On vérifie les vies de tous les joueurs

@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 6393736190473948675}
   m_Layer: 10
   m_Name: UpRight
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 6393736190637958372}
   m_Layer: 10
   m_Name: UpLeft
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 6393736190970847044}
   m_Layer: 10
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 6393736190996162165}
   m_Layer: 10
   m_Name: Omni
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 6393736191215310821}
   m_Layer: 10
   m_Name: Right
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -613,7 +613,7 @@ MonoBehaviour:
   - m_AnimationName: Idle
     m_Animation: {fileID: 11400000, guid: 3ade321a4987288429fdaab1cf2233c2, type: 2}
   - m_AnimationName: Jab
-    m_Animation: {fileID: 11400000, guid: 65bab7eee9ef6e64ba208431b9d89dc3, type: 2}
+    m_Animation: {fileID: 11400000, guid: eaf204ba8c646d84391021d3ea539d2a, type: 2}
   - m_AnimationName: UpTilt
     m_Animation: {fileID: 11400000, guid: 633aca9d181ad584d90a0ca836386930, type: 2}
   - m_AnimationName: SideTilt
@@ -650,7 +650,7 @@ GameObject:
   - component: {fileID: 6393736191472783981}
   m_Layer: 10
   m_Name: Up
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -782,6 +782,7 @@ GameObject:
   - component: {fileID: 9200278381566710911}
   - component: {fileID: 5123021735009848120}
   - component: {fileID: -7509473996006968434}
+  - component: {fileID: 833536739428192680}
   m_Layer: 10
   m_Name: YgNis
   m_TagString: Untagged
@@ -1562,6 +1563,9 @@ MonoBehaviour:
   - {fileID: 6393736191472783979}
   - {fileID: 6393736190637958370}
   - {fileID: 6393736190970847042}
+  m_StartShieldEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5123021735009848120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1610,3 +1614,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46200fbdd286fbe43bc5b2bb9aa5021d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &833536739428192680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200278381566710910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ecf9dd0bab80945bbe510f159cbc65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
+  m_EjectionAngle: 0
+  m_EjectionPower: 0
+  m_MaxTimerEjection: 1

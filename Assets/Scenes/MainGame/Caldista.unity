@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12810624, g: 0.15872967, b: 0.21008968, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3687,23 +3687,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
   m_ListOfAllPlayers: []
+  m_MainCamera: {fileID: 1255229654}
   m_CameraZoomCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: -0.5
-      outSlope: -0.5
+      value: -5
+      inSlope: -1
+      outSlope: -1
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 30
-      value: -15
-      inSlope: -0.5
-      outSlope: -0.5
+      value: -35
+      inSlope: -1
+      outSlope: -1
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -3711,8 +3712,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_CameraDefaultZoom: -5
-  m_LevelCenter: {fileID: 0}
 --- !u!1 &1333823330
 GameObject:
   m_ObjectHideFlags: 0
@@ -5792,7 +5791,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8310653884191736178, guid: c6a4696304d8c524fa4eeb7e663f59a9, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0.672
       objectReference: {fileID: 0}
     - target: {fileID: 8310653884191736178, guid: c6a4696304d8c524fa4eeb7e663f59a9, type: 3}
       propertyPath: m_MaxValue
