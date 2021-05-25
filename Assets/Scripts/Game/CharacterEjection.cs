@@ -32,6 +32,8 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
 
     private CharacterMovement m_CharacterMovement = null;
 
+    private CharacterController m_CharacterController = null;
+
     private CharacterInfos m_CharacterInfos = null;
 
     private Vector3 m_BasePosition = Vector3.zero;
@@ -45,6 +47,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     {
         m_CharacterMovement = GetComponent<CharacterMovement>();
         m_CharacterInfos = GetComponent<CharacterInfos>();
+        m_CharacterController = GetComponent<CharacterController>();
         m_Health = GetComponent<Health>();
     }
 
@@ -79,6 +82,11 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     {
         if (m_IsEjected)
         {
+            if(Physics.CapsuleCast(this.transform.position + new Vector3(0, m_CharacterController.height/1.9f, 0), this.transform.position + new Vector3(0, -m_CharacterController.height/1.9f, 0), m_CharacterController.radius * 1.5f, Vector3.zero))
+            {
+                m_IsEjected = false;
+                return;
+            }
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
             m_ActualEjectionPoint = new Vector3(m_EjectionPower * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Cos(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection, m_EjectionPower * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Sin(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection, 0);
             if (m_PreviousEjectionPoint != Vector3.zero)
