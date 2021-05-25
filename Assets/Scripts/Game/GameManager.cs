@@ -177,6 +177,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
             PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>();
             l_Camera.ListOfAllPlayers.Remove(p_Character.GetComponent<CharacterInfos>());
+
+            Destroy(p_Character.gameObject);
         }
     }
     private void CheckEndGameLives()
