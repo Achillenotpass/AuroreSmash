@@ -17,7 +17,7 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         m_UpdateSettings.Unbind(this);
     }
     #endregion
-
+    [SerializeField]
     private List<CharacterInfos> m_ListOfAllPlayers = new List<CharacterInfos>();
     public List<CharacterInfos> ListOfAllPlayers { get { return m_ListOfAllPlayers; } }
 
