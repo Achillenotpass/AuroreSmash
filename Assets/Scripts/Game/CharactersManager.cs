@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharactersManager : MonoBehaviour
 {
@@ -10,15 +11,13 @@ public class CharactersManager : MonoBehaviour
     private List<SO_Character> m_AvailableCharacters = new List<SO_Character>();
     //Selectors datas
     private List<CharacterSelector> m_Selectors = new List<CharacterSelector>();
-    private UsersManager m_UsersManager = null;
+    //FightDatas
+    [SerializeField]
+    private string m_FightScene;
     //Display
     #endregion
 
     #region Awake/Start/Update
-    private void Awake()
-    {
-        m_UsersManager = FindObjectOfType<UsersManager>();
-    }
     #endregion
 
     #region Functions
@@ -52,6 +51,9 @@ public class CharactersManager : MonoBehaviour
     }
     public void StartGame()
     {
+        Debug.Log("Start game");
+
+        //On vérifie d'abord si tous les joueurs ont sélectionné leur personnage
         foreach (CharacterSelector l_Selector in m_Selectors)
         {
             if (l_Selector.SelectorUserInfos.UserCharacter == null)
@@ -59,10 +61,17 @@ public class CharactersManager : MonoBehaviour
                 return;
             }
         }
+
+        //Puis on vide la liste d'utilisateurs
+        UsersManager.UnRegisterAllUser();
+        //Avant de la remplir avec les nouveaux joueurs
         foreach (CharacterSelector l_Selector in m_Selectors)
         {
-            m_UsersManager.RegisterUser(l_Selector.SelectorUserInfos);
+            UsersManager.RegisterUser(l_Selector.SelectorUserInfos);
         }
+
+        //Puis on va sur la scène de combat
+        SceneManager.LoadScene(m_FightScene);
     }
     #endregion
 }

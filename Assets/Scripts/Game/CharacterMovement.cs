@@ -240,10 +240,17 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private void StartGainVelocity(float p_DeltaTime)
     {
-        if (m_StartVelocityTimer >= m_CharacterStartVelocity.keys[m_CharacterStartVelocity.keys.Length - 1].time)
+        if (m_CharacterStartVelocity != null)
         {
-            m_StartVelocityCheck = false;
-            m_StartVelocityTimer = 0;
+            if (m_StartVelocityTimer >= m_CharacterStartVelocity.keys[m_CharacterStartVelocity.keys.Length - 1].time)
+            {
+                m_StartVelocityCheck = false;
+                m_StartVelocityTimer = 0;
+            }
+        }
+        else
+        {
+            Debug.Log("m_CharacterStartVelocity is null");
         }
         if (m_StartVelocityCheck)
         {

@@ -1362,7 +1362,7 @@ MonoBehaviour:
   m_IsAerial: 0
   m_JoystickDeadZone: 0.2
   m_Attacks:
-    m_Jab: {fileID: 11400000, guid: 32fc1588a6db54142afb67a48bf61735, type: 2}
+    m_Jab: {fileID: 11400000, guid: 2118741c7bebc0f45970760abc5aba10, type: 2}
     m_SideTilt: {fileID: 11400000, guid: 8cc929e65832fcf48b0f13ca3e2ff8fc, type: 2}
     m_UpTilt: {fileID: 11400000, guid: 173b35b0879eb8f42a231eb355a2e257, type: 2}
     m_DownTilt: {fileID: 11400000, guid: 0b7db1a796f54aa479cace7e2ce14b41, type: 2}
