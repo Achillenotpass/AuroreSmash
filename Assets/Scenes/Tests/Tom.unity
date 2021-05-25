@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1481.7754, g: 1835.8867, b: 2430.4492, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 471444631}
   - component: {fileID: 471444641}
   - component: {fileID: 471444637}
+  - component: {fileID: 471444642}
   m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -450,26 +451,14 @@ MonoBehaviour:
     m_ActionId: ef2c27a2-0fda-446c-adb3-f1c5825b3fd6
     m_ActionName: Player/Tilts
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1123689408}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: PauseTheGame
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 87271e31-7c6b-46cc-80d1-db5dc072fd23
     m_ActionName: Player/Grab
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1123689408}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: ResumeTheGame
+      - m_Target: {fileID: 471444642}
+        m_TargetAssemblyTypeName: CharacterPause, Assembly-CSharp
+        m_MethodName: InputForResume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -481,6 +470,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c3ced617-dbaf-4460-affe-72658ee90a72
     m_ActionName: UI/Resume[/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 471444642}
+        m_TargetAssemblyTypeName: CharacterPause, Assembly-CSharp
+        m_MethodName: InputForPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fc184c56-3d75-48d9-865f-579357e7b0ac
+    m_ActionName: Player/Select[/XInputControllerWindows/select]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -714,6 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5512832e66e7fe4eb11459d2bd74a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerName: Naruto
   m_AttackableLayers:
     serializedVersion: 2
     m_Bits: 14336
@@ -764,6 +770,15 @@ MonoBehaviour:
     m_EventChangeOrientation:
       m_PersistentCalls:
         m_Calls: []
+    m_StartMoveAnimation:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartGroundIdleAnimation:
+      m_PersistentCalls:
+        m_Calls: []
+    m_StartAirIdleAnimation:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &471444641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -776,8 +791,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4861933b989ed8f48b4e680e95153648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxLives: 3
+  m_CurrentLives: 3
   m_MaxHealth: 100
   m_CurrentHealth: 100
+--- !u!114 &471444642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471444630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46200fbdd286fbe43bc5b2bb9aa5021d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &486129801
 GameObject:
   m_ObjectHideFlags: 0

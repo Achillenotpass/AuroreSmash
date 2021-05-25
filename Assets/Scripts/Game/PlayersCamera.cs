@@ -17,7 +17,7 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         m_UpdateSettings.Unbind(this);
     }
     #endregion
-
+    [SerializeField]
     private List<CharacterInfos> m_ListOfAllPlayers = new List<CharacterInfos>();
     public List<CharacterInfos> ListOfAllPlayers { get { return m_ListOfAllPlayers; } }
 
@@ -38,19 +38,15 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
     [SerializeField]
     private GameObject m_LevelCenter = null;
 
-    private Bounds m_LevelBounds;
-
-    private float m_HalfBoundsX = 30f;
-    private float m_HalfBoundsY = 10f;
-
     private void Start()
     {
         m_MainCamera = this.gameObject;
-        Bounds l_Bounds = new Bounds();
-        l_Bounds.Encapsulate(new Vector3(transform.position.x - m_HalfBoundsX, transform.position.y - m_HalfBoundsY, transform.position.z - 50));
-        l_Bounds.Encapsulate(new Vector3(transform.position.x + m_HalfBoundsX, transform.position.y + m_HalfBoundsY, transform.position.z + 50));
-        m_LevelBounds = l_Bounds;
         m_BaseCameraPosition = m_MainCamera.transform.position;
+        CharacterInfos[] l_ListOfAllPlayers = FindObjectsOfType<CharacterInfos>();
+        for(int i = 0; i < l_ListOfAllPlayers.Length; i++)
+        {
+            m_ListOfAllPlayers.Add(l_ListOfAllPlayers[i]);
+        }
     }
 
     public void CustomUpdate(float p_DeltaTime)
@@ -74,9 +70,9 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         {
             for (int v = 0; v < m_ListOfAllPlayers.Count; v++)
             {
-                if (m_GreaterDistancePlayers < Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position))
+                if (m_GreaterDistancePlayers < Mathf.Sqrt(Mathf.Pow(m_ListOfAllPlayers[v].transform.position.x - m_ListOfAllPlayers[i].transform.position.x, 2) + Mathf.Pow((m_ListOfAllPlayers[v].transform.position.y - m_ListOfAllPlayers[i].transform.position.y) * 2.5f, 2))) /*Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position)*/
                 {
-                    m_GreaterDistancePlayers = Vector3.Distance(m_ListOfAllPlayers[i].transform.position, m_ListOfAllPlayers[v].transform.position);
+                    m_GreaterDistancePlayers = Mathf.Sqrt(Mathf.Pow(m_ListOfAllPlayers[v].transform.position.x - m_ListOfAllPlayers[i].transform.position.x, 2) + Mathf.Pow((m_ListOfAllPlayers[v].transform.position.y - m_ListOfAllPlayers[i].transform.position.y) * 2.5f, 2));
                 }
             }
         }
