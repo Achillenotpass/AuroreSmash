@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c3bab1350bb2a2440ba7b2a9e52190dc
+guid: 4831a47765c616c45bd9c8bc619baca0
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Robot_Font
+  - glimmer of light
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
