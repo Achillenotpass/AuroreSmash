@@ -18,7 +18,6 @@ public class PauseMenu : MonoBehaviour
     private void Update()
     {
         Time.timeScale = m_Time;
-        Debug.Log(m_PlayersInput[0].currentActionMap);
     }
 
     public void FindPlayersInput()
