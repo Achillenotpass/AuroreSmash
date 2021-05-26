@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5512832e66e7fe4eb11459d2bd74a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerName: Naruto
+  m_PlayerName: Mist
   m_AttackableLayers:
     serializedVersion: 2
     m_Bits: 2048
@@ -1383,11 +1383,35 @@ MonoBehaviour:
     m_ActionId: 87271e31-7c6b-46cc-80d1-db5dc072fd23
     m_ActionName: Player/Grab
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6364850973411245361}
+        m_TargetAssemblyTypeName: CharacterPause, Assembly-CSharp
+        m_MethodName: InputForPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fc184c56-3d75-48d9-865f-579357e7b0ac
     m_ActionName: Player/Select[/XInputControllerWindows/select,/XInputControllerWindows/select]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6364850973411245361}
+        m_TargetAssemblyTypeName: CharacterPause, Assembly-CSharp
+        m_MethodName: InputForResume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c3ced617-dbaf-4460-affe-72658ee90a72
     m_ActionName: UI/Resume[/XInputControllerWindows/rightShoulder,/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0

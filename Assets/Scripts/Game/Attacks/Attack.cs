@@ -565,6 +565,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     Vector3 l_HitBoxPosition = Vector3.zero;
                     l_HitBoxPosition.y = transform.position.y + l_HitBox.RelativePosition.y;
                     l_HitBoxPosition.x = transform.position.x + (l_HitBox.RelativePosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
+                    l_HitBoxPosition.z = transform.position.z;
                     switch (l_HitBox.HitBoxType)
                     {
                         case EHitBOxType.Square:

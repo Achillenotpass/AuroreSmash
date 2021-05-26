@@ -20,7 +20,7 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
     [SerializeField]
     private List<CharacterInfos> m_ListOfAllPlayers = new List<CharacterInfos>();
     public List<CharacterInfos> ListOfAllPlayers { get { return m_ListOfAllPlayers; } }
-
+    [SerializeField]
     private GameObject m_MainCamera = null;
 
     private Vector3 m_AveragePositionPlayers = Vector3.zero;
@@ -28,25 +28,18 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
     [SerializeField]
     private AnimationCurve m_CameraZoomCurve = null;
 
-    [SerializeField]
-    private float m_CameraDefaultZoom = -10;
-
     private float m_GreaterDistancePlayers = 0;
 
     private Vector3 m_BaseCameraPosition = Vector3.zero;
 
-    [SerializeField]
-    private GameObject m_LevelCenter = null;
-
     private void Start()
     {
-        m_MainCamera = this.gameObject;
         m_BaseCameraPosition = m_MainCamera.transform.position;
-        CharacterInfos[] l_ListOfAllPlayers = FindObjectsOfType<CharacterInfos>();
-        for(int i = 0; i < l_ListOfAllPlayers.Length; i++)
-        {
-            m_ListOfAllPlayers.Add(l_ListOfAllPlayers[i]);
-        }
+        //CharacterInfos[] l_ListOfAllPlayers = FindObjectsOfType<CharacterInfos>();
+        //for(int i = 0; i < l_ListOfAllPlayers.Length; i++)
+        //{
+        //    m_ListOfAllPlayers.Add(l_ListOfAllPlayers[i]);
+        //}
     }
 
     public void CustomUpdate(float p_DeltaTime)
@@ -76,6 +69,7 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
                 }
             }
         }
+
         m_MainCamera.transform.position = m_AveragePositionPlayers + new Vector3(0, 0, m_BaseCameraPosition.z + m_CameraZoomCurve.Evaluate(m_GreaterDistancePlayers / 2));
         m_AveragePositionPlayers = Vector3.zero;
     }
