@@ -483,14 +483,14 @@ public class Attack : MonoBehaviour, IUpdateUser
     public void ApplyDamages(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
         //Oninflige les dégâts au joueur touché
-        p_PlayerHit.TakeDamages(p_HitBox);
+        p_PlayerHit.TakeDamages(p_HitBox, this.gameObject);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
     }
     public void ApplyDamagesShield(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
         //Oninflige les dégâts au joueur touché
-        p_PlayerHit.GetComponent<Shield>().TakeShieldDamages(p_HitBox);
+        p_PlayerHit.GetComponent<Shield>().TakeShieldDamages(p_HitBox, this.gameObject);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
     }
@@ -565,6 +565,7 @@ public class Attack : MonoBehaviour, IUpdateUser
                     Vector3 l_HitBoxPosition = Vector3.zero;
                     l_HitBoxPosition.y = transform.position.y + l_HitBox.RelativePosition.y;
                     l_HitBoxPosition.x = transform.position.x + (l_HitBox.RelativePosition.x * Mathf.Sign(m_PlayerMovements.CharacterOrientation));
+                    l_HitBoxPosition.z = transform.position.z;
                     switch (l_HitBox.HitBoxType)
                     {
                         case EHitBOxType.Square:

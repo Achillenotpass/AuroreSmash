@@ -25,6 +25,7 @@ public class Health : MonoBehaviour
     public Slider HealthBar { set { m_HealthBar = value; } }
     #endregion
 
+    #region Awake/Start/Update
     private void Awake()
     {
         m_CharacterInfos = GetComponent<CharacterInfos>();
@@ -41,25 +42,46 @@ public class Health : MonoBehaviour
             m_HealthBar.value = m_CurrentHealth;
         }
     }
+    #endregion
 
 
     #region Functions
-    public void TakeDamages(SO_HitBox p_HitBox)
+    public void TakeDamages(SO_HitBox p_HitBox, GameObject p_Attacker)
     {
         m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_HitBox.Damages, 0.0f, m_MaxHealth);
 
-        m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
-        Invoke(nameof(StopHitLag), p_HitBox.HitLag);
-        GetComponent<MeshRenderer>().enabled = true;
-        //On appelle la fonction apliquant l'éjection sur le joueur touché 
-        GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle);
+        //EJECTION DE QUAND ON TOMBE A 0 PVS
+        if (m_CurrentHealth <= 0.0f)
+        {
+            p_HitBox.EjectionPower = 100000.0f;
+        }
+
+        if(p_HitBox.EjectionPower > 0.0f)
+        {
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
+            Invoke(nameof(StopHitLag), p_HitBox.HitLag);
+            GetComponent<MeshRenderer>().enabled = true;
+            //On appelle la fonction apliquant l'éjection sur le joueur touché 
+            GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle, p_Attacker);
+        }
     }
-    public void TakeDamages(SO_Projectile p_Projectile)
+    public void TakeDamages(SO_Projectile p_Projectile, GameObject p_ProjectileObject)
     {
-        m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
-        Invoke(nameof(StopHitLag), p_Projectile.HitLag);
-        GetComponent<MeshRenderer>().enabled = true;
-        GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle);
+        m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_Projectile.Damages, 0.0f, m_MaxHealth);
+
+        //EJECTION DE QUAND ON TOMBE A 0 PVS
+        if (m_CurrentHealth <= 0.0f)
+        {
+            p_Projectile.EjectionPower = 100000.0f;
+        }
+
+        if (p_Projectile.EjectionPower > 0.0f)
+        {
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
+            Invoke(nameof(StopHitLag), p_Projectile.HitLag);
+            GetComponent<MeshRenderer>().enabled = true;
+            GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObject);
+        }
     }
     public void StopHitLag()
     {
@@ -69,6 +91,11 @@ public class Health : MonoBehaviour
     public void LoseLife()
     {
         CurrentLives = CurrentLives - 1;
+    }
+    [ContextMenu("Lose 10 HPs")]
+    public void TakeDamagesDebug()
+    {
+        CurrentHealth = CurrentHealth - 10.0f;
     }
     #endregion
 

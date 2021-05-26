@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class CharacterSelector : MonoBehaviour
 {
     #region Variables
+    [SerializeField]
     private SO_Character m_CurrentCharacter = null;
     private UserInfos m_UserInfos = new UserInfos();
     public UserInfos SelectorUserInfos { get { return m_UserInfos; } }
@@ -22,7 +23,7 @@ public class CharacterSelector : MonoBehaviour
     private void Start()
     {
         m_UserInfos.UserInputDevice = GetComponent<PlayerInput>().devices[0];
-        m_CurrentCharacter = m_CharacterManager.GetRandomCharacter();
+        m_CurrentCharacter = m_CharacterManager.GetRandomCharacter(this);
         Debug.Log("Currently on " + m_CurrentCharacter.name);
     }
     #endregion
@@ -32,12 +33,9 @@ public class CharacterSelector : MonoBehaviour
     {
         if (p_Context.started)
         {
-            if (m_UserInfos.UserCharacter == null)
+            if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
-                Debug.Log(m_CurrentCharacter);
-                Debug.Log(m_CharacterManager);
-                m_CurrentCharacter = m_CharacterManager.ChangeCharacter(m_CurrentCharacter);
-                Debug.Log("Currently on " + m_CurrentCharacter.name);
+                m_CurrentCharacter = m_CharacterManager.ChangeCharacter(m_CurrentCharacter, this);
             }
         }
     }
@@ -45,12 +43,11 @@ public class CharacterSelector : MonoBehaviour
     {
         if (p_Context.started)
         {
-            if (m_UserInfos.UserCharacter == null)
+            if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
                 m_UserInfos.UserCharacter = m_CurrentCharacter;
-                Debug.Log("Selected " + m_CurrentCharacter.name);
             }
-            else
+            else if (m_UserInfos.UserCharacter != null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
                 m_CharacterManager.StartGame();
             }
@@ -60,13 +57,13 @@ public class CharacterSelector : MonoBehaviour
     {
         if (p_Context.started)
         {
-            if (m_UserInfos.UserCharacter != null)
+            if (m_UserInfos.UserCharacter != null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
                 m_UserInfos.UserCharacter = null;
                 Debug.Log("Unselected character");
                 Debug.Log("Currently on " + m_CurrentCharacter.name);
             }
-            else
+            else if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
                 //Revenir au menu précédent
                 Debug.Log("Retour au menu précédent");
@@ -76,11 +73,13 @@ public class CharacterSelector : MonoBehaviour
     #endregion
 }
 
+[System.Serializable]
 public class UserInfos
 {
     #region Variables
     private InputDevice m_UserInputDevice = null;
     public InputDevice UserInputDevice { get { return m_UserInputDevice; } set { m_UserInputDevice = value; } }
+    [SerializeField]
     private SO_Character m_UserCharacter = null;
     public SO_Character UserCharacter { get { return m_UserCharacter; } set { m_UserCharacter = value; } }
     #endregion
