@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f6191350edc6f4ea5e1d16e60d5014, type: 3}
   m_Name: YgNis
   m_EditorClassIdentifier: 
-  m_CharacterPrefab: {fileID: 7326282991860863268, guid: d2ee50ccb98f2be4e82c4169cc63ff09, type: 3}
+  m_CharacterPrefab: {fileID: 9200278381566710910, guid: d2ee50ccb98f2be4e82c4169cc63ff09, type: 3}
   m_HealthBarPrefab: {fileID: 0}
