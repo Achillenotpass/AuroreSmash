@@ -5,13 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
-    private PlayerInput[] m_PlayersInput = null;
+    private List<PlayerInput> m_PlayersInput = new List<PlayerInput>();
     private Controls m_InputActionControls;
     private float m_Time = 1f;
 
     private void Start()
     {
-        FindPlayersInput();
         m_InputActionControls = new Controls();
     }
     
@@ -22,7 +21,8 @@ public class PauseMenu : MonoBehaviour
 
     public void FindPlayersInput()
     {
-        m_PlayersInput = FindObjectsOfType<PlayerInput>();
+        m_PlayersInput.Clear();
+        m_PlayersInput = new List<PlayerInput>(FindObjectsOfType<PlayerInput>());
     }
 
     public void PauseTheGame(InputAction.CallbackContext p_Context)
@@ -30,9 +30,10 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("aaa");
         if (p_Context.started)
         {
+            FindPlayersInput();
             Debug.Log("bbb");
             m_Time = 0;
-            for (int i = 0; i < m_PlayersInput.Length; i++)
+            for (int i = 0; i < m_PlayersInput.Count; i++)
             {
                 m_PlayersInput[i].currentActionMap = m_InputActionControls.UI;
                 m_PlayersInput[i].actions.FindActionMap("Player").Disable();
@@ -46,9 +47,10 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("ccc");
         if (p_Context.started)
         {
+            FindPlayersInput();
             Debug.Log("ddd");
             m_Time = 1;
-            for (int i = 0; i < m_PlayersInput.Length; i++)
+            for (int i = 0; i < m_PlayersInput.Count; i++)
             {
                 m_PlayersInput[i].currentActionMap = m_InputActionControls.Player;
                 m_PlayersInput[i].actions.FindActionMap("UI").Disable();
