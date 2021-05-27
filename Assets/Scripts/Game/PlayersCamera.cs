@@ -73,9 +73,4 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         m_MainCamera.transform.position = m_AveragePositionPlayers + new Vector3(0, 0, m_BaseCameraPosition.z + m_CameraZoomCurve.Evaluate(m_GreaterDistancePlayers / 2));
         m_AveragePositionPlayers = Vector3.zero;
     }
-
-    private void CameraShake(float p_ShakePower)
-    {
-
-    }
 }
