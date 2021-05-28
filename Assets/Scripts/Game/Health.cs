@@ -92,11 +92,6 @@ public class Health : MonoBehaviour
     {
         CurrentLives = CurrentLives - 1;
     }
-    [ContextMenu("Lose 10 HPs")]
-    public void TakeDamagesDebug()
-    {
-        CurrentHealth = CurrentHealth - 10.0f;
-    }
     #endregion
 
     public float MaxHealth
@@ -107,6 +102,6 @@ public class Health : MonoBehaviour
     public float CurrentHealth
     {
         get { return m_CurrentHealth; }
-        set { m_CurrentHealth = value; }
+        set { m_CurrentHealth = Mathf.Clamp(value, 0.0f, MaxHealth); }
     }
 }
