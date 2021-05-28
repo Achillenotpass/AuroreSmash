@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CharacterInfos : MonoBehaviour
 {
+    [SerializeField]
+    private SO_Character m_Character = null;
+    public SO_Character Character { get { return m_Character; } set { m_Character = value; } }
     private CharacterState m_CurrentCharacterState = CharacterState.Idle;
     public CharacterState CurrentCharacterState { get { return m_CurrentCharacterState; } set { m_CurrentCharacterState = value; } }
 
