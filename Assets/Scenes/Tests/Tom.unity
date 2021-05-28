@@ -1019,6 +1019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
+  m_ListOfAllPlayers: []
   m_CameraZoomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1580,7 +1581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96cf6148ef2f2814fade6127d83facf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TimeScale: 1
+  m_TimeScale: 0.05
 --- !u!4 &973605634
 Transform:
   m_ObjectHideFlags: 0

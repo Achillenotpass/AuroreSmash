@@ -68,7 +68,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     private float m_CharacterOrientation = 1;
     [SerializeField]
     private GameObject m_CharacterView = null;
-    private Vector2 m_InputOrientation = Vector2.one;
+    private float m_InputOrientation = 1;
     #endregion
     #region MovementMomentum
     private AnimationCurve m_CharacterStartVelocity = null;
@@ -144,6 +144,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_CharacterGravity = m_CharacterMaxGravity;
             if(m_EndAirVelocityCheck)
                 m_EndAirVelocityInverseCheck = true;
+            ChangeOrientationGround();
         }
         if (m_EndGroundVelocityCheck && m_CharacterSpeed <= 0 || m_EndAirVelocityCheck && m_CharacterSpeed <= 0)
         {
@@ -359,15 +360,15 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             if (p_Context.performed
                 && p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
             {
-                PlayerOrientation(p_Context.ReadValue<Vector2>().x);
+                m_InputOrientation = p_Context.ReadValue<Vector2>().x;
             }
         }
     }
 
-/*    private void ChangeOrientationGround()
+    private void ChangeOrientationGround()
     {
-        PlayerOrientation(m_InputOrientation.x);
-    }*/
+        PlayerOrientation(m_InputOrientation);
+    }
 
     public void PlayerOrientation(float p_Orientation)
     {
@@ -516,6 +517,13 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         get { return m_EndAirVelocityInverseCheck; }
 
         set { m_EndAirVelocityInverseCheck = value; }
+    }
+
+    public float InputOrientation
+    {
+        get { return m_InputOrientation; }
+
+        set { m_InputOrientation = value; }
     }
     #endregion
 }

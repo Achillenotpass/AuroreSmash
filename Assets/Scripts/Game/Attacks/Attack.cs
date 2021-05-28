@@ -337,11 +337,11 @@ public class Attack : MonoBehaviour, IUpdateUser
     {
         if (p_Left)
         {
-            m_PlayerMovements.PlayerOrientation(-1.0f);
+            m_PlayerMovements.InputOrientation = - 1.0f;
         }
         else
         {
-            m_PlayerMovements.PlayerOrientation(1.0f);
+            m_PlayerMovements.InputOrientation = 1.0f;
         }
     }
     //CALCUL DE LA DUREE MAX DE L'ATTAQUE
