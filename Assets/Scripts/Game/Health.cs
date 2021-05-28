@@ -54,7 +54,6 @@ public class Health : MonoBehaviour
         if (m_CurrentHealth <= 0.0f)
         {
             p_HitBox.EjectionPower = 100000.0f;
-            Death();
         }
 
         if(p_HitBox.EjectionPower > 0.0f)
@@ -74,7 +73,6 @@ public class Health : MonoBehaviour
         if (m_CurrentHealth <= 0.0f)
         {
             p_Projectile.EjectionPower = 100000.0f;
-            Death();
         }
 
         if (p_Projectile.EjectionPower > 0.0f)
@@ -85,10 +83,6 @@ public class Health : MonoBehaviour
             GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObject);
         }
     }
-    public void Death()
-    {
-        StartCoroutine(FindObjectOfType<Camera>().gameObject.GetComponent<Shake>().CreateShake(0.3f, 0.7f));
-    }
     public void StopHitLag()
     {
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
@@ -97,11 +91,6 @@ public class Health : MonoBehaviour
     public void LoseLife()
     {
         CurrentLives = CurrentLives - 1;
-    }
-    [ContextMenu("Lose 10 HPs")]
-    public void TakeDamagesDebug()
-    {
-        CurrentHealth = CurrentHealth - 10.0f;
     }
     #endregion
 
@@ -113,6 +102,6 @@ public class Health : MonoBehaviour
     public float CurrentHealth
     {
         get { return m_CurrentHealth; }
-        set { m_CurrentHealth = value; }
+        set { m_CurrentHealth = Mathf.Clamp(value, 0.0f, MaxHealth); }
     }
 }

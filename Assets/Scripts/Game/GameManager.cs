@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private Text m_TimerText = null;
     [SerializeField]
-    private List<Slider> m_HealthBars = new List<Slider>();
+    private List<HealthBarGame> m_HealthBars = new List<HealthBarGame>();
     [SerializeField]
     private Text m_VictoryText;
 
@@ -111,6 +111,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = true;
         //Changer parent du joueur
         l_SpawnedPlayer.transform.SetParent(m_PlayersSpawn);
+        //Setup les données du personnage
+        l_SpawnedPlayer.GetComponent<CharacterInfos>().Character = p_UserInfos.UserCharacter;
 
         return l_SpawnedPlayer.GetComponent<PlayerInfos>();
     }
@@ -118,14 +120,18 @@ public class GameManager : MonoBehaviour, IUpdateUser
     {
         for (int i = 0; i < m_HealthBars.Count; i++)
         {
-            if (m_HealthBars[i].maxValue == 1)
+            if (m_HealthBars[i].m_HealthBarSlider.maxValue == 1)
             {
                 Health l_PlayerHealth = p_PlayerInfos.GetComponent<Health>();
-                Slider l_HealthBar = m_HealthBars[i];
-                Debug.Log(l_HealthBar + "/" + l_PlayerHealth);
-                l_PlayerHealth.HealthBar = m_HealthBars[i];
+                Slider l_HealthBar = m_HealthBars[i].m_HealthBarSlider;
+                l_PlayerHealth.HealthBar = l_HealthBar;
                 l_HealthBar.maxValue = l_PlayerHealth.MaxHealth;
                 l_HealthBar.value = l_HealthBar.maxValue;
+
+                SO_Character l_CurrentCharacter = l_PlayerHealth.GetComponent<CharacterInfos>().Character;
+                m_HealthBars[i].m_HealthBarImage.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarImage;
+                m_HealthBars[i].m_HealthBarLogo.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarLogo;
+                m_HealthBars[i].m_HealtBarNameHolder.sprite = l_CurrentCharacter.HealthBarDatas.m_HealtBarNameHolder;
 
                 break;
             }
@@ -260,6 +266,14 @@ public class GameManager : MonoBehaviour, IUpdateUser
         Running,
         Paused,
         Ended,
+    }
+    [System.Serializable]
+    private class HealthBarGame
+    {
+        public Slider m_HealthBarSlider = null;
+        public Image m_HealthBarImage = null;
+        public Image m_HealthBarLogo = null;
+        public Image m_HealtBarNameHolder = null;
     }
 }
 

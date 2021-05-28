@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: YgNis
   m_EditorClassIdentifier: 
   m_CharacterPrefab: {fileID: 9200278381566710910, guid: d2ee50ccb98f2be4e82c4169cc63ff09, type: 3}
-  m_HealthBarPrefab: {fileID: 0}
+  m_CharacterSelectionDatas:
+    m_SelectionSprite: {fileID: 21300000, guid: 1f782457893d8a64a8bd18184c3e8feb, type: 3}
+    m_InGameSprite: {fileID: 21300000, guid: 1f782457893d8a64a8bd18184c3e8feb, type: 3}
+  m_HealthBarDatas:
+    m_HealthBarImage: {fileID: 21300000, guid: 8660fa83e9ae9e24694de64d8e8c7d4f, type: 3}
+    m_HealthBarLogo: {fileID: 21300000, guid: 563a7e2548cc64c48983bd02acc83839, type: 3}
+    m_HealtBarNameHolder: {fileID: 21300000, guid: 998f0d237ca31f84ba6b93ee13cc8165, type: 3}

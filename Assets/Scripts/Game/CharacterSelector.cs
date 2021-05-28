@@ -46,6 +46,7 @@ public class CharacterSelector : MonoBehaviour
             if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
                 m_UserInfos.UserCharacter = m_CurrentCharacter;
+                m_CharacterManager.SelectionDisplay(this, m_CurrentCharacter, true);
             }
             else if (m_UserInfos.UserCharacter != null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
@@ -60,8 +61,7 @@ public class CharacterSelector : MonoBehaviour
             if (m_UserInfos.UserCharacter != null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
                 m_UserInfos.UserCharacter = null;
-                Debug.Log("Unselected character");
-                Debug.Log("Currently on " + m_CurrentCharacter.name);
+                m_CharacterManager.SelectionDisplay(this, m_CurrentCharacter, false);
             }
             else if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
