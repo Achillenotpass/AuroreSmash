@@ -86,10 +86,6 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
             {
                 m_EjectionDirection = 1.0f;
             }
-            if(p_EjectionPower + 1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f) >= 15)
-            {
-                StartCoroutine(FindObjectOfType<Camera>().gameObject.GetComponent<Shake>().CreateShake(0.2f, 0.5f));
-            }
         }
     }
 

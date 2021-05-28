@@ -54,7 +54,6 @@ public class Health : MonoBehaviour
         if (m_CurrentHealth <= 0.0f)
         {
             p_HitBox.EjectionPower = 100000.0f;
-            Death();
         }
 
         if(p_HitBox.EjectionPower > 0.0f)
@@ -74,7 +73,6 @@ public class Health : MonoBehaviour
         if (m_CurrentHealth <= 0.0f)
         {
             p_Projectile.EjectionPower = 100000.0f;
-            Death();
         }
 
         if (p_Projectile.EjectionPower > 0.0f)
@@ -84,10 +82,6 @@ public class Health : MonoBehaviour
             GetComponent<MeshRenderer>().enabled = true;
             GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObject);
         }
-    }
-    public void Death()
-    {
-        StartCoroutine(FindObjectOfType<Camera>().gameObject.GetComponent<Shake>().CreateShake(0.3f, 0.7f));
     }
     public void StopHitLag()
     {
