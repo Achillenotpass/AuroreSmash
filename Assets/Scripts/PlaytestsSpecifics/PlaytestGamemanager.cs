@@ -84,7 +84,7 @@ public class PlaytestGamemanager : MonoBehaviour
             || p_Character.transform.position.y <= m_MapCenterPosition.y - m_MapSize.y / 2)
         {
             SpawnPlayer(p_Character);
-            p_Character.LoseLife();
+            p_Character.DeathByEjection();
         }
     }
     private void SpawnPlayer(Health p_Character)

@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private float m_GameTimer = 60.0f;
     public float GameTimer { get { return m_GameTimer; } set { value = m_GameTimer; } }
+    [SerializeField]
+    private float m_RespawnDelay = 2.0f;
     private float m_CurrentGameTimer = 60.0f;
     public float CurrentGameTimer { get { return m_CurrentGameTimer; } }
     private EGameState m_GameState = EGameState.WaitingForStart;
@@ -37,7 +39,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private Vector2 m_MapSize = Vector2.one;
     [SerializeField]
-    private Transform m_PlayersSpawn = null;
+    private Transform m_PlayersParent = null;
+    [SerializeField]
+    private List<Transform> m_PlayersSpawn = new List<Transform>();
     [SerializeField]
     private List<SO_PlayersLayers> m_PlayersLayers = new List<SO_PlayersLayers>();
 
@@ -107,10 +111,10 @@ public class GameManager : MonoBehaviour, IUpdateUser
         PlayerInput l_SpawnedPlayer = PlayerInput.Instantiate(p_UserInfos.UserCharacter.CharacterPrefab, -1, null, -1, p_UserInfos.UserInputDevice);
         //Changer position du joueur
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = false;
-        l_SpawnedPlayer.transform.position = m_PlayersSpawn.position;
+        l_SpawnedPlayer.transform.position = m_PlayersSpawn[Random.Range(0, m_PlayersSpawn.Count)].position;
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = true;
         //Changer parent du joueur
-        l_SpawnedPlayer.transform.SetParent(m_PlayersSpawn);
+        l_SpawnedPlayer.transform.SetParent(m_PlayersParent);
         //Setup les données du personnage
         l_SpawnedPlayer.GetComponent<CharacterInfos>().Character = p_UserInfos.UserCharacter;
 
@@ -172,13 +176,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
             || p_Character.transform.position.y >= m_MapCenterPosition.y + m_MapSize.y / 2
             || p_Character.transform.position.y <= m_MapCenterPosition.y - m_MapSize.y / 2)
         {
-            p_Character.LoseLife();
+            p_Character.DeathByEjection();
             m_LoseLifeEvent.Invoke();
-
-            //Changer position du joueur
-            p_Character.GetComponent<CharacterController>().enabled = false;
-            p_Character.transform.position = m_PlayersSpawn.position;
-            p_Character.GetComponent<CharacterController>().enabled = true;
         }
     }
     private void CheckLives(Health p_Character)
@@ -251,6 +250,18 @@ public class GameManager : MonoBehaviour, IUpdateUser
         m_GameState = EGameState.Ended;
         m_VictoryText.text = "IT'S A DRAW";
         m_EndGameEvent.Invoke();
+    }
+    public IEnumerator RespawnTimer(GameObject p_Character)
+    {
+        p_Character.GetComponent<CharacterController>().enabled = false;
+        p_Character.transform.position = m_PlayersSpawn[Random.Range(0, m_PlayersSpawn.Count)].position;
+        p_Character.GetComponent<CharacterController>().enabled = true;
+        yield return new WaitForSeconds(m_RespawnDelay);
+        RespawnPlayer(p_Character);
+    }
+    private void RespawnPlayer(GameObject p_Character)
+    {
+        p_Character.gameObject.SetActive(true);
     }
     #endregion
 
