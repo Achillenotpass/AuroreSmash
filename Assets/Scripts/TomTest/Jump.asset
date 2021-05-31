@@ -10,10 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
-  m_Name: NewFeedback
+  m_Name: Jump
   m_EditorClassIdentifier: 
-  m_FeedbackName: Ejection
+  m_FeedbackName: Jump
+  m_AsParticle: 1
   m_ParticleSystemList:
-  - {fileID: 0}
+  - {fileID: 7920185721430770976, guid: 4577a6464c8679446a3e4fee192dddde, type: 3}
+  m_AsAudioClip: 0
   m_AudioClipList:
   - {fileID: 0}
+  m_AsToShake: 1
+  m_ShakeIntesity: 0.1
+  m_ShakeDuration: 0.5
+  m_AsToBlink: 0
+  m_BlinkIntensity: 0.1
+  m_BlinkDuration: 0.1
+  m_AsToFreezeFrame: 0
+  m_FreezeFrameDuration: 0.1
+  m_AsToVibrate: 0
+  m_VibrationIntesity: 0.1
+  m_VibrationDuration: 0.1

@@ -398,6 +398,18 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                     m_JumpMark = m_PlayerGroundCheck.position;
                     m_IsGroundJumping = true;
                     m_TimerGroundJump = 0;
+                    for(int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
+                    {
+                        if(FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "Jump")
+                        {
+                            foreach (ParticleSystem l_Particle in FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].ParticleSystemList)
+                            {
+                                l_Particle.transform.localPosition = transform.localPosition - new Vector3(0, 0.5f, 0);
+                                Instantiate(l_Particle);
+                            }
+                        }
+                    }
+                    
                 }
             }
             else

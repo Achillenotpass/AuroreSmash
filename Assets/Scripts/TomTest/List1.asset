@@ -13,6 +13,4 @@ MonoBehaviour:
   m_Name: List1
   m_EditorClassIdentifier: 
   m_FeedbackArray:
-  - {fileID: 11400000, guid: d29adc66777ac644da8956c83bc80817, type: 2}
   - {fileID: 11400000, guid: 9535ca0b33608744694ee54f61a51d97, type: 2}
-  - {fileID: 11400000, guid: 87a7f98d41ffd05489b8ead5ce7e8f1d, type: 2}
