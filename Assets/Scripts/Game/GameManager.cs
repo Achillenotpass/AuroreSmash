@@ -162,6 +162,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 m_HealthBars[i].m_HealthBarLogo.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarLogo;
                 m_HealthBars[i].m_HealtBarNameHolder.sprite = l_CurrentCharacter.HealthBarDatas.m_HealtBarNameHolder;
 
+                m_HealthBars[i].m_HealthBarLogo.gameObject.SetActive(true);
+                l_HealthBar.gameObject.SetActive(true);
+
                 break;
             }
             else
