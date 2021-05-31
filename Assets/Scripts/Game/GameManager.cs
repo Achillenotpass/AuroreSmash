@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     #endregion
     #region Variables
-    //Game datas
+    [Header("Game datas")]
+    [SerializeField]
+    private float m_TimeBeforeGameStart = 1.0f;
     private int m_PlayerCount = 2;
     public int PlayerCount { get { return m_PlayerCount; } }
     private List<PlayerInfos> m_PlayersAlive = new List<PlayerInfos>();
@@ -45,7 +47,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private List<SO_PlayersLayers> m_PlayersLayers = new List<SO_PlayersLayers>();
 
-    //Feedback
+    [Header("Feedbacks")]
     [SerializeField]
     private Text m_TimerText = null;
     [SerializeField]
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private Text m_VictoryText;
 
-    //Events
+    [Header("Events")]
     [SerializeField]
     private UnityEvent m_LoseLifeEvent = null;
     [SerializeField]
@@ -63,7 +65,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #region Awake/Start/Update
     private void Start()
     {
-        SetupGame();
+        StartCoroutine(SetupGame());
     }
     public void CustomUpdate(float p_DeltaTime)
     {
@@ -90,8 +92,28 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #endregion
 
     #region Functions
-    private void SetupGame()
+    //private void SetupGame()
+    //{
+    //m_PlayerCount = UsersManager.m_UsersInfos.Count;
+    ////Apparition et placement des joueurs
+    //foreach (UserInfos l_UserInfos in UsersManager.m_UsersInfos)
+    //{
+    //    PlayerInfos l_SpawnedPLayer = SpawnPlayer(l_UserInfos);
+    //    m_PlayersAlive.Add(l_SpawnedPLayer);
+    //    m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
+
+    //    LinkHealthBar(l_SpawnedPLayer);
+    //}
+
+    //SetupPlayersLayerAndCamera();
+    //m_PlayerCount = m_PlayersAlive.Count;
+    //StartGame();
+    //}
+
+    private IEnumerator SetupGame()
     {
+        m_PlayerCount = UsersManager.m_UsersInfos.Count;
+        float l_TimeBetweenSpawns = m_TimeBeforeGameStart / m_PlayerCount;
         //Apparition et placement des joueurs
         foreach (UserInfos l_UserInfos in UsersManager.m_UsersInfos)
         {
@@ -100,15 +122,18 @@ public class GameManager : MonoBehaviour, IUpdateUser
             m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
 
             LinkHealthBar(l_SpawnedPLayer);
+            yield return new WaitForSeconds(l_TimeBetweenSpawns);
         }
 
         SetupPlayersLayerAndCamera();
         m_PlayerCount = m_PlayersAlive.Count;
         StartGame();
     }
+
     private PlayerInfos SpawnPlayer(UserInfos p_UserInfos)
     {
         PlayerInput l_SpawnedPlayer = PlayerInput.Instantiate(p_UserInfos.UserCharacter.CharacterPrefab, -1, null, -1, p_UserInfos.UserInputDevice);
+        l_SpawnedPlayer.enabled = false;
         //Changer position du joueur
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = false;
         l_SpawnedPlayer.transform.position = m_PlayersSpawn[Random.Range(0, m_PlayersSpawn.Count)].position;
@@ -154,10 +179,10 @@ public class GameManager : MonoBehaviour, IUpdateUser
             m_PlayersAlive[i].gameObject.layer = m_PlayersLayers[i].PlayerLayer;
             foreach (Transform l_Child in m_PlayersAlive[i].gameObject.GetComponentsInChildren(typeof(Transform), true))
             {
-                Debug.Log(l_Child.gameObject.name + " : " + l_Child.gameObject.layer);
                 l_Child.gameObject.layer = m_PlayersLayers[i].PlayerLayer;
             }
             l_Camera.ListOfAllPlayers.Add(m_PlayersAlive[i].GetComponent<CharacterInfos>());
+            m_PlayersAlive[i].GetComponent<PlayerInput>().enabled = true;
         }
 
         l_Camera.enabled = true;
