@@ -890,6 +890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d42bb9d487d53419f9ec4981cbe1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Character: {fileID: 0}
   m_MaxCharacterSpeed: 10
   m_GroundJumpCurve:
     serializedVersion: 2
@@ -1276,6 +1277,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4717280539556895526}
+        m_TargetAssemblyTypeName: Grab, Assembly-CSharp
+        m_MethodName: ThrowInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2974d25a-1950-47b6-9fe1-9f9199077366
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -1431,7 +1444,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.75
-  m_Radius: 0.3
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -1682,7 +1695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
   m_HitboxRelativePosition: {x: 0.6, y: 0.35, z: 0}
-  m_HitboxRadius: 0.7
+  m_HitboxRadius: 0.85
   m_ThrowDamage: 10
   m_EjectionPower: 10
   m_EjectionAngle: 45

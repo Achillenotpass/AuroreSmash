@@ -191,6 +191,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
             PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>();
             l_Camera.ListOfAllPlayers.Remove(p_Character.GetComponent<CharacterInfos>());
 
+            UsersManager.m_LoserCharacter.m_PlayedCharacter = p_Character.GetComponent<CharacterInfos>().Character;
+            UsersManager.m_LoserCharacter.m_RemainingLives = p_Character.GetComponent<Health>().CurrentLives;
+
             Destroy(p_Character.gameObject);
         }
     }
@@ -209,6 +212,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         {
             //On vérifie les vies de tous les joueurs
             //Celui qui a le plus de vies a gagné
+            Health l_LowestLives = null;
             Health l_HighestLives = null;
             for (int i = 0; i < m_Characters.Count; i++)
             {
@@ -236,19 +240,29 @@ public class GameManager : MonoBehaviour, IUpdateUser
                     }
                 }
             }
+            UsersManager.m_LoserCharacter.m_PlayedCharacter = l_LowestLives.GetComponent<CharacterInfos>().Character;
+            UsersManager.m_LoserCharacter.m_RemainingLives = l_LowestLives.CurrentLives;
+
             EndGame(l_HighestLives.GetComponent<PlayerInfos>());
         }
     }
     private void EndGame(PlayerInfos p_WinnerPlayerInfo)
     {
         m_GameState = EGameState.Ended;
-        m_VictoryText.text = "Winning player is : " + p_WinnerPlayerInfo.PlayerName;
+
+        UsersManager.m_WinnerCharacter.m_PlayedCharacter = p_WinnerPlayerInfo.GetComponent<CharacterInfos>().Character;
+        UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
+
+        SceneManager.LoadScene("VictoryScreen");
+
         m_EndGameEvent.Invoke();
     }
     private void EndGameDraw()
     {
         m_GameState = EGameState.Ended;
-        m_VictoryText.text = "IT'S A DRAW";
+
+        EndGame(m_PlayersAlive[0]);
+
         m_EndGameEvent.Invoke();
     }
     public IEnumerator RespawnTimer(GameObject p_Character)

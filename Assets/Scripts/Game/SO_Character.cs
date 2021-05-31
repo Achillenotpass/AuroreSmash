@@ -15,6 +15,9 @@ public class SO_Character : ScriptableObject
     [SerializeField]
     private HealthBarData m_HealthBarDatas = null;
     public HealthBarData HealthBarDatas { get { return m_HealthBarDatas; } }
+    [SerializeField]
+    private VictoryScreenData m_VictoryScreenDatas = null;
+    public VictoryScreenData VictoryScreenDatas { get { return m_VictoryScreenDatas; } }
 
 
     [System.Serializable]
@@ -29,5 +32,12 @@ public class SO_Character : ScriptableObject
         public Sprite m_HealthBarImage = null;
         public Sprite m_HealthBarLogo = null;
         public Sprite m_HealtBarNameHolder = null;
+    }
+    [System.Serializable]
+    public class VictoryScreenData
+    {
+        public Sprite m_WinnerSprite = null;
+        public Sprite m_LoserSprite = null;
+        public Sprite m_FaceSprite = null;
     }
 }
