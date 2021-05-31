@@ -781,8 +781,8 @@ GameObject:
   - component: {fileID: 9200278381566710896}
   - component: {fileID: 9200278381566710911}
   - component: {fileID: 5123021735009848120}
-  - component: {fileID: -7509473996006968434}
   - component: {fileID: 833536739428192680}
+  - component: {fileID: -7509473996006968434}
   m_Layer: 10
   m_Name: YgNis
   m_TagString: Untagged
@@ -884,6 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d42bb9d487d53419f9ec4981cbe1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Character: {fileID: 0}
   m_MaxCharacterSpeed: 10
   m_GroundJumpCurve:
     serializedVersion: 2
@@ -1234,6 +1235,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5123021735009848120}
+        m_TargetAssemblyTypeName: Grab, Assembly-CSharp
+        m_MethodName: ThrowInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2974d25a-1950-47b6-9fe1-9f9199077366
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -1310,10 +1323,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5123021735009848120}
+        m_TargetAssemblyTypeName: Grab, Assembly-CSharp
+        m_MethodName: ThrowInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ef2c27a2-0fda-446c-adb3-f1c5825b3fd6
     m_ActionName: Player/Tilts[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5123021735009848120}
+        m_TargetAssemblyTypeName: Grab, Assembly-CSharp
+        m_MethodName: GrabInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 87271e31-7c6b-46cc-80d1-db5dc072fd23
     m_ActionName: Player/Grab
   - m_PersistentCalls:
@@ -1365,7 +1402,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.75
-  m_Radius: 0.3
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -1604,7 +1641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
   m_HitboxRelativePosition: {x: 0, y: 0, z: 0}
-  m_HitboxRadius: 0
+  m_HitboxRadius: 0.85
   m_ThrowDamage: 10
   m_EjectionPower: 10
   m_EjectionAngle: 10
@@ -1626,18 +1663,6 @@ MonoBehaviour:
   m_EndGrab:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-7509473996006968434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9200278381566710910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46200fbdd286fbe43bc5b2bb9aa5021d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &833536739428192680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1654,3 +1679,15 @@ MonoBehaviour:
   m_EjectionAngle: 0
   m_EjectionPower: 0
   m_MaxTimerEjection: 1
+--- !u!114 &-7509473996006968434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200278381566710910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46200fbdd286fbe43bc5b2bb9aa5021d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

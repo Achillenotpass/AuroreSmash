@@ -12,9 +12,6 @@ public class CharactersManager : MonoBehaviour
     private List<SO_Character> m_AvailableCharacters = new List<SO_Character>();
     //Selectors datas
     private List<CharacterSelector> m_Selectors = new List<CharacterSelector>();
-    //FightDatas
-    [SerializeField]
-    private string m_FightScene;
     //Display
     [SerializeField]
     private List<CharacterDisplay> m_CharactersDisplay = null;
@@ -23,6 +20,10 @@ public class CharactersManager : MonoBehaviour
     #endregion
 
     #region Awake/Start/Update
+    private void Start()
+    {
+        UsersManager.UnRegisterAllUser();
+    }
     #endregion
 
     #region Functions
@@ -117,7 +118,7 @@ public class CharactersManager : MonoBehaviour
         }
 
         //Puis on va sur la scène de combat
-        SceneManager.LoadScene(m_FightScene);
+        SceneManager.LoadScene("MapSelection");
     }
     #endregion
 
