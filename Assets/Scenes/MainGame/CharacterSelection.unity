@@ -506,7 +506,6 @@ MonoBehaviour:
   m_AvailableCharacters:
   - {fileID: 11400000, guid: fe87ddbc9bc0c254e8513de6324aad67, type: 2}
   - {fileID: 11400000, guid: ba3cff8f33f20e449af7311cd50b2985, type: 2}
-  m_FightScene: Caldista
   m_CharactersDisplay:
   - m_PressStart: {fileID: 1333494817}
     m_CharacterName: {fileID: 567366209}
@@ -1215,8 +1214,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -416, y: 482}
-  m_SizeDelta: {x: 575, y: 48}
+  m_AnchoredPosition: {x: -446, y: 485}
+  m_SizeDelta: {x: 629, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &653223084
 MonoBehaviour:
@@ -1238,7 +1237,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1a4d6848dd09eb54787a94bbbab0b739, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62cbf1cfa677ea74aa373a5da5dbccb4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2202,7 +2201,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 453, y: 469}
-  m_SizeDelta: {x: 1014, y: 131}
+  m_SizeDelta: {x: 1134, y: 174}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1769782436
 MonoBehaviour:
