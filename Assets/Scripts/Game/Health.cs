@@ -87,7 +87,13 @@ public class Health : MonoBehaviour
     }
     public void Death()
     {
-        StartCoroutine(FindObjectOfType<Camera>().gameObject.GetComponent<Shake>().CreateShake(0.3f, 0.7f));
+        for (int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
+        {
+            if (FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "Ejection")
+            {
+                FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].Shaking(FindObjectOfType<Shake>(), 0.3f, 0.7f, FindObjectOfType<Camera>().gameObject);
+            }
+        }
     }
     public void StopHitLag()
     {

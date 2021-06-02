@@ -307,7 +307,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         }
         if (m_EndAirVelocityCheck)
         {
-            Debug.Log("aaa");
             m_StartVelocityCheck = false;
             m_EndAirVelocityTimer += p_DeltaTime;
             m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
@@ -402,11 +401,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                     {
                         if(FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "Jump")
                         {
-                            foreach (ParticleSystem l_Particle in FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].ParticleSystemList)
-                            {
-                                l_Particle.transform.localPosition = transform.localPosition - new Vector3(0, 0.5f, 0);
-                                Instantiate(l_Particle);
-                            }
+                            FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].InstantiateAllParticle(null, transform.position - new Vector3(0, 0.5f, 0));
                         }
                     }
                     
