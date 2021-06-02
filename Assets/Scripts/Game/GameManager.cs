@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     #endregion
     #region Variables
-    //Game datas
+    [Header("Game datas")]
+    [SerializeField]
+    private float m_TimeBeforeGameStart = 1.0f;
     private int m_PlayerCount = 2;
     public int PlayerCount { get { return m_PlayerCount; } }
     private List<PlayerInfos> m_PlayersAlive = new List<PlayerInfos>();
@@ -29,6 +31,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private float m_GameTimer = 60.0f;
     public float GameTimer { get { return m_GameTimer; } set { value = m_GameTimer; } }
+    [SerializeField]
+    private float m_RespawnDelay = 2.0f;
     private float m_CurrentGameTimer = 60.0f;
     public float CurrentGameTimer { get { return m_CurrentGameTimer; } }
     private EGameState m_GameState = EGameState.WaitingForStart;
@@ -37,19 +41,24 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private Vector2 m_MapSize = Vector2.one;
     [SerializeField]
-    private Transform m_PlayersSpawn = null;
+    private Transform m_PlayersParent = null;
+    [SerializeField]
+    private List<Transform> m_PlayersSpawn = new List<Transform>();
     [SerializeField]
     private List<SO_PlayersLayers> m_PlayersLayers = new List<SO_PlayersLayers>();
+    private List<int> m_UsedSpawnPoints = new List<int>();
 
-    //Feedback
+    [Header("Feedbacks")]
     [SerializeField]
     private Text m_TimerText = null;
     [SerializeField]
-    private List<Slider> m_HealthBars = new List<Slider>();
+    private List<HealthBarGame> m_HealthBars = new List<HealthBarGame>();
     [SerializeField]
     private Text m_VictoryText;
+    [SerializeField]
+    private SpawnerCamera m_SpawnerCamera = null;
 
-    //Events
+    [Header("Events")]
     [SerializeField]
     private UnityEvent m_LoseLifeEvent = null;
     [SerializeField]
@@ -59,7 +68,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #region Awake/Start/Update
     private void Start()
     {
-        SetupGame();
+        //SetupGame();
+        StartCoroutine(SetupGame());
     }
     public void CustomUpdate(float p_DeltaTime)
     {
@@ -86,8 +96,28 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #endregion
 
     #region Functions
-    private void SetupGame()
+    //private void SetupGame()
+    //{
+    //    m_PlayerCount = UsersManager.m_UsersInfos.Count;
+    //    //Apparition et placement des joueurs
+    //    foreach (UserInfos l_UserInfos in UsersManager.m_UsersInfos)
+    //    {
+    //        PlayerInfos l_SpawnedPLayer = SpawnPlayer(l_UserInfos);
+    //        m_PlayersAlive.Add(l_SpawnedPLayer);
+    //        m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
+
+    //        LinkHealthBar(l_SpawnedPLayer);
+    //    }
+
+    //    SetupPlayersLayerAndCamera();
+    //    m_PlayerCount = m_PlayersAlive.Count;
+    //    StartGame();
+    //}
+
+    private IEnumerator SetupGame()
     {
+        m_PlayerCount = UsersManager.m_UsersInfos.Count;
+        float l_TimeBetweenSpawns = m_TimeBeforeGameStart / m_PlayerCount;
         //Apparition et placement des joueurs
         foreach (UserInfos l_UserInfos in UsersManager.m_UsersInfos)
         {
@@ -96,21 +126,52 @@ public class GameManager : MonoBehaviour, IUpdateUser
             m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
 
             LinkHealthBar(l_SpawnedPLayer);
+            yield return new WaitForSeconds(l_TimeBetweenSpawns);
         }
 
         SetupPlayersLayerAndCamera();
         m_PlayerCount = m_PlayersAlive.Count;
         StartGame();
     }
+
     private PlayerInfos SpawnPlayer(UserInfos p_UserInfos)
     {
         PlayerInput l_SpawnedPlayer = PlayerInput.Instantiate(p_UserInfos.UserCharacter.CharacterPrefab, -1, null, -1, p_UserInfos.UserInputDevice);
+        l_SpawnedPlayer.DeactivateInput();
         //Changer position du joueur
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = false;
-        l_SpawnedPlayer.transform.position = m_PlayersSpawn.position;
+
+        if (m_UsedSpawnPoints.Count >= m_PlayersSpawn.Count)
+        {
+            while (true)
+            {
+                int l_SpawnPoint = Random.Range(0, m_PlayersSpawn.Count);
+                if (!m_UsedSpawnPoints.Contains(l_SpawnPoint))
+                {
+                    l_SpawnedPlayer.transform.position = m_PlayersSpawn[l_SpawnPoint].position;
+                    m_UsedSpawnPoints.Add(l_SpawnPoint);
+
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+        else
+        {
+            int l_SpawnPoint = Random.Range(0, m_PlayersSpawn.Count);
+            l_SpawnedPlayer.transform.position = m_PlayersSpawn[l_SpawnPoint].position;
+        }
+
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = true;
         //Changer parent du joueur
-        l_SpawnedPlayer.transform.SetParent(m_PlayersSpawn);
+        l_SpawnedPlayer.transform.SetParent(m_PlayersParent);
+        //Setup les données du personnage
+        l_SpawnedPlayer.GetComponent<CharacterInfos>().Character = p_UserInfos.UserCharacter;
+
+        m_SpawnerCamera.SetWatchTarget(l_SpawnedPlayer.gameObject);
 
         return l_SpawnedPlayer.GetComponent<PlayerInfos>();
     }
@@ -118,14 +179,21 @@ public class GameManager : MonoBehaviour, IUpdateUser
     {
         for (int i = 0; i < m_HealthBars.Count; i++)
         {
-            if (m_HealthBars[i].maxValue == 1)
+            if (m_HealthBars[i].m_HealthBarSlider.maxValue == 1)
             {
                 Health l_PlayerHealth = p_PlayerInfos.GetComponent<Health>();
-                Slider l_HealthBar = m_HealthBars[i];
-                Debug.Log(l_HealthBar + "/" + l_PlayerHealth);
-                l_PlayerHealth.HealthBar = m_HealthBars[i];
+                Slider l_HealthBar = m_HealthBars[i].m_HealthBarSlider;
+                l_PlayerHealth.HealthBar = l_HealthBar;
                 l_HealthBar.maxValue = l_PlayerHealth.MaxHealth;
                 l_HealthBar.value = l_HealthBar.maxValue;
+
+                SO_Character l_CurrentCharacter = l_PlayerHealth.GetComponent<CharacterInfos>().Character;
+                m_HealthBars[i].m_HealthBarImage.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarImage;
+                m_HealthBars[i].m_HealthBarLogo.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarLogo;
+                m_HealthBars[i].m_HealtBarNameHolder.sprite = l_CurrentCharacter.HealthBarDatas.m_HealtBarNameHolder;
+
+                m_HealthBars[i].m_HealthBarLogo.gameObject.SetActive(true);
+                l_HealthBar.gameObject.SetActive(true);
 
                 break;
             }
@@ -137,23 +205,27 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     private void SetupPlayersLayerAndCamera()
     {
-        PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>();
+        PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>(true);
         for (int i = 0; i < m_PlayersAlive.Count; i++)
         {
             m_PlayersAlive[i].AttackableLayers = m_PlayersLayers[i].AttackableLayer;
             m_PlayersAlive[i].gameObject.layer = m_PlayersLayers[i].PlayerLayer;
             foreach (Transform l_Child in m_PlayersAlive[i].gameObject.GetComponentsInChildren(typeof(Transform), true))
             {
-                Debug.Log(l_Child.gameObject.name + " : " + l_Child.gameObject.layer);
                 l_Child.gameObject.layer = m_PlayersLayers[i].PlayerLayer;
             }
             l_Camera.ListOfAllPlayers.Add(m_PlayersAlive[i].GetComponent<CharacterInfos>());
+            m_PlayersAlive[i].GetComponent<PlayerInput>().ActivateInput();
         }
 
         l_Camera.enabled = true;
     }
     private void StartGame()
     {
+        m_SpawnerCamera.gameObject.SetActive(false);
+        PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>(true);
+        l_Camera.gameObject.SetActive(true);
+
         m_CurrentGameTimer = GameTimer;
         m_TimerText.text = m_CurrentGameTimer.ToString();
 
@@ -166,13 +238,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
             || p_Character.transform.position.y >= m_MapCenterPosition.y + m_MapSize.y / 2
             || p_Character.transform.position.y <= m_MapCenterPosition.y - m_MapSize.y / 2)
         {
-            p_Character.LoseLife();
+            p_Character.DeathByEjection();
             m_LoseLifeEvent.Invoke();
-
-            //Changer position du joueur
-            p_Character.GetComponent<CharacterController>().enabled = false;
-            p_Character.transform.position = m_PlayersSpawn.position;
-            p_Character.GetComponent<CharacterController>().enabled = true;
         }
     }
     private void CheckLives(Health p_Character)
@@ -185,6 +252,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
             PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>();
             l_Camera.ListOfAllPlayers.Remove(p_Character.GetComponent<CharacterInfos>());
+
+            UsersManager.m_LoserCharacter.m_PlayedCharacter = p_Character.GetComponent<CharacterInfos>().Character;
+            UsersManager.m_LoserCharacter.m_RemainingLives = p_Character.GetComponent<Health>().CurrentLives;
 
             Destroy(p_Character.gameObject);
         }
@@ -204,12 +274,14 @@ public class GameManager : MonoBehaviour, IUpdateUser
         {
             //On vérifie les vies de tous les joueurs
             //Celui qui a le plus de vies a gagné
+            Health l_LowestLives = null;
             Health l_HighestLives = null;
             for (int i = 0; i < m_Characters.Count; i++)
             {
                 if (i == 0)
                 {
                     l_HighestLives = m_Characters[i];
+                    l_LowestLives = m_Characters[i];
                 }
                 else
                 {
@@ -223,28 +295,66 @@ public class GameManager : MonoBehaviour, IUpdateUser
                         {
                             l_HighestLives = m_Characters[i];
                         }
-                        else if (l_HighestLives.CurrentHealth == m_Characters[i].CurrentHealth)
+                    }
+
+                    if (l_LowestLives.CurrentLives > m_Characters[i].CurrentLives)
+                    {
+                        l_LowestLives = m_Characters[i];
+                    }
+                    else if(l_LowestLives.CurrentLives == m_Characters[i].CurrentLives)
+                    {
+                        if (l_LowestLives.CurrentHealth > m_Characters[i].CurrentHealth)
                         {
-                            //NE PREND EN COMPTE QU'UNE PARTIE A 2 JOUEURS
-                            EndGameDraw();
+                            l_LowestLives = m_Characters[i];
                         }
                     }
                 }
             }
+
+            UsersManager.m_LoserCharacter.m_PlayedCharacter = l_LowestLives.GetComponent<CharacterInfos>().Character;
+            UsersManager.m_LoserCharacter.m_RemainingLives = l_LowestLives.CurrentLives;
+
+            /* C'est chelou comme fin en égalité 
+            if (l_LowestLives == l_HighestLives)
+            {
+                EndGameDraw();
+                return;
+            }
+            */
+
             EndGame(l_HighestLives.GetComponent<PlayerInfos>());
         }
     }
     private void EndGame(PlayerInfos p_WinnerPlayerInfo)
     {
         m_GameState = EGameState.Ended;
-        m_VictoryText.text = "Winning player is : " + p_WinnerPlayerInfo.PlayerName;
+
+        UsersManager.m_WinnerCharacter.m_PlayedCharacter = p_WinnerPlayerInfo.GetComponent<CharacterInfos>().Character;
+        UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
+
+        SceneManager.LoadScene("VictoryScreen");
+
         m_EndGameEvent.Invoke();
     }
     private void EndGameDraw()
     {
         m_GameState = EGameState.Ended;
-        m_VictoryText.text = "IT'S A DRAW";
+
+        EndGame(m_PlayersAlive[0]);
+
         m_EndGameEvent.Invoke();
+    }
+    public IEnumerator RespawnTimer(GameObject p_Character)
+    {
+        p_Character.GetComponent<CharacterController>().enabled = false;
+        p_Character.transform.position = m_PlayersSpawn[Random.Range(0, m_PlayersSpawn.Count)].position;
+        p_Character.GetComponent<CharacterController>().enabled = true;
+        yield return new WaitForSeconds(m_RespawnDelay);
+        RespawnPlayer(p_Character);
+    }
+    private void RespawnPlayer(GameObject p_Character)
+    {
+        p_Character.gameObject.SetActive(true);
     }
     #endregion
 
@@ -260,6 +370,14 @@ public class GameManager : MonoBehaviour, IUpdateUser
         Running,
         Paused,
         Ended,
+    }
+    [System.Serializable]
+    private class HealthBarGame
+    {
+        public Slider m_HealthBarSlider = null;
+        public Image m_HealthBarImage = null;
+        public Image m_HealthBarLogo = null;
+        public Image m_HealtBarNameHolder = null;
     }
 }
 

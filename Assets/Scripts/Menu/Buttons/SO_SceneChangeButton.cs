@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SO_SceneChangeButton : MonoBehaviour
+[CreateAssetMenu(fileName = "NewButton", menuName = "ScriptableObjects/Menus/Buttons/NewSceneChangeButton")]
+public class SO_SceneChangeButton : SO_Button
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region Variables
+    [SerializeField]
+    private string m_SceneName = string.Empty;
+    #endregion
 
-    // Update is called once per frame
-    void Update()
+    #region Functions
+    public void PressButton()
     {
-        
+        SceneManager.LoadScene(m_SceneName);
     }
+    #endregion
 }

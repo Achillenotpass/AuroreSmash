@@ -53,8 +53,8 @@ public class Health : MonoBehaviour
         //EJECTION DE QUAND ON TOMBE A 0 PVS
         if (m_CurrentHealth <= 0.0f)
         {
-            p_HitBox.EjectionPower = 100000.0f;
-            Death();
+            DeathByHPs();
+            return;
         }
 
         if(p_HitBox.EjectionPower > 0.0f)
@@ -62,7 +62,7 @@ public class Health : MonoBehaviour
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
             Invoke(nameof(StopHitLag), p_HitBox.HitLag);
             GetComponent<MeshRenderer>().enabled = true;
-            //On appelle la fonction apliquant l'éjection sur le joueur touché 
+            //On appelle la fonction apliquant l'ï¿½jection sur le joueur touchï¿½ 
             GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle, p_Attacker);
         }
     }
@@ -73,8 +73,8 @@ public class Health : MonoBehaviour
         //EJECTION DE QUAND ON TOMBE A 0 PVS
         if (m_CurrentHealth <= 0.0f)
         {
-            p_Projectile.EjectionPower = 100000.0f;
-            Death();
+            DeathByHPs();
+            return;
         }
 
         if (p_Projectile.EjectionPower > 0.0f)
@@ -100,14 +100,26 @@ public class Health : MonoBehaviour
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
         GetComponent<MeshRenderer>().enabled = false;
     }
-    public void LoseLife()
+    private void DeathByHPs()
+    {
+        Death();
+    }
+    public void DeathByEjection()
+    {
+        Death();
+    }
+    private void Death()
     {
         CurrentLives = CurrentLives - 1;
-    }
-    [ContextMenu("Lose 10 HPs")]
-    public void TakeDamagesDebug()
-    {
-        CurrentHealth = CurrentHealth - 10.0f;
+        GetComponent<CharacterEjection>().InterruptEjection();
+        CurrentHealth = MaxHealth;
+        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+        gameObject.SetActive(false);
+
+        if (m_CurrentLives > 0)
+        {
+            FindObjectOfType<GameManager>().StartCoroutine(FindObjectOfType<GameManager>().RespawnTimer(gameObject));   
+        }
     }
     #endregion
 
@@ -119,6 +131,6 @@ public class Health : MonoBehaviour
     public float CurrentHealth
     {
         get { return m_CurrentHealth; }
-        set { m_CurrentHealth = value; }
+        set { m_CurrentHealth = Mathf.Clamp(value, 0.0f, MaxHealth); }
     }
 }

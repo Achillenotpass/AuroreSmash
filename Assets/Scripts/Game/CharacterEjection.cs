@@ -136,4 +136,9 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
             m_TimerEjection -= Time.deltaTime;
         }
     }
+
+    public void InterruptEjection()
+    {
+        m_TimerEjection = 0.0f;
+    }
 }

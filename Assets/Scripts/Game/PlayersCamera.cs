@@ -31,15 +31,11 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
     private float m_GreaterDistancePlayers = 0;
 
     private Vector3 m_BaseCameraPosition = Vector3.zero;
+    private Vector3 m_CameraTargetPosition = Vector3.zero;
 
     private void Start()
     {
         m_BaseCameraPosition = m_MainCamera.transform.position;
-        //CharacterInfos[] l_ListOfAllPlayers = FindObjectsOfType<CharacterInfos>();
-        //for(int i = 0; i < l_ListOfAllPlayers.Length; i++)
-        //{
-        //    m_ListOfAllPlayers.Add(l_ListOfAllPlayers[i]);
-        //}
     }
 
     public void CustomUpdate(float p_DeltaTime)
@@ -70,7 +66,16 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
             }
         }
 
-        m_MainCamera.transform.position = m_AveragePositionPlayers + new Vector3(0, 0, m_BaseCameraPosition.z + m_CameraZoomCurve.Evaluate(m_GreaterDistancePlayers / 2));
+        m_CameraTargetPosition = m_AveragePositionPlayers + new Vector3(0, 0, m_BaseCameraPosition.z + m_CameraZoomCurve.Evaluate(m_GreaterDistancePlayers / 2));
+
+        m_MainCamera.transform.position = Vector3.Lerp(m_MainCamera.transform.position, m_CameraTargetPosition, 0.1f);
+
         m_AveragePositionPlayers = Vector3.zero;
+    }
+    
+
+    private void CameraShake(float p_ShakePower)
+    {
+
     }
 }
