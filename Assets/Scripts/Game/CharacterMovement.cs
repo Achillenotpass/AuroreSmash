@@ -121,21 +121,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_CharacterOrientation = m_CharacterView.transform.localScale.x;
         m_IsGrounded = Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask);
 
-        Debug.Log(m_CharacterInfos.CurrentCharacterState);
-
-        if (m_IsGrounded && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving && !(m_IsAirJumping || m_IsGroundJumping))
-        {
-            m_MovementEvents.m_StartMoveAnimation.Invoke();
-        }
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
-        {
-            m_MovementEvents.m_StartGroundIdleAnimation.Invoke();
-        }
-        if (!m_IsGrounded && !(m_IsAirJumping || m_IsGroundJumping)
-            && (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving))
-        {
-            m_MovementEvents.m_StartAirIdleAnimation.Invoke();
-        }
 
 
         if (m_IsGrounded)
@@ -177,6 +162,8 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
+        Debug.Log(m_CharacterInfos.CurrentCharacterState);
+        CheckAnimation();
     }
     #endregion
 
@@ -465,6 +452,40 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         }
     }
     #endregion
+    private void CheckAnimation()
+    {
+        //if (m_IsGroundJumping || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        //{
+        //    //Ground jump
+        //    //m_MovementEvents.m_EventBeginGroundJump.Invoke();
+        //}
+        //else if(m_IsAirJumping || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        //{
+        //    //Air jump
+        //    //m_MovementEvents.m_EventBeginAirJump.Invoke();
+        //}
+        if (m_IsGrounded)
+        {
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+            {
+                //Idle
+                m_MovementEvents.m_StartGroundIdleAnimation.Invoke();
+            }
+            else if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+            {
+                //Move
+                m_MovementEvents.m_StartMoveAnimation.Invoke();
+            }
+        }
+        else
+        {
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
+            {
+                //Idle air
+                m_MovementEvents.m_StartAirIdleAnimation.Invoke();
+            }
+        }
+    }
     #endregion
 
     #region Assessor

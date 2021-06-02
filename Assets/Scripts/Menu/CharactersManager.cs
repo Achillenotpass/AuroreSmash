@@ -99,7 +99,10 @@ public class CharactersManager : MonoBehaviour
     }
     public void StartGame()
     {
-
+        if (m_Selectors.Count < 2)
+        {
+            return;
+        }
         //On vérifie d'abord si tous les joueurs ont sélectionné leur personnage
         foreach (CharacterSelector l_Selector in m_Selectors)
         {

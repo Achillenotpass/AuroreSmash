@@ -1656,7 +1656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
   m_DamageReduction: 80
-  m_LagBefore: 30
+  m_LagBefore: 5
   m_LagAfter: 10
   m_LagAfterOmni: 30
   m_ShieldPositions:
