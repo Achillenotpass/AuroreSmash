@@ -27,6 +27,12 @@ public class MainMenu : MonoBehaviour
     private int m_CurrentOptionButton = 0;
     [SerializeField]
     private List<GameObject> m_OptionSelectionFeedback = null;
+    [SerializeField]
+    private PlayerInput m_MainMenuInput = null;
+    [SerializeField]
+    private GameObject m_AudioSettingsCanvas = null;
+    [SerializeField]
+    private GameObject m_VideoSettingsCanvas = null;
     #endregion
 
     #region Awake/Start/Update
@@ -79,12 +85,6 @@ public class MainMenu : MonoBehaviour
                     }
                     m_OptionSelectionFeedback[m_CurrentOptionButton].SetActive(true);
                     break;
-                case MainMenuState.InAudioMenu:
-                    break;
-                case MainMenuState.InVideoMenu:
-                    break;
-                default:
-                    break;
             }
         }
     }
@@ -107,12 +107,16 @@ public class MainMenu : MonoBehaviour
                     }
                     break;
                 case MainMenuState.OnOption:
-                    break;
-                case MainMenuState.InAudioMenu:
-                    break;
-                case MainMenuState.InVideoMenu:
-                    break;
-                default:
+                    if (m_CurrentOptionButton == 0)
+                    {
+                        m_AudioSettingsCanvas.SetActive(true);
+                        m_MainMenuInput.DeactivateInput();
+                    }
+                    else
+                    {
+                        m_VideoSettingsCanvas.SetActive(true);
+                        m_MainMenuInput.DeactivateInput();
+                    }
                     break;
             }
         }
@@ -129,12 +133,6 @@ public class MainMenu : MonoBehaviour
                 case MainMenuState.OnOption:
                     m_MainMenuState = MainMenuState.OnMainWheel;
                     m_OptionsSubMenu.SetActive(false);
-                    break;
-                case MainMenuState.InAudioMenu:
-                    break;
-                case MainMenuState.InVideoMenu:
-                    break;
-                default:
                     break;
             }
         }
@@ -155,8 +153,6 @@ public class MainMenu : MonoBehaviour
     private enum MainMenuState
     {
         OnMainWheel,
-        OnOption,
-        InAudioMenu,
-        InVideoMenu,
+        OnOption
     }
 }

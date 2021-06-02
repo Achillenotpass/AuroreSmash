@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #region Awake/Start/Update
     private void Start()
     {
+        //SetupGame();
         StartCoroutine(SetupGame());
     }
     public void CustomUpdate(float p_DeltaTime)
@@ -94,20 +95,20 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #region Functions
     //private void SetupGame()
     //{
-    //m_PlayerCount = UsersManager.m_UsersInfos.Count;
-    ////Apparition et placement des joueurs
-    //foreach (UserInfos l_UserInfos in UsersManager.m_UsersInfos)
-    //{
-    //    PlayerInfos l_SpawnedPLayer = SpawnPlayer(l_UserInfos);
-    //    m_PlayersAlive.Add(l_SpawnedPLayer);
-    //    m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
+    //    m_PlayerCount = UsersManager.m_UsersInfos.Count;
+    //    //Apparition et placement des joueurs
+    //    foreach (UserInfos l_UserInfos in UsersManager.m_UsersInfos)
+    //    {
+    //        PlayerInfos l_SpawnedPLayer = SpawnPlayer(l_UserInfos);
+    //        m_PlayersAlive.Add(l_SpawnedPLayer);
+    //        m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
 
-    //    LinkHealthBar(l_SpawnedPLayer);
-    //}
+    //        LinkHealthBar(l_SpawnedPLayer);
+    //    }
 
-    //SetupPlayersLayerAndCamera();
-    //m_PlayerCount = m_PlayersAlive.Count;
-    //StartGame();
+    //    SetupPlayersLayerAndCamera();
+    //    m_PlayerCount = m_PlayersAlive.Count;
+    //    StartGame();
     //}
 
     private IEnumerator SetupGame()
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private PlayerInfos SpawnPlayer(UserInfos p_UserInfos)
     {
         PlayerInput l_SpawnedPlayer = PlayerInput.Instantiate(p_UserInfos.UserCharacter.CharacterPrefab, -1, null, -1, p_UserInfos.UserInputDevice);
-        l_SpawnedPlayer.enabled = false;
+        l_SpawnedPlayer.DeactivateInput();
         //Changer position du joueur
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = false;
         l_SpawnedPlayer.transform.position = m_PlayersSpawn[Random.Range(0, m_PlayersSpawn.Count)].position;
@@ -185,7 +186,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 l_Child.gameObject.layer = m_PlayersLayers[i].PlayerLayer;
             }
             l_Camera.ListOfAllPlayers.Add(m_PlayersAlive[i].GetComponent<CharacterInfos>());
-            m_PlayersAlive[i].GetComponent<PlayerInput>().enabled = true;
+            m_PlayersAlive[i].GetComponent<PlayerInput>().ActivateInput();
         }
 
         l_Camera.enabled = true;
