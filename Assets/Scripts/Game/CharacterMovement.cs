@@ -405,6 +405,16 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                         m_IsAirJumping = true;
                         m_TimerAirJump = 0;
                         m_IsGroundJumping = false;
+                        Debug.Log("aaa");
+                        for (int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
+                        {
+                            Debug.Log("bbb");
+                            if (FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "DoubleJump")
+                            {
+                                Debug.Log("ccc");
+                                FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].InstantiateVFXAnimation(null, new Vector3(0, -0.5f, 0), i);
+                            }
+                        }
                     }
                 }
             }

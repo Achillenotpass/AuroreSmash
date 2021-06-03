@@ -85,7 +85,7 @@ public class Health : MonoBehaviour
             GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObject);
         }
     }
-    public void Death()
+    /*public void Death()
     {
         for (int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
         {
@@ -94,7 +94,7 @@ public class Health : MonoBehaviour
                 FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].Shaking(FindObjectOfType<Shake>(), 0.3f, 0.7f, FindObjectOfType<Camera>().gameObject);
             }
         }
-    }
+    }*/
     public void StopHitLag()
     {
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
@@ -115,6 +115,14 @@ public class Health : MonoBehaviour
         CurrentHealth = MaxHealth;
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
         gameObject.SetActive(false);
+
+        for (int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
+        {
+            if (FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "Ejection")
+            {
+                FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].Shaking(FindObjectOfType<Shake>(), 0.3f, 0.7f, FindObjectOfType<Camera>().gameObject);
+            }
+        }
 
         if (m_CurrentLives > 0)
         {

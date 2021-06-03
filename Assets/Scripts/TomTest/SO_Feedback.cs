@@ -57,6 +57,7 @@ public class SO_Feedback : ScriptableObject
     
     public void InstantiateVFXAnimation(GameObject p_Instantiator, Vector3 p_SpecificPosition, int p_NumberInTheList)
     {
+        Debug.Log("ddd");
         GameObject l_VFXAnimationInstantiator = Instantiate(m_VFXAnimationInstantiator);
         if (p_Instantiator != null)
             l_VFXAnimationInstantiator.transform.parent = p_Instantiator.transform;
@@ -67,7 +68,7 @@ public class SO_Feedback : ScriptableObject
         l_VFXAnimationInstantiator.GetComponent<FramePerfectAnimator>().Animations = l_Animations;
     }
 
-    public void InstantiateVFXAnimation(GameObject p_Instantiator, Vector3 p_SpecificPosition)
+    public void InstantiateAllVFXAnimation(GameObject p_Instantiator, Vector3 p_SpecificPosition)
     {
         foreach (SO_Animation l_VFXAnimationList in m_VFXAnimationList)
         {
