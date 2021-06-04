@@ -25,7 +25,7 @@ public class CustomRenderPassFeature : ScriptableRendererFeature
         {
             CommandBuffer commandBuffer = CommandBuffer.Get();
 
-            commandBuffer.GetTemporaryRT(tempRenderHandler.id renderingData.cameraData.cameraTargetDescriptor);
+            commandBuffer.GetTemporaryRT(tempRenderHandler.id, renderingData.cameraData.cameraTargetDescriptor);
             Blit(commandBuffer, source, tempRenderHandler.Identifier(), material);
             Blit(commandBuffer, tempRenderHandler.Identifier(), source);
 
@@ -54,7 +54,9 @@ public class CustomRenderPassFeature : ScriptableRendererFeature
     {
         m_ScriptablePass = new CustomRenderPass(settings.material);
 
-        m_ScriptablePass.renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing
+        m_ScriptablePass.renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
+
+    }
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
