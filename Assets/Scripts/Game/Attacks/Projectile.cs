@@ -26,6 +26,7 @@ public class Projectile : MonoBehaviour, IUpdateUser
     private LayerMask m_AttackableLayers = 0;
     public LayerMask AttackableLayer { get { return m_AttackableLayers; } set { m_AttackableLayers = value; } }
     private Collider[] m_HitObjects = null;
+    private Vector3 m_LastPosition = Vector3.zero;
     #endregion
     #region Awake/Start/update
     public Projectile (LayerMask p_AttackableLayers, SO_Projectile p_ProjectileStats)
@@ -45,19 +46,20 @@ public class Projectile : MonoBehaviour, IUpdateUser
                     Shield l_HitShield = l_HitObject.GetComponentInParent<Shield>();
                     if (l_HitShield != null)
                     {
-                        l_HitShield.TakeShieldDamages(m_ProjectileStats, this.gameObject);
+                        l_HitShield.TakeShieldDamages(m_ProjectileStats, m_LastPosition);
                         Destroy(gameObject);
                         return;
                     }
                 }
                 if (l_HitObject.GetComponent<Health>())
                 {
-                    l_HitObject.GetComponent<Health>().TakeDamages(m_ProjectileStats, this.gameObject);
+                    l_HitObject.GetComponent<Health>().TakeDamages(m_ProjectileStats, m_LastPosition);
                     Destroy(gameObject);
                     break;
                 }
             }
         }
+        m_LastPosition = transform.position;
         transform.Translate(transform.right * p_DeltaTime * m_ProjectileStats.Speed, Space.World);
     }
     #endregion

@@ -209,7 +209,7 @@ public class Grab : MonoBehaviour, IUpdateUser
         l_HitBox.EjectionAngle = m_UpEjectionAngle;
         l_HitBox.EjectionPower = m_EjectionPower;
 
-        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, this.gameObject);
+        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, transform.position);
         m_Target = null;
     }
     private void ThrowAttackLeft()
@@ -219,7 +219,7 @@ public class Grab : MonoBehaviour, IUpdateUser
         l_HitBox.EjectionAngle = m_LeftEjectionAngle;
         l_HitBox.EjectionPower = m_EjectionPower;
 
-        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, this.gameObject);
+        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, transform.position);
         m_Target = null;
     }
     private void ThrowAttackRight()
@@ -229,7 +229,7 @@ public class Grab : MonoBehaviour, IUpdateUser
         l_HitBox.EjectionAngle = m_RightEjectionAngle;
         l_HitBox.EjectionPower = m_EjectionPower;
 
-        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, this.gameObject);
+        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, transform.position);
         m_Target = null;
     }
     private void TryGrab()

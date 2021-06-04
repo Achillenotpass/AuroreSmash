@@ -20,3 +20,7 @@ MonoBehaviour:
     m_HealthBarImage: {fileID: 21300000, guid: beeb81c538a645e44bbd24eb461ba1ce, type: 3}
     m_HealthBarLogo: {fileID: 21300000, guid: dc6e379e082b27548a19edfaf3c09236, type: 3}
     m_HealtBarNameHolder: {fileID: 21300000, guid: 5051157e7b0c78943bafd8e34db9fa84, type: 3}
+  m_VictoryScreenDatas:
+    m_WinnerSprite: {fileID: 21300000, guid: f96b8315e2dfe0042841fbf90893e1f7, type: 3}
+    m_LoserSprite: {fileID: 21300000, guid: f96b8315e2dfe0042841fbf90893e1f7, type: 3}
+    m_FaceSprite: {fileID: 21300000, guid: 9dd569b2af26dd74784cf50d9f393b1a, type: 3}

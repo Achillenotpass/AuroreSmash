@@ -43,27 +43,33 @@ public class VictoryScreen : MonoBehaviour
     #region Inputs
     public void SelectInput(InputAction.CallbackContext p_Context)
     {
-        if (m_CurrentDisplay == m_Objects.Count)
+        if (p_Context.started)
         {
-            SceneManager.LoadScene("CharacterSelection");
-        }
-        else
-        {
-            foreach (GameObject l_Object in m_Objects[m_CurrentDisplay].m_Objects)
+            if (m_CurrentDisplay == m_Objects.Count)
             {
-                l_Object.SetActive(true);
+                SceneManager.LoadScene("CharacterSelection");
             }
-            m_CurrentDisplay = m_CurrentDisplay + 1;
+            else
+            {
+                foreach (GameObject l_Object in m_Objects[m_CurrentDisplay].m_Objects)
+                {
+                    l_Object.SetActive(true);
+                }
+                m_CurrentDisplay = m_CurrentDisplay + 1;
+            }
         }
     }
     public void ReturnInput(InputAction.CallbackContext p_Context)
     {
-        if (m_CurrentDisplay != 0)
+        if (p_Context.started)
         {
-            m_CurrentDisplay = m_CurrentDisplay - 1;
-            foreach (GameObject l_Object in m_Objects[m_CurrentDisplay].m_Objects)
+            if (m_CurrentDisplay != 0)
             {
-                l_Object.SetActive(false);
+                m_CurrentDisplay = m_CurrentDisplay - 1;
+                foreach (GameObject l_Object in m_Objects[m_CurrentDisplay].m_Objects)
+                {
+                    l_Object.SetActive(false);
+                }
             }
         }
     }

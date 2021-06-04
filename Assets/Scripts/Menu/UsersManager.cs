@@ -8,8 +8,8 @@ public class UsersManager : MonoBehaviour
 {
     #region Variables
     static public List<UserInfos> m_UsersInfos = new List<UserInfos>();
-    static public UserGameStats m_WinnerCharacter = null;
-    static public UserGameStats m_LoserCharacter = null;
+    static public UserGameStats m_WinnerCharacter = new UserGameStats();
+    static public UserGameStats m_LoserCharacter = new UserGameStats();
     #endregion
     static public void RegisterUser(UserInfos p_UserInfos)
     {

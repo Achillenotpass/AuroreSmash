@@ -172,7 +172,6 @@ public class MainMenu : MonoBehaviour
             m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, l_AngleIncrement - l_RotationEffectued);
             l_RotationEffectued = l_AngleIncrement;
             l_CurrentTimer = l_CurrentTimer + Time.deltaTime;
-            Debug.Log("ta mere");
             yield return null;
         }
         m_InAnimation = false;
