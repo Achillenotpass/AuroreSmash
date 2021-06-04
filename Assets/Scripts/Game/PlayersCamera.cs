@@ -34,6 +34,8 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
     private Vector3 m_CameraTargetPosition = Vector3.zero;
 
     private Vector3 m_LastPosition = Vector3.zero;
+    [SerializeField]
+    private LayerMask m_LayerMask = 0;
 
     private void Start()
     {
@@ -73,32 +75,37 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         m_LastPosition = m_MainCamera.transform.position;
         m_MainCamera.transform.position = Vector3.Lerp(m_MainCamera.transform.position, m_CameraTargetPosition, 0.1f);
 
+        CheckForNewPosition();
+
         m_AveragePositionPlayers = Vector3.zero;
     }
     
     private void CheckForNewPosition()
     {
         Camera l_Camera = m_MainCamera.GetComponent<Camera>();
-        int l_LayerMask = 1 << 14;
         Vector3 l_NewPosition = m_MainCamera.transform.position;
         //Raycast gauche
-        if (!Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(0, l_Camera.pixelHeight / 2)), 1000.0f, l_LayerMask))
+        if (!Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(0, l_Camera.pixelHeight / 2)), 1000.0f, m_LayerMask))
         {
+            Debug.Log("pas gauche");
             l_NewPosition.x = m_LastPosition.x;
         }
         //Raycast haut
-        if (!Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(l_Camera.pixelWidth / 2, l_Camera.pixelHeight - 1)), 1000.0f, l_LayerMask))
+        if (!Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(l_Camera.pixelWidth / 2, l_Camera.pixelHeight - 1)), 1000.0f, m_LayerMask))
         {
+            Debug.Log("pas haut");
             l_NewPosition.y = m_LastPosition.y;
         }
         //Raycast bas
-        if (!Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(l_Camera.pixelWidth / 2, 0)), 1000.0f, l_LayerMask))
+        if (!Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(l_Camera.pixelWidth / 2, 0)), 1000.0f, m_LayerMask))
         {
+            Debug.Log("pas bas");
             l_NewPosition.y = m_LastPosition.y;
         }
         //Raycast droite
-        if (!Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(l_Camera.pixelWidth - 1, l_Camera.pixelHeight / 2)), 1000.0f, l_LayerMask))
+        if (!Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(l_Camera.pixelWidth - 1, l_Camera.pixelHeight / 2)), 1000.0f, m_LayerMask))
         {
+            Debug.Log("pas droit");
             l_NewPosition.x = m_LastPosition.x;
         }
 

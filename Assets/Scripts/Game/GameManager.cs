@@ -344,7 +344,6 @@ public class GameManager : MonoBehaviour, IUpdateUser
         UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
 
         
-        m_VictorySceneAsync.allowSceneActivation = false;
         StartCoroutine(CheckForSceneChanging(m_MinimumTimeAfterGame));
 
         m_EndGameEvent.Invoke();
@@ -362,15 +361,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
         Time.timeScale = 0.2f;
         yield return new WaitForSeconds(p_ActivationDelay);
         m_VictorySceneAsync = SceneManager.LoadSceneAsync("VictoryScreen");
-        m_VictorySceneAsync.allowSceneActivation = false;
-        while (true)
+        if (m_VictorySceneAsync.isDone)
         {
-            if (m_VictorySceneAsync.isDone)
-            {
-                Time.timeScale = 1.0f;
-                m_VictorySceneAsync.allowSceneActivation = true;
-            }
-            yield return null;
+            Time.timeScale = 1.0f;
         }
     }
     public IEnumerator RespawnTimer(GameObject p_Character)
@@ -391,6 +384,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(new Vector3(m_MapCenterPosition.x, m_MapCenterPosition.y, 0), new Vector3(m_MapSize.x, m_MapSize.y, 0));
+        Gizmos.DrawWireCube(new Vector3(m_CameraCenterPosition.x, m_CameraCenterPosition.y, 0), new Vector3(m_CameraSize.x, m_CameraSize.y, 0));
     }
 
     private enum EGameState

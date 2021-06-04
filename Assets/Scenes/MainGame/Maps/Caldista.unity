@@ -4227,17 +4227,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.4
-      outSlope: -0.4
+      inSlope: -0.6666667
+      outSlope: -0.6666667
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 30
-      value: -12
-      inSlope: -0.4
-      outSlope: -0.4
+      value: -20
+      inSlope: -0.6666667
+      outSlope: -0.6666667
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -4245,6 +4245,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1 &1333823330
 GameObject:
   m_ObjectHideFlags: 0
@@ -6309,7 +6312,7 @@ GameObject:
   - component: {fileID: 1928886399}
   - component: {fileID: 1928886398}
   - component: {fileID: 1928886397}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: CameraRaycastPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6324,7 +6327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928886395}
   m_LocalRotation: {x: -0.70705444, y: -0, z: -0, w: 0.7071592}
-  m_LocalPosition: {x: 2.6, y: 1.1, z: 0}
+  m_LocalPosition: {x: 2.6, y: 1.1, z: -5.09}
   m_LocalScale: {x: 3.591, y: 3.842, z: 3.842}
   m_Children: []
   m_Father: {fileID: 1894510881}
@@ -7097,9 +7100,10 @@ MonoBehaviour:
   m_CameraRaycastPlane: {fileID: 1928886395}
   m_BeginningTimer: {fileID: 1061105933}
   m_BeginningTimerSprites:
-  - {fileID: 21300000, guid: dba8f142661f78c46a9952727ca0b713, type: 3}
-  - {fileID: 21300000, guid: 5be9bd3df68af994085e7244c35339dd, type: 3}
-  - {fileID: 21300000, guid: 9dd569b2af26dd74784cf50d9f393b1a, type: 3}
+  - {fileID: 21300000, guid: 72d5e86402c9f1d48b2ca641cc12219a, type: 3}
+  - {fileID: 21300000, guid: c4bb96c0766dce74284b5dc43498e626, type: 3}
+  - {fileID: 21300000, guid: 6b86343bc0b349e49a6f9020e94560ec, type: 3}
+  - {fileID: 21300000, guid: 867a4700d6a3b4a4391f42b58e8bbb7c, type: 3}
   m_TimerText: {fileID: 819401960}
   m_HealthBars:
   - m_HealthBarSlider: {fileID: 1730286175}
