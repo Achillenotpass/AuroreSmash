@@ -38,7 +38,11 @@ public class Grab : MonoBehaviour, IUpdateUser
     [SerializeField]
     private float m_EjectionPower = 10.0f;
     [SerializeField]
-    private float m_EjectionAngle = 10.0f;
+    private float m_UpEjectionAngle = 10.0f;
+    [SerializeField]
+    private float m_LeftEjectionAngle = 10.0f;
+    [SerializeField]
+    private float m_RightEjectionAngle = 10.0f;
 
     private GrabState m_CurrentGrabState = GrabState.NotGrabbing;
     private int m_CurrentFrameCount = 0;
@@ -162,29 +166,70 @@ public class Grab : MonoBehaviour, IUpdateUser
         if (m_CurrentGrabState == GrabState.Holding)
         {
             Vector2 l_ThrowDirection = p_Context.ReadValue<Vector2>();
+            float l_Angle = Vector2.Angle(Vector2.right, l_ThrowDirection);
             if (l_ThrowDirection.magnitude >= 0.2f)
             {
-                m_CurrentFrameCount = 0;
+                if (l_Angle >= 140.0f)
+                {
+                    m_CurrentFrameCount = 0;
 
-                Invoke(nameof(ThrowAttack), (float)m_ThrowAttackFrame / 60.0f);
+                    Invoke(nameof(ThrowAttackLeft), (float)m_ThrowAttackFrame / 60.0f);
 
-                m_CurrentGrabState = GrabState.PostLag;
-                m_ThrowEnemy.Invoke();
+                    m_CurrentGrabState = GrabState.PostLag;
+                    m_ThrowEnemy.Invoke();
+                }
+                else if (l_Angle >= 40.0f && l_ThrowDirection.y > 0.0f)
+                {
+                    m_CurrentFrameCount = 0;
 
+                    Invoke(nameof(ThrowAttackUp), (float)m_ThrowAttackFrame / 60.0f);
+
+                    m_CurrentGrabState = GrabState.PostLag;
+                    m_ThrowEnemy.Invoke();
+                }
+                else
+                {
+                    m_CurrentFrameCount = 0;
+
+                    Invoke(nameof(ThrowAttackRight), (float)m_ThrowAttackFrame / 60.0f);
+
+                    m_CurrentGrabState = GrabState.PostLag;
+                    m_ThrowEnemy.Invoke();
+                }
             }
         }
     }
     #endregion
 
     #region Functions
-    private void ThrowAttack()
+    private void ThrowAttackUp()
     {
         SO_HitBox l_HitBox = new SO_HitBox();
         l_HitBox.Damages = m_ThrowDamage;
-        l_HitBox.EjectionAngle = m_EjectionAngle;
+        l_HitBox.EjectionAngle = m_UpEjectionAngle;
         l_HitBox.EjectionPower = m_EjectionPower;
 
-        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, this.gameObject);
+        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, transform.position);
+        m_Target = null;
+    }
+    private void ThrowAttackLeft()
+    {
+        SO_HitBox l_HitBox = new SO_HitBox();
+        l_HitBox.Damages = m_ThrowDamage;
+        l_HitBox.EjectionAngle = m_LeftEjectionAngle;
+        l_HitBox.EjectionPower = m_EjectionPower;
+
+        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, transform.position);
+        m_Target = null;
+    }
+    private void ThrowAttackRight()
+    {
+        SO_HitBox l_HitBox = new SO_HitBox();
+        l_HitBox.Damages = m_ThrowDamage;
+        l_HitBox.EjectionAngle = m_RightEjectionAngle;
+        l_HitBox.EjectionPower = m_EjectionPower;
+
+        m_Target.GetComponent<Health>().TakeDamages(l_HitBox, transform.position);
         m_Target = null;
     }
     private void TryGrab()

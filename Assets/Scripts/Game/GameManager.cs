@@ -41,14 +41,25 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private Vector2 m_MapSize = Vector2.one;
     [SerializeField]
+    private Vector2 m_CameraCenterPosition = Vector2.zero;
+    [SerializeField]
+    private Vector2 m_CameraSize = Vector2.one;
+    [SerializeField]
     private Transform m_PlayersParent = null;
     [SerializeField]
     private List<Transform> m_PlayersSpawn = new List<Transform>();
     [SerializeField]
     private List<SO_PlayersLayers> m_PlayersLayers = new List<SO_PlayersLayers>();
     private List<int> m_UsedSpawnPoints = new List<int>();
+    private AsyncOperation m_VictorySceneAsync = null;
+    [SerializeField]
+    private GameObject m_CameraRaycastPlane = null;
 
     [Header("Feedbacks")]
+    [SerializeField]
+    private Image m_BeginningTimer = null;
+    [SerializeField]
+    private List<Sprite> m_BeginningTimerSprites = new List<Sprite>();
     [SerializeField]
     private Text m_TimerText = null;
     [SerializeField]
@@ -57,6 +68,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private Text m_VictoryText;
     [SerializeField]
     private SpawnerCamera m_SpawnerCamera = null;
+    [SerializeField]
+    private float m_MinimumTimeAfterGame = 2.5f;
 
     [Header("Events")]
     [SerializeField]
@@ -68,8 +81,14 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #region Awake/Start/Update
     private void Start()
     {
-        //SetupGame();
+        m_CameraRaycastPlane.transform.position = m_CameraCenterPosition;
+        Vector3 l_NewScale = Vector3.zero;
+        l_NewScale.x = m_CameraSize.x / 10.0f;
+        l_NewScale.y = m_CameraRaycastPlane.transform.localScale.y;
+        l_NewScale.z = m_CameraSize.y / 10.0f;
+        m_CameraRaycastPlane.transform.localScale = l_NewScale;  
         StartCoroutine(SetupGame());
+        StartCoroutine(BeginningTimer());
     }
     public void CustomUpdate(float p_DeltaTime)
     {
@@ -96,24 +115,6 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #endregion
 
     #region Functions
-    //private void SetupGame()
-    //{
-    //    m_PlayerCount = UsersManager.m_UsersInfos.Count;
-    //    //Apparition et placement des joueurs
-    //    foreach (UserInfos l_UserInfos in UsersManager.m_UsersInfos)
-    //    {
-    //        PlayerInfos l_SpawnedPLayer = SpawnPlayer(l_UserInfos);
-    //        m_PlayersAlive.Add(l_SpawnedPLayer);
-    //        m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
-
-    //        LinkHealthBar(l_SpawnedPLayer);
-    //    }
-
-    //    SetupPlayersLayerAndCamera();
-    //    m_PlayerCount = m_PlayersAlive.Count;
-    //    StartGame();
-    //}
-
     private IEnumerator SetupGame()
     {
         m_PlayerCount = UsersManager.m_UsersInfos.Count;
@@ -133,7 +134,6 @@ public class GameManager : MonoBehaviour, IUpdateUser
         m_PlayerCount = m_PlayersAlive.Count;
         StartGame();
     }
-
     private PlayerInfos SpawnPlayer(UserInfos p_UserInfos)
     {
         PlayerInput l_SpawnedPlayer = PlayerInput.Instantiate(p_UserInfos.UserCharacter.CharacterPrefab, -1, null, -1, p_UserInfos.UserInputDevice);
@@ -230,6 +230,17 @@ public class GameManager : MonoBehaviour, IUpdateUser
         m_TimerText.text = m_CurrentGameTimer.ToString();
 
         m_GameState = EGameState.Running;
+    }
+    private IEnumerator BeginningTimer()
+    {
+        float l_CurrentTimer = m_BeginningTimerSprites.Count;
+        while (l_CurrentTimer > 0.0f)
+        {
+            l_CurrentTimer = l_CurrentTimer - Time.deltaTime;
+            m_BeginningTimer.sprite = m_BeginningTimerSprites[(int)l_CurrentTimer];
+            yield return null;
+        }
+        m_BeginningTimer.gameObject.SetActive(false);
     }
     private void CheckEjection(Health p_Character)
     {
@@ -332,7 +343,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = p_WinnerPlayerInfo.GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
 
-        SceneManager.LoadScene("VictoryScreen");
+        
+        StartCoroutine(CheckForSceneChanging(m_MinimumTimeAfterGame));
 
         m_EndGameEvent.Invoke();
     }
@@ -343,6 +355,16 @@ public class GameManager : MonoBehaviour, IUpdateUser
         EndGame(m_PlayersAlive[0]);
 
         m_EndGameEvent.Invoke();
+    }
+    private IEnumerator CheckForSceneChanging(float p_ActivationDelay)
+    {
+        Time.timeScale = 0.2f;
+        yield return new WaitForSeconds(p_ActivationDelay);
+        m_VictorySceneAsync = SceneManager.LoadSceneAsync("VictoryScreen");
+        if (m_VictorySceneAsync.isDone)
+        {
+            Time.timeScale = 1.0f;
+        }
     }
     public IEnumerator RespawnTimer(GameObject p_Character)
     {
@@ -362,6 +384,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(new Vector3(m_MapCenterPosition.x, m_MapCenterPosition.y, 0), new Vector3(m_MapSize.x, m_MapSize.y, 0));
+        Gizmos.DrawWireCube(new Vector3(m_CameraCenterPosition.x, m_CameraCenterPosition.y, 0), new Vector3(m_CameraSize.x, m_CameraSize.y, 0));
     }
 
     private enum EGameState
