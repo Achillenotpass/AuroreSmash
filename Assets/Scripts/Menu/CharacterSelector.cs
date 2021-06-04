@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerInput))]
 public class CharacterSelector : MonoBehaviour
@@ -65,8 +66,7 @@ public class CharacterSelector : MonoBehaviour
             }
             else if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
-                //Revenir au menu précédent
-                Debug.Log("Retour au menu précédent");
+                SceneManager.LoadScene("MainMenu");
             }
         }
     }

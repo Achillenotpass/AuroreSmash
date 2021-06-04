@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     #endregion
     #region Variables
-    //Game datas
+    [Header("Game datas")]
+    [SerializeField]
+    private float m_TimeBeforeGameStart = 1.0f;
     private int m_PlayerCount = 2;
     public int PlayerCount { get { return m_PlayerCount; } }
     private List<PlayerInfos> m_PlayersAlive = new List<PlayerInfos>();
@@ -44,16 +46,19 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private List<Transform> m_PlayersSpawn = new List<Transform>();
     [SerializeField]
     private List<SO_PlayersLayers> m_PlayersLayers = new List<SO_PlayersLayers>();
+    private List<int> m_UsedSpawnPoints = new List<int>();
 
-    //Feedback
+    [Header("Feedbacks")]
     [SerializeField]
     private Text m_TimerText = null;
     [SerializeField]
     private List<HealthBarGame> m_HealthBars = new List<HealthBarGame>();
     [SerializeField]
     private Text m_VictoryText;
+    [SerializeField]
+    private SpawnerCamera m_SpawnerCamera = null;
 
-    //Events
+    [Header("Events")]
     [SerializeField]
     private UnityEvent m_LoseLifeEvent = null;
     [SerializeField]
@@ -63,7 +68,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #region Awake/Start/Update
     private void Start()
     {
-        SetupGame();
+        //SetupGame();
+        StartCoroutine(SetupGame());
     }
     public void CustomUpdate(float p_DeltaTime)
     {
@@ -90,8 +96,28 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #endregion
 
     #region Functions
-    private void SetupGame()
+    //private void SetupGame()
+    //{
+    //    m_PlayerCount = UsersManager.m_UsersInfos.Count;
+    //    //Apparition et placement des joueurs
+    //    foreach (UserInfos l_UserInfos in UsersManager.m_UsersInfos)
+    //    {
+    //        PlayerInfos l_SpawnedPLayer = SpawnPlayer(l_UserInfos);
+    //        m_PlayersAlive.Add(l_SpawnedPLayer);
+    //        m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
+
+    //        LinkHealthBar(l_SpawnedPLayer);
+    //    }
+
+    //    SetupPlayersLayerAndCamera();
+    //    m_PlayerCount = m_PlayersAlive.Count;
+    //    StartGame();
+    //}
+
+    private IEnumerator SetupGame()
     {
+        m_PlayerCount = UsersManager.m_UsersInfos.Count;
+        float l_TimeBetweenSpawns = m_TimeBeforeGameStart / m_PlayerCount;
         //Apparition et placement des joueurs
         foreach (UserInfos l_UserInfos in UsersManager.m_UsersInfos)
         {
@@ -100,23 +126,52 @@ public class GameManager : MonoBehaviour, IUpdateUser
             m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
 
             LinkHealthBar(l_SpawnedPLayer);
+            yield return new WaitForSeconds(l_TimeBetweenSpawns);
         }
 
         SetupPlayersLayerAndCamera();
         m_PlayerCount = m_PlayersAlive.Count;
         StartGame();
     }
+
     private PlayerInfos SpawnPlayer(UserInfos p_UserInfos)
     {
         PlayerInput l_SpawnedPlayer = PlayerInput.Instantiate(p_UserInfos.UserCharacter.CharacterPrefab, -1, null, -1, p_UserInfos.UserInputDevice);
+        l_SpawnedPlayer.DeactivateInput();
         //Changer position du joueur
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = false;
-        l_SpawnedPlayer.transform.position = m_PlayersSpawn[Random.Range(0, m_PlayersSpawn.Count)].position;
+
+        if (m_UsedSpawnPoints.Count >= m_PlayersSpawn.Count)
+        {
+            while (true)
+            {
+                int l_SpawnPoint = Random.Range(0, m_PlayersSpawn.Count);
+                if (!m_UsedSpawnPoints.Contains(l_SpawnPoint))
+                {
+                    l_SpawnedPlayer.transform.position = m_PlayersSpawn[l_SpawnPoint].position;
+                    m_UsedSpawnPoints.Add(l_SpawnPoint);
+
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+        else
+        {
+            int l_SpawnPoint = Random.Range(0, m_PlayersSpawn.Count);
+            l_SpawnedPlayer.transform.position = m_PlayersSpawn[l_SpawnPoint].position;
+        }
+
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = true;
         //Changer parent du joueur
         l_SpawnedPlayer.transform.SetParent(m_PlayersParent);
         //Setup les données du personnage
         l_SpawnedPlayer.GetComponent<CharacterInfos>().Character = p_UserInfos.UserCharacter;
+
+        m_SpawnerCamera.SetWatchTarget(l_SpawnedPlayer.gameObject);
 
         return l_SpawnedPlayer.GetComponent<PlayerInfos>();
     }
@@ -137,6 +192,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 m_HealthBars[i].m_HealthBarLogo.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarLogo;
                 m_HealthBars[i].m_HealtBarNameHolder.sprite = l_CurrentCharacter.HealthBarDatas.m_HealtBarNameHolder;
 
+                m_HealthBars[i].m_HealthBarLogo.gameObject.SetActive(true);
+                l_HealthBar.gameObject.SetActive(true);
+
                 break;
             }
             else
@@ -147,23 +205,27 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     private void SetupPlayersLayerAndCamera()
     {
-        PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>();
+        PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>(true);
         for (int i = 0; i < m_PlayersAlive.Count; i++)
         {
             m_PlayersAlive[i].AttackableLayers = m_PlayersLayers[i].AttackableLayer;
             m_PlayersAlive[i].gameObject.layer = m_PlayersLayers[i].PlayerLayer;
             foreach (Transform l_Child in m_PlayersAlive[i].gameObject.GetComponentsInChildren(typeof(Transform), true))
             {
-                Debug.Log(l_Child.gameObject.name + " : " + l_Child.gameObject.layer);
                 l_Child.gameObject.layer = m_PlayersLayers[i].PlayerLayer;
             }
             l_Camera.ListOfAllPlayers.Add(m_PlayersAlive[i].GetComponent<CharacterInfos>());
+            m_PlayersAlive[i].GetComponent<PlayerInput>().ActivateInput();
         }
 
         l_Camera.enabled = true;
     }
     private void StartGame()
     {
+        m_SpawnerCamera.gameObject.SetActive(false);
+        PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>(true);
+        l_Camera.gameObject.SetActive(true);
+
         m_CurrentGameTimer = GameTimer;
         m_TimerText.text = m_CurrentGameTimer.ToString();
 
@@ -219,6 +281,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 if (i == 0)
                 {
                     l_HighestLives = m_Characters[i];
+                    l_LowestLives = m_Characters[i];
                 }
                 else
                 {
@@ -232,16 +295,32 @@ public class GameManager : MonoBehaviour, IUpdateUser
                         {
                             l_HighestLives = m_Characters[i];
                         }
-                        else if (l_HighestLives.CurrentHealth == m_Characters[i].CurrentHealth)
+                    }
+
+                    if (l_LowestLives.CurrentLives > m_Characters[i].CurrentLives)
+                    {
+                        l_LowestLives = m_Characters[i];
+                    }
+                    else if(l_LowestLives.CurrentLives == m_Characters[i].CurrentLives)
+                    {
+                        if (l_LowestLives.CurrentHealth > m_Characters[i].CurrentHealth)
                         {
-                            //NE PREND EN COMPTE QU'UNE PARTIE A 2 JOUEURS
-                            EndGameDraw();
+                            l_LowestLives = m_Characters[i];
                         }
                     }
                 }
             }
+
             UsersManager.m_LoserCharacter.m_PlayedCharacter = l_LowestLives.GetComponent<CharacterInfos>().Character;
             UsersManager.m_LoserCharacter.m_RemainingLives = l_LowestLives.CurrentLives;
+
+            /* C'est chelou comme fin en égalité 
+            if (l_LowestLives == l_HighestLives)
+            {
+                EndGameDraw();
+                return;
+            }
+            */
 
             EndGame(l_HighestLives.GetComponent<PlayerInfos>());
         }
