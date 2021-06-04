@@ -383,13 +383,13 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                     m_JumpMark = m_PlayerGroundCheck.position;
                     m_IsGroundJumping = true;
                     m_TimerGroundJump = 0;
-                    for(int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
+                    /*for(int i = 0; i < FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray.Length; i++)
                     {
-                        if(FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "Jump")
+                        if(FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].name == "Jump")
                         {
-                            FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].InstantiateAllParticle(null, transform.position - new Vector3(0, 0.5f, 0));
+                            FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].InstantiateAllParticle(null, transform.position - new Vector3(0, 0.5f, 0));
                         }
-                    }
+                    }*/
                     
                 }
             }
@@ -405,16 +405,15 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                         m_IsAirJumping = true;
                         m_TimerAirJump = 0;
                         m_IsGroundJumping = false;
-                        Debug.Log("aaa");
-                        for (int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
+                        /*for (int i = 0; i < FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray.Length; i++)
                         {
                             Debug.Log("bbb");
-                            if (FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "DoubleJump")
+                            if (FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].name == "DoubleJump")
                             {
                                 Debug.Log("ccc");
-                                FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].InstantiateVFXAnimation(null, new Vector3(0, -0.5f, 0), i);
+                                FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].InstantiateVFXAnimation(null, transform.position + new Vector3(0, -0.5f, 0), i);
                             }
-                        }
+                        }*/
                     }
                 }
             }

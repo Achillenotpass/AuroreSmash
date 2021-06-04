@@ -101,3 +101,4 @@ MonoBehaviour:
   m_Animations:
   - m_AnimationName: Landing
     m_Animation: {fileID: 11400000, guid: 2f5d8abd80106a04e80d686002c37e95, type: 2}
+  m_TemporaryFramePerfectAnimator: 1

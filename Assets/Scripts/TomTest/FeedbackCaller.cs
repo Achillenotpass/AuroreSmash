@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FeedbackListenner : MonoBehaviour
+public class FeedbackCaller : MonoBehaviour
 {
     [SerializeField]
     private SO_FeedbacksList m_FeedbackList = null;
@@ -13,5 +13,10 @@ public class FeedbackListenner : MonoBehaviour
         {
             return m_FeedbackList;
         }
+    }
+
+    public void FeedbackCalling(SO_Feedback p_Feedback ,GameObject p_CallerInitiator)
+    {
+        p_Feedback.PlayFeedback(p_CallerInitiator);
     }
 }

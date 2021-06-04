@@ -101,3 +101,4 @@ MonoBehaviour:
   m_Animations:
   - m_AnimationName: Grab
     m_Animation: {fileID: 11400000, guid: e1da25d9877d6b245905ab9b63abd380, type: 2}
+  m_TemporaryFramePerfectAnimator: 1

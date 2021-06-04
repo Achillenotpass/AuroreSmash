@@ -88,11 +88,11 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
             }
             if(p_EjectionPower + 1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f) >= 15)
             {
-                for (int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
+                for (int i = 0; i < FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray.Length; i++)
                 {
-                    if (FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "Ejection")
+                    if (FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].name == "Ejection")
                     {
-                        FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].Shaking(FindObjectOfType<Shake>(), FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].ShakeIntesity, FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].ShakeDuration, FindObjectOfType<Camera>().gameObject);
+                        FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].Shaking(FindObjectOfType<Shake>(), FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].ShakeIntesity, FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].ShakeDuration, FindObjectOfType<Camera>().gameObject);
                     }
                 }
             }

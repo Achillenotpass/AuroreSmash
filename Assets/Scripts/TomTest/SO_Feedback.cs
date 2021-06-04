@@ -11,75 +11,99 @@ public class SO_Feedback : ScriptableObject
 
 
     [SerializeField]
+    private bool m_AsVFX = false;
+    [SerializeField]
     private GameObject[] m_VFXList = null;
     public GameObject[] VFXList { get { return m_VFXList; } }
+    [SerializeField]
+    private Vector3[] m_VFXSpecificPosition = null;
+    [SerializeField]
+    private bool[] m_VFXAsToBeChild = null;
 
-    public void InstantiateParticule(GameObject p_Instantiator, Transform p_SpecificPosition, int p_NumberInTheList)
+    public void InstantiateVFX(GameObject p_Instantiator, int p_NumberInTheList)
     {
-        GameObject l_VFXInstiated = Instantiate(m_VFXList[p_NumberInTheList]);
-        l_VFXInstiated.transform.localPosition = p_SpecificPosition.position;
-        if (p_Instantiator != null)
-            l_VFXInstiated.transform.parent = p_Instantiator.transform;
-    }
-    public void InstantiateAllParticle(GameObject p_Instantiator, Vector3 p_SpecificPosition)
-    {
-        foreach (GameObject l_Particle in m_VFXList)
+        if (m_AsVFX)
         {
-            GameObject l_VFXInstiated = Instantiate(l_Particle);
-            l_VFXInstiated.transform.localPosition = p_SpecificPosition;
-            if (p_Instantiator != null)
+            Vector3 l_VFXSpecificPosition = m_VFXSpecificPosition[p_NumberInTheList];
+            if (p_Instantiator.transform.localScale.x < 0)
+                l_VFXSpecificPosition.x *= -1;
+            GameObject l_VFXInstiated = Instantiate(m_VFXList[p_NumberInTheList], l_VFXSpecificPosition, Quaternion.identity);
+            if (m_VFXAsToBeChild[p_NumberInTheList])
                 l_VFXInstiated.transform.parent = p_Instantiator.transform;
         }
     }
+    public void InstantiateAllVFX(GameObject p_Instantiator)
+    {
+        if (m_AsVFX)
+        {
+            for (int i = 0; i < m_VFXList.Length; i++)
+            {
+                Vector3 l_VFXSpecificPosition = m_VFXSpecificPosition[i];
+                if (p_Instantiator.transform.localScale.x < 0)
+                    l_VFXSpecificPosition.x *= -1;
+                GameObject l_VFXInstiated = Instantiate(m_VFXList[i], p_Instantiator.transform.position + l_VFXSpecificPosition, Quaternion.identity);
+                if (m_VFXAsToBeChild[i])
+                    l_VFXInstiated.transform.parent = p_Instantiator.transform;
+            }
+        }
+    }
 
-
+    [SerializeField]
+    private bool m_AsSFX = false;
     [SerializeField]
     private AudioClip[] m_SFXList = null;
     public AudioClip[] SFXList { get { return m_SFXList; } }
 
     public void InstantiateAudioClip(int p_NumberInTheList)
     {
-        FindObjectOfType<AudioSource>().PlayOneShot(m_SFXList[p_NumberInTheList]);
+        if(m_AsSFX)
+            FindObjectOfType<AudioSource>().PlayOneShot(m_SFXList[p_NumberInTheList]);
     }
     public void InstantiateAllAudioClip()
     {
-        foreach (AudioClip l_AudioClip in m_SFXList)
+        if(m_AsSFX)
+            foreach (AudioClip l_AudioClip in m_SFXList)
+                FindObjectOfType<AudioSource>().PlayOneShot(l_AudioClip);
+    }
+
+    [SerializeField]
+    private bool m_AsVFXAnimation = false;
+    [SerializeField]
+    private GameObject[] m_VFXAnimation = null;
+    [SerializeField]
+    private Vector3[] m_VFXAnimationSpecificPosition = null;
+    [SerializeField]
+    private bool[] m_VFXAnimationAsToBeChild = null;
+    
+    
+    public void InstantiateVFXAnimation(GameObject p_Instantiator, int p_NumberInTheList)
+    {
+        if (m_AsVFXAnimation)
         {
-            FindObjectOfType<AudioSource>().PlayOneShot(l_AudioClip);
+            Vector3 l_VFXAnimationSpecificPosition = m_VFXAnimationSpecificPosition[p_NumberInTheList];
+            if (p_Instantiator.transform.localScale.x < 0)
+                l_VFXAnimationSpecificPosition.x *= -1;
+
+            GameObject l_VFXAnimation = Instantiate(m_VFXAnimation[p_NumberInTheList], l_VFXAnimationSpecificPosition, Quaternion.identity);
+            if (m_VFXAnimationAsToBeChild[p_NumberInTheList])
+                l_VFXAnimation.transform.parent = p_Instantiator.transform;
         }
     }
 
-    [SerializeField]
-    private SO_Animation[] m_VFXAnimationList = null;
-    public SO_Animation[] VFXAnimationList { get { return m_VFXAnimationList; } }
-    [SerializeField]
-    private GameObject m_VFXAnimationInstantiator = null;
-    
-    public void InstantiateVFXAnimation(GameObject p_Instantiator, Vector3 p_SpecificPosition, int p_NumberInTheList)
+    public void InstantiateAllVFXAnimation(GameObject p_Instantiator)
     {
-        Debug.Log("ddd");
-        GameObject l_VFXAnimationInstantiator = Instantiate(m_VFXAnimationInstantiator);
-        if (p_Instantiator != null)
-            l_VFXAnimationInstantiator.transform.parent = p_Instantiator.transform;
-        l_VFXAnimationInstantiator.transform.position = p_SpecificPosition;
-        List<Animation> l_Animations = new List<Animation>();
-        l_Animations[0].m_AnimationName = VFXAnimationList[p_NumberInTheList].name;
-        l_Animations[0].m_Animation = VFXAnimationList[p_NumberInTheList];
-        l_VFXAnimationInstantiator.GetComponent<FramePerfectAnimator>().Animations = l_Animations;
-    }
-
-    public void InstantiateAllVFXAnimation(GameObject p_Instantiator, Vector3 p_SpecificPosition)
-    {
-        foreach (SO_Animation l_VFXAnimationList in m_VFXAnimationList)
+        if (m_AsVFXAnimation)
         {
-            GameObject l_VFXAnimationInstantiator = Instantiate(m_VFXAnimationInstantiator);
-            if (p_Instantiator != null)
-                l_VFXAnimationInstantiator.transform.parent = p_Instantiator.transform;
-            l_VFXAnimationInstantiator.transform.position = p_SpecificPosition;
-            List<Animation> l_Animations = new List<Animation>();
-            l_Animations[0].m_AnimationName = l_VFXAnimationList.name;
-            l_Animations[0].m_Animation = l_VFXAnimationList;
-            l_VFXAnimationInstantiator.GetComponent<FramePerfectAnimator>().Animations = l_Animations;
+            for(int i = 0; i < m_VFXAnimation.Length; i++)
+            {
+                Vector3 l_VFXAnimationSpecificPosition = m_VFXAnimationSpecificPosition[i];
+                if (p_Instantiator.transform.localScale.x < 0)
+                    l_VFXAnimationSpecificPosition.x *= -1;
+
+                GameObject l_VFXAnimation = Instantiate(m_VFXAnimation[i], p_Instantiator.transform.position + l_VFXAnimationSpecificPosition, Quaternion.identity);
+                if (m_VFXAnimationAsToBeChild[i])
+                    l_VFXAnimation.transform.parent = p_Instantiator.transform;
+            }
         }
     }
 
@@ -95,7 +119,8 @@ public class SO_Feedback : ScriptableObject
 
     public void Shaking(Shake p_Shake, float p_ShakeIntensity, float p_ShakeDuration, GameObject p_ObjectToShake)
     {
-        p_Shake.StartCoroutine(FindObjectOfType<Shake>().CreateShake(p_ShakeIntensity, p_ShakeDuration, p_ObjectToShake));
+        if(m_AsToShake)
+            p_Shake.StartCoroutine(FindObjectOfType<Shake>().CreateShake(p_ShakeIntensity, p_ShakeDuration, p_ObjectToShake));
     }
 
     [SerializeField]
@@ -124,4 +149,12 @@ public class SO_Feedback : ScriptableObject
     [SerializeField]
     private float m_VibrationDuration = 0.1f;
     public float VibrationDuration { get { return m_VibrationDuration; } }
+
+
+    public void PlayFeedback(GameObject p_Initiator)
+    {
+        InstantiateAllVFX(p_Initiator);
+        InstantiateAllVFXAnimation(p_Initiator);
+        InstantiateAllAudioClip();
+    }
 }

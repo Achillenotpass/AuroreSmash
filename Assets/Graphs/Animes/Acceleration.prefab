@@ -101,3 +101,4 @@ MonoBehaviour:
   m_Animations:
   - m_AnimationName: Acceleration
     m_Animation: {fileID: 11400000, guid: ca129f53084e4ea4899b7a59c12013b2, type: 2}
+  m_TemporaryFramePerfectAnimator: 1
