@@ -125,10 +125,22 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
         if (m_IsGrounded)
         {
+            m_MovementEvents.m_OnGround.Invoke();
             m_CharacterAirJump = m_CharacterMaxAirJump;
             m_CharacterGravity = m_CharacterMaxGravity;
-            if(m_EndAirVelocityCheck)
+            if(m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+            {
+                m_MovementEvents.m_EventGroundMovement.Invoke();
+            }
+            if (m_EndAirVelocityCheck)
+            {
                 m_EndAirVelocityInverseCheck = true;
+                m_MovementEvents.m_Landing.Invoke();
+            }
+        }
+        else
+        {
+            m_MovementEvents.m_NotOnGround.Invoke();
         }
         if (m_EndGroundVelocityCheck && m_CharacterSpeed <= 0 || m_EndAirVelocityCheck && m_CharacterSpeed <= 0)
         {
@@ -198,6 +210,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                     m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f;
                     m_PastDirection = m_PlayerDesiredDirection;
                     m_MovementEvents.m_EventMovement.Invoke();
+                        
                 }
                 if (p_Context.ReadValue<Vector2>().y >= 0.9f || p_Context.ReadValue<Vector2>().y <= -0.7f)
                 {
@@ -293,7 +306,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         }
         if (m_EndAirVelocityCheck)
         {
-            Debug.Log("aaa");
             m_StartVelocityCheck = false;
             m_EndAirVelocityTimer += p_DeltaTime;
             m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterEndAirVelocity.Evaluate(m_EndAirVelocityTimer) * Mathf.Abs(m_PastDirection.x);
@@ -384,6 +396,8 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                     m_JumpMark = m_PlayerGroundCheck.position;
                     m_IsGroundJumping = true;
                     m_TimerGroundJump = 0;
+                    
+                    
                 }
             }
             else
@@ -398,6 +412,15 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                         m_IsAirJumping = true;
                         m_TimerAirJump = 0;
                         m_IsGroundJumping = false;
+                        /*for (int i = 0; i < FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray.Length; i++)
+                        {
+                            Debug.Log("bbb");
+                            if (FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].name == "DoubleJump")
+                            {
+                                Debug.Log("ccc");
+                                FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].InstantiateVFXAnimation(null, transform.position + new Vector3(0, -0.5f, 0), i);
+                            }
+                        }*/
                     }
                 }
             }
@@ -548,9 +571,16 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 public class MovementEvents
 {
     [SerializeField]
+    public UnityEvent m_OnGround;
+    [SerializeField]
+    public UnityEvent m_NotOnGround;
+
+    [SerializeField]
     public UnityEvent m_EventStartMovement;
     [SerializeField]
     public UnityEvent m_EventMovement;
+    [SerializeField]
+    public UnityEvent m_EventGroundMovement;
     [SerializeField]
     public UnityEvent m_EventEndMovement;
 
@@ -564,6 +594,8 @@ public class MovementEvents
     public UnityEvent m_EventEndJump;
     [SerializeField]
     public UnityEvent m_EventJumpDownMovement;
+    [SerializeField]
+    public UnityEvent m_Landing;
 
     [SerializeField]
     public UnityEvent m_EventChangeOrientation;
