@@ -10,28 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
-  m_Name: DoubleJump
+  m_Name: Running
   m_EditorClassIdentifier: 
-  m_FeedbackName: DoubleJump
+  m_FeedbackName: Running
   m_AsVFX: 1
   m_VFXList:
-  - {fileID: 2759305062574123831, guid: 796797cda67c0934aa07237cf943502a, type: 3}
+  - {fileID: 5347626931292659624, guid: 0fcfd75082a2c574f8e0aa47c43f36fe, type: 3}
   m_VFXSpecificPosition:
-  - {x: 0, y: -1, z: 0}
+  - {x: -0.25, y: -0.75, z: 0}
   m_VFXAsToBeChild: 01
-  m_AsSFX: 1
-  m_SFXList:
-  - {fileID: 8300000, guid: a890da88bb75bbd41820b12367f74ee7, type: 3}
-  m_AsVFXAnimation: 1
-  m_VFXAnimation:
-  - {fileID: 7013069044853825597, guid: ff6ad922423a83743934900475c55e27, type: 3}
-  - {fileID: 5445021367801258818, guid: b2705ea0c55cda442bf2c7066d18960c, type: 3}
-  - {fileID: 7599707128303667127, guid: 2694c68795918044689bdc8cd27bd36e, type: 3}
-  m_VFXAnimationSpecificPosition:
-  - {x: 0, y: -0.5, z: 0}
-  - {x: 5, y: 0, z: 0}
-  - {x: 10, y: 0, z: 0}
-  m_VFXAnimationAsToBeChild: 000100
+  m_IsAlone: 1
+  m_AsSFX: 0
+  m_SFXList: []
+  m_AsVFXAnimation: 0
+  m_VFXAnimation: []
+  m_VFXAnimationSpecificPosition: []
+  m_VFXAnimationAsToBeChild: 
   m_AsToShake: 0
   m_ShakeIntesity: 0.1
   m_ShakeDuration: 0.1

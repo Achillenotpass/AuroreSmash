@@ -504,6 +504,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d42bb9d487d53419f9ec4981cbe1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_InfosEvents:
+    m_EventChangeStateFromMoving:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 9e62a493c2c9cf6409f3734e9b38d3da, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: StopAllVFX
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 471444630}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   m_Character: {fileID: 0}
   m_MaxCharacterSpeed: 10
   m_GroundJumpCurve:
@@ -747,16 +763,55 @@ MonoBehaviour:
   m_MovementEvents:
     m_EventStartMovement:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 471444643}
+          m_TargetAssemblyTypeName: FeedbackCallerInitiator, Assembly-CSharp
+          m_MethodName: FeedbackInitialCalling
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 6cbc63c988a35c74193e181f88d68e98, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventMovement:
       m_PersistentCalls:
         m_Calls: []
+    m_EventGroundMovement:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 471444643}
+          m_TargetAssemblyTypeName: FeedbackCallerInitiator, Assembly-CSharp
+          m_MethodName: FeedbackInitialCalling
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 9e62a493c2c9cf6409f3734e9b38d3da, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventEndMovement:
       m_PersistentCalls:
         m_Calls: []
     m_EventBeginGroundJump:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 471444643}
+          m_TargetAssemblyTypeName: FeedbackCallerInitiator, Assembly-CSharp
+          m_MethodName: FeedbackInitialCalling
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 67c9cef03dba1c742a26837c7eb3b027, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventBeginAirJump:
       m_PersistentCalls:
         m_Calls:
@@ -765,7 +820,7 @@ MonoBehaviour:
           m_MethodName: FeedbackInitialCalling
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 86cd04664c8d9e648b054a05bc9d4a1b, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: 1cc93e494e2c4144097f86002ca6b27c, type: 2}
             m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -781,6 +836,21 @@ MonoBehaviour:
     m_EventJumpDownMovement:
       m_PersistentCalls:
         m_Calls: []
+    m_Landing:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 471444643}
+          m_TargetAssemblyTypeName: FeedbackCallerInitiator, Assembly-CSharp
+          m_MethodName: FeedbackInitialCalling
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 4cc7f4ab060a2944384199c15132b83a, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventChangeOrientation:
       m_PersistentCalls:
         m_Calls: []
@@ -1715,6 +1785,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d42bb9d487d53419f9ec4981cbe1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_InfosEvents:
+    m_EventChangeStateFromMoving:
+      m_PersistentCalls:
+        m_Calls: []
   m_Character: {fileID: 0}
   m_MaxCharacterSpeed: 10
   m_GroundJumpCurve:
@@ -1931,7 +2005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b028c66eb78a1c498845e77adddf0a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FeedbackList: {fileID: 11400000, guid: a2aa5ba052e221d43b5cbe048bf7efe3, type: 2}
+  m_FeedbackList: {fileID: 0}
 --- !u!1 &1431516945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1962,7 +2036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b028c66eb78a1c498845e77adddf0a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FeedbackList: {fileID: 11400000, guid: a2aa5ba052e221d43b5cbe048bf7efe3, type: 2}
+  m_FeedbackList: {fileID: 0}
 --- !u!4 &1431516947
 Transform:
   m_ObjectHideFlags: 0
@@ -2258,6 +2332,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d42bb9d487d53419f9ec4981cbe1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_InfosEvents:
+    m_EventChangeStateFromMoving:
+      m_PersistentCalls:
+        m_Calls: []
   m_Character: {fileID: 0}
   m_MaxCharacterSpeed: 10
   m_GroundJumpCurve:

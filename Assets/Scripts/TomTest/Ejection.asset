@@ -12,14 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
   m_Name: Ejection
   m_EditorClassIdentifier: 
-  m_FeedbackName: 
-  m_AsParticle: 0
-  m_ParticleSystemList: []
-  m_AsAudioClip: 0
-  m_AudioClipList: []
+  m_FeedbackName: Ejection
+  m_AsVFX: 1
+  m_VFXList:
+  - {fileID: 1854859582378150038, guid: ab020f09b6cc63a46b6e92dc5128fe5d, type: 3}
+  m_VFXSpecificPosition:
+  - {x: 0, y: 0, z: 0}
+  m_VFXAsToBeChild: 01
+  m_AsSFX: 0
+  m_SFXList: []
+  m_AsVFXAnimation: 0
+  m_VFXAnimation: []
+  m_VFXAnimationSpecificPosition: []
+  m_VFXAnimationAsToBeChild: 
   m_AsToShake: 0
-  m_ShakeIntesity: 0.2
-  m_ShakeDuration: 0.5
+  m_ShakeIntesity: 0.1
+  m_ShakeDuration: 0.1
   m_AsToBlink: 0
   m_BlinkIntensity: 0.1
   m_BlinkDuration: 0.1

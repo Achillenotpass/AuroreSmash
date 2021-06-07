@@ -10,18 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
-  m_Name: Jump
+  m_Name: LowLife
   m_EditorClassIdentifier: 
-  m_FeedbackName: Jump
-  m_AsParticle: 1
-  m_ParticleSystemList:
-  - {fileID: 7920185721430770976, guid: 4577a6464c8679446a3e4fee192dddde, type: 3}
-  m_AsAudioClip: 0
-  m_AudioClipList:
-  - {fileID: 0}
-  m_AsToShake: 1
+  m_FeedbackName: LowLife
+  m_AsVFX: 1
+  m_VFXList:
+  - {fileID: 3926256565537644767, guid: 0137cccedffa4d044bdd7817d1eee33d, type: 3}
+  m_VFXSpecificPosition:
+  - {x: 0, y: 0, z: 0}
+  m_VFXAsToBeChild: 01
+  m_AsSFX: 0
+  m_SFXList: []
+  m_AsVFXAnimation: 0
+  m_VFXAnimation: []
+  m_VFXAnimationSpecificPosition: []
+  m_VFXAnimationAsToBeChild: 
+  m_AsToShake: 0
   m_ShakeIntesity: 0.1
-  m_ShakeDuration: 0.5
+  m_ShakeDuration: 0.1
   m_AsToBlink: 0
   m_BlinkIntensity: 0.1
   m_BlinkDuration: 0.1
