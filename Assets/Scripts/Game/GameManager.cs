@@ -134,6 +134,20 @@ public class GameManager : MonoBehaviour, IUpdateUser
         m_PlayerCount = m_PlayersAlive.Count;
         StartGame();
     }
+    private IEnumerator BeginningTimer()
+    {
+        float l_CurrentTimer = m_BeginningTimerSprites.Count;
+        Color l_NewColor = m_BeginningTimer.color;
+        while (l_CurrentTimer > 0.0f)
+        {
+            l_CurrentTimer = l_CurrentTimer - Time.deltaTime;
+            m_BeginningTimer.sprite = m_BeginningTimerSprites[(int)l_CurrentTimer];
+            l_NewColor.a = (l_CurrentTimer % 1) * 255;
+            m_BeginningTimer.color = l_NewColor;
+            yield return null;
+        }
+        m_BeginningTimer.gameObject.SetActive(false);
+    }
     private PlayerInfos SpawnPlayer(UserInfos p_UserInfos)
     {
         PlayerInput l_SpawnedPlayer = PlayerInput.Instantiate(p_UserInfos.UserCharacter.CharacterPrefab, -1, null, -1, p_UserInfos.UserInputDevice);
@@ -230,17 +244,6 @@ public class GameManager : MonoBehaviour, IUpdateUser
         m_TimerText.text = m_CurrentGameTimer.ToString();
 
         m_GameState = EGameState.Running;
-    }
-    private IEnumerator BeginningTimer()
-    {
-        float l_CurrentTimer = m_BeginningTimerSprites.Count;
-        while (l_CurrentTimer > 0.0f)
-        {
-            l_CurrentTimer = l_CurrentTimer - Time.deltaTime;
-            m_BeginningTimer.sprite = m_BeginningTimerSprites[(int)l_CurrentTimer];
-            yield return null;
-        }
-        m_BeginningTimer.gameObject.SetActive(false);
     }
     private void CheckEjection(Health p_Character)
     {
