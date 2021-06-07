@@ -412,7 +412,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141369475}
   m_LocalRotation: {x: -0.0000053584695, y: 0.7071071, z: -0.7071065, w: -0.0000053606927}
-  m_LocalPosition: {x: 18.77, y: 15.95, z: -0.81}
+  m_LocalPosition: {x: 18.8, y: 15.9, z: -14.28}
   m_LocalScale: {x: 83.349945, y: 3.4047, z: 5.8281736}
   m_Children: []
   m_Father: {fileID: 0}
@@ -732,13 +732,13 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
-  m_Intensity: 100000
+  m_Intensity: 130000
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
-  m_VolumetricDimmer: 1
+  m_VolumetricDimmer: 1.58
   m_LightUnit: 2
   m_FadeDistance: 10000
   m_VolumetricFadeDistance: 10000
@@ -799,9 +799,9 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
-    m_UseOverride: 1
-    m_Level: 0
+    m_Override: 1
+    m_UseOverride: 0
+    m_Level: 1
   m_RayTracedContactShadow: 0
   m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
   m_PenumbraTint: 0
@@ -845,8 +845,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 100000
+  m_Color: {r: 1, g: 0.8921767, b: 0.5981132, a: 1}
+  m_Intensity: 130000
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -889,9 +889,9 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6570
+  m_ColorTemperature: 4158
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 10}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -903,13 +903,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 275842584}
-  m_LocalRotation: {x: 0.5882644, y: -0.15762167, z: 0.0581105, w: 0.79102695}
-  m_LocalPosition: {x: -306.41202, y: -82.22292, z: 0.16894531}
+  m_LocalRotation: {x: 0.6546305, y: 0.025710851, z: -0.08926784, w: 0.75021946}
+  m_LocalPosition: {x: -279.5, y: -70.6, z: 4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1949115038}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 71.62, y: -35.03, z: -17.251}
+  m_LocalEulerAnglesHint: {x: -260.689, y: 151.059, z: -218.299}
 --- !u!1 &323326384
 GameObject:
   m_ObjectHideFlags: 0
