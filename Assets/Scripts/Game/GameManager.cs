@@ -42,8 +42,10 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private Vector2 m_MapSize = Vector2.one;
     [SerializeField]
     private Vector2 m_CameraCenterPosition = Vector2.zero;
+    public Vector2 CameraCenterPosition { get { return m_CameraCenterPosition; } }
     [SerializeField]
     private Vector2 m_CameraSize = Vector2.one;
+    public Vector2 CameraSize { get { return m_CameraSize; } }
     [SerializeField]
     private Transform m_PlayersParent = null;
     [SerializeField]
@@ -81,7 +83,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
     #region Awake/Start/Update
     private void Start()
     {
-        m_CameraRaycastPlane.transform.position = m_CameraCenterPosition;
+        Vector3 l_Pos = m_CameraCenterPosition;
+        l_Pos.z = m_CameraRaycastPlane.transform.position.z;
+        m_CameraRaycastPlane.transform.position = l_Pos;
         Vector3 l_NewScale = Vector3.zero;
         l_NewScale.x = m_CameraSize.x / 10.0f;
         l_NewScale.y = m_CameraRaycastPlane.transform.localScale.y;
@@ -232,6 +236,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
             m_PlayersAlive[i].GetComponent<PlayerInput>().ActivateInput();
         }
 
+        l_Camera.SetGameManager(this);
         l_Camera.enabled = true;
     }
     private void StartGame()
