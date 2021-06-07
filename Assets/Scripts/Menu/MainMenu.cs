@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     #region Variables
+    private bool m_InAnimation = false;
     [SerializeField]
     private List<string> m_MapNames = new List<string>();
     [SerializeField]
@@ -20,6 +21,10 @@ public class MainMenu : MonoBehaviour
     private GameObject m_Buttons = null;
     [SerializeField]
     private GameObject m_WheelCenter = null;
+    [SerializeField]
+    private float m_AngleIncrement = 90.0f;
+    [SerializeField]
+    private float m_RotationTime = 0.25f;
     private MainMenuState m_MainMenuState = MainMenuState.OnMainWheel;
     [Header("Options sub-menu")]
     [SerializeField]
@@ -46,7 +51,7 @@ public class MainMenu : MonoBehaviour
     #region Inputs
     public void JoysticksInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.started)
+        if (p_Context.started && !m_InAnimation)
         {
             switch (m_MainMenuState)
             {
@@ -54,23 +59,27 @@ public class MainMenu : MonoBehaviour
                     if (Vector2.Dot(p_Context.ReadValue<Vector2>().normalized, Vector2.right) > 0.2f)
                     {
                         m_CurrentButton = m_CurrentButton + 1;
-                        m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, -90.0f);
                         if (m_CurrentButton == m_MapNames.Count)
                         {
                             m_CurrentButton = 0;
-                            m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, 90.0f);
-                            m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, 90.0f);
+                            StartCoroutine(RotateOverTimer(m_AngleIncrement, m_RotationTime));
+                        }
+                        else
+                        {
+                            StartCoroutine(RotateOverTimer(-m_AngleIncrement, m_RotationTime));
                         }
                     }
                     else if (Vector2.Dot(p_Context.ReadValue<Vector2>().normalized, Vector2.right) < 0.2f)
                     {
                         m_CurrentButton = m_CurrentButton - 1;
-                        m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, 90.0f);
                         if (m_CurrentButton < 0)
                         {
                             m_CurrentButton = m_MapNames.Count - 1;
-                            m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, -90.0f);
-                            m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, -90.0f);
+                            StartCoroutine(RotateOverTimer(-m_AngleIncrement, m_RotationTime));
+                        }
+                        else
+                        {
+                            StartCoroutine(RotateOverTimer(m_AngleIncrement, m_RotationTime));
                         }
                     }
                     DisplayMapBackground(m_CurrentButton);
@@ -90,7 +99,7 @@ public class MainMenu : MonoBehaviour
     }
     public void SelectInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.started)
+        if (p_Context.started && !m_InAnimation)
         {
             switch (m_MainMenuState)
             {
@@ -123,7 +132,7 @@ public class MainMenu : MonoBehaviour
     }
     public void ReturnInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.started)
+        if (p_Context.started && !m_InAnimation)
         {
             switch (m_MainMenuState)
             {
@@ -147,6 +156,25 @@ public class MainMenu : MonoBehaviour
             p_Background.SetActive(false);
         }
         m_MapBackgrounds[p_CurrentMap].SetActive(true);
+    }
+    public IEnumerator RotateOverTimer(float p_RotationAngle, float p_RotationTime)
+    {
+        m_InAnimation = true;
+
+        float l_CurrentTimer = 0.0f;
+        float l_RotationEffectued = 0.0f;
+        while (l_CurrentTimer < p_RotationTime)
+        {
+            float l_AngleIncrement = 0.0f;
+
+            l_AngleIncrement = Mathf.Lerp(0.0f, p_RotationAngle, l_CurrentTimer / p_RotationTime);
+
+            m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, l_AngleIncrement - l_RotationEffectued);
+            l_RotationEffectued = l_AngleIncrement;
+            l_CurrentTimer = l_CurrentTimer + Time.deltaTime;
+            yield return null;
+        }
+        m_InAnimation = false;
     }
     #endregion
 

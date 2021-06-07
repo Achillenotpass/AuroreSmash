@@ -438,6 +438,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_CharacterController.enabled = false;
                 m_CharacterController.transform.position = new Vector3(transform.position.x, m_JumpMark.y + m_GroundJumpCurve.Evaluate(m_TimerGroundJump) + (transform.position.y - m_PlayerGroundCheck.position.y), transform.position.z);
                 m_CharacterController.enabled = true;
+                m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
             }
             else
             {
@@ -462,6 +463,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_CharacterController.enabled = false;
                 m_CharacterController.transform.position = new Vector3(transform.position.x, m_JumpMark.y + m_AirJumpCurve.Evaluate(m_TimerAirJump) + (transform.position.y - m_PlayerGroundCheck.position.y), transform.position.z);
                 m_CharacterController.enabled = true;
+                m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
             }
             else
             {

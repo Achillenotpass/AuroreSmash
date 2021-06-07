@@ -67,7 +67,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     #endregion
 
 
-    public void Ejection(float p_EjectionPower, float p_EjectionAngle, GameObject p_Attacker)
+    public void Ejection(float p_EjectionPower, float p_EjectionAngle, Vector3 p_AttackerPosition)
     {
         if (!m_IsEjected)
         {
@@ -78,7 +78,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
             m_IsEjected = true;
             m_TimerEjection = m_MaxTimerEjection + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 400f);
 
-            if (p_Attacker.transform.position.x > transform.position.x)
+            if (p_AttackerPosition.x > transform.position.x)
             {
                 m_EjectionDirection = -1.0f;
             }

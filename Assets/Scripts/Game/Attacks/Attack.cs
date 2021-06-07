@@ -483,14 +483,14 @@ public class Attack : MonoBehaviour, IUpdateUser
     public void ApplyDamages(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
         //Oninflige les dégâts au joueur touché
-        p_PlayerHit.TakeDamages(p_HitBox, this.gameObject);
+        p_PlayerHit.TakeDamages(p_HitBox, transform.position);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
     }
     public void ApplyDamagesShield(SO_Hit p_Hit, SO_HitBox p_HitBox, Health p_PlayerHit)
     {
         //Oninflige les dégâts au joueur touché
-        p_PlayerHit.GetComponent<Shield>().TakeShieldDamages(p_HitBox, this.gameObject);
+        p_PlayerHit.GetComponent<Shield>().TakeShieldDamages(p_HitBox, transform.position);
         //On ajoute le joueur touché à la liste des joueurs touchés
         AddPlayerToDictionary(p_Hit, p_PlayerHit);
     }

@@ -46,7 +46,7 @@ public class Health : MonoBehaviour
 
 
     #region Functions
-    public void TakeDamages(SO_HitBox p_HitBox, GameObject p_Attacker)
+    public void TakeDamages(SO_HitBox p_HitBox, Vector3 p_AttackerPosition)
     {
         m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_HitBox.Damages, 0.0f, m_MaxHealth);
 
@@ -63,10 +63,10 @@ public class Health : MonoBehaviour
             Invoke(nameof(StopHitLag), p_HitBox.HitLag);
             GetComponent<MeshRenderer>().enabled = true;
             //On appelle la fonction apliquant l'�jection sur le joueur touch� 
-            GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle, p_Attacker);
+            GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle, p_AttackerPosition);
         }
     }
-    public void TakeDamages(SO_Projectile p_Projectile, GameObject p_ProjectileObject)
+    public void TakeDamages(SO_Projectile p_Projectile, Vector3 p_ProjectileObjectPosition)
     {
         m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_Projectile.Damages, 0.0f, m_MaxHealth);
 
@@ -82,7 +82,7 @@ public class Health : MonoBehaviour
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
             Invoke(nameof(StopHitLag), p_Projectile.HitLag);
             GetComponent<MeshRenderer>().enabled = true;
-            GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObject);
+            GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObjectPosition);
         }
     }
     /*public void Death()
