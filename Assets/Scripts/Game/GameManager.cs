@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         //Changer position du joueur
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = false;
 
-        if (m_UsedSpawnPoints.Count >= m_PlayersSpawn.Count)
+        if (m_UsedSpawnPoints.Count < m_PlayersSpawn.Count)
         {
             while (true)
             {
