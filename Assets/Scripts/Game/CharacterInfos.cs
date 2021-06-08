@@ -1,14 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class CharacterInfos : MonoBehaviour
 {
+    #region EventsVariables
+    [SerializeField]
+    private InfosEvents m_InfosEvents = new InfosEvents();
+    #endregion
+
     [SerializeField]
     private SO_Character m_Character = null;
     public SO_Character Character { get { return m_Character; } set { m_Character = value; } }
     private CharacterState m_CurrentCharacterState = CharacterState.Idle;
-    public CharacterState CurrentCharacterState { get { return m_CurrentCharacterState; } set { m_CurrentCharacterState = value; } }
+    public CharacterState CurrentCharacterState 
+    { 
+        get { return m_CurrentCharacterState; } 
+
+        set 
+        { 
+            if(m_CurrentCharacterState == CharacterState.Moving && value != CharacterState.Moving)
+            {
+                m_InfosEvents.m_EventChangeStateFromMoving.Invoke();
+            }
+            m_CurrentCharacterState = value; 
+        } 
+    }
 
     [SerializeField]
     private float m_MaxCharacterSpeed = 10f;
@@ -47,6 +66,15 @@ public class CharacterInfos : MonoBehaviour
         set { m_CanMove = value; }
     }
 }
+
+#region Events
+[System.Serializable]
+public class InfosEvents
+{
+    [SerializeField]
+    public UnityEvent m_EventChangeStateFromMoving;
+}
+#endregion 
 
 public enum CharacterState
 {

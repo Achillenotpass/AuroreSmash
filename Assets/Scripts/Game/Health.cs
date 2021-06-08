@@ -62,7 +62,7 @@ public class Health : MonoBehaviour
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
             Invoke(nameof(StopHitLag), p_HitBox.HitLag);
             GetComponent<MeshRenderer>().enabled = true;
-            //On appelle la fonction apliquant l'éjection sur le joueur touché 
+            //On appelle la fonction apliquant l'ï¿½jection sur le joueur touchï¿½ 
             GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle, p_AttackerPosition);
         }
     }
@@ -85,6 +85,16 @@ public class Health : MonoBehaviour
             GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObjectPosition);
         }
     }
+    /*public void Death()
+    {
+        for (int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
+        {
+            if (FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "Ejection")
+            {
+                FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].Shaking(FindObjectOfType<Shake>(), 0.3f, 0.7f, FindObjectOfType<Camera>().gameObject);
+            }
+        }
+    }*/
     public void StopHitLag()
     {
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
