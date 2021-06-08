@@ -116,14 +116,6 @@ public class Health : MonoBehaviour
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
         gameObject.SetActive(false);
 
-        for (int i = 0; i < FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray.Length; i++)
-        {
-            if (FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].name == "Ejection")
-            {
-                FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].Shaking(FindObjectOfType<Shake>(), 0.3f, 0.7f, FindObjectOfType<Camera>().gameObject);
-            }
-        }
-
         if (m_CurrentLives > 0)
         {
             FindObjectOfType<GameManager>().StartCoroutine(FindObjectOfType<GameManager>().RespawnTimer(gameObject));   

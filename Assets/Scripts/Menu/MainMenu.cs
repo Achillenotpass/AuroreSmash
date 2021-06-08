@@ -45,6 +45,17 @@ public class MainMenu : MonoBehaviour
     {
         m_MapName.text = m_MapNames[m_CurrentButton];
         DisplayMapBackground(m_CurrentButton);
+
+        AsyncOperation l_AsynScene = SceneManager.LoadSceneAsync("CharacterSelection");
+        l_AsynScene.allowSceneActivation = false;
+        AsyncOperation l_AsynScene2 = SceneManager.LoadSceneAsync("Caldista");
+        l_AsynScene2.allowSceneActivation = false;
+        AsyncOperation l_AsynScene3 = SceneManager.LoadSceneAsync("Gaeal");
+        l_AsynScene3.allowSceneActivation = false;
+        AsyncOperation l_AsynScene4 = SceneManager.LoadSceneAsync("VictoryScreen");
+        l_AsynScene4.allowSceneActivation = false;
+        AsyncOperation l_AsynScene5 = SceneManager.LoadSceneAsync("MapSelection");
+        l_AsynScene5.allowSceneActivation = false;
     }
     #endregion
 
