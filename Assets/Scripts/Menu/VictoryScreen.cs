@@ -11,11 +11,11 @@ public class VictoryScreen : MonoBehaviour
     [SerializeField]
     private Image m_WinnerImage = null;
     [SerializeField]
-    private List<Image> m_WinnerLives = null;
+    private List<Image> m_Player1Lives = null;
     [SerializeField]
     private Image m_LoserImage = null;
     [SerializeField]
-    private List<Image> m_LoserLives = null;
+    private List<Image> m_Player2Lives = null;
     [SerializeField]
     private List<UIObjectList> m_Objects = null;
     private int m_CurrentDisplay = 0;
@@ -29,13 +29,29 @@ public class VictoryScreen : MonoBehaviour
 
         for (int i = 0; i < UsersManager.m_WinnerCharacter.m_RemainingLives; i++)
         {
-            m_WinnerLives[i].sprite = UsersManager.m_WinnerCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
-            m_WinnerLives[i].gameObject.SetActive(true);
+            if(UsersManager.m_WinnerCharacter.m_PlayerIndex == 1)
+            {
+                m_Player1Lives[i].sprite = UsersManager.m_WinnerCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
+                m_Player1Lives[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                m_Player2Lives[i].sprite = UsersManager.m_WinnerCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
+                m_Player2Lives[i].gameObject.SetActive(true);
+            }
         }
         for (int i = 0; i < UsersManager.m_LoserCharacter.m_RemainingLives; i++)
         {
-            m_LoserLives[i].sprite = UsersManager.m_LoserCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
-            m_LoserLives[i].gameObject.SetActive(true);
+            if (UsersManager.m_WinnerCharacter.m_PlayerIndex == 2)
+            {
+                m_Player2Lives[i].sprite = UsersManager.m_LoserCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
+                m_Player2Lives[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                m_Player1Lives[i].sprite = UsersManager.m_LoserCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
+                m_Player1Lives[i].gameObject.SetActive(true);
+            }
         }
     }
     #endregion

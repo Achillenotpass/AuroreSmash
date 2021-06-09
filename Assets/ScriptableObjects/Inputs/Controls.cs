@@ -331,6 +331,30 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""f331efcf-6095-44b7-b3b6-fde3b031fee5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""d068e584-7e81-4613-9f9a-153a136bad88"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Joysticks"",
+                    ""type"": ""Value"",
+                    ""id"": ""2b2a9d47-4843-4223-95f6-5956d7b06452"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -342,6 +366,50 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Resume"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9de9647c-98d4-4c25-b6e5-488cfa45e7b1"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae70575a-d89e-4cdc-84a5-ebcc364490e3"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50452c19-abbf-407f-8a88-eb32e75027e3"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Joysticks"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""89cda1ed-f415-4863-8b45-68107934f5e1"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Joysticks"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -362,6 +430,9 @@ public class @Controls : IInputActionCollection, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Resume = m_UI.FindAction("Resume", throwIfNotFound: true);
+        m_UI_Select = m_UI.FindAction("Select", throwIfNotFound: true);
+        m_UI_Return = m_UI.FindAction("Return", throwIfNotFound: true);
+        m_UI_Joysticks = m_UI.FindAction("Joysticks", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -493,11 +564,17 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_UI;
     private IUIActions m_UIActionsCallbackInterface;
     private readonly InputAction m_UI_Resume;
+    private readonly InputAction m_UI_Select;
+    private readonly InputAction m_UI_Return;
+    private readonly InputAction m_UI_Joysticks;
     public struct UIActions
     {
         private @Controls m_Wrapper;
         public UIActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Resume => m_Wrapper.m_UI_Resume;
+        public InputAction @Select => m_Wrapper.m_UI_Select;
+        public InputAction @Return => m_Wrapper.m_UI_Return;
+        public InputAction @Joysticks => m_Wrapper.m_UI_Joysticks;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -510,6 +587,15 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Resume.started -= m_Wrapper.m_UIActionsCallbackInterface.OnResume;
                 @Resume.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnResume;
                 @Resume.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnResume;
+                @Select.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSelect;
+                @Return.started -= m_Wrapper.m_UIActionsCallbackInterface.OnReturn;
+                @Return.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnReturn;
+                @Return.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnReturn;
+                @Joysticks.started -= m_Wrapper.m_UIActionsCallbackInterface.OnJoysticks;
+                @Joysticks.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnJoysticks;
+                @Joysticks.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnJoysticks;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -517,6 +603,15 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Resume.started += instance.OnResume;
                 @Resume.performed += instance.OnResume;
                 @Resume.canceled += instance.OnResume;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
+                @Return.started += instance.OnReturn;
+                @Return.performed += instance.OnReturn;
+                @Return.canceled += instance.OnReturn;
+                @Joysticks.started += instance.OnJoysticks;
+                @Joysticks.performed += instance.OnJoysticks;
+                @Joysticks.canceled += instance.OnJoysticks;
             }
         }
     }
@@ -534,5 +629,8 @@ public class @Controls : IInputActionCollection, IDisposable
     public interface IUIActions
     {
         void OnResume(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
+        void OnReturn(InputAction.CallbackContext context);
+        void OnJoysticks(InputAction.CallbackContext context);
     }
 }
