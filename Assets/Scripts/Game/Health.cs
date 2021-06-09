@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Health : MonoBehaviour
 {
@@ -114,7 +115,23 @@ public class Health : MonoBehaviour
         GetComponent<CharacterEjection>().InterruptEjection();
         CurrentHealth = MaxHealth;
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-        gameObject.SetActive(false);
+
+        Component[] l_Components = GetComponentsInChildren<Component>();
+        foreach (Component l_Component in l_Components)
+        {
+            if (l_Component is PlayerInput)
+            {
+                ((PlayerInput)l_Component).DeactivateInput();
+            }
+            else if (l_Component is MonoBehaviour)
+            {
+                ((MonoBehaviour)l_Component).enabled = false;
+            }
+            else if (l_Component is SpriteRenderer)
+            {
+                ((SpriteRenderer)l_Component).enabled = false;
+            }
+        }
 
         if (m_CurrentLives > 0)
         {
