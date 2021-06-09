@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class MainMenu : MonoBehaviour
 {
@@ -58,29 +59,34 @@ public class MainMenu : MonoBehaviour
                 case MainMenuState.OnMainWheel:
                     if (Vector2.Dot(p_Context.ReadValue<Vector2>().normalized, Vector2.right) > 0.2f)
                     {
-                        m_CurrentButton = m_CurrentButton + 1;
-                        if (m_CurrentButton == m_MapNames.Count)
-                        {
-                            m_CurrentButton = 0;
-                            StartCoroutine(RotateOverTimer(2 * m_AngleIncrement, m_RotationTime));
-                        }
-                        else
-                        {
-                            StartCoroutine(RotateOverTimer(-m_AngleIncrement, m_RotationTime));
-                        }
+                        StartCoroutine(RotateOverTimer(90.0f, 1.0f));
+
+                        //m_CurrentButton = m_CurrentButton + 1;
+                        //if (m_CurrentButton == m_MapNames.Count)
+                        //{
+                        //    m_CurrentButton = 0;
+
+                        //    StartCoroutine(RotateOverTimer(2 * m_AngleIncrement, m_RotationTime));
+                        //}
+                        //else
+                        //{
+                        //    StartCoroutine(RotateOverTimer(-m_AngleIncrement, m_RotationTime));
+                        //}
                     }
-                    else if (Vector2.Dot(p_Context.ReadValue<Vector2>().normalized, Vector2.right) < 0.2f)
+                    else if (Vector2.Dot(p_Context.ReadValue<Vector2>().normalized, Vector2.right) < -0.2f)
                     {
-                        m_CurrentButton = m_CurrentButton - 1;
-                        if (m_CurrentButton < 0)
-                        {
-                            m_CurrentButton = m_MapNames.Count - 1;
-                            StartCoroutine(RotateOverTimer(-2 * m_AngleIncrement, m_RotationTime));
-                        }
-                        else
-                        {
-                            StartCoroutine(RotateOverTimer(m_AngleIncrement, m_RotationTime));
-                        }
+                        StartCoroutine(RotateOverTimer(-90.0f, 1.0f));
+
+                        //m_CurrentButton = m_CurrentButton - 1;
+                        //if (m_CurrentButton < 0)
+                        //{
+                        //    m_CurrentButton = m_MapNames.Count - 1;
+                        //    StartCoroutine(RotateOverTimer(-2 * m_AngleIncrement, m_RotationTime));
+                        //}
+                        //else
+                        //{
+                        //    StartCoroutine(RotateOverTimer(m_AngleIncrement, m_RotationTime));
+                        //}
                     }
                     DisplayMapBackground(m_CurrentButton);
                     m_MapName.text = m_MapNames[m_CurrentButton];
@@ -163,20 +169,14 @@ public class MainMenu : MonoBehaviour
     public IEnumerator RotateOverTimer(float p_RotationAngle, float p_RotationTime)
     {
         m_InAnimation = true;
-        float l_CurrentTimer = 0.0f;
-        float l_RotationEffectued = 0.0f;
-        while (l_CurrentTimer < p_RotationTime)
-        {
-            float l_AngleIncrement = 0.0f;
 
-            l_AngleIncrement = Mathf.Lerp(0.0f, p_RotationAngle, l_CurrentTimer / p_RotationTime);
+        Vector3 l_TempRot = new Vector3(m_Buttons.transform.localRotation.x, m_Buttons.transform.localRotation.y, m_Buttons.transform.localRotation.z);
+        l_TempRot.z = l_TempRot.z + p_RotationAngle;
+        Debug.Log(l_TempRot);
+        m_Buttons.transform.DOLocalRotate(l_TempRot, p_RotationTime, RotateMode.Fast);
+        //m_Buttons.transform.DORotate(l_TempRot, p_RotationTime, RotateMode.Fast);
 
-            m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, l_AngleIncrement - l_RotationEffectued);
-            l_RotationEffectued = l_AngleIncrement;
-            l_CurrentTimer = l_CurrentTimer + Time.deltaTime;
-            yield return null;
-        }
-        Debug.Log(l_RotationEffectued);
+        yield return new WaitForSeconds(p_RotationTime);
         m_InAnimation = false;
     }
     #endregion

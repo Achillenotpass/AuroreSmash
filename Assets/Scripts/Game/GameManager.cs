@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         {
             l_CurrentTimer = l_CurrentTimer - Time.deltaTime;
             m_BeginningTimer.sprite = m_BeginningTimerSprites[(int)l_CurrentTimer];
-            l_NewColor.a = (l_CurrentTimer % 1) * 255;
+            l_NewColor.a = (l_CurrentTimer % 1);
             m_BeginningTimer.color = l_NewColor;
             yield return null;
         }
@@ -240,6 +240,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
         l_Camera.SetGameManager(this);
         l_Camera.enabled = true;
+        FindObjectOfType<SpawnerCamera>().enabled = false;
     }
     private void StartGame()
     {
