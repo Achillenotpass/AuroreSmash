@@ -504,7 +504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &447372526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -633,12 +633,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_WinnerImage: {fileID: 1868031174}
-  m_WinnerLives:
+  m_Player1Lives:
   - {fileID: 1079893337}
   - {fileID: 1183252177}
   - {fileID: 2133885670}
   m_LoserImage: {fileID: 910421940}
-  m_LoserLives:
+  m_Player2Lives:
   - {fileID: 1331380653}
   - {fileID: 813918993}
   - {fileID: 802773885}
@@ -740,9 +740,45 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c3ced617-dbaf-4460-affe-72658ee90a72
     m_ActionName: UI/Resume[/XInputControllerWindows/select]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 514768032}
+        m_TargetAssemblyTypeName: VictoryScreen, Assembly-CSharp
+        m_MethodName: SelectInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f331efcf-6095-44b7-b3b6-fde3b031fee5
+    m_ActionName: UI/Select[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 514768032}
+        m_TargetAssemblyTypeName: VictoryScreen, Assembly-CSharp
+        m_MethodName: ReturnInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d068e584-7e81-4613-9f9a-153a136bad88
+    m_ActionName: UI/Return[/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b2a9d47-4843-4223-95f6-5956d7b06452
+    m_ActionName: UI/Joysticks[/XInputControllerWindows/leftStick,/XInputControllerWindows/rightStick]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &553495851

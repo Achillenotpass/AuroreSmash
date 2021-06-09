@@ -45,17 +45,6 @@ public class MainMenu : MonoBehaviour
     {
         m_MapName.text = m_MapNames[m_CurrentButton];
         DisplayMapBackground(m_CurrentButton);
-
-        AsyncOperation l_AsynScene = SceneManager.LoadSceneAsync("CharacterSelection");
-        l_AsynScene.allowSceneActivation = false;
-        AsyncOperation l_AsynScene2 = SceneManager.LoadSceneAsync("Caldista");
-        l_AsynScene2.allowSceneActivation = false;
-        AsyncOperation l_AsynScene3 = SceneManager.LoadSceneAsync("Gaeal");
-        l_AsynScene3.allowSceneActivation = false;
-        AsyncOperation l_AsynScene4 = SceneManager.LoadSceneAsync("VictoryScreen");
-        l_AsynScene4.allowSceneActivation = false;
-        AsyncOperation l_AsynScene5 = SceneManager.LoadSceneAsync("MapSelection");
-        l_AsynScene5.allowSceneActivation = false;
     }
     #endregion
 
@@ -73,7 +62,7 @@ public class MainMenu : MonoBehaviour
                         if (m_CurrentButton == m_MapNames.Count)
                         {
                             m_CurrentButton = 0;
-                            StartCoroutine(RotateOverTimer(m_AngleIncrement, m_RotationTime));
+                            StartCoroutine(RotateOverTimer(2 * m_AngleIncrement, m_RotationTime));
                         }
                         else
                         {
@@ -86,7 +75,7 @@ public class MainMenu : MonoBehaviour
                         if (m_CurrentButton < 0)
                         {
                             m_CurrentButton = m_MapNames.Count - 1;
-                            StartCoroutine(RotateOverTimer(-m_AngleIncrement, m_RotationTime));
+                            StartCoroutine(RotateOverTimer(-2 * m_AngleIncrement, m_RotationTime));
                         }
                         else
                         {
@@ -123,6 +112,9 @@ public class MainMenu : MonoBehaviour
                         case "Options":
                             m_MainMenuState = MainMenuState.OnOption;
                             m_OptionsSubMenu.SetActive(true);
+                            break;
+                        case "Quit game":
+                            Application.Quit();
                             break;
                     }
                     break;
@@ -171,7 +163,6 @@ public class MainMenu : MonoBehaviour
     public IEnumerator RotateOverTimer(float p_RotationAngle, float p_RotationTime)
     {
         m_InAnimation = true;
-
         float l_CurrentTimer = 0.0f;
         float l_RotationEffectued = 0.0f;
         while (l_CurrentTimer < p_RotationTime)
@@ -185,6 +176,7 @@ public class MainMenu : MonoBehaviour
             l_CurrentTimer = l_CurrentTimer + Time.deltaTime;
             yield return null;
         }
+        Debug.Log(l_RotationEffectued);
         m_InAnimation = false;
     }
     #endregion
