@@ -77,14 +77,14 @@ public class CharactersManager : MonoBehaviour
             m_CharactersDisplay[p_Index].m_PressStart.enabled = false;
             m_CharactersDisplay[p_Index].m_CharacterImage.gameObject.SetActive(true);
             m_CharactersDisplay[p_Index].m_CharacterImage.sprite = p_Character.CharacterSelectionDatas.m_SelectionSprite;
-            m_CharactersDisplay[p_Index].m_CharacterName.text = p_Character.name;
+            m_CharactersDisplay[p_Index].m_CharacterName.text = p_Character.CharacterName;
         }
         else
         {
             m_CharactersDisplay[p_Index].m_PressStart.enabled = true;
             m_CharactersDisplay[p_Index].m_CharacterImage.gameObject.SetActive(false);
             m_CharactersDisplay[p_Index].m_CharacterImage.sprite = null;
-            m_CharactersDisplay[p_Index].m_CharacterName.text = string.Empty;
+            m_CharactersDisplay[p_Index].m_CharacterName.text = p_Character.CharacterName;
         }
     }
     public void SelectionDisplay(CharacterSelector p_Selector, SO_Character p_Character, bool p_Selected)

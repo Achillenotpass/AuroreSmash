@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class SO_Character : ScriptableObject
 {
     [SerializeField]
+    private string m_CharacterName = string.Empty;
+    public string CharacterName { get { return m_CharacterName; } }
+    [SerializeField]
     private GameObject m_CharacterPrefab = null;
     public GameObject CharacterPrefab { get { return m_CharacterPrefab; } }
     [SerializeField]

@@ -97,11 +97,13 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     {
         if (m_IsEjected)
         {
-            if(Physics.CapsuleCast(this.transform.position + new Vector3(0, m_CharacterController.height/1.9f, 0), this.transform.position + new Vector3(0, -m_CharacterController.height/1.9f, 0), m_CharacterController.radius * 1.5f, Vector3.zero))
-            {
-                m_IsEjected = false;
-                return;
-            }
+            //if(Physics.CapsuleCast(this.transform.position + new Vector3(0, m_CharacterController.height/1.9f, 0), this.transform.position + new Vector3(0, -m_CharacterController.height/1.9f, 0), m_CharacterController.radius * 1.5f, Vector3.zero))
+            //{
+            //    Debug.Log("obstacle touché");
+            //    m_IsEjected = false;
+            //    m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+            //    return;
+            //}
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
             m_ActualEjectionPoint = new Vector3(m_EjectionPower * (m_EjectionDirection * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Cos(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection), m_EjectionPower * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Sin(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection, 0);
             if (m_PreviousEjectionPoint != Vector3.zero)
@@ -114,7 +116,6 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
             m_CharacterMovement.EditableCharacterSpeed = 0;
         }
     }
-
     public void EjectionTime()
     {
         if(m_IsEjected)
@@ -134,5 +135,18 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     public void InterruptEjection()
     {
         m_TimerEjection = 0.0f;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        ContactPoint l_Point = collision.GetContact(0);
+
+        if (m_IsEjected)
+        {
+            //Arrêter éjection
+            m_IsEjected = false;
+            m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+            Health l_Health = GetComponent<Health>();
+            l_Health.StopHitLag();
+        }
     }
 }
