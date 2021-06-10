@@ -1348,7 +1348,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GEAEL
+  m_Text: Geael
 --- !u!222 &612140061
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1427,7 +1427,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CALDISTA
+  m_Text: Caldista
 --- !u!222 &648018315
 CanvasRenderer:
   m_ObjectHideFlags: 0
