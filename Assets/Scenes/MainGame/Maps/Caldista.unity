@@ -12711,7 +12711,7 @@ MonoBehaviour:
     m_HealtBarNameHolder: {fileID: 8310653884195511894}
     m_PlayeIndex: {fileID: 430583328}
   m_VictoryText: {fileID: 1068942014}
-  m_SpawnerCamera: {fileID: 0}
+  m_SpawnerCamera: {fileID: 1255229660}
   m_MinimumTimeAfterGame: 2.5
   m_LoseLifeEvent:
     m_PersistentCalls:
