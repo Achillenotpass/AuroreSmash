@@ -2207,6 +2207,102 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 322809061}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &326926933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 326926934}
+  - component: {fileID: 326926937}
+  - component: {fileID: 326926936}
+  - component: {fileID: 326926935}
+  m_Layer: 15
+  m_Name: CameraRaycastPlaneOut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &326926934
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326926933}
+  m_LocalRotation: {x: -0.70705444, y: -0, z: -0, w: 0.7071592}
+  m_LocalPosition: {x: 2.6, y: 1.1, z: -5.09}
+  m_LocalScale: {x: 9.573606, y: 10.242771, z: 10.242771}
+  m_Children: []
+  m_Father: {fileID: 1894510881}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!64 &326926935
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326926933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &326926936
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326926933}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &326926937
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326926933}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &333800566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7181,7 +7277,7 @@ Transform:
   - {fileID: 931940322}
   - {fileID: 1280797902}
   m_Father: {fileID: 1894510881}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1068942012
 GameObject:
@@ -8330,7 +8426,7 @@ MonoBehaviour:
     m_Bits: 16384
   m_LayerMaskOut:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32768
 --- !u!114 &1255229660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11927,6 +12023,7 @@ Transform:
   - {fileID: 1147831404}
   - {fileID: 1559764905}
   - {fileID: 1928886396}
+  - {fileID: 326926934}
   - {fileID: 1067011489}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -12675,10 +12772,10 @@ MonoBehaviour:
   m_TimeBeforeGameStart: 3
   m_GameTimer: 90
   m_RespawnDelay: 2
-  m_MapCenterPosition: {x: 0.3, y: 10}
-  m_MapSize: {x: 44.4, y: 38.42}
-  m_CameraCenterPosition: {x: 0.3, y: 10}
-  m_CameraSize: {x: 35.91, y: 38.42}
+  m_MapCenterPosition: {x: 0.3, y: 10, z: -4}
+  m_MapSize: {x: 76.3, y: 38.42, z: 0}
+  m_CameraCenterPosition: {x: 0.3, y: 10, z: -4}
+  m_CameraSize: {x: 35.91, y: 38.42, z: 0}
   m_PlayersParent: {fileID: 1571480025}
   m_PlayersSpawn:
   - {fileID: 342304333}
@@ -12711,7 +12808,6 @@ MonoBehaviour:
     m_HealtBarNameHolder: {fileID: 8310653884195511894}
     m_PlayeIndex: {fileID: 430583328}
   m_VictoryText: {fileID: 1068942014}
-  m_SpawnerCamera: {fileID: 1255229660}
   m_MinimumTimeAfterGame: 2.5
   m_LoseLifeEvent:
     m_PersistentCalls:
