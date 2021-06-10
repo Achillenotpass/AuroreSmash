@@ -69,8 +69,6 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private Text m_VictoryText;
     [SerializeField]
-    private SpawnerCamera m_SpawnerCamera = null;
-    [SerializeField]
     private float m_MinimumTimeAfterGame = 2.5f;
 
     [Header("Events")]
@@ -147,7 +145,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         {
             l_CurrentTimer = l_CurrentTimer - Time.deltaTime;
             m_BeginningTimer.sprite = m_BeginningTimerSprites[(int)l_CurrentTimer];
-            l_NewColor.a = (l_CurrentTimer % 1) * 255;
+            l_NewColor.a = (l_CurrentTimer % 1);
             m_BeginningTimer.color = l_NewColor;
             yield return null;
         }
@@ -190,7 +188,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         //Setup les données du personnage
         l_SpawnedPlayer.GetComponent<CharacterInfos>().Character = p_UserInfos.UserCharacter;
 
-        m_SpawnerCamera.SetWatchTarget(l_SpawnedPlayer.gameObject);
+        FindObjectOfType<SpawnerCamera>().SetWatchTarget(l_SpawnedPlayer.gameObject);
 
         return l_SpawnedPlayer.GetComponent<PlayerInfos>();
     }
@@ -240,10 +238,11 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
         l_Camera.SetGameManager(this);
         l_Camera.enabled = true;
+        FindObjectOfType<SpawnerCamera>().enabled = false;
     }
     private void StartGame()
     {
-        m_SpawnerCamera.gameObject.SetActive(false);
+        FindObjectOfType<SpawnerCamera>().gameObject.SetActive(false);
         PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>(true);
         l_Camera.gameObject.SetActive(true);
 
@@ -357,7 +356,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
 
 
-        StartCoroutine(CheckForSceneChanging(m_MinimumTimeAfterGame));
+        StartCoroutine(CheckForSceneChanging("VictoryScreen"));
+        Time.timeScale = 0.2f;
 
         m_EndGameEvent.Invoke();
     }
@@ -369,14 +369,17 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
         m_EndGameEvent.Invoke();
     }
-    private IEnumerator CheckForSceneChanging(float p_ActivationDelay)
+    private IEnumerator CheckForSceneChanging(string p_SceneName)
     {
-        Time.timeScale = 0.2f;
-        yield return new WaitForSeconds(p_ActivationDelay);
-        m_VictorySceneAsync = SceneManager.LoadSceneAsync("VictoryScreen");
-        if (m_VictorySceneAsync.isDone)
+        m_VictorySceneAsync = SceneManager.LoadSceneAsync(p_SceneName);
+        while (true)
         {
-            Time.timeScale = 1.0f;
+            if (m_VictorySceneAsync.isDone)
+            {
+                Time.timeScale = 1.0f;
+                break;
+            }
+            yield return null;
         }
     }
     public IEnumerator RespawnTimer(GameObject p_Character)
