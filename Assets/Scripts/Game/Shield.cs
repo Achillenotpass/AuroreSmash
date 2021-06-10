@@ -216,14 +216,14 @@ public class Shield : MonoBehaviour, IUpdateUser
     public void TakeShieldDamages(SO_HitBox p_Hitbox, Vector3 p_AttackerPosition)
     {
         SO_HitBox l_ShieldedHitBox = new SO_HitBox();
-        l_ShieldedHitBox.Damages = p_Hitbox.Damages * m_DamageReduction / 100.0f;
+        l_ShieldedHitBox.Damages = p_Hitbox.Damages * (1.0f - m_DamageReduction / 100.0f);
         l_ShieldedHitBox.EjectionPower = 0.0f;
         GetComponent<Health>().TakeDamages(l_ShieldedHitBox, p_AttackerPosition);
     }
     public void TakeShieldDamages(SO_Projectile p_Projectile, Vector3 p_ProjectileObjectPosition)
     {
         SO_Projectile l_ShieldedProjectile = new SO_Projectile();
-        l_ShieldedProjectile.Damages = p_Projectile.Damages * m_DamageReduction / 100.0f;
+        l_ShieldedProjectile.Damages = p_Projectile.Damages * (1.0f - m_DamageReduction / 100.0f);
         l_ShieldedProjectile.EjectionPower = 0.0f;
         GetComponent<Health>().TakeDamages(l_ShieldedProjectile, p_ProjectileObjectPosition);
     }

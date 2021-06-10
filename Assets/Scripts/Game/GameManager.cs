@@ -69,8 +69,6 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private Text m_VictoryText;
     [SerializeField]
-    private SpawnerCamera m_SpawnerCamera = null;
-    [SerializeField]
     private float m_MinimumTimeAfterGame = 2.5f;
 
     [Header("Events")]
@@ -129,8 +127,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
             PlayerInfos l_SpawnedPLayer = SpawnPlayer(l_UserInfos);
             m_PlayersAlive.Add(l_SpawnedPLayer);
             m_Characters.Add(l_SpawnedPLayer.GetComponent<Health>());
+            l_SpawnedPLayer.PlayerIndex = l_UserInfos.m_PlayerIndex;
 
-            LinkHealthBar(l_SpawnedPLayer);
+            LinkHealthBar(l_UserInfos, l_SpawnedPLayer);
             yield return new WaitForSeconds(l_TimeBetweenSpawns);
         }
 
@@ -146,7 +145,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         {
             l_CurrentTimer = l_CurrentTimer - Time.deltaTime;
             m_BeginningTimer.sprite = m_BeginningTimerSprites[(int)l_CurrentTimer];
-            l_NewColor.a = (l_CurrentTimer % 1) * 255;
+            l_NewColor.a = (l_CurrentTimer % 1);
             m_BeginningTimer.color = l_NewColor;
             yield return null;
         }
@@ -189,11 +188,11 @@ public class GameManager : MonoBehaviour, IUpdateUser
         //Setup les données du personnage
         l_SpawnedPlayer.GetComponent<CharacterInfos>().Character = p_UserInfos.UserCharacter;
 
-        m_SpawnerCamera.SetWatchTarget(l_SpawnedPlayer.gameObject);
+        FindObjectOfType<SpawnerCamera>().SetWatchTarget(l_SpawnedPlayer.gameObject);
 
         return l_SpawnedPlayer.GetComponent<PlayerInfos>();
     }
-    private void LinkHealthBar(PlayerInfos p_PlayerInfos)
+    private void LinkHealthBar(UserInfos p_UserInfos, PlayerInfos p_PlayerInfos)
     {
         for (int i = 0; i < m_HealthBars.Count; i++)
         {
@@ -209,6 +208,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 m_HealthBars[i].m_HealthBarImage.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarImage;
                 m_HealthBars[i].m_HealthBarLogo.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarLogo;
                 m_HealthBars[i].m_HealtBarNameHolder.sprite = l_CurrentCharacter.HealthBarDatas.m_HealtBarNameHolder;
+                m_HealthBars[i].m_PlayeIndex.text = "Player " + p_UserInfos.m_PlayerIndex;
 
                 m_HealthBars[i].m_HealthBarLogo.gameObject.SetActive(true);
                 l_HealthBar.gameObject.SetActive(true);
@@ -238,10 +238,11 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
         l_Camera.SetGameManager(this);
         l_Camera.enabled = true;
+        FindObjectOfType<SpawnerCamera>().enabled = false;
     }
     private void StartGame()
     {
-        m_SpawnerCamera.gameObject.SetActive(false);
+        FindObjectOfType<SpawnerCamera>().gameObject.SetActive(false);
         PlayersCamera l_Camera = FindObjectOfType<PlayersCamera>(true);
         l_Camera.gameObject.SetActive(true);
 
@@ -332,6 +333,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
             UsersManager.m_LoserCharacter.m_PlayedCharacter = l_LowestLives.GetComponent<CharacterInfos>().Character;
             UsersManager.m_LoserCharacter.m_RemainingLives = l_LowestLives.CurrentLives;
+            UsersManager.m_LoserCharacter.m_PlayerIndex = l_LowestLives.GetComponent<PlayerInfos>().PlayerIndex;
 
             /* C'est chelou comme fin en égalité 
             if (l_LowestLives == l_HighestLives)
@@ -350,9 +352,12 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = p_WinnerPlayerInfo.GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
+        UsersManager.m_WinnerCharacter.m_PlayerIndex = p_WinnerPlayerInfo.PlayerIndex;
 
-        
-        StartCoroutine(CheckForSceneChanging(m_MinimumTimeAfterGame));
+
+
+        StartCoroutine(CheckForSceneChanging("VictoryScreen"));
+        Time.timeScale = 0.2f;
 
         m_EndGameEvent.Invoke();
     }
@@ -364,27 +369,45 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
         m_EndGameEvent.Invoke();
     }
-    private IEnumerator CheckForSceneChanging(float p_ActivationDelay)
+    private IEnumerator CheckForSceneChanging(string p_SceneName)
     {
-        Time.timeScale = 0.2f;
-        yield return new WaitForSeconds(p_ActivationDelay);
-        m_VictorySceneAsync = SceneManager.LoadSceneAsync("VictoryScreen");
-        if (m_VictorySceneAsync.isDone)
+        m_VictorySceneAsync = SceneManager.LoadSceneAsync(p_SceneName);
+        while (true)
         {
-            Time.timeScale = 1.0f;
+            if (m_VictorySceneAsync.isDone)
+            {
+                Time.timeScale = 1.0f;
+                break;
+            }
+            yield return null;
         }
     }
     public IEnumerator RespawnTimer(GameObject p_Character)
     {
         p_Character.GetComponent<CharacterController>().enabled = false;
         p_Character.transform.position = m_PlayersSpawn[Random.Range(0, m_PlayersSpawn.Count)].position;
-        p_Character.GetComponent<CharacterController>().enabled = true;
+
         yield return new WaitForSeconds(m_RespawnDelay);
         RespawnPlayer(p_Character);
     }
     private void RespawnPlayer(GameObject p_Character)
     {
-        p_Character.gameObject.SetActive(true);
+        Component[] l_Components = p_Character.GetComponentsInChildren<Component>();
+        foreach (Component l_Component in l_Components)
+        {
+            if (l_Component is PlayerInput)
+            {
+                ((PlayerInput)l_Component).ActivateInput();
+            }
+            else if (l_Component is MonoBehaviour)
+            {
+                ((MonoBehaviour)l_Component).enabled = true;
+            }
+            else if (l_Component is SpriteRenderer)
+            {
+                ((SpriteRenderer)l_Component).enabled = true;
+            }
+        }
     }
     #endregion
 
@@ -409,6 +432,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         public Image m_HealthBarImage = null;
         public Image m_HealthBarLogo = null;
         public Image m_HealtBarNameHolder = null;
+        public Text m_PlayeIndex = null;
     }
 }
 
