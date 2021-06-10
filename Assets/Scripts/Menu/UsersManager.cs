@@ -24,5 +24,6 @@ public class UsersManager : MonoBehaviour
     {
         public SO_Character m_PlayedCharacter = null;
         public int m_RemainingLives = 3;
+        public int m_PlayerIndex = 1;
     }
 }

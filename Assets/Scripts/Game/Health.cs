@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Health : MonoBehaviour
 {
@@ -122,13 +123,21 @@ public class Health : MonoBehaviour
         GetComponent<CharacterEjection>().InterruptEjection();
         CurrentHealth = MaxHealth;
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-        gameObject.SetActive(false);
 
-        for (int i = 0; i < FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray.Length; i++)
+        Component[] l_Components = GetComponentsInChildren<Component>();
+        foreach (Component l_Component in l_Components)
         {
-            if (FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].name == "Ejection")
+            if (l_Component is PlayerInput)
             {
-                FindObjectOfType<FeedbackCaller>().FeedbackList.FeedbackArray[i].Shaking(FindObjectOfType<Shake>(), 0.3f, 0.7f, FindObjectOfType<Camera>().gameObject);
+                ((PlayerInput)l_Component).DeactivateInput();
+            }
+            else if (l_Component is MonoBehaviour)
+            {
+                ((MonoBehaviour)l_Component).enabled = false;
+            }
+            else if (l_Component is SpriteRenderer)
+            {
+                ((SpriteRenderer)l_Component).enabled = false;
             }
         }
 

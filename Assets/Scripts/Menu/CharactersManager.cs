@@ -17,6 +17,7 @@ public class CharactersManager : MonoBehaviour
     private List<CharacterDisplay> m_CharactersDisplay = null;
     [SerializeField]
     private List<Text> m_CharactersName;
+    private int m_CurrentPlayerIndex = 1;
     #endregion
 
     #region Awake/Start/Update
@@ -30,6 +31,8 @@ public class CharactersManager : MonoBehaviour
     public void Register(CharacterSelector p_Selector)
     {
         m_Selectors.Add(p_Selector);
+        p_Selector.SelectorUserInfos.m_PlayerIndex = m_CurrentPlayerIndex;
+        m_CurrentPlayerIndex = m_CurrentPlayerIndex + 1;
     }
     public SO_Character GetRandomCharacter(CharacterSelector p_Selector)
     {

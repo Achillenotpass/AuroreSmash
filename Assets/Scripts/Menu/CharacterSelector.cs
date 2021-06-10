@@ -82,5 +82,6 @@ public class UserInfos
     [SerializeField]
     private SO_Character m_UserCharacter = null;
     public SO_Character UserCharacter { get { return m_UserCharacter; } set { m_UserCharacter = value; } }
+    public int m_PlayerIndex = 1;
     #endregion
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class MainMenu : MonoBehaviour
 {
@@ -19,8 +20,6 @@ public class MainMenu : MonoBehaviour
     [Header("UI display")]
     [SerializeField]
     private GameObject m_Buttons = null;
-    [SerializeField]
-    private GameObject m_WheelCenter = null;
     [SerializeField]
     private float m_AngleIncrement = 90.0f;
     [SerializeField]
@@ -62,20 +61,21 @@ public class MainMenu : MonoBehaviour
                         if (m_CurrentButton == m_MapNames.Count)
                         {
                             m_CurrentButton = 0;
-                            StartCoroutine(RotateOverTimer(m_AngleIncrement, m_RotationTime));
+
+                            StartCoroutine(RotateOverTimer(2 * m_AngleIncrement, m_RotationTime));
                         }
                         else
                         {
                             StartCoroutine(RotateOverTimer(-m_AngleIncrement, m_RotationTime));
                         }
                     }
-                    else if (Vector2.Dot(p_Context.ReadValue<Vector2>().normalized, Vector2.right) < 0.2f)
+                    else if (Vector2.Dot(p_Context.ReadValue<Vector2>().normalized, Vector2.right) < -0.2f)
                     {
                         m_CurrentButton = m_CurrentButton - 1;
                         if (m_CurrentButton < 0)
                         {
                             m_CurrentButton = m_MapNames.Count - 1;
-                            StartCoroutine(RotateOverTimer(-m_AngleIncrement, m_RotationTime));
+                            StartCoroutine(RotateOverTimer(-2 * m_AngleIncrement, m_RotationTime));
                         }
                         else
                         {
@@ -112,6 +112,9 @@ public class MainMenu : MonoBehaviour
                         case "Options":
                             m_MainMenuState = MainMenuState.OnOption;
                             m_OptionsSubMenu.SetActive(true);
+                            break;
+                        case "Quit game":
+                            Application.Quit();
                             break;
                     }
                     break;
@@ -161,19 +164,13 @@ public class MainMenu : MonoBehaviour
     {
         m_InAnimation = true;
 
-        float l_CurrentTimer = 0.0f;
-        float l_RotationEffectued = 0.0f;
-        while (l_CurrentTimer < p_RotationTime)
-        {
-            float l_AngleIncrement = 0.0f;
+        Quaternion l_RotQuat = m_Buttons.GetComponent<RectTransform>().localRotation;
+        Vector3 l_TempRot = Vector3.zero;
+        l_TempRot = l_RotQuat.eulerAngles;
+        l_TempRot.z = l_TempRot.z + p_RotationAngle;
+        m_Buttons.GetComponent<RectTransform>().DOLocalRotate(l_TempRot, p_RotationTime, RotateMode.Fast);
 
-            l_AngleIncrement = Mathf.Lerp(0.0f, p_RotationAngle, l_CurrentTimer / p_RotationTime);
-
-            m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, l_AngleIncrement - l_RotationEffectued);
-            l_RotationEffectued = l_AngleIncrement;
-            l_CurrentTimer = l_CurrentTimer + Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(p_RotationTime);
         m_InAnimation = false;
     }
     #endregion
