@@ -21,8 +21,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject m_Buttons = null;
     [SerializeField]
-    private GameObject m_WheelCenter = null;
-    [SerializeField]
     private float m_AngleIncrement = 90.0f;
     [SerializeField]
     private float m_RotationTime = 0.25f;
@@ -59,34 +57,30 @@ public class MainMenu : MonoBehaviour
                 case MainMenuState.OnMainWheel:
                     if (Vector2.Dot(p_Context.ReadValue<Vector2>().normalized, Vector2.right) > 0.2f)
                     {
-                        StartCoroutine(RotateOverTimer(90.0f, 1.0f));
+                        m_CurrentButton = m_CurrentButton + 1;
+                        if (m_CurrentButton == m_MapNames.Count)
+                        {
+                            m_CurrentButton = 0;
 
-                        //m_CurrentButton = m_CurrentButton + 1;
-                        //if (m_CurrentButton == m_MapNames.Count)
-                        //{
-                        //    m_CurrentButton = 0;
-
-                        //    StartCoroutine(RotateOverTimer(2 * m_AngleIncrement, m_RotationTime));
-                        //}
-                        //else
-                        //{
-                        //    StartCoroutine(RotateOverTimer(-m_AngleIncrement, m_RotationTime));
-                        //}
+                            StartCoroutine(RotateOverTimer(2 * m_AngleIncrement, m_RotationTime));
+                        }
+                        else
+                        {
+                            StartCoroutine(RotateOverTimer(-m_AngleIncrement, m_RotationTime));
+                        }
                     }
                     else if (Vector2.Dot(p_Context.ReadValue<Vector2>().normalized, Vector2.right) < -0.2f)
                     {
-                        StartCoroutine(RotateOverTimer(-90.0f, 1.0f));
-
-                        //m_CurrentButton = m_CurrentButton - 1;
-                        //if (m_CurrentButton < 0)
-                        //{
-                        //    m_CurrentButton = m_MapNames.Count - 1;
-                        //    StartCoroutine(RotateOverTimer(-2 * m_AngleIncrement, m_RotationTime));
-                        //}
-                        //else
-                        //{
-                        //    StartCoroutine(RotateOverTimer(m_AngleIncrement, m_RotationTime));
-                        //}
+                        m_CurrentButton = m_CurrentButton - 1;
+                        if (m_CurrentButton < 0)
+                        {
+                            m_CurrentButton = m_MapNames.Count - 1;
+                            StartCoroutine(RotateOverTimer(-2 * m_AngleIncrement, m_RotationTime));
+                        }
+                        else
+                        {
+                            StartCoroutine(RotateOverTimer(m_AngleIncrement, m_RotationTime));
+                        }
                     }
                     DisplayMapBackground(m_CurrentButton);
                     m_MapName.text = m_MapNames[m_CurrentButton];
@@ -170,11 +164,11 @@ public class MainMenu : MonoBehaviour
     {
         m_InAnimation = true;
 
-        Vector3 l_TempRot = new Vector3(m_Buttons.transform.localRotation.x, m_Buttons.transform.localRotation.y, m_Buttons.transform.localRotation.z);
+        Quaternion l_RotQuat = m_Buttons.GetComponent<RectTransform>().localRotation;
+        Vector3 l_TempRot = Vector3.zero;
+        l_TempRot = l_RotQuat.eulerAngles;
         l_TempRot.z = l_TempRot.z + p_RotationAngle;
-        Debug.Log(l_TempRot);
-        m_Buttons.transform.DOLocalRotate(l_TempRot, p_RotationTime, RotateMode.Fast);
-        //m_Buttons.transform.DORotate(l_TempRot, p_RotationTime, RotateMode.Fast);
+        m_Buttons.GetComponent<RectTransform>().DOLocalRotate(l_TempRot, p_RotationTime, RotateMode.Fast);
 
         yield return new WaitForSeconds(p_RotationTime);
         m_InAnimation = false;

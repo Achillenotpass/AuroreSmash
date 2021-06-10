@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class MapSelection : MonoBehaviour
 {
@@ -21,8 +22,6 @@ public class MapSelection : MonoBehaviour
     [Header("UI display")]
     [SerializeField]
     private GameObject m_Buttons = null;
-    [SerializeField]
-    private GameObject m_WheelCenter = null;
     #endregion
 
     #region Awake/Start/Update
@@ -95,20 +94,13 @@ public class MapSelection : MonoBehaviour
     {
         m_InAnimation = true;
 
-        float l_CurrentTimer = 0.0f;
-        float l_RotationEffectued = 0.0f;
-        while (l_CurrentTimer < p_RotationTime)
-        {
-            float l_AngleIncrement = 0.0f;
+        Quaternion l_RotQuat = m_Buttons.GetComponent<RectTransform>().localRotation;
+        Vector3 l_TempRot = Vector3.zero;
+        l_TempRot = l_RotQuat.eulerAngles;
+        l_TempRot.z = l_TempRot.z + p_RotationAngle;
+        m_Buttons.GetComponent<RectTransform>().DOLocalRotate(l_TempRot, p_RotationTime, RotateMode.Fast);
 
-            l_AngleIncrement = Mathf.Lerp(0.0f, p_RotationAngle, l_CurrentTimer / p_RotationTime);
-
-            m_Buttons.transform.RotateAround(m_WheelCenter.transform.position, Vector3.forward, l_AngleIncrement - l_RotationEffectued);
-            l_RotationEffectued = l_AngleIncrement;
-            l_CurrentTimer = l_CurrentTimer + Time.deltaTime;
-
-            yield return null;
-        }
+        yield return new WaitForSeconds(p_RotationTime);
         m_InAnimation = false;
     }
     #endregion
