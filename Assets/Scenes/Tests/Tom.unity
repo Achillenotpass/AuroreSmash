@@ -319,6 +319,13 @@ MonoBehaviour:
   m_EjectionAngle: 0
   m_EjectionPower: 0
   m_MaxTimerEjection: 1
+  m_EjectionEvents:
+    m_TakeHit:
+      m_PersistentCalls:
+        m_Calls: []
+    m_TakePowerfullHit:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!143 &471444632
 CharacterController:
   m_ObjectHideFlags: 0
@@ -794,7 +801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5512832e66e7fe4eb11459d2bd74a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerName: Naruto
   m_AttackableLayers:
     serializedVersion: 2
     m_Bits: 14336
