@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class CharacterEjection : MonoBehaviour, IUpdateUser
 {
@@ -42,6 +43,9 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     private Vector3 m_PreviousEjectionPoint = Vector3.zero;
 
     private float m_EjectionDirection = 0.0f;
+
+    [SerializeField]
+    private EjectionEvents m_EjectionEvents = new EjectionEvents();
     #endregion
 
     #region Awake/Start
@@ -141,4 +145,14 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     {
         m_TimerEjection = 0.0f;
     }
+}
+
+[System.Serializable]
+public class EjectionEvents
+{
+    [SerializeField]
+    public UnityEvent m_TakeHit;
+
+    [SerializeField]
+    public UnityEvent m_TakePowerfullHit;
 }
