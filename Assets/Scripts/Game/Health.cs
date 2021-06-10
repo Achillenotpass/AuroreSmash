@@ -45,7 +45,7 @@ public class Health : MonoBehaviour
         {
             m_HealthBar.value = m_CurrentHealth;
         }
-        if(m_MaxHealth/CurrentHealth * 100 <= 25f)
+        if(CurrentHealth/m_MaxHealth * 100 <= 25f)
         {
             m_HealthEvents.m_LowLife.Invoke();
         }
@@ -110,15 +110,16 @@ public class Health : MonoBehaviour
     }
     private void DeathByHPs()
     {
+        m_HealthEvents.m_Death.Invoke();
         Death();
     }
     public void DeathByEjection()
     {
+        m_HealthEvents.m_DeathEjection.Invoke();
         Death();
     }
     private void Death()
     {
-        m_HealthEvents.m_Death.Invoke();
         CurrentLives = CurrentLives - 1;
         GetComponent<CharacterEjection>().InterruptEjection();
         CurrentHealth = MaxHealth;
@@ -165,6 +166,9 @@ public class HealthEvents
 {
     [SerializeField]
     public UnityEvent m_Death;
+
+    [SerializeField]
+    public UnityEvent m_DeathEjection;
 
     [SerializeField]
     public UnityEvent m_LowLife;

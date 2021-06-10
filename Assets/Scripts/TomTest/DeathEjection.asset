@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
-  m_Name: Death
+  m_Name: DeathEjection
   m_EditorClassIdentifier: 
-  m_FeedbackName: Death
+  m_FeedbackName: DeathEjection
   m_AsVFX: 1
   m_VFXList:
-  - {fileID: 3428579444770784584, guid: de0c96b83a2ef8644a75f918cac5a3ac, type: 3}
+  - {fileID: 5496107414869666762, guid: 8c4a64216076ea14881359c52fb531d1, type: 3}
   m_VFXSpecificPosition:
   - {x: 0.2, y: 0, z: 0}
   m_VFXSpecificRotation:

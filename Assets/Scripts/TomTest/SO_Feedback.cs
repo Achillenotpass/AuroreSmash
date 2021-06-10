@@ -25,6 +25,10 @@ public class SO_Feedback : ScriptableObject
     [SerializeField]
     private bool[] m_VFXAsToBeChildOfChild = null;
     [SerializeField]
+    private int[] m_VfxChildOfChild = null;
+    [SerializeField]
+    private int[] m_VFXChildOfChildNumber = null;
+    [SerializeField]
     private bool m_VFXIsAlone = false;
 
     public void InstantiateVFX(GameObject p_Instantiator, int p_NumberInTheList)
@@ -60,17 +64,17 @@ public class SO_Feedback : ScriptableObject
             }
             else if (m_VFXAsToBeChildOfChild[p_NumberInTheList])
             {
-                if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.GetChild(0).Find(m_VFXList[p_NumberInTheList].name))
+                if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[p_NumberInTheList]).Find(m_VFXList[p_NumberInTheList].name))
                 {
                     Vector3 l_VFXSpecificPosition = m_VFXSpecificPosition[p_NumberInTheList];
-                    if (l_VFXSpecificPosition.x / Mathf.Abs(l_VFXSpecificPosition.x) == p_Instantiator.transform.GetChild(0).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(0).localScale.x))
+                    if (l_VFXSpecificPosition.x / Mathf.Abs(l_VFXSpecificPosition.x) == p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[p_NumberInTheList]).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[p_NumberInTheList]).localScale.x))
                     {
                         Debug.Log("aaa");
                         l_VFXSpecificPosition.x *= -1;
                     }
                     GameObject l_VFXInstiated = Instantiate(m_VFXList[p_NumberInTheList], p_Instantiator.transform.position + l_VFXSpecificPosition, Quaternion.Euler(Quaternion.identity.x + m_VFXSpecificRotation[p_NumberInTheList].x, Quaternion.identity.y + m_VFXSpecificRotation[p_NumberInTheList].y, Quaternion.identity.z + m_VFXSpecificRotation[p_NumberInTheList].z));
                     l_VFXInstiated.name = m_VFXList[p_NumberInTheList].name;
-                    l_VFXInstiated.transform.parent = p_Instantiator.transform.GetChild(0);
+                    l_VFXInstiated.transform.parent = p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[p_NumberInTheList]);
                 }
             }
 
@@ -111,16 +115,16 @@ public class SO_Feedback : ScriptableObject
                 }
                 else if (m_VFXAsToBeChildOfChild[i])
                 {
-                    if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.GetChild(0).Find(m_VFXList[i].name))
+                    if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[i]).Find(m_VFXList[i].name))
                     {
                         Vector3 l_VFXSpecificPosition = m_VFXSpecificPosition[i];
-                        if (l_VFXSpecificPosition.x / Mathf.Abs(l_VFXSpecificPosition.x) == p_Instantiator.transform.GetChild(0).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(0).localScale.x))
+                        if (l_VFXSpecificPosition.x / Mathf.Abs(l_VFXSpecificPosition.x) == p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[i]).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[i]).localScale.x))
                         {
                             l_VFXSpecificPosition.x *= -1;
                         }
                         GameObject l_VFXInstiated = Instantiate(m_VFXList[i], p_Instantiator.transform.position + l_VFXSpecificPosition, Quaternion.Euler(Quaternion.identity.x + m_VFXSpecificRotation[i].x, Quaternion.identity.y + m_VFXSpecificRotation[i].y, Quaternion.identity.z + m_VFXSpecificRotation[i].z));
                         l_VFXInstiated.name = m_VFXList[i].name;
-                        l_VFXInstiated.transform.parent = p_Instantiator.transform.GetChild(0);
+                        l_VFXInstiated.transform.parent = p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[i]);
                     }
                 }
             }
@@ -189,6 +193,8 @@ public class SO_Feedback : ScriptableObject
     [SerializeField]
     private bool[] m_VFXAnimationAsToBeChildOfChild = null;
     [SerializeField]
+    private int[] m_VFXAnimationChildOfChildNumber = null;
+    [SerializeField]
     private bool m_VFXAnimationIsAlone = false;
 
 
@@ -223,14 +229,14 @@ public class SO_Feedback : ScriptableObject
             }
             else if (m_VFXAnimationAsToBeChildOfChild[p_NumberInTheList])
             {
-                if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && !p_Instantiator.transform.GetChild(0).Find(m_VFXAnimationList[p_NumberInTheList].name))
+                if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && !p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[p_NumberInTheList]).Find(m_VFXAnimationList[p_NumberInTheList].name))
                 {
                     Vector3 l_VFXAnimationSpecificPosition = m_VFXAnimationSpecificPosition[p_NumberInTheList];
-                    if (l_VFXAnimationSpecificPosition.x / Mathf.Abs(l_VFXAnimationSpecificPosition.x) == p_Instantiator.transform.GetChild(0).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(0).localScale.x))
+                    if (l_VFXAnimationSpecificPosition.x / Mathf.Abs(l_VFXAnimationSpecificPosition.x) == p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[p_NumberInTheList]).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[p_NumberInTheList]).localScale.x))
                         l_VFXAnimationSpecificPosition.x *= -1;
 
                     GameObject l_VFXAnimation = Instantiate(m_VFXAnimationList[p_NumberInTheList], p_Instantiator.transform.position + l_VFXAnimationSpecificPosition, Quaternion.Euler(Quaternion.identity.x + m_VFXAnimationSpecificRotation[p_NumberInTheList].x, Quaternion.identity.y + m_VFXAnimationSpecificRotation[p_NumberInTheList].y, Quaternion.identity.z + m_VFXAnimationSpecificRotation[p_NumberInTheList].z));
-                    l_VFXAnimation.transform.parent = p_Instantiator.transform.GetChild(0);
+                    l_VFXAnimation.transform.parent = p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[p_NumberInTheList]);
                     l_VFXAnimation.name = m_VFXAnimationList[p_NumberInTheList].name;
                 }
             }
@@ -271,20 +277,15 @@ public class SO_Feedback : ScriptableObject
                 }
                 else if (m_VFXAnimationAsToBeChildOfChild[i])
                 {
-                    if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && !p_Instantiator.transform.GetChild(0).Find(m_VFXAnimationList[i].name))
+                    if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && !p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]).Find(m_VFXAnimationList[i].name))
                     {
                         Vector3 l_VFXAnimationSpecificPosition = m_VFXAnimationSpecificPosition[i];
-                        if (l_VFXAnimationSpecificPosition.x / Mathf.Abs(l_VFXAnimationSpecificPosition.x) == p_Instantiator.transform.GetChild(0).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(0).localScale.x))
+                        if (l_VFXAnimationSpecificPosition.x / Mathf.Abs(l_VFXAnimationSpecificPosition.x) == p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]).localScale.x))
                             l_VFXAnimationSpecificPosition.x *= -1;
 
                         GameObject l_VFXAnimation = Instantiate(m_VFXAnimationList[i], p_Instantiator.transform.position + l_VFXAnimationSpecificPosition, Quaternion.Euler(Quaternion.identity.x + m_VFXAnimationSpecificRotation[i].x, Quaternion.identity.y + m_VFXAnimationSpecificRotation[i].y, Quaternion.identity.z + m_VFXAnimationSpecificRotation[i].z));
                         l_VFXAnimation.name = m_VFXAnimationList[i].name;
-                        l_VFXAnimation.transform.parent = p_Instantiator.transform.GetChild(0);
-                        /*if(l_VFXAnimation.transform.localScale.x / Mathf.Abs(l_VFXAnimation.transform.localScale.x) != p_Instantiator.transform.GetChild(0).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(0).localScale.x))
-                        {
-                            Debug.Log("aaa");
-                            l_VFXAnimation.transform.localScale = new Vector3(l_VFXAnimation.transform.localScale.x * -1, l_VFXAnimation.transform.localScale.y, l_VFXAnimation.transform.localScale.z);
-                        }*/
+                        l_VFXAnimation.transform.parent = p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]);
                     }
                 }
             }

@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
-  m_Name: Block
+  m_Name: BlockRight
   m_EditorClassIdentifier: 
   m_FeedbackName: Block
   m_AsVFX: 1
   m_VFXList:
-  - {fileID: 491192938038470280, guid: 5d8a5a41583fa72438eb9ec20a672f95, type: 3}
+  - {fileID: 8029409260725986565, guid: 5d8a5a41583fa72438eb9ec20a672f95, type: 3}
   m_VFXSpecificPosition:
   - {x: 0, y: 0, z: 0}
   m_VFXSpecificRotation:
   - {x: 0, y: 0, z: 0}
   m_VFXAsToBeChild: 00
   m_VFXAsToBeChildOfChild: 01
+  m_VfxChildOfChild: 
+  m_VFXChildOfChildNumber: 00000000
   m_VFXIsAlone: 1
   m_AsSFX: 0
   m_SFXList: []
@@ -31,6 +33,7 @@ MonoBehaviour:
   m_VFXAnimationSpecificRotation: []
   m_VFXAnimationAsToBeChild: 
   m_VFXAnimationAsToBeChildOfChild: 
+  m_VFXAnimationChildOfChildNumber: 
   m_VFXAnimationIsAlone: 0
   m_AsToShake: 0
   m_ShakeIntesity: 0.1

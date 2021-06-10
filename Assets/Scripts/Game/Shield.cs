@@ -41,6 +41,9 @@ public class Shield : MonoBehaviour, IUpdateUser
 
     [SerializeField]
     private UnityEvent m_StartShieldEvent = null;
+
+    [SerializeField]
+    private ShieldEvent m_ShieldEvent = new ShieldEvent();
     #endregion
 
 
@@ -219,6 +222,7 @@ public class Shield : MonoBehaviour, IUpdateUser
         l_ShieldedHitBox.Damages = p_Hitbox.Damages * (1.0f - m_DamageReduction / 100.0f);
         l_ShieldedHitBox.EjectionPower = 0.0f;
         GetComponent<Health>().TakeDamages(l_ShieldedHitBox, p_AttackerPosition);
+        CallBlockEvent();
     }
     public void TakeShieldDamages(SO_Projectile p_Projectile, Vector3 p_ProjectileObjectPosition)
     {
@@ -226,6 +230,21 @@ public class Shield : MonoBehaviour, IUpdateUser
         l_ShieldedProjectile.Damages = p_Projectile.Damages * (1.0f - m_DamageReduction / 100.0f);
         l_ShieldedProjectile.EjectionPower = 0.0f;
         GetComponent<Health>().TakeDamages(l_ShieldedProjectile, p_ProjectileObjectPosition);
+        CallBlockEvent();
+    }
+
+    private void CallBlockEvent()
+    {
+        if(m_CurrentShieldState == ShieldState.Right)
+            m_ShieldEvent.m_BlockRight.Invoke();
+        else if(m_CurrentShieldState == ShieldState.UpRight)
+            m_ShieldEvent.m_BlockUpRight.Invoke();
+        else if (m_CurrentShieldState == ShieldState.Up)
+            m_ShieldEvent.m_BlockUp.Invoke();
+        else if (m_CurrentShieldState == ShieldState.UpLeft)
+            m_ShieldEvent.m_BlockUpLeft.Invoke();
+        else if (m_CurrentShieldState == ShieldState.Left)
+            m_ShieldEvent.m_BlockLeft.Invoke();
     }
 
     public enum ShieldState
@@ -243,4 +262,18 @@ public class Shield : MonoBehaviour, IUpdateUser
     }
 }
 
+[System.Serializable]
+public class ShieldEvent
+{
+    [SerializeField]
+    public UnityEvent m_BlockRight;
+    [SerializeField]
+    public UnityEvent m_BlockUpRight;
+    [SerializeField]
+    public UnityEvent m_BlockUp;
+    [SerializeField]
+    public UnityEvent m_BlockUpLeft;
+    [SerializeField]
+    public UnityEvent m_BlockLeft;
 
+}

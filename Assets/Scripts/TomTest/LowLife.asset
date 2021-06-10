@@ -15,13 +15,15 @@ MonoBehaviour:
   m_FeedbackName: LowLife
   m_AsVFX: 1
   m_VFXList:
-  - {fileID: 3926256565537644767, guid: 0137cccedffa4d044bdd7817d1eee33d, type: 3}
+  - {fileID: 230063367845907955, guid: f02abfd25e615474fbb0cd344499ecb3, type: 3}
   m_VFXSpecificPosition:
   - {x: 0, y: 0, z: 0}
   m_VFXSpecificRotation:
   - {x: 0, y: 0, z: 0}
   m_VFXAsToBeChild: 01
   m_VFXAsToBeChildOfChild: 00
+  m_VfxChildOfChild: 
+  m_VFXChildOfChildNumber: 00000000
   m_VFXIsAlone: 1
   m_AsSFX: 0
   m_SFXList: []
@@ -31,6 +33,7 @@ MonoBehaviour:
   m_VFXAnimationSpecificRotation: []
   m_VFXAnimationAsToBeChild: 
   m_VFXAnimationAsToBeChildOfChild: 
+  m_VFXAnimationChildOfChildNumber: 
   m_VFXAnimationIsAlone: 0
   m_AsToShake: 0
   m_ShakeIntesity: 0.1
