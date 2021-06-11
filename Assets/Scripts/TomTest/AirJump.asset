@@ -13,18 +13,28 @@ MonoBehaviour:
   m_Name: AirJump
   m_EditorClassIdentifier: 
   m_FeedbackName: AirJump
-  m_AsVFX: 1
+  m_AsVFX: 0
   m_VFXList: []
   m_VFXSpecificPosition: []
+  m_VFXSpecificRotation: []
   m_VFXAsToBeChild: 
+  m_VFXAsToBeChildOfChild: 
+  m_VfxChildOfChild: 
+  m_VFXChildOfChildNumber: 
+  m_VFXIsAlone: 0
   m_AsSFX: 0
   m_SFXList: []
   m_AsVFXAnimation: 1
-  m_VFXAnimation:
+  m_VFXAnimationList:
   - {fileID: 7013069044853825597, guid: ff6ad922423a83743934900475c55e27, type: 3}
   m_VFXAnimationSpecificPosition:
-  - {x: 0, y: -0.5, z: 0}
+  - {x: -0.25, y: -0.5, z: 0}
+  m_VFXAnimationSpecificRotation:
+  - {x: 0, y: 0, z: 0}
   m_VFXAnimationAsToBeChild: 00
+  m_VFXAnimationAsToBeChildOfChild: 00
+  m_VFXAnimationChildOfChildNumber: 00000000
+  m_VFXAnimationIsAlone: 1
   m_AsToShake: 0
   m_ShakeIntesity: 0.1
   m_ShakeDuration: 0.1

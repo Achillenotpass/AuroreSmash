@@ -119,8 +119,14 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     public void CustomUpdate(float p_DeltaTime)
     {
         m_CharacterOrientation = m_CharacterView.transform.localScale.x;
+        if(!m_IsGrounded && Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask))
+        {
+            m_MovementEvents.m_Landing.Invoke();
+            if(m_CharacterInfos.CurrentCharacterState != CharacterState.Moving)
+                m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+        }
         m_IsGrounded = Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask);
-
+        
 
 
         if (m_IsGrounded)
@@ -130,12 +136,12 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_CharacterGravity = m_CharacterMaxGravity;
             if(m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             {
+                ChangeOrientationGround();
                 m_MovementEvents.m_EventGroundMovement.Invoke();
             }
             if (m_EndAirVelocityCheck)
             {
                 m_EndAirVelocityInverseCheck = true;
-                m_MovementEvents.m_Landing.Invoke();
             }
         }
         else
@@ -155,7 +161,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         {
             m_TimerAirJump += p_DeltaTime;
         }
-        else
+        else if(m_CharacterInfos.CurrentCharacterState != CharacterState.Hitlag)
         {
             m_PlayerGeneralDirection += new Vector3(0, m_CharacterGravity * p_DeltaTime, 0);
         }
@@ -174,7 +180,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
         m_CharacterController.Move(m_PlayerGeneralDirection);
         m_PlayerGeneralDirection = Vector3.zero;
-        Debug.Log(m_CharacterInfos.CurrentCharacterState);
         CheckAnimation();
     }
     #endregion
@@ -190,7 +195,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             if (p_Context.started)
             {
                 if (m_IsGrounded)
+                {
                     m_StartVelocityCheck = true;
+                    m_MovementEvents.m_EventStartGroundMovement.Invoke();
+                }
                 else
                     m_CharacterSpeed = m_MaxCharacterSpeed;
                 m_EndGroundVelocityCheck = false;
@@ -198,8 +206,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_StartVelocityTimer = 0;
                 m_EndGroundVelocityTimer = 0;
                 m_EndAirVelocityTimer = 0;
-                m_MovementEvents.m_EventStartMovement.Invoke();
-                m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
             }
             if (p_Context.performed)
             {
@@ -209,8 +215,9 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                     m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f;
                     m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f;
                     m_PastDirection = m_PlayerDesiredDirection;
+                    m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
                     m_MovementEvents.m_EventMovement.Invoke();
-                        
+
                 }
                 if (p_Context.ReadValue<Vector2>().y >= 0.9f || p_Context.ReadValue<Vector2>().y <= -0.7f)
                 {
@@ -358,15 +365,16 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             if (p_Context.performed
                 && p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().x != 0 || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().x != 0)
             {
-                PlayerOrientation(p_Context.ReadValue<Vector2>().x);
+                //PlayerOrientation(p_Context.ReadValue<Vector2>().x);
+                m_InputOrientation = p_Context.ReadValue<Vector2>();
             }
         }
     }
 
-/*    private void ChangeOrientationGround()
+    private void ChangeOrientationGround()
     {
         PlayerOrientation(m_InputOrientation.x);
-    }*/
+    }
 
     public void PlayerOrientation(float p_Orientation)
     {
@@ -576,7 +584,9 @@ public class MovementEvents
     public UnityEvent m_NotOnGround;
 
     [SerializeField]
-    public UnityEvent m_EventStartMovement;
+    public UnityEvent m_EventStartGroundMovement;
+    [SerializeField]
+    public UnityEvent m_EventStartAirMovement;
     [SerializeField]
     public UnityEvent m_EventMovement;
     [SerializeField]
