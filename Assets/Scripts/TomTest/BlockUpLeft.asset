@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
-  m_Name: Death
+  m_Name: BlockUpLeft
   m_EditorClassIdentifier: 
-  m_FeedbackName: Death
+  m_FeedbackName: Block
   m_AsVFX: 1
   m_VFXList:
-  - {fileID: 3428579444770784584, guid: de0c96b83a2ef8644a75f918cac5a3ac, type: 3}
+  - {fileID: 8029409260725986565, guid: 5d8a5a41583fa72438eb9ec20a672f95, type: 3}
   m_VFXSpecificPosition:
-  - {x: 0.2, y: 0, z: 0}
-  m_VFXSpecificRotation:
   - {x: 0, y: 0, z: 0}
+  m_VFXSpecificRotation:
+  - {x: 0, y: 0, z: 135}
   m_VFXAsToBeChild: 00
-  m_VFXAsToBeChildOfChild: 00
+  m_VFXAsToBeChildOfChild: 01
   m_VfxChildOfChild: 
   m_VFXChildOfChildNumber: 00000000
-  m_VFXIsAlone: 1
+  m_VFXIsAlone: 0
   m_AsSFX: 0
   m_SFXList: []
   m_AsVFXAnimation: 0
@@ -35,9 +35,9 @@ MonoBehaviour:
   m_VFXAnimationAsToBeChildOfChild: 
   m_VFXAnimationChildOfChildNumber: 
   m_VFXAnimationIsAlone: 0
-  m_AsToShake: 1
-  m_ShakeIntesity: 0.3
-  m_ShakeDuration: 0.5
+  m_AsToShake: 0
+  m_ShakeIntesity: 0.1
+  m_ShakeDuration: 0.1
   m_AsToBlink: 0
   m_BlinkIntensity: 0.1
   m_BlinkDuration: 0.1
