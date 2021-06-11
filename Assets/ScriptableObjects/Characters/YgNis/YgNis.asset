@@ -25,3 +25,4 @@ MonoBehaviour:
     m_WinnerSprite: {fileID: 21300000, guid: 464a784596137fc41b1d5d3cb737c9d3, type: 3}
     m_LoserSprite: {fileID: 21300000, guid: 464a784596137fc41b1d5d3cb737c9d3, type: 3}
     m_FaceSprite: {fileID: 21300000, guid: 8bbb1d840a1b307428a84bfd4e64b937, type: 3}
+    m_DrawSprite: {fileID: 21300000, guid: 464a784596137fc41b1d5d3cb737c9d3, type: 3}

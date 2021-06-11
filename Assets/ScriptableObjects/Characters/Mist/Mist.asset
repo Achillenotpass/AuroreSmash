@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f6191350edc6f4ea5e1d16e60d5014, type: 3}
   m_Name: Mist
   m_EditorClassIdentifier: 
+  m_CharacterName: 
   m_CharacterPrefab: {fileID: 7326282991860863268, guid: a54c1ec3efd3d2e458ee52f601622c08, type: 3}
   m_CharacterSelectionDatas:
     m_SelectionSprite: {fileID: 21300000, guid: f99c8606999284c45b9b099d8a83714e, type: 3}
@@ -24,3 +25,4 @@ MonoBehaviour:
     m_WinnerSprite: {fileID: 21300000, guid: 59123884e259ddf40a35231041866e94, type: 3}
     m_LoserSprite: {fileID: 21300000, guid: f96b8315e2dfe0042841fbf90893e1f7, type: 3}
     m_FaceSprite: {fileID: 21300000, guid: 9dd569b2af26dd74784cf50d9f393b1a, type: 3}
+    m_DrawSprite: {fileID: 21300000, guid: 59123884e259ddf40a35231041866e94, type: 3}

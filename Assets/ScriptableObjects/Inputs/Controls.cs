@@ -355,6 +355,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AnyButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""2bf2f08e-f377-4f12-95d0-4c59904548ee"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -412,6 +420,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Joysticks"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2f1dcd0-74d2-40e0-bc5e-df4bf8c82f1f"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -433,6 +452,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_UI_Select = m_UI.FindAction("Select", throwIfNotFound: true);
         m_UI_Return = m_UI.FindAction("Return", throwIfNotFound: true);
         m_UI_Joysticks = m_UI.FindAction("Joysticks", throwIfNotFound: true);
+        m_UI_AnyButton = m_UI.FindAction("AnyButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -567,6 +587,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_Select;
     private readonly InputAction m_UI_Return;
     private readonly InputAction m_UI_Joysticks;
+    private readonly InputAction m_UI_AnyButton;
     public struct UIActions
     {
         private @Controls m_Wrapper;
@@ -575,6 +596,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Select => m_Wrapper.m_UI_Select;
         public InputAction @Return => m_Wrapper.m_UI_Return;
         public InputAction @Joysticks => m_Wrapper.m_UI_Joysticks;
+        public InputAction @AnyButton => m_Wrapper.m_UI_AnyButton;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -596,6 +618,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Joysticks.started -= m_Wrapper.m_UIActionsCallbackInterface.OnJoysticks;
                 @Joysticks.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnJoysticks;
                 @Joysticks.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnJoysticks;
+                @AnyButton.started -= m_Wrapper.m_UIActionsCallbackInterface.OnAnyButton;
+                @AnyButton.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnAnyButton;
+                @AnyButton.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnAnyButton;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -612,6 +637,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Joysticks.started += instance.OnJoysticks;
                 @Joysticks.performed += instance.OnJoysticks;
                 @Joysticks.canceled += instance.OnJoysticks;
+                @AnyButton.started += instance.OnAnyButton;
+                @AnyButton.performed += instance.OnAnyButton;
+                @AnyButton.canceled += instance.OnAnyButton;
             }
         }
     }
@@ -632,5 +660,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnSelect(InputAction.CallbackContext context);
         void OnReturn(InputAction.CallbackContext context);
         void OnJoysticks(InputAction.CallbackContext context);
+        void OnAnyButton(InputAction.CallbackContext context);
     }
 }
