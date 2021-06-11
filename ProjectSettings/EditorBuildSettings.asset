@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame/VictoryScreen.unity
     guid: c2ab0a884779e3543807ed3f0acf01e3
+  - enabled: 1
+    path: Assets/Scenes/MainGame/DrawScreen.unity
+    guid: 8b9061273c1faad48916c7c5f5a4b121
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 70aa63e3d773ef2428c7e98ca16a18ae, type: 2}
