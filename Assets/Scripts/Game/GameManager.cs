@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private List<Sprite> m_BeginningTimerSprites = new List<Sprite>();
     [SerializeField]
+    private List<Sprite> m_EndTimerSprites = new List<Sprite>();
+    [SerializeField]
     private Text m_TimerText = null;
     [SerializeField]
     private List<HealthBarGame> m_HealthBars = new List<HealthBarGame>();
@@ -291,6 +293,16 @@ public class GameManager : MonoBehaviour, IUpdateUser
     {
         m_CurrentGameTimer = m_CurrentGameTimer - p_DeltaTime;
         m_TimerText.text = ((int)m_CurrentGameTimer).ToString();
+
+        Color l_NewColor = m_BeginningTimer.color;
+
+        if (m_CurrentGameTimer <= 3.0f)
+        {
+            m_BeginningTimer.gameObject.SetActive(true);
+            m_BeginningTimer.sprite = m_EndTimerSprites[(int)m_CurrentGameTimer];
+            l_NewColor.a = (m_CurrentGameTimer % 1);
+            m_BeginningTimer.color = l_NewColor;
+        }
         if (m_CurrentGameTimer <= 0.0f)
         {
             //On vérifie les vies de tous les joueurs
