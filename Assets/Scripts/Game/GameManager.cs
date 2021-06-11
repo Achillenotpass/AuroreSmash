@@ -332,17 +332,16 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 }
             }
 
-            UsersManager.m_LoserCharacter.m_PlayedCharacter = l_LowestLives.GetComponent<CharacterInfos>().Character;
-            UsersManager.m_LoserCharacter.m_RemainingLives = l_LowestLives.CurrentLives;
-            UsersManager.m_LoserCharacter.m_PlayerIndex = l_LowestLives.GetComponent<PlayerInfos>().PlayerIndex;
-
-            /* C'est chelou comme fin en égalité 
             if (l_LowestLives == l_HighestLives)
             {
                 EndGameDraw();
                 return;
             }
-            */
+
+            UsersManager.m_LoserCharacter.m_PlayedCharacter = l_LowestLives.GetComponent<CharacterInfos>().Character;
+            UsersManager.m_LoserCharacter.m_RemainingLives = l_LowestLives.CurrentLives;
+            UsersManager.m_LoserCharacter.m_PlayerIndex = l_LowestLives.GetComponent<PlayerInfos>().PlayerIndex;
+
 
             EndGame(l_HighestLives.GetComponent<PlayerInfos>());
         }
@@ -355,8 +354,6 @@ public class GameManager : MonoBehaviour, IUpdateUser
         UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
         UsersManager.m_WinnerCharacter.m_PlayerIndex = p_WinnerPlayerInfo.PlayerIndex;
 
-
-
         StartCoroutine(CheckForSceneChanging("VictoryScreen"));
         Time.timeScale = 0.2f;
 
@@ -366,7 +363,15 @@ public class GameManager : MonoBehaviour, IUpdateUser
     {
         m_GameState = EGameState.Ended;
 
-        EndGame(m_PlayersAlive[0]);
+        UsersManager.m_WinnerCharacter.m_PlayedCharacter = m_PlayersAlive[0].GetComponent<CharacterInfos>().Character;
+        UsersManager.m_WinnerCharacter.m_RemainingLives = m_PlayersAlive[0].GetComponent<Health>().CurrentLives;
+        UsersManager.m_WinnerCharacter.m_PlayerIndex = m_PlayersAlive[0].PlayerIndex;
+
+        UsersManager.m_LoserCharacter.m_PlayedCharacter = m_PlayersAlive[1].GetComponent<CharacterInfos>().Character;
+        UsersManager.m_LoserCharacter.m_RemainingLives = m_PlayersAlive[1].GetComponent<Health>().CurrentLives;
+        UsersManager.m_LoserCharacter.m_PlayerIndex = m_PlayersAlive[1].PlayerIndex;
+
+        StartCoroutine(CheckForSceneChanging("DrawScreen"));
 
         m_EndGameEvent.Invoke();
     }

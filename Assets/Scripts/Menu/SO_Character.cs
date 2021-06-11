@@ -42,5 +42,6 @@ public class SO_Character : ScriptableObject
         public Sprite m_WinnerSprite = null;
         public Sprite m_LoserSprite = null;
         public Sprite m_FaceSprite = null;
+        public Sprite m_DrawSprite = null;
     }
 }
