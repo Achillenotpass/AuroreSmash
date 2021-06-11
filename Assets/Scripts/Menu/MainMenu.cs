@@ -104,16 +104,16 @@ public class MainMenu : MonoBehaviour
             switch (m_MainMenuState)
             {
                 case MainMenuState.OnMainWheel:
-                    switch (m_MapNames[m_CurrentButton])
+                    switch (m_CurrentButton)
                     {
-                        case "Versus fighting":
+                        case 0:
                             SceneManager.LoadScene("CharacterSelection");
                             break;
-                        case "Options":
+                        case 1:
                             m_MainMenuState = MainMenuState.OnOption;
                             m_OptionsSubMenu.SetActive(true);
                             break;
-                        case "Quit game":
+                        case 2:
                             Application.Quit();
                             break;
                     }

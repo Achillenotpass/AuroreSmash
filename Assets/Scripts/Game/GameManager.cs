@@ -37,15 +37,15 @@ public class GameManager : MonoBehaviour, IUpdateUser
     public float CurrentGameTimer { get { return m_CurrentGameTimer; } }
     private EGameState m_GameState = EGameState.WaitingForStart;
     [SerializeField]
-    private Vector2 m_MapCenterPosition = Vector2.zero;
+    private Vector3 m_MapCenterPosition = Vector2.zero;
     [SerializeField]
-    private Vector2 m_MapSize = Vector2.one;
+    private Vector3 m_MapSize = Vector2.one;
     [SerializeField]
-    private Vector2 m_CameraCenterPosition = Vector2.zero;
-    public Vector2 CameraCenterPosition { get { return m_CameraCenterPosition; } }
+    private Vector3 m_CameraCenterPosition = Vector2.zero;
+    public Vector3 CameraCenterPosition { get { return m_CameraCenterPosition; } }
     [SerializeField]
-    private Vector2 m_CameraSize = Vector2.one;
-    public Vector2 CameraSize { get { return m_CameraSize; } }
+    private Vector3 m_CameraSize = Vector2.one;
+    public Vector3 CameraSize { get { return m_CameraSize; } }
     [SerializeField]
     private Transform m_PlayersParent = null;
     [SerializeField]
@@ -88,7 +88,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
         l_NewScale.x = m_CameraSize.x / 10.0f;
         l_NewScale.y = m_CameraRaycastPlane.transform.localScale.y;
         l_NewScale.z = m_CameraSize.y / 10.0f;
-        m_CameraRaycastPlane.transform.localScale = l_NewScale;  
+        m_CameraRaycastPlane.transform.localScale = l_NewScale;
+
         StartCoroutine(SetupGame());
         StartCoroutine(BeginningTimer());
     }
@@ -331,17 +332,16 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 }
             }
 
-            UsersManager.m_LoserCharacter.m_PlayedCharacter = l_LowestLives.GetComponent<CharacterInfos>().Character;
-            UsersManager.m_LoserCharacter.m_RemainingLives = l_LowestLives.CurrentLives;
-            UsersManager.m_LoserCharacter.m_PlayerIndex = l_LowestLives.GetComponent<PlayerInfos>().PlayerIndex;
-
-            /* C'est chelou comme fin en égalité 
             if (l_LowestLives == l_HighestLives)
             {
                 EndGameDraw();
                 return;
             }
-            */
+
+            UsersManager.m_LoserCharacter.m_PlayedCharacter = l_LowestLives.GetComponent<CharacterInfos>().Character;
+            UsersManager.m_LoserCharacter.m_RemainingLives = l_LowestLives.CurrentLives;
+            UsersManager.m_LoserCharacter.m_PlayerIndex = l_LowestLives.GetComponent<PlayerInfos>().PlayerIndex;
+
 
             EndGame(l_HighestLives.GetComponent<PlayerInfos>());
         }
@@ -354,8 +354,6 @@ public class GameManager : MonoBehaviour, IUpdateUser
         UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
         UsersManager.m_WinnerCharacter.m_PlayerIndex = p_WinnerPlayerInfo.PlayerIndex;
 
-
-
         StartCoroutine(CheckForSceneChanging("VictoryScreen"));
         Time.timeScale = 0.2f;
 
@@ -365,7 +363,15 @@ public class GameManager : MonoBehaviour, IUpdateUser
     {
         m_GameState = EGameState.Ended;
 
-        EndGame(m_PlayersAlive[0]);
+        UsersManager.m_WinnerCharacter.m_PlayedCharacter = m_PlayersAlive[0].GetComponent<CharacterInfos>().Character;
+        UsersManager.m_WinnerCharacter.m_RemainingLives = m_PlayersAlive[0].GetComponent<Health>().CurrentLives;
+        UsersManager.m_WinnerCharacter.m_PlayerIndex = m_PlayersAlive[0].PlayerIndex;
+
+        UsersManager.m_LoserCharacter.m_PlayedCharacter = m_PlayersAlive[1].GetComponent<CharacterInfos>().Character;
+        UsersManager.m_LoserCharacter.m_RemainingLives = m_PlayersAlive[1].GetComponent<Health>().CurrentLives;
+        UsersManager.m_LoserCharacter.m_PlayerIndex = m_PlayersAlive[1].PlayerIndex;
+
+        StartCoroutine(CheckForSceneChanging("DrawScreen"));
 
         m_EndGameEvent.Invoke();
     }
@@ -395,7 +401,11 @@ public class GameManager : MonoBehaviour, IUpdateUser
         Component[] l_Components = p_Character.GetComponentsInChildren<Component>();
         foreach (Component l_Component in l_Components)
         {
-            if (l_Component is PlayerInput)
+            if (l_Component is CharacterController)
+            {
+                ((CharacterController)l_Component).enabled = true;
+            }
+            else if (l_Component is PlayerInput)
             {
                 ((PlayerInput)l_Component).ActivateInput();
             }
@@ -414,8 +424,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(new Vector3(m_MapCenterPosition.x, m_MapCenterPosition.y, 0), new Vector3(m_MapSize.x, m_MapSize.y, 0));
-        Gizmos.DrawWireCube(new Vector3(m_CameraCenterPosition.x, m_CameraCenterPosition.y, 0), new Vector3(m_CameraSize.x, m_CameraSize.y, 0));
+        Gizmos.DrawWireCube(new Vector3(m_MapCenterPosition.x, m_MapCenterPosition.y, m_MapCenterPosition.z), new Vector3(m_MapSize.x, m_MapSize.y, 0));
+        Gizmos.DrawWireCube(new Vector3(m_CameraCenterPosition.x, m_CameraCenterPosition.y, m_CameraCenterPosition.z), new Vector3(m_CameraSize.x, m_CameraSize.y, 0));
     }
 
     private enum EGameState

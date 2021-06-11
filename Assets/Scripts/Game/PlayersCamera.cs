@@ -35,6 +35,11 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
     private Vector3 m_BaseCameraPosition = Vector3.zero;
     private Vector3 m_CameraTargetPosition = Vector3.zero;
 
+    float m_XLeft = 0.0f;
+    float m_XRight = 0.0f;
+    float m_YUp = 0.0f;
+    float m_YDown = 0.0f;
+
     private Vector3 m_LastPosition = Vector3.zero;
     [SerializeField]
     private LayerMask m_LayerMask = 0;
@@ -45,12 +50,24 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
     private void Start()
     {
         m_BaseCameraPosition = m_MainCamera.transform.position;
+
+        m_XLeft = m_GameManager.CameraCenterPosition.x - m_GameManager.CameraSize.x;
+        m_XRight = m_GameManager.CameraCenterPosition.x + m_GameManager.CameraSize.x;
+        m_YUp = m_GameManager.CameraCenterPosition.y - m_GameManager.CameraSize.y;
+        m_YDown = m_GameManager.CameraCenterPosition.y - m_GameManager.CameraSize.y;
     }
     public void CustomUpdate(float p_DeltaTime)
     {
+        //if (m_ListOfAllPlayers.Count != 0)
+        //{
+        //    CameraPositioning(p_DeltaTime);
+        //}
+    }
+    private void LateUpdate()
+    {
         if (m_ListOfAllPlayers.Count != 0)
         {
-            CameraPositioning(p_DeltaTime);
+            CameraPositioning(Time.deltaTime);
         }
     }
     #endregion
@@ -83,7 +100,7 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         m_LastPosition = m_MainCamera.transform.position;
 
         //Rajouter ici la modification de la m_TargetPosition
-        m_CameraTargetPosition = CheckForNewPosition(p_DeltaTime);
+        //m_CameraTargetPosition = CheckForNewPosition(p_DeltaTime);
         //Jusqu'ici
 
         //Passer la caméra à la nouvelle position
@@ -97,11 +114,6 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         float l_XOffset = 0.0f;
         float l_YOffset = 0.0f;
 
-        float m_XLeft = 0.0f;
-        float m_XRight = 0.0f;
-        float m_YUp = 0.0f;
-        float m_YDown = 0.0f;
-
         m_MainCamera.transform.position = Vector3.Lerp(m_LastPosition, m_CameraTargetPosition, 0.1f);
         Camera l_Camera = m_MainCamera.GetComponent<Camera>();
         //Raycast gauche
@@ -109,7 +121,7 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         {
             if (Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(0, l_Camera.pixelHeight / 2)), out RaycastHit l_HitInfo, 1000.0f, m_LayerMaskOut))
             {
-                
+                l_XOffset = l_HitInfo.point.x - m_XLeft;
             }
         }
         //Raycast haut
@@ -117,7 +129,7 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         {
             if (Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(l_Camera.pixelWidth / 2, 0)), out RaycastHit l_HitInfo, 1000.0f, m_LayerMaskOut))
             {
-                
+                l_YOffset = l_HitInfo.point.y + m_YUp;
             }
         }
         //Raycast bas
@@ -125,7 +137,7 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         {
             if (Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(l_Camera.pixelWidth / 2, l_Camera.pixelHeight - 1)), out RaycastHit l_HitInfo, 1000.0f, m_LayerMaskOut))
             {
-                
+                l_YOffset = l_HitInfo.point.y - m_YUp;
             }
         }
         //Raycast droite
@@ -133,9 +145,12 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
         {
             if (Physics.Raycast(l_Camera.ScreenPointToRay(new Vector3(l_Camera.pixelWidth - 1, l_Camera.pixelHeight / 2)), out RaycastHit l_HitInfo, 1000.0f, m_LayerMaskOut))
             {
-                
+                l_XOffset = l_HitInfo.point.x + m_XRight;
             }
         }
+
+        m_CameraTargetPosition.x = m_CameraTargetPosition.x + l_XOffset;
+        m_CameraTargetPosition.y = m_CameraTargetPosition.y + l_YOffset;
 
         return m_CameraTargetPosition;
     }

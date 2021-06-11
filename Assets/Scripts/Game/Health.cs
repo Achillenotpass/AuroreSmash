@@ -119,7 +119,11 @@ public class Health : MonoBehaviour
         Component[] l_Components = GetComponentsInChildren<Component>();
         foreach (Component l_Component in l_Components)
         {
-            if (l_Component is PlayerInput)
+            if (l_Component is CharacterController)
+            {
+                ((CharacterController)l_Component).enabled = false;
+            }
+            else if (l_Component is PlayerInput)
             {
                 ((PlayerInput)l_Component).DeactivateInput();
             }
@@ -135,7 +139,7 @@ public class Health : MonoBehaviour
 
         if (m_CurrentLives > 0)
         {
-            FindObjectOfType<GameManager>().StartCoroutine(FindObjectOfType<GameManager>().RespawnTimer(gameObject));   
+            FindObjectOfType<GameManager>().StartCoroutine(FindObjectOfType<GameManager>().RespawnTimer(this.gameObject));   
         }
     }
     #endregion
