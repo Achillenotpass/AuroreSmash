@@ -5289,7 +5289,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 100
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -12770,7 +12770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
   m_TimeBeforeGameStart: 3
-  m_GameTimer: 90
+  m_GameTimer: 180
   m_RespawnDelay: 2
   m_MapCenterPosition: {x: 0.3, y: 10, z: -4}
   m_MapSize: {x: 76.3, y: 38.42, z: 0}
