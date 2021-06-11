@@ -344,9 +344,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "AnyButton",
+                    "name": "Start",
                     "type": "Button",
-                    "id": "2bf2f08e-f377-4f12-95d0-4c59904548ee",
+                    "id": "2b71391c-36ab-4ba5-9e70-04560436d732",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -410,12 +410,12 @@
                 },
                 {
                     "name": "",
-                    "id": "d2f1dcd0-74d2-40e0-bc5e-df4bf8c82f1f",
-                    "path": "<Keyboard>/anyKey",
+                    "id": "01377bc5-2920-4126-8758-721b0641a378",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AnyButton",
+                    "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
