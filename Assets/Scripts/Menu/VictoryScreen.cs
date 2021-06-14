@@ -19,6 +19,7 @@ public class VictoryScreen : MonoBehaviour
     [SerializeField]
     private List<UIObjectList> m_Objects = null;
     private int m_CurrentDisplay = 0;
+    private bool m_InAnimation = false;
     #endregion
 
     #region Awake/Start/Update
@@ -63,7 +64,7 @@ public class VictoryScreen : MonoBehaviour
         {
             if (m_CurrentDisplay == m_Objects.Count)
             {
-                SceneManager.LoadScene("CharacterSelection");
+                StartCoroutine(AsyncLoading("CharacterSelection", 1.0f));
             }
             else
             {
@@ -90,7 +91,25 @@ public class VictoryScreen : MonoBehaviour
         }
     }
     #endregion
+    #region Functions
+    private IEnumerator AsyncLoading(string p_SceneName, float p_MinimumLoadingTime)
+    {
+        m_InAnimation = true;
 
+        FindObjectOfType<LoadingBackground>().AppearLoadingBackground();
+        yield return new WaitForSeconds(p_MinimumLoadingTime);
+        AsyncOperation l_Scene = SceneManager.LoadSceneAsync(p_SceneName, LoadSceneMode.Single);
+        l_Scene.allowSceneActivation = false;
+        while (l_Scene.progress < 0.9f)
+        {
+            Debug.Log(l_Scene.progress);
+            yield return null;
+        }
+        l_Scene.allowSceneActivation = true;
+
+        m_InAnimation = false;
+    }
+    #endregion
     [System.Serializable]
     private class UIObjectList
     {
