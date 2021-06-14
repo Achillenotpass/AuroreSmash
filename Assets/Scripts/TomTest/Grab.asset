@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
-  m_Name: LowLife
+  m_Name: Grab
   m_EditorClassIdentifier: 
-  m_FeedbackName: LowLife
+  m_FeedbackName: Grab
   m_AsVFX: 1
   m_VFXList:
-  - {fileID: 230063367845907955, guid: f02abfd25e615474fbb0cd344499ecb3, type: 3}
+  - {fileID: 7173741747528521350, guid: 517da76af733d5545867751ece00dfa4, type: 3}
   m_VFXSpecificPosition:
   - {x: 0, y: 0, z: 0}
   m_VFXSpecificRotation:
@@ -27,14 +27,17 @@ MonoBehaviour:
   m_VFXIsAlone: 1
   m_AsSFX: 0
   m_SFXList: []
-  m_AsVFXAnimation: 0
-  m_VFXAnimationList: []
-  m_VFXAnimationSpecificPosition: []
-  m_VFXAnimationSpecificRotation: []
-  m_VFXAnimationAsToBeChild: 
-  m_VFXAnimationAsToBeChildOfChild: 
-  m_VFXAnimationChildOfChildNumber: 
-  m_VFXAnimationIsAlone: 0
+  m_AsVFXAnimation: 1
+  m_VFXAnimationList:
+  - {fileID: 6283556284007793660, guid: e321ad5b568cbe940b296eeeedaca225, type: 3}
+  m_VFXAnimationSpecificPosition:
+  - {x: 0, y: 0, z: 0}
+  m_VFXAnimationSpecificRotation:
+  - {x: 0, y: 0, z: 0}
+  m_VFXAnimationAsToBeChild: 01
+  m_VFXAnimationAsToBeChildOfChild: 00
+  m_VFXAnimationChildOfChildNumber: 00000000
+  m_VFXAnimationIsAlone: 1
   m_AsToShake: 0
   m_ShakeIntesity: 0.1
   m_ShakeDuration: 0.1
