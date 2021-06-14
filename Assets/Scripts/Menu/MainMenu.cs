@@ -175,6 +175,8 @@ public class MainMenu : MonoBehaviour
     }
     private IEnumerator AsyncLoading(string p_SceneName, float p_MinimumLoadingTime)
     {
+        m_InAnimation = true;
+
         FindObjectOfType<LoadingBackground>().AppearLoadingBackground();
         yield return new WaitForSeconds(p_MinimumLoadingTime);
         Debug.Log("Start loading");
@@ -187,6 +189,8 @@ public class MainMenu : MonoBehaviour
         }
         Debug.Log("Done");
         l_Scene.allowSceneActivation = true;
+
+        m_InAnimation = false;
     }
     #endregion
 
