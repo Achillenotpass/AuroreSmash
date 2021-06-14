@@ -66,7 +66,7 @@ public class CharacterSelector : MonoBehaviour
             }
             else if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
-                SceneManager.LoadScene("MainMenu");
+                m_CharacterManager.GoToMainMenu();
             }
         }
     }

@@ -128,6 +128,10 @@ public class CharactersManager : MonoBehaviour
         //Puis on va sur la scène de combat
         StartCoroutine(AsyncLoading("MapSelection", 2.0f));
     }
+    public void GoToMainMenu()
+    {
+        StartCoroutine(AsyncLoading("MainMenu", 1.0f));
+    }
     private IEnumerator AsyncLoading(string p_SceneName, float p_MinimumLoadingTime)
     {
         m_InAnimation = true;

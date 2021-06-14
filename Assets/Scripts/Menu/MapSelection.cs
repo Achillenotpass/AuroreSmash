@@ -77,7 +77,7 @@ public class MapSelection : MonoBehaviour
     }
     public void ReturnInput(InputAction.CallbackContext p_Context)
     {
-        SceneManager.LoadScene("CharacterSelection");
+        StartCoroutine(AsyncLoading("CharacterSelection", 2.0f));
     }
     #endregion
 
