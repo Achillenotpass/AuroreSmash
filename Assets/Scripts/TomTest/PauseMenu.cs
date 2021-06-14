@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject m_PauseMenu = null;
     private List<PlayerInput> m_PlayersInput = new List<PlayerInput>();
     private Controls m_InputActionControls;
     private float m_Time = 1f;
@@ -27,11 +29,9 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseTheGame(InputAction.CallbackContext p_Context)
     {
-        Debug.Log("aaa");
         if (p_Context.started)
         {
             FindPlayersInput();
-            Debug.Log("bbb");
             m_Time = 0;
             for (int i = 0; i < m_PlayersInput.Count; i++)
             {
@@ -39,22 +39,28 @@ public class PauseMenu : MonoBehaviour
                 m_PlayersInput[i].actions.FindActionMap("Player").Disable();
                 m_PlayersInput[i].actions.FindActionMap("UI").Enable();
             }
+            if(m_PauseMenu != null)
+            {
+                m_PauseMenu.SetActive(true);
+            }
         }
     }
 
     public void ResumeTheGame(InputAction.CallbackContext p_Context)
     {
-        Debug.Log("ccc");
         if (p_Context.started)
         {
             FindPlayersInput();
-            Debug.Log("ddd");
             m_Time = 1;
             for (int i = 0; i < m_PlayersInput.Count; i++)
             {
                 m_PlayersInput[i].currentActionMap = m_InputActionControls.Player;
                 m_PlayersInput[i].actions.FindActionMap("UI").Disable();
                 m_PlayersInput[i].actions.FindActionMap("Player").Enable();
+            }
+            if (m_PauseMenu != null)
+            {
+                m_PauseMenu.SetActive(false);
             }
         }
     }

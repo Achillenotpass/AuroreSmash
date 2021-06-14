@@ -16,15 +16,25 @@ MonoBehaviour:
   m_AsVFX: 0
   m_VFXList: []
   m_VFXSpecificPosition: []
+  m_VFXSpecificRotation: []
   m_VFXAsToBeChild: 
+  m_VFXAsToBeChildOfChild: 
+  m_VfxChildOfChild: 
+  m_VFXChildOfChildNumber: 
+  m_VFXIsAlone: 0
   m_AsSFX: 0
   m_SFXList: []
   m_AsVFXAnimation: 1
-  m_VFXAnimation:
+  m_VFXAnimationList:
   - {fileID: 7599707128303667127, guid: 2694c68795918044689bdc8cd27bd36e, type: 3}
   m_VFXAnimationSpecificPosition:
-  - {x: 0, y: -0.5, z: 0}
+  - {x: 0.2, y: -0.5, z: 0}
+  m_VFXAnimationSpecificRotation:
+  - {x: 0, y: 0, z: 0}
   m_VFXAnimationAsToBeChild: 00
+  m_VFXAnimationAsToBeChildOfChild: 00
+  m_VFXAnimationChildOfChildNumber: 00000000
+  m_VFXAnimationIsAlone: 1
   m_AsToShake: 0
   m_ShakeIntesity: 0.1
   m_ShakeDuration: 0.1

@@ -355,6 +355,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b71391c-36ab-4ba5-9e70-04560436d732"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -412,6 +420,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Joysticks"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01377bc5-2920-4126-8758-721b0641a378"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -433,6 +452,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_UI_Select = m_UI.FindAction("Select", throwIfNotFound: true);
         m_UI_Return = m_UI.FindAction("Return", throwIfNotFound: true);
         m_UI_Joysticks = m_UI.FindAction("Joysticks", throwIfNotFound: true);
+        m_UI_Start = m_UI.FindAction("Start", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -567,6 +587,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_Select;
     private readonly InputAction m_UI_Return;
     private readonly InputAction m_UI_Joysticks;
+    private readonly InputAction m_UI_Start;
     public struct UIActions
     {
         private @Controls m_Wrapper;
@@ -575,6 +596,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Select => m_Wrapper.m_UI_Select;
         public InputAction @Return => m_Wrapper.m_UI_Return;
         public InputAction @Joysticks => m_Wrapper.m_UI_Joysticks;
+        public InputAction @Start => m_Wrapper.m_UI_Start;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -596,6 +618,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Joysticks.started -= m_Wrapper.m_UIActionsCallbackInterface.OnJoysticks;
                 @Joysticks.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnJoysticks;
                 @Joysticks.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnJoysticks;
+                @Start.started -= m_Wrapper.m_UIActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnStart;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -612,6 +637,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Joysticks.started += instance.OnJoysticks;
                 @Joysticks.performed += instance.OnJoysticks;
                 @Joysticks.canceled += instance.OnJoysticks;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
             }
         }
     }
@@ -632,5 +660,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnSelect(InputAction.CallbackContext context);
         void OnReturn(InputAction.CallbackContext context);
         void OnJoysticks(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
     }
 }

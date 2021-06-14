@@ -15,16 +15,26 @@ MonoBehaviour:
   m_FeedbackName: Death
   m_AsVFX: 1
   m_VFXList:
-  - {fileID: 186412003210758694, guid: a96f6b080a8d1684eab99ec85494b4f8, type: 3}
+  - {fileID: 3428579444770784584, guid: de0c96b83a2ef8644a75f918cac5a3ac, type: 3}
   m_VFXSpecificPosition:
+  - {x: 0.2, y: 0, z: 0}
+  m_VFXSpecificRotation:
   - {x: 0, y: 0, z: 0}
-  m_VFXAsToBeChild: 01
+  m_VFXAsToBeChild: 00
+  m_VFXAsToBeChildOfChild: 00
+  m_VfxChildOfChild: 
+  m_VFXChildOfChildNumber: 00000000
+  m_VFXIsAlone: 1
   m_AsSFX: 0
   m_SFXList: []
   m_AsVFXAnimation: 0
-  m_VFXAnimation: []
+  m_VFXAnimationList: []
   m_VFXAnimationSpecificPosition: []
+  m_VFXAnimationSpecificRotation: []
   m_VFXAnimationAsToBeChild: 
+  m_VFXAnimationAsToBeChildOfChild: 
+  m_VFXAnimationChildOfChildNumber: 
+  m_VFXAnimationIsAlone: 0
   m_AsToShake: 1
   m_ShakeIntesity: 0.3
   m_ShakeDuration: 0.5

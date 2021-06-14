@@ -722,8 +722,6 @@ MonoBehaviour:
     m_Animation: {fileID: 11400000, guid: 870f04baacf4ad440b3753a06622df1e, type: 2}
   - m_AnimationName: Grab
     m_Animation: {fileID: 11400000, guid: d18eca96065f4584c8970088b6923f7b, type: 2}
-  - m_AnimationName: Throw
-    m_Animation: {fileID: 11400000, guid: d23df5a407a5db24fa7d07bbe9e12ba3, type: 2}
   m_TemporaryFramePerfectAnimator: 0
 --- !u!1 &6393736191472783979
 GameObject:
@@ -1286,6 +1284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5512832e66e7fe4eb11459d2bd74a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerName: YgNis
   m_AttackableLayers:
     serializedVersion: 2
     m_Bits: 2048
@@ -1304,7 +1303,19 @@ MonoBehaviour:
   m_InfosEvents:
     m_EventChangeStateFromMoving:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 9e62a493c2c9cf6409f3734e9b38d3da, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: StopAllVFX
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   m_Character: {fileID: 0}
   m_MaxCharacterSpeed: 10
   m_GroundJumpCurve:
@@ -1526,16 +1537,52 @@ MonoBehaviour:
         m_Calls: []
     m_NotOnGround:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 9e62a493c2c9cf6409f3734e9b38d3da, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: StopAllVFX
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventStartMovement:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 6cbc63c988a35c74193e181f88d68e98, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventMovement:
       m_PersistentCalls:
         m_Calls: []
     m_EventGroundMovement:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 67c9cef03dba1c742a26837c7eb3b027, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventEndMovement:
       m_PersistentCalls:
         m_Calls: []
@@ -1554,6 +1601,18 @@ MonoBehaviour:
             m_StringArgument: Jump
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 67c9cef03dba1c742a26837c7eb3b027, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventBeginAirJump:
       m_PersistentCalls:
         m_Calls:
@@ -1569,6 +1628,18 @@ MonoBehaviour:
             m_StringArgument: Jump
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 1cc93e494e2c4144097f86002ca6b27c, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventJump:
       m_PersistentCalls:
         m_Calls: []
@@ -1580,7 +1651,19 @@ MonoBehaviour:
         m_Calls: []
     m_Landing:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 4cc7f4ab060a2944384199c15132b83a, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_EventChangeOrientation:
       m_PersistentCalls:
         m_Calls: []
@@ -1854,6 +1937,30 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c3ced617-dbaf-4460-affe-72658ee90a72
     m_ActionName: UI/Resume[/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7509473996006968434}
+        m_TargetAssemblyTypeName: CharacterPause, Assembly-CSharp
+        m_MethodName: SelectInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f331efcf-6095-44b7-b3b6-fde3b031fee5
+    m_ActionName: UI/Select[/XInputControllerWindows/buttonSouth,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d068e584-7e81-4613-9f9a-153a136bad88
+    m_ActionName: UI/Return[/XInputControllerWindows/buttonEast,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b2a9d47-4843-4223-95f6-5956d7b06452
+    m_ActionName: UI/Joysticks[/XInputControllerWindows/leftStick,/XInputControllerWindows/leftStick,/XInputControllerWindows/rightStick,/XInputControllerWindows/rightStick]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2124,52 +2231,16 @@ MonoBehaviour:
   m_FailedLag: 10
   m_StartGrabEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6393736191229132231}
-        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
-        m_MethodName: ChangeAnimationTo
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Grab
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_GrabEnemy:
     m_PersistentCalls:
       m_Calls: []
   m_ThrowEnemy:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6393736191229132231}
-        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
-        m_MethodName: ChangeAnimationTo
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Throw
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_EndGrab:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6393736191229132231}
-        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
-        m_MethodName: ChangeAnimationTo
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Idle
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &833536739428192680
 MonoBehaviour:
   m_ObjectHideFlags: 0
