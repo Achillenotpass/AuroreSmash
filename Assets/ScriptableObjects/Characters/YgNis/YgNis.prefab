@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 6393736190473948677}
   - component: {fileID: 6393736190473948676}
   - component: {fileID: 6393736190473948675}
+  - component: {fileID: 8257845642433917494}
   m_Layer: 10
   m_Name: UpRight
   m_TagString: Shield
@@ -214,6 +215,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8257845642433917494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393736190473948673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b028c66eb78a1c498845e77adddf0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6393736190637958370
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +239,7 @@ GameObject:
   - component: {fileID: 6393736190637958374}
   - component: {fileID: 6393736190637958373}
   - component: {fileID: 6393736190637958372}
+  - component: {fileID: 3983230278619481161}
   m_Layer: 10
   m_Name: UpLeft
   m_TagString: Shield
@@ -310,6 +324,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3983230278619481161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393736190637958370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b028c66eb78a1c498845e77adddf0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6393736190970847042
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +348,7 @@ GameObject:
   - component: {fileID: 6393736190970847046}
   - component: {fileID: 6393736190970847045}
   - component: {fileID: 6393736190970847044}
+  - component: {fileID: 444738085337883308}
   m_Layer: 10
   m_Name: Left
   m_TagString: Shield
@@ -406,6 +433,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &444738085337883308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393736190970847042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b028c66eb78a1c498845e77adddf0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6393736190996162163
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +552,7 @@ GameObject:
   - component: {fileID: 6393736191215310823}
   - component: {fileID: 6393736191215310822}
   - component: {fileID: 6393736191215310821}
+  - component: {fileID: 2643033753449633562}
   m_Layer: 10
   m_Name: Right
   m_TagString: Shield
@@ -597,6 +637,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2643033753449633562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393736191215310819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b028c66eb78a1c498845e77adddf0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6393736191229132230
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +787,7 @@ GameObject:
   - component: {fileID: 6393736191472783983}
   - component: {fileID: 6393736191472783982}
   - component: {fileID: 6393736191472783981}
+  - component: {fileID: 6100324213148936773}
   m_Layer: 10
   m_Name: Up
   m_TagString: Shield
@@ -819,6 +872,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6100324213148936773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393736191472783979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b028c66eb78a1c498845e77adddf0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6393736192132567576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,7 +1349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5512832e66e7fe4eb11459d2bd74a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerName: YgNis
   m_AttackableLayers:
     serializedVersion: 2
     m_Bits: 2048
@@ -1307,6 +1371,21 @@ MonoBehaviour:
         - m_Target: {fileID: 11400000, guid: 9e62a493c2c9cf6409f3734e9b38d3da, type: 2}
           m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
           m_MethodName: StopAllVFX
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_EventChangeStateToGrabbed:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 66925e12e1c048948afb690537e26df5, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 9200278381566710910}
@@ -1550,7 +1629,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    m_EventStartMovement:
+    m_EventStartGroundMovement:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 11400000, guid: 6cbc63c988a35c74193e181f88d68e98, type: 2}
@@ -1565,6 +1644,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    m_EventStartAirMovement:
+      m_PersistentCalls:
+        m_Calls: []
     m_EventMovement:
       m_PersistentCalls:
         m_Calls: []
@@ -1938,29 +2020,17 @@ MonoBehaviour:
     m_ActionId: c3ced617-dbaf-4460-affe-72658ee90a72
     m_ActionName: UI/Resume[/XInputControllerWindows/rightShoulder]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -7509473996006968434}
-        m_TargetAssemblyTypeName: CharacterPause, Assembly-CSharp
-        m_MethodName: SelectInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: f331efcf-6095-44b7-b3b6-fde3b031fee5
-    m_ActionName: UI/Select[/XInputControllerWindows/buttonSouth,/XInputControllerWindows/buttonSouth]
+    m_ActionName: UI/Select
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: d068e584-7e81-4613-9f9a-153a136bad88
-    m_ActionName: UI/Return[/XInputControllerWindows/buttonEast,/XInputControllerWindows/buttonEast]
+    m_ActionName: UI/Return
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 2b2a9d47-4843-4223-95f6-5956d7b06452
-    m_ActionName: UI/Joysticks[/XInputControllerWindows/leftStick,/XInputControllerWindows/leftStick,/XInputControllerWindows/rightStick,/XInputControllerWindows/rightStick]
+    m_ActionName: UI/Joysticks
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2176,6 +2246,76 @@ MonoBehaviour:
   m_CurrentLives: 3
   m_MaxHealth: 100
   m_CurrentHealth: 100
+  m_HealthEvents:
+    m_Death:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 37f6bc72d351cf04a8d7511834336013, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 635d0ecfc697640469f90bd542f0f582, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: StopAllVFX
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_DeathEjection:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 07c91083116ad1545b07d04230096e68, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 635d0ecfc697640469f90bd542f0f582, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: StopAllVFX
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_LowLife:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 635d0ecfc697640469f90bd542f0f582, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &9200278381566710911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2202,7 +2342,95 @@ MonoBehaviour:
   - {fileID: 6393736190970847042}
   m_StartShieldEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6393736191229132231}
+        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+        m_MethodName: ChangeAnimationTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shield
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_ShieldEvent:
+    m_BlockRight:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2643033753449633562}
+          m_TargetAssemblyTypeName: FeedbackCaller, Assembly-CSharp
+          m_MethodName: CallFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: a01e0f96211cf5043b561b115957a02e, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_BlockUpRight:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8257845642433917494}
+          m_TargetAssemblyTypeName: FeedbackCaller, Assembly-CSharp
+          m_MethodName: CallFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 83f2f307e4aed3c43a72cdce570b308a, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_BlockUp:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6100324213148936773}
+          m_TargetAssemblyTypeName: FeedbackCaller, Assembly-CSharp
+          m_MethodName: CallFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 0f44440b08af7bb47bfe5fc69fbcb06f, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_BlockUpLeft:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3983230278619481161}
+          m_TargetAssemblyTypeName: FeedbackCaller, Assembly-CSharp
+          m_MethodName: CallFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 6c3f56a5aadd8384a8c8ccfd707e1b26, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_BlockLeft:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 444738085337883308}
+          m_TargetAssemblyTypeName: FeedbackCaller, Assembly-CSharp
+          m_MethodName: CallFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: c664c081ddb9ce24bab9cd0a384036d1, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &5123021735009848120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2257,6 +2485,37 @@ MonoBehaviour:
   m_EjectionAngle: 0
   m_EjectionPower: 0
   m_MaxTimerEjection: 1
+  m_EjectionEvents:
+    m_TakeHit:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 3f7d2b90297942a46963d4ccc79afa85, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_TakePowerfullHit:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 1ec7a882dd27b924e9d57deb50252078, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &-7509473996006968434
 MonoBehaviour:
   m_ObjectHideFlags: 0

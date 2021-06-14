@@ -22,7 +22,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_VFXAsToBeChild: 01
   m_VFXAsToBeChildOfChild: 00
-  m_VfxChildOfChild: 
+  m_VfxChildOfChild: 00000000
   m_VFXChildOfChildNumber: 00000000
   m_VFXIsAlone: 1
   m_AsSFX: 0

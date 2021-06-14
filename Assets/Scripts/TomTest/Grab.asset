@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
+  m_Name: Grab
+  m_EditorClassIdentifier: 
+  m_FeedbackName: Grab
+  m_AsVFX: 1
+  m_VFXList:
+  - {fileID: 7173741747528521350, guid: 517da76af733d5545867751ece00dfa4, type: 3}
+  m_VFXSpecificPosition:
+  - {x: 0, y: 0, z: 0}
+  m_VFXSpecificRotation:
+  - {x: 0, y: 0, z: 0}
+  m_VFXAsToBeChild: 01
+  m_VFXAsToBeChildOfChild: 00
+  m_VfxChildOfChild: 00000000
+  m_VFXChildOfChildNumber: 00000000
+  m_VFXIsAlone: 1
+  m_AsSFX: 0
+  m_SFXList: []
+  m_AsVFXAnimation: 1
+  m_VFXAnimationList:
+  - {fileID: 6283556284007793660, guid: e321ad5b568cbe940b296eeeedaca225, type: 3}
+  m_VFXAnimationSpecificPosition:
+  - {x: 0, y: 0, z: 0}
+  m_VFXAnimationSpecificRotation:
+  - {x: 0, y: 0, z: 0}
+  m_VFXAnimationAsToBeChild: 01
+  m_VFXAnimationAsToBeChildOfChild: 00
+  m_VFXAnimationChildOfChildNumber: 00000000
+  m_VFXAnimationIsAlone: 1
+  m_AsToShake: 0
+  m_ShakeIntesity: 0.1
+  m_ShakeDuration: 0.1
+  m_AsToBlink: 0
+  m_BlinkIntensity: 0.1
+  m_BlinkDuration: 0.1
+  m_AsToFreezeFrame: 0
+  m_FreezeFrameDuration: 0.1
+  m_AsToVibrate: 0
+  m_VibrationIntesity: 0.1
+  m_VibrationDuration: 0.1
