@@ -414,12 +414,14 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     private IEnumerator CheckForSceneChanging(string p_SceneName)
     {
-        m_VictorySceneAsync = SceneManager.LoadSceneAsync(p_SceneName);
-        while (m_VictorySceneAsync.progress < 0.9f)
-        {
-            yield return null;
-        }
         Time.timeScale = 1.0f;
+        SceneManager.LoadScene(p_SceneName);
+        yield return null;
+        //m_VictorySceneAsync = SceneManager.LoadSceneAsync(p_SceneName);
+        //while (m_VictorySceneAsync.progress < 0.9f)
+        //{
+        //    yield return null;
+        //}
     }
     public IEnumerator RespawnTimer(GameObject p_Character)
     {

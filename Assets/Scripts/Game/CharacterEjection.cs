@@ -20,8 +20,8 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     #endregion
     #region Variables
     [SerializeField]
+    private LayerMask m_ReboundLayerMask = 0;
     private float m_EjectionAngle = 0;
-    [SerializeField]
     private float m_EjectionPower = 0;
     [SerializeField]
     private float m_MaxTimerEjection = 1;
@@ -105,13 +105,6 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     {
         if (m_IsEjected)
         {
-            //if(Physics.CapsuleCast(this.transform.position + new Vector3(0, m_CharacterController.height/1.9f, 0), this.transform.position + new Vector3(0, -m_CharacterController.height/1.9f, 0), m_CharacterController.radius * 1.5f, Vector3.zero))
-            //{
-            //    Debug.Log("obstacle touch�");
-            //    m_IsEjected = false;
-            //    m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-            //    return;
-            //}
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
             m_ActualEjectionPoint = new Vector3(m_EjectionPower * (m_EjectionDirection * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Cos(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection), m_EjectionPower * (1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f)) * Mathf.Sin(m_EjectionAngle * Mathf.Deg2Rad) * m_TimerEjection, 0);
             if (m_PreviousEjectionPoint != Vector3.zero)
@@ -122,6 +115,18 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
             m_CharacterMovement.EndGroundVelocityInverseCheck = true;
             m_CharacterMovement.EndAirVelocityInverseCheck = true;
             m_CharacterMovement.EditableCharacterSpeed = 0;
+
+            if (Physics.Raycast(transform.position, m_CharacterMovement.PlayerEjectionDirection, out RaycastHit l_HitInfo, 0.5f, m_ReboundLayerMask))
+            {
+                Vector3 m_NewDirection = Vector3.zero;
+                float l_Angle = 0.0f;
+
+                l_Angle = Vector3.SignedAngle(-m_CharacterMovement.PlayerEjectionDirection, l_HitInfo.normal, Vector3.forward);
+                m_NewDirection = Vector3.RotateTowards(m_CharacterMovement.PlayerEjectionDirection, l_HitInfo.normal, l_Angle * 6.28f / 360.0f, 0.0f);
+
+                float l_NewAngle = Vector3.SignedAngle(Vector3.right, m_NewDirection, Vector3.forward);
+                m_EjectionAngle = l_NewAngle;
+            }
         }
     }
     public void EjectionTime()
@@ -143,19 +148,6 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     public void InterruptEjection()
     {
         m_TimerEjection = 0.0f;
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        ContactPoint l_Point = collision.GetContact(0);
-
-        if (m_IsEjected)
-        {
-            //Arr�ter �jection
-            m_IsEjected = false;
-            m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-            Health l_Health = GetComponent<Health>();
-            l_Health.StopHitLag();
-        }
     }
 }
 

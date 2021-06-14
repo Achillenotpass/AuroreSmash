@@ -69,7 +69,6 @@ public class Health : MonoBehaviour
         {
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
             Invoke(nameof(StopHitLag), p_HitBox.HitLag);
-            GetComponent<MeshRenderer>().enabled = true;
             //On appelle la fonction apliquant l'�jection sur le joueur touch� 
             GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle, p_AttackerPosition);
         }
@@ -89,7 +88,6 @@ public class Health : MonoBehaviour
         {
             m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
             Invoke(nameof(StopHitLag), p_Projectile.HitLag);
-            GetComponent<MeshRenderer>().enabled = true;
             GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObjectPosition);
         }
     }
@@ -106,7 +104,6 @@ public class Health : MonoBehaviour
     public void StopHitLag()
     {
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-        GetComponent<MeshRenderer>().enabled = false;
     }
     private void DeathByHPs()
     {
