@@ -21,6 +21,9 @@ public class Health : MonoBehaviour
     private float m_CurrentHealth = 100.0f;
     private CharacterInfos m_CharacterInfos = null;
 
+    [SerializeField]
+    private HealthEvents m_HealthEvents = new HealthEvents();
+
     //Feedbacks
     private Slider m_HealthBar = null;
     public Slider HealthBar { set { m_HealthBar = value; } }
@@ -41,6 +44,10 @@ public class Health : MonoBehaviour
         if (m_HealthBar != null)
         {
             m_HealthBar.value = m_CurrentHealth;
+        }
+        if(CurrentHealth/m_MaxHealth * 100 <= 25f)
+        {
+            m_HealthEvents.m_LowLife.Invoke();
         }
     }
     #endregion
@@ -103,10 +110,12 @@ public class Health : MonoBehaviour
     }
     private void DeathByHPs()
     {
+        m_HealthEvents.m_Death.Invoke();
         Death();
     }
     public void DeathByEjection()
     {
+        m_HealthEvents.m_DeathEjection.Invoke();
         Death();
     }
     private void Death()
@@ -154,4 +163,17 @@ public class Health : MonoBehaviour
         get { return m_CurrentHealth; }
         set { m_CurrentHealth = Mathf.Clamp(value, 0.0f, MaxHealth); }
     }
+}
+
+[System.Serializable]
+public class HealthEvents
+{
+    [SerializeField]
+    public UnityEvent m_Death;
+
+    [SerializeField]
+    public UnityEvent m_DeathEjection;
+
+    [SerializeField]
+    public UnityEvent m_LowLife;
 }
