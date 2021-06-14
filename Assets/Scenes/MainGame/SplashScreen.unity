@@ -376,7 +376,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775239373}
   m_LocalRotation: {x: -0.00015239231, y: 0.7071073, z: 0.7071063, w: 0.00015239256}
-  m_LocalPosition: {x: -8.648649, y: 118, z: -62}
+  m_LocalPosition: {x: 7, y: -16, z: -62}
   m_LocalScale: {x: 6.226824, y: 3.45946, z: 3.4594595}
   m_Children: []
   m_Father: {fileID: 1069778709}
@@ -806,7 +806,7 @@ ParticleSystem:
     startSizeZ:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1083,7 +1083,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 369.79, y: 87, z: 220.7}
+    m_Scale: {x: 91.9, y: 0, z: 97.3}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -1160,7 +1160,7 @@ ParticleSystem:
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 1
     sphericalDirectionAmount: 0
-    randomPositionAmount: 0.18
+    randomPositionAmount: 0
     radius:
       value: 7.1
       mode: 0
@@ -5365,7 +5365,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015259, y: -462}
+  m_AnchoredPosition: {x: -0.000015259, y: -399}
   m_SizeDelta: {x: 1148.984, y: 702.314}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1109825517
