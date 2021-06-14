@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class DrawManager : MonoBehaviour
 {
     #region Variables
+    private bool m_InAnimation = false;
     [SerializeField]
     private Image m_Player1Image = null;
     [SerializeField]
@@ -49,11 +50,11 @@ public class DrawManager : MonoBehaviour
     #region Inputs
     public void SelectInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.started)
+        if (p_Context.started && !m_InAnimation)
         {
             if (m_CurrentDisplay == m_Objects.Count)
             {
-                SceneManager.LoadScene("CharacterSelection");
+                StartCoroutine(AsyncLoading("CharacterSelection", 1.0f));
             }
             else
             {
@@ -67,7 +68,7 @@ public class DrawManager : MonoBehaviour
     }
     public void ReturnInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.started)
+        if (p_Context.started && !m_InAnimation)
         {
             if (m_CurrentDisplay != 0)
             {
@@ -78,6 +79,25 @@ public class DrawManager : MonoBehaviour
                 }
             }
         }
+    }
+    #endregion
+    #region Functions
+    private IEnumerator AsyncLoading(string p_SceneName, float p_MinimumLoadingTime)
+    {
+        m_InAnimation = true;
+
+        FindObjectOfType<LoadingBackground>().AppearLoadingBackground();
+        yield return new WaitForSeconds(p_MinimumLoadingTime);
+        AsyncOperation l_Scene = SceneManager.LoadSceneAsync(p_SceneName, LoadSceneMode.Single);
+        l_Scene.allowSceneActivation = false;
+        while (l_Scene.progress < 0.9f)
+        {
+            Debug.Log(l_Scene.progress);
+            yield return null;
+        }
+        l_Scene.allowSceneActivation = true;
+
+        m_InAnimation = false;
     }
     #endregion
     [System.Serializable]
