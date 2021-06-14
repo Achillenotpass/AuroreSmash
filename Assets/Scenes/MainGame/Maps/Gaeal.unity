@@ -2503,6 +2503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721183005263a30448409eeae67b566d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PauseMenu: {fileID: 0}
 --- !u!1 &776490700
 GameObject:
   m_ObjectHideFlags: 0
@@ -4631,8 +4632,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
   m_TimeBeforeGameStart: 3
-  m_GameTimer: 180
-  m_RespawnDelay: 2
+  m_GameTimer: 240
+  m_RespawnDelay: 2.5
   m_MapCenterPosition: {x: 18, y: 10, z: 0}
   m_MapSize: {x: 38, y: 31, z: 0}
   m_CameraCenterPosition: {x: 18, y: 10, z: 0}
@@ -4656,6 +4657,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c4bb96c0766dce74284b5dc43498e626, type: 3}
   - {fileID: 21300000, guid: 6b86343bc0b349e49a6f9020e94560ec, type: 3}
   - {fileID: 21300000, guid: 867a4700d6a3b4a4391f42b58e8bbb7c, type: 3}
+  m_EndTimerSprites:
+  - {fileID: 21300000, guid: 3927b17b8a23d3b4dbbdf971528a3b56, type: 3}
+  - {fileID: 21300000, guid: b0339ef1f4ef62245a21162e20721e9e, type: 3}
+  - {fileID: 21300000, guid: 2f5907852b45a724b90c2b1a6b476dc2, type: 3}
+  - {fileID: 21300000, guid: fef5b508754219644b016be07a2108a9, type: 3}
+  m_EndGameLives: {fileID: 0}
   m_TimerText: {fileID: 1523271792}
   m_HealthBars:
   - m_HealthBarSlider: {fileID: 662305187}
@@ -4669,7 +4676,7 @@ MonoBehaviour:
     m_HealtBarNameHolder: {fileID: 743163538}
     m_PlayeIndex: {fileID: 1359142269}
   m_VictoryText: {fileID: 1313473084}
-  m_MinimumTimeAfterGame: 2.5
+  m_MinimumTimeAfterGame: 1
   m_LoseLifeEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -6420,6 +6427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721183005263a30448409eeae67b566d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PauseMenu: {fileID: 0}
 --- !u!1 &1483267278
 GameObject:
   m_ObjectHideFlags: 0

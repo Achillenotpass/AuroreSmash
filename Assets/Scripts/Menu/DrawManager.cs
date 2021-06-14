@@ -11,11 +11,7 @@ public class DrawManager : MonoBehaviour
     [SerializeField]
     private Image m_Player1Image = null;
     [SerializeField]
-    private List<Image> m_Player1Lives = null;
-    [SerializeField]
     private Image m_PLayer2Image = null;
-    [SerializeField]
-    private List<Image> m_Player2Lives = null;
     [SerializeField]
     private List<UIObjectList> m_Objects = null;
     private int m_CurrentDisplay = 0;
@@ -24,32 +20,28 @@ public class DrawManager : MonoBehaviour
     private void Start()
     {
         m_Player1Image.sprite = UsersManager.m_WinnerCharacter.m_PlayedCharacter.VictoryScreenDatas.m_WinnerSprite;
-        m_PLayer2Image.sprite = UsersManager.m_LoserCharacter.m_PlayedCharacter.VictoryScreenDatas.m_LoserSprite;
+        m_PLayer2Image.sprite = UsersManager.m_LoserCharacter.m_PlayedCharacter.VictoryScreenDatas.m_WinnerSprite;
 
         for (int i = 0; i < UsersManager.m_WinnerCharacter.m_RemainingLives; i++)
         {
             if (UsersManager.m_WinnerCharacter.m_PlayerIndex == 1)
             {
-                m_Player1Lives[i].sprite = UsersManager.m_WinnerCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
-                m_Player1Lives[i].gameObject.SetActive(true);
+                m_Player1Image.sprite = UsersManager.m_WinnerCharacter.m_PlayedCharacter.VictoryScreenDatas.m_WinnerSprite;
             }
             else
             {
-                m_Player2Lives[i].sprite = UsersManager.m_WinnerCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
-                m_Player2Lives[i].gameObject.SetActive(true);
+                m_Player1Image.sprite = UsersManager.m_WinnerCharacter.m_PlayedCharacter.VictoryScreenDatas.m_WinnerSprite;
             }
         }
         for (int i = 0; i < UsersManager.m_LoserCharacter.m_RemainingLives; i++)
         {
             if (UsersManager.m_WinnerCharacter.m_PlayerIndex == 2)
             {
-                m_Player2Lives[i].sprite = UsersManager.m_LoserCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
-                m_Player2Lives[i].gameObject.SetActive(true);
+                m_PLayer2Image.sprite = UsersManager.m_LoserCharacter.m_PlayedCharacter.VictoryScreenDatas.m_WinnerSprite;
             }
             else
             {
-                m_Player1Lives[i].sprite = UsersManager.m_LoserCharacter.m_PlayedCharacter.VictoryScreenDatas.m_FaceSprite;
-                m_Player1Lives[i].gameObject.SetActive(true);
+                m_Player1Image.sprite = UsersManager.m_LoserCharacter.m_PlayedCharacter.VictoryScreenDatas.m_WinnerSprite;
             }
         }
     }

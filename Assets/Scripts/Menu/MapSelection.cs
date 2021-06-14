@@ -73,7 +73,7 @@ public class MapSelection : MonoBehaviour
     }
     public void SelectInput(InputAction.CallbackContext p_Context)
     {
-        SceneManager.LoadScene(m_MapNames[m_CurrentMap]);
+        StartCoroutine(AsyncLoading(m_MapNames[m_CurrentMap], 2.0f));
     }
     public void ReturnInput(InputAction.CallbackContext p_Context)
     {
@@ -102,6 +102,21 @@ public class MapSelection : MonoBehaviour
 
         yield return new WaitForSeconds(p_RotationTime);
         m_InAnimation = false;
+    }
+    private IEnumerator AsyncLoading(string p_SceneName, float p_MinimumLoadingTime)
+    {
+        FindObjectOfType<LoadingBackground>().AppearLoadingBackground();
+        yield return new WaitForSeconds(p_MinimumLoadingTime);
+        Debug.Log("Start loading");
+        AsyncOperation l_Scene = SceneManager.LoadSceneAsync(p_SceneName, LoadSceneMode.Single);
+        l_Scene.allowSceneActivation = false;
+        while (l_Scene.progress < 0.9f)
+        {
+            Debug.Log(l_Scene.progress);
+            yield return null;
+        }
+        Debug.Log("Done");
+        l_Scene.allowSceneActivation = true;
     }
     #endregion
 }

@@ -107,7 +107,7 @@ public class MainMenu : MonoBehaviour
                     switch (m_CurrentButton)
                     {
                         case 0:
-                            SceneManager.LoadScene("CharacterSelection");
+                            StartCoroutine(AsyncLoading("CharacterSelection", 2.0f));
                             break;
                         case 1:
                             m_MainMenuState = MainMenuState.OnOption;
@@ -172,6 +172,21 @@ public class MainMenu : MonoBehaviour
 
         yield return new WaitForSeconds(p_RotationTime);
         m_InAnimation = false;
+    }
+    private IEnumerator AsyncLoading(string p_SceneName, float p_MinimumLoadingTime)
+    {
+        FindObjectOfType<LoadingBackground>().AppearLoadingBackground();
+        yield return new WaitForSeconds(p_MinimumLoadingTime);
+        Debug.Log("Start loading");
+        AsyncOperation l_Scene = SceneManager.LoadSceneAsync(p_SceneName, LoadSceneMode.Single);
+        l_Scene.allowSceneActivation = false;
+        while (l_Scene.progress < 0.9f)
+        {
+            Debug.Log(l_Scene.progress);
+            yield return null;
+        }
+        Debug.Log("Done");
+        l_Scene.allowSceneActivation = true;
     }
     #endregion
 
