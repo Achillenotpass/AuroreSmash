@@ -26,6 +26,10 @@ public class CharacterInfos : MonoBehaviour
                 m_InfosEvents.m_EventChangeStateFromMoving.Invoke();
             }
             m_CurrentCharacterState = value; 
+            if(m_CurrentCharacterState == CharacterState.Grabbed)
+            {
+                m_InfosEvents.m_EventChangeStateToGrabbed.Invoke();
+            }
         } 
     }
 
@@ -73,6 +77,9 @@ public class InfosEvents
 {
     [SerializeField]
     public UnityEvent m_EventChangeStateFromMoving;
+
+    [SerializeField]
+    public UnityEvent m_EventChangeStateToGrabbed;
 }
 #endregion 
 
