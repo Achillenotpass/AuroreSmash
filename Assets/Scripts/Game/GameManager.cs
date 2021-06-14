@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private List<Sprite> m_EndTimerSprites = new List<Sprite>();
     [SerializeField]
+    private Sprite m_EndGameLives = null;
+    [SerializeField]
     private Text m_TimerText = null;
     [SerializeField]
     private List<HealthBarGame> m_HealthBars = new List<HealthBarGame>();
@@ -360,7 +362,18 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     private void EndGame(PlayerInfos p_WinnerPlayerInfo)
     {
+        PlayerInput[] l_Inputs = FindObjectsOfType<PlayerInput>();
+        foreach (PlayerInput l_Input in l_Inputs)
+        {
+            l_Input.DeactivateInput();
+        }
         m_GameState = EGameState.Ended;
+
+        if (!m_BeginningTimer.gameObject.activeInHierarchy)
+        {
+            m_BeginningTimer.gameObject.SetActive(true);
+            m_BeginningTimer.sprite = m_EndGameLives;
+        }
 
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = p_WinnerPlayerInfo.GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
@@ -373,7 +386,18 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     private void EndGameDraw()
     {
+        PlayerInput[] l_Inputs = FindObjectsOfType<PlayerInput>();
+        foreach (PlayerInput l_Input in l_Inputs)
+        {
+            l_Input.DeactivateInput();
+        }
         m_GameState = EGameState.Ended;
+
+        if (!m_BeginningTimer.gameObject.activeInHierarchy)
+        {
+            m_BeginningTimer.gameObject.SetActive(true);
+            m_BeginningTimer.sprite = m_EndGameLives;
+        }
 
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = m_PlayersAlive[0].GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = m_PlayersAlive[0].GetComponent<Health>().CurrentLives;
@@ -384,21 +408,18 @@ public class GameManager : MonoBehaviour, IUpdateUser
         UsersManager.m_LoserCharacter.m_PlayerIndex = m_PlayersAlive[1].PlayerIndex;
 
         StartCoroutine(CheckForSceneChanging("DrawScreen"));
+        Time.timeScale = 0.2f;
 
         m_EndGameEvent.Invoke();
     }
     private IEnumerator CheckForSceneChanging(string p_SceneName)
     {
         m_VictorySceneAsync = SceneManager.LoadSceneAsync(p_SceneName);
-        while (true)
+        while (m_VictorySceneAsync.progress < 0.9f)
         {
-            if (m_VictorySceneAsync.isDone)
-            {
-                Time.timeScale = 1.0f;
-                break;
-            }
             yield return null;
         }
+        Time.timeScale = 1.0f;
     }
     public IEnumerator RespawnTimer(GameObject p_Character)
     {

@@ -21725,6 +21725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721183005263a30448409eeae67b566d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PauseMenu: {fileID: 0}
 --- !u!1 &1571480024
 GameObject:
   m_ObjectHideFlags: 0
@@ -25699,6 +25700,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c4bb96c0766dce74284b5dc43498e626, type: 3}
   - {fileID: 21300000, guid: 6b86343bc0b349e49a6f9020e94560ec, type: 3}
   - {fileID: 21300000, guid: 867a4700d6a3b4a4391f42b58e8bbb7c, type: 3}
+  m_EndTimerSprites:
+  - {fileID: 21300000, guid: 3927b17b8a23d3b4dbbdf971528a3b56, type: 3}
+  - {fileID: 21300000, guid: b0339ef1f4ef62245a21162e20721e9e, type: 3}
+  - {fileID: 21300000, guid: 2f5907852b45a724b90c2b1a6b476dc2, type: 3}
+  - {fileID: 21300000, guid: fef5b508754219644b016be07a2108a9, type: 3}
   m_TimerText: {fileID: 819401960}
   m_HealthBars:
   - m_HealthBarSlider: {fileID: 1730286175}
@@ -25712,7 +25718,7 @@ MonoBehaviour:
     m_HealtBarNameHolder: {fileID: 8310653884195511894}
     m_PlayeIndex: {fileID: 430583328}
   m_VictoryText: {fileID: 1068942014}
-  m_MinimumTimeAfterGame: 2.5
+  m_MinimumTimeAfterGame: 1
   m_LoseLifeEvent:
     m_PersistentCalls:
       m_Calls: []
