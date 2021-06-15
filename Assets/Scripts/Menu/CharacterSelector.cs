@@ -32,7 +32,7 @@ public class CharacterSelector : MonoBehaviour
     #region Inputs
     public void JoystickInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.started)
+        if (p_Context.started && !m_CharacterManager.InAnimation)
         {
             if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
@@ -42,7 +42,7 @@ public class CharacterSelector : MonoBehaviour
     }
     public void SelectionButton(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.started)
+        if (p_Context.started && !m_CharacterManager.InAnimation)
         {
             if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
@@ -57,7 +57,7 @@ public class CharacterSelector : MonoBehaviour
     }
     public void CancelButton(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.started)
+        if (p_Context.started && !m_CharacterManager.InAnimation)
         {
             if (m_UserInfos.UserCharacter != null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
@@ -66,7 +66,7 @@ public class CharacterSelector : MonoBehaviour
             }
             else if (m_UserInfos.UserCharacter == null && m_CurrentCharacter != null && m_CharacterManager != null)
             {
-                SceneManager.LoadScene("MainMenu");
+                m_CharacterManager.GoToMainMenu();
             }
         }
     }

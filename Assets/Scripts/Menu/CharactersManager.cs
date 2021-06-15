@@ -18,6 +18,8 @@ public class CharactersManager : MonoBehaviour
     [SerializeField]
     private List<Text> m_CharactersName;
     private int m_CurrentPlayerIndex = 1;
+    private bool m_InAnimation = false;
+    public bool InAnimation { get { return m_InAnimation; } }
     #endregion
 
     #region Awake/Start/Update
@@ -126,8 +128,14 @@ public class CharactersManager : MonoBehaviour
         //Puis on va sur la scène de combat
         StartCoroutine(AsyncLoading("MapSelection", 2.0f));
     }
+    public void GoToMainMenu()
+    {
+        StartCoroutine(AsyncLoading("MainMenu", 1.0f));
+    }
     private IEnumerator AsyncLoading(string p_SceneName, float p_MinimumLoadingTime)
     {
+        m_InAnimation = true;
+
         FindObjectOfType<LoadingBackground>().AppearLoadingBackground();
         yield return new WaitForSeconds(p_MinimumLoadingTime);
         Debug.Log("Start loading");
@@ -140,6 +148,8 @@ public class CharactersManager : MonoBehaviour
         }
         Debug.Log("Done");
         l_Scene.allowSceneActivation = true;
+
+        m_InAnimation = false;
     }
     #endregion
 
