@@ -4730,10 +4730,10 @@ MonoBehaviour:
   m_TimeBeforeGameStart: 3
   m_GameTimer: 240
   m_RespawnDelay: 2.5
-  m_MapCenterPosition: {x: 18, y: 10, z: 0}
-  m_MapSize: {x: 38, y: 31, z: 0}
-  m_CameraCenterPosition: {x: 18, y: 10, z: 0}
-  m_CameraSize: {x: 38, y: 31, z: 0}
+  m_MapCenterPosition: {x: 18.15, y: 10, z: 0}
+  m_MapSize: {x: 37.7, y: 31, z: 0}
+  m_CameraCenterPosition: {x: 18.5, y: 10, z: 0}
+  m_CameraSize: {x: 31, y: 25, z: 0}
   m_PlayersParent: {fileID: 2037206055}
   m_PlayersSpawn:
   - {fileID: 1061879928}
@@ -5665,13 +5665,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 9edae18e6d0f3274eb1ad52d489374f1, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 150
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
