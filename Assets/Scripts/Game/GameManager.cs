@@ -171,6 +171,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 if (!m_UsedSpawnPoints.Contains(l_SpawnPoint))
                 {
                     l_SpawnedPlayer.transform.position = m_PlayersSpawn[l_SpawnPoint].position;
+                    l_SpawnedPlayer.GetComponent<CharacterMovement>().BaseZ = m_PlayersSpawn[l_SpawnPoint].position.z;
                     m_UsedSpawnPoints.Add(l_SpawnPoint);
 
                     break;
@@ -185,6 +186,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         {
             int l_SpawnPoint = Random.Range(0, m_PlayersSpawn.Count);
             l_SpawnedPlayer.transform.position = m_PlayersSpawn[l_SpawnPoint].position;
+            l_SpawnedPlayer.GetComponent<CharacterMovement>().BaseZ = m_PlayersSpawn[l_SpawnPoint].position.z;
         }
 
         l_SpawnedPlayer.GetComponent<CharacterController>().enabled = true;
