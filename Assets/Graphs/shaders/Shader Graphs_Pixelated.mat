@@ -82,7 +82,7 @@ Material:
     m_Colors:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - grid_size: {r: 150, g: 150, b: 150, a: 150}
+    - grid_size: {r: 250, g: 250, b: 250, a: 250}
   m_BuildTextureStacks: []
 --- !u!114 &1896960635686981850
 MonoBehaviour:
