@@ -53,7 +53,7 @@ public class SO_Feedback : ScriptableObject
                 if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.Find(m_VFXList[p_NumberInTheList].name))
                 {
                     Vector3 l_VFXSpecificPosition = m_VFXSpecificPosition[p_NumberInTheList];
-                    if (l_VFXSpecificPosition.x / Mathf.Abs(l_VFXSpecificPosition.x) != p_Instantiator.transform.GetChild(0).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(0).localScale.x))
+                    if (l_VFXSpecificPosition.x / Mathf.Abs(l_VFXSpecificPosition.x) != p_Instantiator.transform.localScale.x / Mathf.Abs(p_Instantiator.transform.localScale.x))
                     {
                         l_VFXSpecificPosition.x *= -1;
                     }
@@ -104,7 +104,7 @@ public class SO_Feedback : ScriptableObject
                     if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.Find(m_VFXList[i].name))
                     {
                         Vector3 l_VFXSpecificPosition = m_VFXSpecificPosition[i];
-                        if (l_VFXSpecificPosition.x / Mathf.Abs(l_VFXSpecificPosition.x) != p_Instantiator.transform.GetChild(0).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(0).localScale.x))
+                        if (l_VFXSpecificPosition.x / Mathf.Abs(l_VFXSpecificPosition.x) != p_Instantiator.transform.localScale.x / Mathf.Abs(p_Instantiator.transform.localScale.x))
                         {
                             l_VFXSpecificPosition.x *= -1;
                         }
@@ -145,14 +145,26 @@ public class SO_Feedback : ScriptableObject
 
     public void StopAllVFX(GameObject p_Instantiator)
     {
-        ParticleSystem[] l_ParticleSystemInInstantiator = FindObjectsOfType<ParticleSystem>();
-        for (int i = 0; i < l_ParticleSystemInInstantiator.Length; i++)
+        for(int n = 0; n < m_VFXList.Length; n++)
+        {
+            while (p_Instantiator.transform.Find(m_VFXList[n].name))
+            {
+                Transform l_ParticleSystemInInstantiator = p_Instantiator.transform.Find(m_VFXList[n].name);
+                Destroy(l_ParticleSystemInInstantiator.gameObject);
+                if (p_Instantiator.transform.Find(m_VFXList[n].name))
+                {
+                    return;
+                }
+            }
+        }
+        ParticleSystem[] l_ParticleSystemInScene = FindObjectsOfType<ParticleSystem>();
+        for (int i = 0; i < l_ParticleSystemInScene.Length; i++)
         {
             for(int v = 0; v < m_VFXList.Length; v++)
             {
-                if(l_ParticleSystemInInstantiator[i].name == m_VFXList[v].name)
+                if(l_ParticleSystemInScene[i].name == m_VFXList[v].name)
                 {
-                    Destroy(l_ParticleSystemInInstantiator[i].gameObject);
+                    Destroy(l_ParticleSystemInScene[i].gameObject);
                     break;
                 }
             }
