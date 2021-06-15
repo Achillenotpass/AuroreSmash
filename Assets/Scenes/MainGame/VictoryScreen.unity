@@ -776,6 +776,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2b2a9d47-4843-4223-95f6-5956d7b06452
     m_ActionName: UI/Joysticks[/XInputControllerWindows/leftStick,/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b71391c-36ab-4ba5-9e70-04560436d732
+    m_ActionName: UI/Start[/XInputControllerWindows/start,/XInputControllerWindows/start,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -2543,7 +2547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1868031173
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2768,7 +2772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2051904696
 RectTransform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DeathEjection
   m_EditorClassIdentifier: 
   m_FeedbackName: DeathEjection
-  m_AsVFX: 1
+  m_AsVFX: 0
   m_VFXList:
   - {fileID: 5496107414869666762, guid: 8c4a64216076ea14881359c52fb531d1, type: 3}
   m_VFXSpecificPosition:
