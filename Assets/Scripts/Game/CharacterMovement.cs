@@ -491,16 +491,16 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #endregion
     private void CheckAnimation()
     {
-        //if (m_IsGroundJumping || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
-        //{
-        //    //Ground jump
-        //    //m_MovementEvents.m_EventBeginGroundJump.Invoke();
-        //}
-        //else if(m_IsAirJumping || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
-        //{
-        //    //Air jump
-        //    //m_MovementEvents.m_EventBeginAirJump.Invoke();
-        //}
+        if (m_IsGroundJumping || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        {
+            //Ground jump
+            //m_MovementEvents.m_EventBeginGroundJump.Invoke();
+        }
+        else if (m_IsAirJumping || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        {
+            //Air jump
+            //m_MovementEvents.m_EventBeginAirJump.Invoke();
+        }
         if (m_IsGrounded)
         {
             if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)

@@ -750,12 +750,20 @@ MonoBehaviour:
   m_Animations:
   - m_AnimationName: Idle
     m_Animation: {fileID: 11400000, guid: 3ade321a4987288429fdaab1cf2233c2, type: 2}
+  - m_AnimationName: AirIdle
+    m_Animation: {fileID: 11400000, guid: 4f26f0b4513bae84c941e32d233523cf, type: 2}
+  - m_AnimationName: Move
+    m_Animation: {fileID: 11400000, guid: d979c99b947532a4b9f91fcfde026623, type: 2}
+  - m_AnimationName: GroundJump
+    m_Animation: {fileID: 11400000, guid: 870f04baacf4ad440b3753a06622df1e, type: 2}
+  - m_AnimationName: AirJump
+    m_Animation: {fileID: 11400000, guid: 870f04baacf4ad440b3753a06622df1e, type: 2}
   - m_AnimationName: Jab
     m_Animation: {fileID: 11400000, guid: eaf204ba8c646d84391021d3ea539d2a, type: 2}
-  - m_AnimationName: UpTilt
-    m_Animation: {fileID: 11400000, guid: 633aca9d181ad584d90a0ca836386930, type: 2}
   - m_AnimationName: SideTilt
     m_Animation: {fileID: 11400000, guid: 95ec7d4dfc2ae8941b00b03fcaffdc1e, type: 2}
+  - m_AnimationName: UpTilt
+    m_Animation: {fileID: 11400000, guid: 633aca9d181ad584d90a0ca836386930, type: 2}
   - m_AnimationName: DownTilt
     m_Animation: {fileID: 11400000, guid: fef9e0437366ff445aef72bc8e47da29, type: 2}
   - m_AnimationName: NeutralAir
@@ -768,12 +776,12 @@ MonoBehaviour:
     m_Animation: {fileID: 11400000, guid: 797e54efb4143e14bb38c4d2dc542bce, type: 2}
   - m_AnimationName: DownAir
     m_Animation: {fileID: 11400000, guid: bac81ec84c8b81548ac726600c64d6ce, type: 2}
-  - m_AnimationName: Move
-    m_Animation: {fileID: 11400000, guid: d979c99b947532a4b9f91fcfde026623, type: 2}
-  - m_AnimationName: Jump
-    m_Animation: {fileID: 11400000, guid: 870f04baacf4ad440b3753a06622df1e, type: 2}
   - m_AnimationName: Grab
     m_Animation: {fileID: 11400000, guid: d18eca96065f4584c8970088b6923f7b, type: 2}
+  - m_AnimationName: Throw
+    m_Animation: {fileID: 11400000, guid: d23df5a407a5db24fa7d07bbe9e12ba3, type: 2}
+  - m_AnimationName: Shield
+    m_Animation: {fileID: 11400000, guid: 75669196e0092434e9a10672a91f3e72, type: 2}
   m_TemporaryFramePerfectAnimator: 0
 --- !u!1 &6393736191472783979
 GameObject:
@@ -1680,7 +1688,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Jump
+            m_StringArgument: GroundJump
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 11400000, guid: 67c9cef03dba1c742a26837c7eb3b027, type: 2}
@@ -1707,7 +1715,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Jump
+            m_StringArgument: AirJump
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 11400000, guid: 1cc93e494e2c4144097f86002ca6b27c, type: 2}
@@ -1791,7 +1799,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Idle
+            m_StringArgument: AirIdle
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!114 &9200278381566710900
@@ -2482,8 +2490,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
-  m_EjectionAngle: 0
-  m_EjectionPower: 0
+  m_ReboundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   m_MaxTimerEjection: 1
   m_EjectionEvents:
     m_TakeHit:

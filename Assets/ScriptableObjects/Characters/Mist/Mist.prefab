@@ -374,12 +374,20 @@ MonoBehaviour:
   m_Animations:
   - m_AnimationName: Idle
     m_Animation: {fileID: 11400000, guid: 949b1943576567c47a42b3706aded053, type: 2}
+  - m_AnimationName: AirIdle
+    m_Animation: {fileID: 11400000, guid: c4cb75fd99e7aab44b87e3e2aa1afe30, type: 2}
+  - m_AnimationName: Move
+    m_Animation: {fileID: 11400000, guid: 5361619d10a319f4c8190e828f98687d, type: 2}
+  - m_AnimationName: GroundJump
+    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
+  - m_AnimationName: AirJump
+    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
   - m_AnimationName: Jab
     m_Animation: {fileID: 11400000, guid: 65bab7eee9ef6e64ba208431b9d89dc3, type: 2}
-  - m_AnimationName: UpTilt
-    m_Animation: {fileID: 11400000, guid: 728c42b72888f574f9f4a6a9c3aceb07, type: 2}
   - m_AnimationName: SideTilt
     m_Animation: {fileID: 11400000, guid: 9dc0e2f48fac33d429016c616e6abb77, type: 2}
+  - m_AnimationName: UpTilt
+    m_Animation: {fileID: 11400000, guid: 728c42b72888f574f9f4a6a9c3aceb07, type: 2}
   - m_AnimationName: DownTilt
     m_Animation: {fileID: 11400000, guid: ea7fd9b3e4c44b745abd88e9d3d0cd3a, type: 2}
   - m_AnimationName: NeutralAir
@@ -396,14 +404,8 @@ MonoBehaviour:
     m_Animation: {fileID: 11400000, guid: 3db5cbf36d669914783cf537f4020f15, type: 2}
   - m_AnimationName: Throw
     m_Animation: {fileID: 11400000, guid: 3e37022eb195856479862af639c54c52, type: 2}
-  - m_AnimationName: Move
-    m_Animation: {fileID: 11400000, guid: 5361619d10a319f4c8190e828f98687d, type: 2}
-  - m_AnimationName: GroundJump
-    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
-  - m_AnimationName: AirJump
-    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
   - m_AnimationName: Shield
-    m_Animation: {fileID: 11400000, guid: 227fbc3b3e6f84f4394db4afcb56217b, type: 2}
+    m_Animation: {fileID: 11400000, guid: cef9482b8a2b3ed4b9e3f4b3f33f8e8e, type: 2}
   m_TemporaryFramePerfectAnimator: 0
 --- !u!1 &4808374153565198129
 GameObject:
@@ -1633,7 +1635,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Idle
+            m_StringArgument: AirIdle
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!114 &7326282991860863278
@@ -1873,6 +1875,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2b2a9d47-4843-4223-95f6-5956d7b06452
     m_ActionName: UI/Joysticks[/XInputControllerWindows/leftStick,/XInputControllerWindows/leftStick,/XInputControllerWindows/rightStick,/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b71391c-36ab-4ba5-9e70-04560436d732
+    m_ActionName: UI/Start[/XInputControllerWindows/start,/XInputControllerWindows/start,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2360,8 +2366,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateSettings: {fileID: 11400000, guid: c79fd2af4dd301e4999ae7f963ae2cf6, type: 2}
-  m_EjectionAngle: 0
-  m_EjectionPower: 0
+  m_ReboundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   m_MaxTimerEjection: 1
   m_EjectionEvents:
     m_TakeHit:
