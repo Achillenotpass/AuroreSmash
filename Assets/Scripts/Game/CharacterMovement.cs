@@ -31,6 +31,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     private Vector3 m_PlayerExternalDirection = Vector3.zero;
     private Vector3 m_PlayerEjectionDirection = Vector3.zero;
     private float m_BaseZ = 0.0f;
+    public float BaseZ { get { return m_BaseZ; } set { m_BaseZ = value; } }
     #endregion
     #region Speed
     private float m_MaxCharacterSpeed = 10f;
@@ -113,8 +114,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_CharacterEndGroundVelocity = m_CharacterInfos.CharacterEndGroundVelocity;
         m_CharacterEndAirVelocity = m_CharacterInfos.CharacterEndAirVelocity;
         m_CharacterSpeed = m_MaxCharacterSpeed;
-
-        m_BaseZ = transform.position.z;
 }
     #endregion
 

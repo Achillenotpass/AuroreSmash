@@ -179,15 +179,12 @@ public class MainMenu : MonoBehaviour
 
         FindObjectOfType<LoadingBackground>().AppearLoadingBackground();
         yield return new WaitForSeconds(p_MinimumLoadingTime);
-        Debug.Log("Start loading");
         AsyncOperation l_Scene = SceneManager.LoadSceneAsync(p_SceneName, LoadSceneMode.Single);
         l_Scene.allowSceneActivation = false;
         while (l_Scene.progress < 0.9f)
         {
-            Debug.Log(l_Scene.progress);
             yield return null;
         }
-        Debug.Log("Done");
         l_Scene.allowSceneActivation = true;
 
         m_InAnimation = false;
