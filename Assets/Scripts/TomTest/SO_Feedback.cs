@@ -12,7 +12,7 @@ public class SO_Feedback : ScriptableObject
 
     [Header("VFX")]
     [SerializeField]
-    private bool m_AsVFX = false;
+    private bool m_HasVFX = false;
     [SerializeField]
     private GameObject[] m_VFXList = null;
     public GameObject[] VFXList { get { return m_VFXList; } }
@@ -21,9 +21,9 @@ public class SO_Feedback : ScriptableObject
     [SerializeField]
     private Vector3[] m_VFXSpecificRotation = null;
     [SerializeField]
-    private bool[] m_VFXAsToBeChild = null;
+    private bool[] m_VFXHasToBeChild = null;
     [SerializeField]
-    private bool[] m_VFXAsToBeChildOfChild = null;
+    private bool[] m_VFXHasToBeChildOfChild = null;
     [SerializeField]
     private int[] m_VfxChildOfChild = null;
     [SerializeField]
@@ -33,9 +33,9 @@ public class SO_Feedback : ScriptableObject
 
     public void InstantiateVFX(GameObject p_Instantiator, int p_NumberInTheList)
     {
-        if (m_AsVFX)
+        if (m_HasVFX)
         {
-            if (!m_VFXAsToBeChild[p_NumberInTheList] && !m_VFXAsToBeChildOfChild[p_NumberInTheList])
+            if (!m_VFXHasToBeChild[p_NumberInTheList] && !m_VFXHasToBeChildOfChild[p_NumberInTheList])
             {
                 if (!m_VFXIsAlone || m_VFXIsAlone && FindObjectOfType<ParticleSystem>().gameObject.name != m_VFXList[p_NumberInTheList].name)
                 {
@@ -48,7 +48,7 @@ public class SO_Feedback : ScriptableObject
                     l_VFXInstiated.name = m_VFXList[p_NumberInTheList].name;
                 }
             }
-            else if (m_VFXAsToBeChild[p_NumberInTheList])
+            else if (m_VFXHasToBeChild[p_NumberInTheList])
             {
                 if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.Find(m_VFXList[p_NumberInTheList].name))
                 {
@@ -62,7 +62,7 @@ public class SO_Feedback : ScriptableObject
                     l_VFXInstiated.transform.parent = p_Instantiator.transform;
                 }
             }
-            else if (m_VFXAsToBeChildOfChild[p_NumberInTheList])
+            else if (m_VFXHasToBeChildOfChild[p_NumberInTheList])
             {
                 if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[p_NumberInTheList]).Find(m_VFXList[p_NumberInTheList].name))
                 {
@@ -82,11 +82,11 @@ public class SO_Feedback : ScriptableObject
     }
     public void InstantiateAllVFX(GameObject p_Instantiator)
     {
-        if (m_AsVFX)
+        if (m_HasVFX)
         {
             for (int i = 0; i < m_VFXList.Length; i++)
             {
-                if (!m_VFXAsToBeChild[i] && !m_VFXAsToBeChildOfChild[i])
+                if (!m_VFXHasToBeChild[i] && !m_VFXHasToBeChildOfChild[i])
                 {
                     if (!m_VFXIsAlone || m_VFXIsAlone && FindObjectOfType<ParticleSystem>().gameObject.name != m_VFXList[i].name)
                     {
@@ -99,7 +99,7 @@ public class SO_Feedback : ScriptableObject
                         l_VFXInstiated.name = m_VFXList[i].name;
                     }
                 }
-                else if (m_VFXAsToBeChild[i])
+                else if (m_VFXHasToBeChild[i])
                 {
                     if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.Find(m_VFXList[i].name))
                     {
@@ -113,7 +113,7 @@ public class SO_Feedback : ScriptableObject
                         l_VFXInstiated.transform.parent = p_Instantiator.transform;
                     }
                 }
-                else if (m_VFXAsToBeChildOfChild[i])
+                else if (m_VFXHasToBeChildOfChild[i])
                 {
                     if (!m_VFXIsAlone || m_VFXIsAlone && !p_Instantiator.transform.GetChild(m_VFXChildOfChildNumber[i]).Find(m_VFXList[i].name))
                     {
@@ -161,19 +161,19 @@ public class SO_Feedback : ScriptableObject
 
     [Header("SFX")]
     [SerializeField]
-    private bool m_AsSFX = false;
+    private bool m_HasSFX = false;
     [SerializeField]
     private AudioClip[] m_SFXList = null;
     public AudioClip[] SFXList { get { return m_SFXList; } }
 
     public void InstantiateAudioClip(int p_NumberInTheList)
     {
-        if(m_AsSFX)
+        if(m_HasSFX)
             FindObjectOfType<AudioSource>().PlayOneShot(m_SFXList[p_NumberInTheList]);
     }
     public void InstantiateAllAudioClip()
     {
-        if(m_AsSFX)
+        if(m_HasSFX)
             foreach (AudioClip l_AudioClip in m_SFXList)
                 FindObjectOfType<AudioSource>().PlayOneShot(l_AudioClip);
     }
@@ -181,7 +181,7 @@ public class SO_Feedback : ScriptableObject
 
     [Header("VFX Animation")]
     [SerializeField]
-    private bool m_AsVFXAnimation = false;
+    private bool m_HasVFXAnimation = false;
     [SerializeField]
     private GameObject[] m_VFXAnimationList = null;
     [SerializeField]
@@ -189,9 +189,9 @@ public class SO_Feedback : ScriptableObject
     [SerializeField]
     private Vector3[] m_VFXAnimationSpecificRotation = null;
     [SerializeField]
-    private bool[] m_VFXAnimationAsToBeChild = null;
+    private bool[] m_VFXAnimationHasToBeChild = null;
     [SerializeField]
-    private bool[] m_VFXAnimationAsToBeChildOfChild = null;
+    private bool[] m_VFXAnimationHasToBeChildOfChild = null;
     [SerializeField]
     private int[] m_VFXAnimationChildOfChildNumber = null;
     [SerializeField]
@@ -200,9 +200,9 @@ public class SO_Feedback : ScriptableObject
 
     public void InstantiateVFXAnimation(GameObject p_Instantiator, int p_NumberInTheList)
     {
-        if (m_AsVFXAnimation)
+        if (m_HasVFXAnimation)
         {
-            if (!m_VFXAnimationAsToBeChild[p_NumberInTheList] && !m_VFXAnimationAsToBeChildOfChild[p_NumberInTheList])
+            if (!m_VFXAnimationHasToBeChild[p_NumberInTheList] && !m_VFXAnimationHasToBeChildOfChild[p_NumberInTheList])
             {
                 if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && FindObjectOfType<FramePerfectAnimator>().gameObject.name != m_VFXAnimationList[p_NumberInTheList].name)
                 {
@@ -214,7 +214,7 @@ public class SO_Feedback : ScriptableObject
                     l_VFXAnimation.name = m_VFXAnimationList[p_NumberInTheList].name;
                 }
             }
-            else if (m_VFXAnimationAsToBeChild[p_NumberInTheList])
+            else if (m_VFXAnimationHasToBeChild[p_NumberInTheList])
             {
                 if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && !p_Instantiator.transform.Find(m_VFXAnimationList[p_NumberInTheList].name))
                 {
@@ -227,7 +227,7 @@ public class SO_Feedback : ScriptableObject
                     l_VFXAnimation.name = m_VFXAnimationList[p_NumberInTheList].name;
                 }
             }
-            else if (m_VFXAnimationAsToBeChildOfChild[p_NumberInTheList])
+            else if (m_VFXAnimationHasToBeChildOfChild[p_NumberInTheList])
             {
                 if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && !p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[p_NumberInTheList]).Find(m_VFXAnimationList[p_NumberInTheList].name))
                 {
@@ -245,12 +245,12 @@ public class SO_Feedback : ScriptableObject
 
     public void InstantiateAllVFXAnimation(GameObject p_Instantiator)
     {
-        if (m_AsVFXAnimation)
+        if (m_HasVFXAnimation)
         {
             for(int i = 0; i < m_VFXAnimationList.Length; i++)
             {
 
-                if (!m_VFXAnimationAsToBeChild[i] && !m_VFXAnimationAsToBeChildOfChild[i])
+                if (!m_VFXAnimationHasToBeChild[i] && !m_VFXAnimationHasToBeChildOfChild[i])
                 {
                     if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && FindObjectOfType<FramePerfectAnimator>().gameObject.name != m_VFXAnimationList[i].name)
                     {
@@ -262,7 +262,7 @@ public class SO_Feedback : ScriptableObject
                         l_VFXAnimation.name = m_VFXAnimationList[i].name;
                     }
                 }
-                else if (m_VFXAnimationAsToBeChild[i])
+                else if (m_VFXAnimationHasToBeChild[i])
                 {
                     if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && !p_Instantiator.transform.Find(m_VFXAnimationList[i].name))
                     {
@@ -275,7 +275,7 @@ public class SO_Feedback : ScriptableObject
                         l_VFXAnimation.name = m_VFXAnimationList[i].name;
                     }
                 }
-                else if (m_VFXAnimationAsToBeChildOfChild[i])
+                else if (m_VFXAnimationHasToBeChildOfChild[i])
                 {
                     if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && !p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]).Find(m_VFXAnimationList[i].name))
                     {
@@ -322,8 +322,10 @@ public class SO_Feedback : ScriptableObject
 
     [Header("Shake")]
     [SerializeField]
-    private bool m_AsToShake = false;
-    public bool AsToShake { get { return m_AsToShake; } }
+    private bool m_HasToShake = false;
+    public bool HasToShake { get { return m_HasToShake; } }
+    [SerializeField]
+    private bool m_ObjectToShakeIsCamera = false;
     [SerializeField]
     private float m_ShakeIntesity = 0.1f;
     public float ShakeIntesity { get { return m_ShakeIntesity; } }
@@ -331,16 +333,28 @@ public class SO_Feedback : ScriptableObject
     private float m_ShakeDuration = 0.1f;
     public float ShakeDuration { get { return m_ShakeDuration; } }
 
-    public void Shaking(Shake p_Shake, float p_ShakeIntensity, float p_ShakeDuration, GameObject p_ObjectToShake)
+    public void Shaking(GameObject p_ObjectToShake)
     {
-        if(m_AsToShake)
-            p_Shake.StartCoroutine(FindObjectOfType<Shake>().CreateShake(p_ShakeIntensity, p_ShakeDuration, p_ObjectToShake));
+        if (m_HasToShake)
+        {
+            if(m_ObjectToShakeIsCamera)
+            {
+                Camera l_Camera = FindObjectOfType<Camera>();
+                Shake l_Shake = FindObjectOfType<Shake>();
+                l_Shake.StartCoroutine(l_Shake.CreateShake(m_ShakeIntesity, m_ShakeDuration, l_Camera.gameObject));
+            }
+            else
+            {
+                Shake l_Shake = FindObjectOfType<Shake>();
+                l_Shake.StartCoroutine(l_Shake.CreateShake(m_ShakeIntesity, m_ShakeDuration, p_ObjectToShake));
+            }
+        }
     }
 
     [Header("Blink")]
     [SerializeField]
-    private bool m_AsToBlink = false;
-    public bool AsToBlink { get { return m_AsToBlink; } }
+    private bool m_HasToBlink = false;
+    public bool HasToBlink { get { return m_HasToBlink; } }
     [SerializeField]
     private float m_BlinkIntensity = 0.1f;
     public float BlinkIntensity { get { return m_BlinkIntensity; } }
@@ -351,8 +365,8 @@ public class SO_Feedback : ScriptableObject
 
     [Header("Freeze Frame")]
     [SerializeField]
-    private bool m_AsToFreezeFrame = false;
-    public bool AsToFreezeFrame { get { return m_AsToFreezeFrame; } }
+    private bool m_HasToFreezeFrame = false;
+    public bool HasToFreezeFrame { get { return m_HasToFreezeFrame; } }
     [SerializeField]
     private float m_FreezeFrameDuration = 0.1f;
     public float FreezeFrameDuration { get { return m_FreezeFrameDuration; } }
@@ -360,8 +374,8 @@ public class SO_Feedback : ScriptableObject
 
     [Header("Vibration")]
     [SerializeField]
-    private bool m_AsToVibrate = false;
-    public bool AsToVibrate { get { return m_AsToVibrate; } }
+    private bool m_HasToVibrate = false;
+    public bool HasToVibrate { get { return m_HasToVibrate; } }
     [SerializeField]
     private float m_VibrationIntesity = 0.1f;
     public float VibrationIntesity { get { return m_VibrationIntesity; } }
@@ -374,6 +388,7 @@ public class SO_Feedback : ScriptableObject
         InstantiateAllVFX(p_Initiator);
         InstantiateAllVFXAnimation(p_Initiator);
         InstantiateAllAudioClip();
+        Shaking(p_Initiator);
     }
 
     public void StopFeedback(GameObject p_Initiator)

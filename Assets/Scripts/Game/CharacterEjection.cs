@@ -93,10 +93,12 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
             if(p_EjectionPower + 1f + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 45f) >= 15)
             {
                 m_EjectionEvents.m_TakePowerfullHit.Invoke();
+                m_EjectionEvents.m_EjectionPowerfull.Invoke();
             }
             else
             {
                 m_EjectionEvents.m_TakeHit.Invoke();
+                m_EjectionEvents.m_Ejection.Invoke();
             }
         }
     }
@@ -167,4 +169,10 @@ public class EjectionEvents
 
     [SerializeField]
     public UnityEvent m_TakePowerfullHit;
-}
+
+    [SerializeField]
+    public UnityEvent m_Ejection;
+
+    [SerializeField]
+    public UnityEvent m_EjectionPowerfull;
+} 
