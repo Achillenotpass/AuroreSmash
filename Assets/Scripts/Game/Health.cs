@@ -27,6 +27,7 @@ public class Health : MonoBehaviour
     //Feedbacks
     private Slider m_HealthBar = null;
     public Slider HealthBar { set { m_HealthBar = value; } }
+    private List<GameObject> m_LivesCount = new List<GameObject>();
     #endregion
 
     #region Awake/Start/Update
@@ -117,6 +118,8 @@ public class Health : MonoBehaviour
     }
     private void Death()
     {
+        m_LivesCount[m_CurrentLives].SetActive(false);
+
         CurrentLives = CurrentLives - 1;
         GetComponent<CharacterEjection>().InterruptEjection();
         CurrentHealth = MaxHealth;
