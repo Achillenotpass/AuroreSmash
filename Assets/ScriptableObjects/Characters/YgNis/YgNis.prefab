@@ -1556,7 +1556,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -2039,6 +2039,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2b2a9d47-4843-4223-95f6-5956d7b06452
     m_ActionName: UI/Joysticks
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b71391c-36ab-4ba5-9e70-04560436d732
+    m_ActionName: UI/Start
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
