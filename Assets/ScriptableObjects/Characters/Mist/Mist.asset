@@ -23,6 +23,6 @@ MonoBehaviour:
     m_HealtBarNameHolder: {fileID: 21300000, guid: 5051157e7b0c78943bafd8e34db9fa84, type: 3}
   m_VictoryScreenDatas:
     m_WinnerSprite: {fileID: 21300000, guid: 85b8553eebf37db47baf0d010a856017, type: 3}
-    m_LoserSprite: {fileID: 21300000, guid: 85b8553eebf37db47baf0d010a856017, type: 3}
+    m_LoserSprite: {fileID: 21300000, guid: 8b758d76c070a2243b9b5beb3fb8b538, type: 3}
     m_FaceSprite: {fileID: 21300000, guid: 9dd569b2af26dd74784cf50d9f393b1a, type: 3}
     m_DrawSprite: {fileID: 21300000, guid: 85b8553eebf37db47baf0d010a856017, type: 3}
