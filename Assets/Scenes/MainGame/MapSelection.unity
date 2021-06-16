@@ -852,6 +852,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2b2a9d47-4843-4223-95f6-5956d7b06452
     m_ActionName: UI/Joysticks[/XInputControllerWindows/leftStick,/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b71391c-36ab-4ba5-9e70-04560436d732
+    m_ActionName: UI/Start
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -2738,7 +2742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: db114d26c1c2dd54fb21b33099bdbe4b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae4b9fe107932ce4ba622cc8121809ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
