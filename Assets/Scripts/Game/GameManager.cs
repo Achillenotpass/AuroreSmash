@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 l_PlayerHealth.HealthBar = l_HealthBar;
                 l_HealthBar.maxValue = l_PlayerHealth.MaxHealth;
                 l_HealthBar.value = l_HealthBar.maxValue;
+                l_PlayerHealth.LivesCounts = m_HealthBars[i].m_LivesCount;
 
                 SO_Character l_CurrentCharacter = l_PlayerHealth.GetComponent<CharacterInfos>().Character;
                 m_HealthBars[i].m_HealthBarImage.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarImage;
@@ -480,6 +481,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         public Image m_HealthBarLogo = null;
         public Image m_HealtBarNameHolder = null;
         public Text m_PlayeIndex = null;
+        public List<GameObject> m_LivesCount = new List<GameObject>();
     }
 }
 
