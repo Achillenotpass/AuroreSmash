@@ -374,6 +374,13 @@ public class SO_Feedback : ScriptableObject
     private float m_BlinkDuration = 0.1f;
     public float BlinkDuration { get { return m_BlinkDuration; } }
 
+    public void Blink(GameObject p_ObjectToBlink)
+    {
+        if (m_HasToBlink)
+        {
+            p_ObjectToBlink.GetComponent<Blink>().StartCoroutine(p_ObjectToBlink.GetComponent<Blink>().Blinking(p_ObjectToBlink, m_BlinkDuration, m_BlinkIntensity));
+        }
+    }
 
     [Header("Freeze Frame")]
     [SerializeField]

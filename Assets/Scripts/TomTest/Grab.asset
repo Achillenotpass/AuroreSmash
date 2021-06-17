@@ -17,7 +17,7 @@ MonoBehaviour:
   m_VFXList:
   - {fileID: 7173741747528521350, guid: 517da76af733d5545867751ece00dfa4, type: 3}
   m_VFXSpecificPosition:
-  - {x: 0, y: 0, z: 0}
+  - {x: -0.3, y: 0, z: 0}
   m_VFXSpecificRotation:
   - {x: 0, y: 0, z: 0}
   m_VFXHasToBeChild: 01
