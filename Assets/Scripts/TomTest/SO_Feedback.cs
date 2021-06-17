@@ -367,18 +367,20 @@ public class SO_Feedback : ScriptableObject
     [SerializeField]
     private bool m_HasToBlink = false;
     public bool HasToBlink { get { return m_HasToBlink; } }
-    [SerializeField]
+    [SerializeField, Range(0f, 1f)]
     private float m_BlinkIntensity = 0.1f;
     public float BlinkIntensity { get { return m_BlinkIntensity; } }
     [SerializeField]
     private float m_BlinkDuration = 0.1f;
     public float BlinkDuration { get { return m_BlinkDuration; } }
+    [SerializeField]
+    private float m_BlinkSpeed = 0.5f;
 
     public void Blink(GameObject p_ObjectToBlink)
     {
         if (m_HasToBlink)
         {
-            p_ObjectToBlink.GetComponent<Blink>().StartCoroutine(p_ObjectToBlink.GetComponent<Blink>().Blinking(p_ObjectToBlink, m_BlinkDuration, m_BlinkIntensity));
+            p_ObjectToBlink.GetComponent<Blink>().StartCoroutine(p_ObjectToBlink.GetComponent<Blink>().Blinking(p_ObjectToBlink, m_BlinkDuration, m_BlinkSpeed, m_BlinkIntensity));
         }
     }
 
