@@ -13,24 +13,37 @@ MonoBehaviour:
   m_Name: GroundJump
   m_EditorClassIdentifier: 
   m_FeedbackName: GroundJump
-  m_AsVFX: 0
+  m_HasVFX: 0
   m_VFXList: []
   m_VFXSpecificPosition: []
-  m_VFXAsToBeChild: 
-  m_AsSFX: 0
+  m_VFXSpecificRotation: []
+  m_VFXHasToBeChild: 
+  m_VFXHasToBeChildOfChild: 
+  m_VfxChildOfChild: 
+  m_VFXChildOfChildNumber: 
+  m_VFXIsAlone: 0
+  m_HasSFX: 0
   m_SFXList: []
-  m_AsVFXAnimation: 0
-  m_VFXAnimation: []
-  m_VFXAnimationSpecificPosition: []
-  m_VFXAnimationAsToBeChild: 
-  m_AsToShake: 0
+  m_HasVFXAnimation: 1
+  m_VFXAnimationList:
+  - {fileID: 7599707128303667127, guid: eb4da5437cc6e9d4ba182cbf5634c0ec, type: 3}
+  m_VFXAnimationSpecificPosition:
+  - {x: -0.3, y: -0.2, z: 0}
+  m_VFXAnimationSpecificRotation:
+  - {x: 0, y: 0, z: 0}
+  m_VFXAnimationHasToBeChild: 00
+  m_VFXAnimationHasToBeChildOfChild: 00
+  m_VFXAnimationChildOfChildNumber: 00000000
+  m_VFXAnimationIsAlone: 1
+  m_HasToShake: 0
+  m_ObjectToShakeIsCamera: 0
   m_ShakeIntesity: 0.1
   m_ShakeDuration: 0.1
-  m_AsToBlink: 0
+  m_HasToBlink: 0
   m_BlinkIntensity: 0.1
   m_BlinkDuration: 0.1
-  m_AsToFreezeFrame: 0
+  m_HasToFreezeFrame: 0
   m_FreezeFrameDuration: 0.1
-  m_AsToVibrate: 0
+  m_HasToVibrate: 0
   m_VibrationIntesity: 0.1
   m_VibrationDuration: 0.1

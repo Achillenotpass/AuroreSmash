@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4741711095188315621}
   - component: {fileID: 7922265365696424699}
   m_Layer: 0
-  m_Name: throw 1
+  m_Name: Ejection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ ParticleSystem:
   serializedVersion: 7
   lengthInSec: 0.62
   simulationSpeed: 1.78
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
