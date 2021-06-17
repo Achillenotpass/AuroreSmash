@@ -65,7 +65,11 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private List<Sprite> m_EndTimerSprites = new List<Sprite>();
     [SerializeField]
+    private Sprite m_EndGameTimer = null;
+    [SerializeField]
     private Sprite m_EndGameLives = null;
+    [SerializeField]
+    private Image m_EndgameFeedback = null;
     [SerializeField]
     private Text m_TimerText = null;
     [SerializeField]
@@ -378,6 +382,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
             m_BeginningTimer.sprite = m_EndGameLives;
         }
 
+        m_EndgameFeedback.gameObject.SetActive(true);
+        m_EndgameFeedback.sprite = m_EndGameLives;
+
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = p_WinnerPlayerInfo.GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
         UsersManager.m_WinnerCharacter.m_PlayerIndex = p_WinnerPlayerInfo.PlayerIndex;
@@ -401,6 +408,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
             m_BeginningTimer.gameObject.SetActive(true);
             m_BeginningTimer.sprite = m_EndGameLives;
         }
+
+        m_EndgameFeedback.gameObject.SetActive(true);
+        m_EndgameFeedback.sprite = m_EndGameTimer; ;
 
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = m_PlayersAlive[0].GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = m_PlayersAlive[0].GetComponent<Health>().CurrentLives;
