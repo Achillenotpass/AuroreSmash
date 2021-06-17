@@ -28,6 +28,7 @@ public class Health : MonoBehaviour
     private Slider m_HealthBar = null;
     public Slider HealthBar { set { m_HealthBar = value; } }
     private List<GameObject> m_LivesCount = new List<GameObject>();
+    public List<GameObject> LivesCounts { get { return m_LivesCount; } set { m_LivesCount = value; } }
     #endregion
 
     #region Awake/Start/Update
@@ -68,10 +69,8 @@ public class Health : MonoBehaviour
 
         if(p_HitBox.EjectionPower > 0.0f)
         {
-            m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
-            Invoke(nameof(StopHitLag), p_HitBox.HitLag);
             //On appelle la fonction apliquant l'�jection sur le joueur touch� 
-            GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle, p_AttackerPosition);
+            GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle, p_AttackerPosition, p_HitBox.HitLag);
         }
     }
     public void TakeDamages(SO_Projectile p_Projectile, Vector3 p_ProjectileObjectPosition)
@@ -87,9 +86,7 @@ public class Health : MonoBehaviour
 
         if (p_Projectile.EjectionPower > 0.0f)
         {
-            m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
-            Invoke(nameof(StopHitLag), p_Projectile.HitLag);
-            GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObjectPosition);
+            GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObjectPosition, p_Projectile.HitLag);
         }
     }
     /*public void Death()
@@ -102,10 +99,6 @@ public class Health : MonoBehaviour
             }
         }
     }*/
-    public void StopHitLag()
-    {
-        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-    }
     private void DeathByHPs()
     {
         m_HealthEvents.m_Death.Invoke();
@@ -118,9 +111,9 @@ public class Health : MonoBehaviour
     }
     private void Death()
     {
+        CurrentLives = CurrentLives - 1;
         m_LivesCount[m_CurrentLives].SetActive(false);
 
-        CurrentLives = CurrentLives - 1;
         GetComponent<CharacterEjection>().InterruptEjection();
         CurrentHealth = MaxHealth;
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;

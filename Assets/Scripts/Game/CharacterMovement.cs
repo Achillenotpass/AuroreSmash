@@ -32,6 +32,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     private Vector3 m_PlayerEjectionDirection = Vector3.zero;
 
     private Vector3 m_JoystickValue = Vector3.zero;
+    private bool m_InMovement = false;
     private float m_BaseZ = 0.0f;
     public float BaseZ { get { return m_BaseZ; } set { m_BaseZ = value; } }
     #endregion
@@ -105,10 +106,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_CharacterController = GetComponent<CharacterController>();
         m_CharacterInfos = GetComponent<CharacterInfos>();
         m_PlayerInfos = GetComponent<PlayerInfos>();
-    }
 
-    private void Start()
-    {
         m_MaxCharacterSpeed = m_CharacterInfos.MaxCharacterSpeed;
         m_GroundJumpCurve = m_CharacterInfos.GroundJumpCurve;
         m_AirJumpCurve = m_CharacterInfos.AirJumpCurve;
@@ -118,12 +116,14 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_CharacterEndGroundVelocity = m_CharacterInfos.CharacterEndGroundVelocity;
         m_CharacterEndAirVelocity = m_CharacterInfos.CharacterEndAirVelocity;
         m_CharacterSpeed = m_MaxCharacterSpeed;
-}
+    }
     #endregion
 
     #region Update
     public void CustomUpdate(float p_DeltaTime)
     {
+        MovementsCalculation(p_DeltaTime);
+
         m_CharacterOrientation = m_CharacterView.transform.localScale.x;
         if(!m_IsGrounded && Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask))
         {
@@ -187,6 +187,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_PlayerGeneralDirection = Vector3.zero;
         CheckAnimation();
 
+
         m_CharacterController.Move(new Vector3(transform.position.x, transform.position.y, m_BaseZ) - transform.position);
     }
     #endregion
@@ -195,11 +196,15 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #region Movement
     public void PlayerHorizontalMovement(InputAction.CallbackContext p_Context)
     {
-        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving 
-            || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle 
-            || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking && !m_IsGrounded)
+        m_JoystickValue = p_Context.ReadValue<Vector2>();
+    }
+    private void MovementsCalculation(float p_DeltaTime)
+    {
+        if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving
+               || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle
+               || m_CharacterInfos.CurrentCharacterState == CharacterState.Attacking && !m_IsGrounded)
         {
-            if (p_Context.started)
+            if (m_JoystickValue.magnitude > 0.1f && !m_InMovement)
             {
                 if (m_IsGrounded)
                 {
@@ -213,13 +218,14 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 m_StartVelocityTimer = 0;
                 m_EndGroundVelocityTimer = 0;
                 m_EndAirVelocityTimer = 0;
+
+                m_InMovement = true;
             }
-            if (p_Context.performed)
+            if (m_JoystickValue.magnitude > 0.1f && m_InMovement)
             {
-                m_JoystickValue = p_Context.ReadValue<Vector2>();
                 if (m_JoystickValue.x >= 0.2f && m_JoystickValue.y < 0.9f && m_JoystickValue.y > -0.7f || m_JoystickValue.x <= -0.2f && m_JoystickValue.y < 0.9f && m_JoystickValue.y > -0.7f)
                 {
-                    m_PlayerDesiredDirection = new Vector3(m_JoystickValue.x/Mathf.Abs(m_JoystickValue.x), 0, 0);
+                    m_PlayerDesiredDirection = new Vector3(m_JoystickValue.x / Mathf.Abs(m_JoystickValue.x), 0, 0);
                     m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f;
                     m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f;
                     m_PastDirection = m_PlayerDesiredDirection;
@@ -238,7 +244,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 }
             }
         }
-        if (p_Context.canceled)
+        if (m_JoystickValue.magnitude <= 0.1f && m_InMovement)
         {
             m_StartVelocityCheck = false;
             if (m_IsGrounded)
@@ -252,9 +258,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_EndAirVelocityTimer = 0;
             m_PlayerDesiredDirection = Vector3.zero;
             m_MovementEvents.m_EventEndMovement.Invoke();
+
+            m_InMovement = false;
         }
     }
-
     private void StartGainVelocity(float p_DeltaTime)
     {
         if (m_CharacterStartVelocity != null)
@@ -276,7 +283,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_CharacterSpeed = m_MaxCharacterSpeed * m_CharacterStartVelocity.Evaluate(m_StartVelocityTimer);
         }
     }
-
     private void EndGroundLossVelocity(float p_DeltaTime)
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
@@ -306,7 +312,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             }
         }
     }
-
     private void EndAirLossVelocity(float p_DeltaTime)
     {
         if (m_CharacterSpeed <= 0)
@@ -330,7 +335,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             m_PlayerDesiredDirection = m_PastDirection;
         }
     }
-
     private void ZeroCharacterSpeed()
     {
         m_CharacterSpeed = 0;
@@ -338,7 +342,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         if(m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
     }
-
     public void PlayerAirDownMovement(InputAction.CallbackContext p_Context)
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Moving || m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
@@ -350,7 +353,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             }
         }
     }
-
     public void ZeroMovementInput()
     {
         m_PlayerDesiredDirection = Vector3.zero;
@@ -359,13 +361,13 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         if (m_EndAirVelocityCheck)
             m_EndGroundVelocityInverseCheck = true;
     }
-
     public void TerminateMomentum()
     {
         m_CharacterSpeed = 0;
         m_PlayerDesiredDirection = Vector3.zero;
         m_EndGroundVelocityCheck = false;
         m_EndGroundVelocityTimer = 0;
+        m_InMovement = false;
     }
     #endregion
     #region Orientation

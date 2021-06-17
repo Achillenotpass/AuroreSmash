@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
                 l_PlayerHealth.HealthBar = l_HealthBar;
                 l_HealthBar.maxValue = l_PlayerHealth.MaxHealth;
                 l_HealthBar.value = l_HealthBar.maxValue;
+                l_PlayerHealth.LivesCounts = m_HealthBars[i].m_LivesCount;
 
                 SO_Character l_CurrentCharacter = l_PlayerHealth.GetComponent<CharacterInfos>().Character;
                 m_HealthBars[i].m_HealthBarImage.sprite = l_CurrentCharacter.HealthBarDatas.m_HealthBarImage;
@@ -364,11 +365,11 @@ public class GameManager : MonoBehaviour, IUpdateUser
     }
     private void EndGame(PlayerInfos p_WinnerPlayerInfo)
     {
-        PlayerInput[] l_Inputs = FindObjectsOfType<PlayerInput>();
-        foreach (PlayerInput l_Input in l_Inputs)
-        {
-            l_Input.DeactivateInput();
-        }
+        //PlayerInput[] l_Inputs = FindObjectsOfType<PlayerInput>();
+        //foreach (PlayerInput l_Input in l_Inputs)
+        //{
+        //    l_Input.DeactivateInput();
+        //}
         m_GameState = EGameState.Ended;
 
         if (!m_BeginningTimer.gameObject.activeInHierarchy)
@@ -382,17 +383,17 @@ public class GameManager : MonoBehaviour, IUpdateUser
         UsersManager.m_WinnerCharacter.m_PlayerIndex = p_WinnerPlayerInfo.PlayerIndex;
 
         StartCoroutine(CheckForSceneChanging("VictoryScreen"));
-        Time.timeScale = 0.2f;
+        m_UpdateSettings.Multiplier = 0.1f;
 
         m_EndGameEvent.Invoke();
     }
     private void EndGameDraw()
     {
-        PlayerInput[] l_Inputs = FindObjectsOfType<PlayerInput>();
-        foreach (PlayerInput l_Input in l_Inputs)
-        {
-            l_Input.DeactivateInput();
-        }
+        //PlayerInput[] l_Inputs = FindObjectsOfType<PlayerInput>();
+        //foreach (PlayerInput l_Input in l_Inputs)
+        //{
+        //    l_Input.DeactivateInput();
+        //}
         m_GameState = EGameState.Ended;
 
         if (!m_BeginningTimer.gameObject.activeInHierarchy)
@@ -410,20 +411,26 @@ public class GameManager : MonoBehaviour, IUpdateUser
         UsersManager.m_LoserCharacter.m_PlayerIndex = m_PlayersAlive[1].PlayerIndex;
 
         StartCoroutine(CheckForSceneChanging("DrawScreen"));
-        Time.timeScale = 0.2f;
+        m_UpdateSettings.Multiplier = 0.1f;
 
         m_EndGameEvent.Invoke();
     }
     private IEnumerator CheckForSceneChanging(string p_SceneName)
     {
-        Time.timeScale = 1.0f;
-        SceneManager.LoadScene(p_SceneName);
-        yield return null;
-        //m_VictorySceneAsync = SceneManager.LoadSceneAsync(p_SceneName);
-        //while (m_VictorySceneAsync.progress < 0.9f)
-        //{
-        //    yield return null;
-        //}
+        yield return new WaitForSeconds(2.5f);
+
+        //Time.timeScale = 1.0f;
+        //SceneManager.LoadScene(p_SceneName);
+        //yield return null;
+        m_VictorySceneAsync = SceneManager.LoadSceneAsync(p_SceneName);
+        m_VictorySceneAsync.allowSceneActivation = false;
+        while (m_VictorySceneAsync.progress < 0.9f)
+        {
+            yield return null;
+        }
+        m_UpdateSettings.Multiplier = 1.0f;
+        m_VictorySceneAsync.allowSceneActivation = true;
+
     }
     public IEnumerator RespawnTimer(GameObject p_Character)
     {
@@ -480,6 +487,7 @@ public class GameManager : MonoBehaviour, IUpdateUser
         public Image m_HealthBarLogo = null;
         public Image m_HealtBarNameHolder = null;
         public Text m_PlayeIndex = null;
+        public List<GameObject> m_LivesCount = new List<GameObject>();
     }
 }
 
