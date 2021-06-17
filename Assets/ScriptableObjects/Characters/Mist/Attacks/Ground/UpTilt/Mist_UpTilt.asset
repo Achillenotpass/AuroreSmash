@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9429130b45672f544a28491ecf3e44f1, type: 3}
   m_Name: Mist_UpTilt
   m_EditorClassIdentifier: 
-  m_AfterLag: 20
+  m_AfterLag: 13
   m_Hits:
   - {fileID: 11400000, guid: c220ba903617e3c4fa7cc8157a7e2a66, type: 2}
   - {fileID: 11400000, guid: 1182be759a3a9564a937b6c2c3635a3c, type: 2}
@@ -40,6 +40,18 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_CharacterXMovement:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_CharacterYMovement:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
