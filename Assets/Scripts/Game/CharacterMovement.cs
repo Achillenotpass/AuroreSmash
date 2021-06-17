@@ -92,6 +92,8 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
 
     private Vector3 m_PastDirection = Vector3.zero;
     #endregion
+    [SerializeField]
+    private GameObject m_EjectionFeedbacks = null;
     #region Events
     [SerializeField]
     private MovementEvents m_MovementEvents = new MovementEvents();
@@ -131,8 +133,6 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         }
         m_IsGrounded = Physics.CheckBox(m_PlayerGroundCheck.position, new Vector3(m_GroundDistance, 0.3f, 0.3f), Quaternion.identity, m_GroundMask);
         
-
-
         if (m_IsGrounded)
         {
             m_MovementEvents.m_OnGround.Invoke();
@@ -183,6 +183,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         m_PlayerGeneralDirection += m_PlayerEjectionDirection * p_DeltaTime;
         m_PlayerGeneralDirection += m_PlayerDesiredDirection * m_CharacterSpeed * p_DeltaTime * m_EditableCharacterSpeed;
         m_CharacterController.Move(m_PlayerGeneralDirection);
+        m_EjectionFeedbacks.transform.forward = -m_PlayerEjectionDirection * p_DeltaTime;
         m_PlayerGeneralDirection = Vector3.zero;
         CheckAnimation();
 

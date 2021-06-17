@@ -1,5 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &272190449240541473
 --- !u!1 &3827211019361574769
 GameObject:
   m_ObjectHideFlags: 0
@@ -8,6 +9,16 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 1711954325647442952}
+  - component: {fileID: 7603108687270435297}
+  m_Layer: 10
+  m_Name: EjectionFeedbacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1711954325647442952
   - component: {fileID: 1704321918450316404}
   - component: {fileID: 1624555922426084086}
   - component: {fileID: 3588911464572308143}
@@ -25,6 +36,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272190449240541473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9200278381566710889}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7603108687270435297
   m_GameObject: {fileID: 3827211019361574769}
   m_LocalRotation: {x: -0, y: -0, z: 0.13052596, w: 0.99144495}
   m_LocalPosition: {x: 1.88, y: -1.04, z: 0}
@@ -103,6 +123,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272190449240541473}
   m_GameObject: {fileID: 3827211019361574769}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -769,6 +790,7 @@ GameObject:
   - component: {fileID: 6393736191229132217}
   - component: {fileID: 6393736191229132216}
   - component: {fileID: 6393736191229132231}
+  - component: {fileID: 5106707915495274647}
   m_Layer: 10
   m_Name: View
   m_TagString: Untagged
@@ -860,20 +882,12 @@ MonoBehaviour:
   m_Animations:
   - m_AnimationName: Idle
     m_Animation: {fileID: 11400000, guid: 3ade321a4987288429fdaab1cf2233c2, type: 2}
-  - m_AnimationName: AirIdle
-    m_Animation: {fileID: 11400000, guid: 4f26f0b4513bae84c941e32d233523cf, type: 2}
-  - m_AnimationName: Move
-    m_Animation: {fileID: 11400000, guid: d979c99b947532a4b9f91fcfde026623, type: 2}
-  - m_AnimationName: GroundJump
-    m_Animation: {fileID: 11400000, guid: 870f04baacf4ad440b3753a06622df1e, type: 2}
-  - m_AnimationName: AirJump
-    m_Animation: {fileID: 11400000, guid: 870f04baacf4ad440b3753a06622df1e, type: 2}
   - m_AnimationName: Jab
     m_Animation: {fileID: 11400000, guid: eaf204ba8c646d84391021d3ea539d2a, type: 2}
-  - m_AnimationName: SideTilt
-    m_Animation: {fileID: 11400000, guid: 95ec7d4dfc2ae8941b00b03fcaffdc1e, type: 2}
   - m_AnimationName: UpTilt
     m_Animation: {fileID: 11400000, guid: 633aca9d181ad584d90a0ca836386930, type: 2}
+  - m_AnimationName: SideTilt
+    m_Animation: {fileID: 11400000, guid: 95ec7d4dfc2ae8941b00b03fcaffdc1e, type: 2}
   - m_AnimationName: DownTilt
     m_Animation: {fileID: 11400000, guid: fef9e0437366ff445aef72bc8e47da29, type: 2}
   - m_AnimationName: NeutralAir
@@ -886,13 +900,25 @@ MonoBehaviour:
     m_Animation: {fileID: 11400000, guid: 797e54efb4143e14bb38c4d2dc542bce, type: 2}
   - m_AnimationName: DownAir
     m_Animation: {fileID: 11400000, guid: bac81ec84c8b81548ac726600c64d6ce, type: 2}
+  - m_AnimationName: Move
+    m_Animation: {fileID: 11400000, guid: d979c99b947532a4b9f91fcfde026623, type: 2}
+  - m_AnimationName: Jump
+    m_Animation: {fileID: 11400000, guid: 870f04baacf4ad440b3753a06622df1e, type: 2}
   - m_AnimationName: Grab
     m_Animation: {fileID: 11400000, guid: d18eca96065f4584c8970088b6923f7b, type: 2}
-  - m_AnimationName: Throw
-    m_Animation: {fileID: 11400000, guid: d23df5a407a5db24fa7d07bbe9e12ba3, type: 2}
-  - m_AnimationName: Shield
-    m_Animation: {fileID: 11400000, guid: 75669196e0092434e9a10672a91f3e72, type: 2}
   m_TemporaryFramePerfectAnimator: 0
+--- !u!114 &5106707915495274647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393736191229132230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d6d9ba0036428419999d3002ce5f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6393736191472783979
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,6 +1429,7 @@ Transform:
   - {fileID: 6393736191229132217}
   - {fileID: 6393736192132567577}
   - {fileID: 6393736190273643217}
+  - {fileID: 1711954325647442952}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1513,6 +1540,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    m_EventChangeEndEjectionState:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 582119a7b1fa92b4ab51da17ddc5565d, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: StopAllVFX
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 272190449240541473}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  m_Character: {fileID: 0}
   m_Character: {fileID: 11400000, guid: ba3cff8f33f20e449af7311cd50b2985, type: 2}
   m_MaxCharacterSpeed: 10
   m_GroundJumpCurve:
@@ -1666,7 +1709,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -1728,6 +1771,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   m_CharacterView: {fileID: 6393736191229132230}
+  m_EjectionFeedbacks: {fileID: 272190449240541473}
   m_MovementEvents:
     m_OnGround:
       m_PersistentCalls:
@@ -1798,7 +1842,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: GroundJump
+            m_StringArgument: Jump
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 11400000, guid: 67c9cef03dba1c742a26837c7eb3b027, type: 2}
@@ -1825,7 +1869,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: AirJump
+            m_StringArgument: Jump
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 11400000, guid: 1cc93e494e2c4144097f86002ca6b27c, type: 2}
@@ -1909,7 +1953,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: AirIdle
+            m_StringArgument: Idle
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!114 &9200278381566710900
@@ -2140,7 +2184,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 2b71391c-36ab-4ba5-9e70-04560436d732
-    m_ActionName: UI/Start
+    m_ActionName: UI/Start[/XInputControllerWindows/start,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2497,6 +2541,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 3f7d2b90297942a46963d4ccc79afa85, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: Blink
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6393736191229132230}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_TakePowerfullHit:
       m_PersistentCalls:
         m_Calls:
@@ -2507,6 +2563,48 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 9200278381566710910}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 1ec7a882dd27b924e9d57deb50252078, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: Blink
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6393736191229132230}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_Ejection:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7603108687270435297}
+          m_TargetAssemblyTypeName: FeedbackCaller, Assembly-CSharp
+          m_MethodName: CallFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 582119a7b1fa92b4ab51da17ddc5565d, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_EjectionPowerfull:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7603108687270435297}
+          m_TargetAssemblyTypeName: FeedbackCaller, Assembly-CSharp
+          m_MethodName: CallFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 98d081be2b40aac4d891ddf0d17d767d, type: 2}
+            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
