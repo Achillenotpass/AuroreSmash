@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 4808374153321281763}
   - component: {fileID: 4808374153321281762}
   - component: {fileID: 4808374153321281693}
+  - component: {fileID: 3971138652160698703}
   m_Layer: 10
   m_Name: View
   m_TagString: Untagged
@@ -374,20 +375,12 @@ MonoBehaviour:
   m_Animations:
   - m_AnimationName: Idle
     m_Animation: {fileID: 11400000, guid: 949b1943576567c47a42b3706aded053, type: 2}
-  - m_AnimationName: AirIdle
-    m_Animation: {fileID: 11400000, guid: c4cb75fd99e7aab44b87e3e2aa1afe30, type: 2}
-  - m_AnimationName: Move
-    m_Animation: {fileID: 11400000, guid: 5361619d10a319f4c8190e828f98687d, type: 2}
-  - m_AnimationName: GroundJump
-    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
-  - m_AnimationName: AirJump
-    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
   - m_AnimationName: Jab
     m_Animation: {fileID: 11400000, guid: 65bab7eee9ef6e64ba208431b9d89dc3, type: 2}
-  - m_AnimationName: SideTilt
-    m_Animation: {fileID: 11400000, guid: 9dc0e2f48fac33d429016c616e6abb77, type: 2}
   - m_AnimationName: UpTilt
     m_Animation: {fileID: 11400000, guid: 728c42b72888f574f9f4a6a9c3aceb07, type: 2}
+  - m_AnimationName: SideTilt
+    m_Animation: {fileID: 11400000, guid: 9dc0e2f48fac33d429016c616e6abb77, type: 2}
   - m_AnimationName: DownTilt
     m_Animation: {fileID: 11400000, guid: ea7fd9b3e4c44b745abd88e9d3d0cd3a, type: 2}
   - m_AnimationName: NeutralAir
@@ -404,9 +397,27 @@ MonoBehaviour:
     m_Animation: {fileID: 11400000, guid: 3db5cbf36d669914783cf537f4020f15, type: 2}
   - m_AnimationName: Throw
     m_Animation: {fileID: 11400000, guid: 3e37022eb195856479862af639c54c52, type: 2}
+  - m_AnimationName: Move
+    m_Animation: {fileID: 11400000, guid: 5361619d10a319f4c8190e828f98687d, type: 2}
+  - m_AnimationName: GroundJump
+    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
+  - m_AnimationName: AirJump
+    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
   - m_AnimationName: Shield
-    m_Animation: {fileID: 11400000, guid: cef9482b8a2b3ed4b9e3f4b3f33f8e8e, type: 2}
+    m_Animation: {fileID: 11400000, guid: 227fbc3b3e6f84f4394db4afcb56217b, type: 2}
   m_TemporaryFramePerfectAnimator: 0
+--- !u!114 &3971138652160698703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4808374153321281692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d6d9ba0036428419999d3002ce5f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4808374153565198129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1015,49 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5401095226168208258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2752492315595767340}
+  - component: {fileID: 1212099352364632083}
+  m_Layer: 10
+  m_Name: EjectionFeedbacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2752492315595767340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401095226168208258}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7326282991860863283}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1212099352364632083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401095226168208258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b028c66eb78a1c498845e77adddf0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7195244822834984305
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,13 +1176,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7326282991860863268}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.84, y: 1.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4808374153321281763}
   - {fileID: 4808374154157479747}
   - {fileID: 4808374154245367691}
+  - {fileID: 2752492315595767340}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1233,6 +1288,21 @@ MonoBehaviour:
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 7326282991860863268}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_EventChangeEndEjectionState:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 582119a7b1fa92b4ab51da17ddc5565d, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: StopAllVFX
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 5401095226168208258}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -1392,7 +1462,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -1454,6 +1524,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   m_CharacterView: {fileID: 4808374153321281692}
+  m_EjectionFeedbacks: {fileID: 5401095226168208258}
   m_MovementEvents:
     m_OnGround:
       m_PersistentCalls:
@@ -1635,7 +1706,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: AirIdle
+            m_StringArgument: Idle
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!114 &7326282991860863278
@@ -1878,7 +1949,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 2b71391c-36ab-4ba5-9e70-04560436d732
-    m_ActionName: UI/Start[/XInputControllerWindows/start,/XInputControllerWindows/start,/XInputControllerWindows/start]
+    m_ActionName: UI/Start[/XInputControllerWindows/start,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2386,10 +2457,64 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 3f7d2b90297942a46963d4ccc79afa85, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: Blink
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 4808374153321281692}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_TakePowerfullHit:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 11400000, guid: 1ec7a882dd27b924e9d57deb50252078, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7326282991860863268}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 3f7d2b90297942a46963d4ccc79afa85, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: Blink
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 4808374153321281692}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_Ejection:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 582119a7b1fa92b4ab51da17ddc5565d, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7326282991860863268}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_EjectionPowerfull:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 98d081be2b40aac4d891ddf0d17d767d, type: 2}
           m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
           m_MethodName: PlayFeedback
           m_Mode: 2

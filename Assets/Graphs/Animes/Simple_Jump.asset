@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
-  m_Name: Grab
+  m_Name: Simple_Jump
   m_EditorClassIdentifier: 
-  m_Loop: 1
+  m_Loop: 0
   m_AnimationFrames:
-  - m_FrameSprite: {fileID: 21300000, guid: fc5be30aa51d0ac41a350a9fc64c14d6, type: 3}
-    m_FramesAfterLastSprite: 5
-  - m_FrameSprite: {fileID: 21300000, guid: 41dcb6146c6c1ce4cbb65cb5dc7e4ec3, type: 3}
-    m_FramesAfterLastSprite: 5
-  m_LastFrameDuration: 0
+  - m_FrameSprite: {fileID: 21300000, guid: dcdf5816c2df984429ccceabdab94d8c, type: 3}
+    m_FramesAfterLastSprite: 10
+  m_LastFrameDuration: 10

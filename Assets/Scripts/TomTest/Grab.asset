@@ -13,39 +13,37 @@ MonoBehaviour:
   m_Name: Grab
   m_EditorClassIdentifier: 
   m_FeedbackName: Grab
-  m_AsVFX: 1
+  m_HasVFX: 1
   m_VFXList:
   - {fileID: 7173741747528521350, guid: 517da76af733d5545867751ece00dfa4, type: 3}
   m_VFXSpecificPosition:
-  - {x: 0, y: 0, z: 0}
+  - {x: -0.3, y: 0, z: 0}
   m_VFXSpecificRotation:
   - {x: 0, y: 0, z: 0}
-  m_VFXAsToBeChild: 01
-  m_VFXAsToBeChildOfChild: 00
+  m_VFXHasToBeChild: 01
+  m_VFXHasToBeChildOfChild: 00
   m_VfxChildOfChild: 00000000
   m_VFXChildOfChildNumber: 00000000
   m_VFXIsAlone: 1
-  m_AsSFX: 0
+  m_HasSFX: 0
   m_SFXList: []
-  m_AsVFXAnimation: 1
-  m_VFXAnimationList:
-  - {fileID: 6283556284007793660, guid: e321ad5b568cbe940b296eeeedaca225, type: 3}
-  m_VFXAnimationSpecificPosition:
-  - {x: 0, y: 0, z: 0}
-  m_VFXAnimationSpecificRotation:
-  - {x: 0, y: 0, z: 0}
-  m_VFXAnimationAsToBeChild: 01
-  m_VFXAnimationAsToBeChildOfChild: 00
-  m_VFXAnimationChildOfChildNumber: 00000000
-  m_VFXAnimationIsAlone: 1
-  m_AsToShake: 0
+  m_HasVFXAnimation: 0
+  m_VFXAnimationList: []
+  m_VFXAnimationSpecificPosition: []
+  m_VFXAnimationSpecificRotation: []
+  m_VFXAnimationHasToBeChild: 
+  m_VFXAnimationHasToBeChildOfChild: 
+  m_VFXAnimationChildOfChildNumber: 
+  m_VFXAnimationIsAlone: 0
+  m_HasToShake: 0
+  m_ObjectToShakeIsCamera: 0
   m_ShakeIntesity: 0.1
   m_ShakeDuration: 0.1
-  m_AsToBlink: 0
+  m_HasToBlink: 0
   m_BlinkIntensity: 0.1
   m_BlinkDuration: 0.1
-  m_AsToFreezeFrame: 0
+  m_HasToFreezeFrame: 0
   m_FreezeFrameDuration: 0.1
-  m_AsToVibrate: 0
+  m_HasToVibrate: 0
   m_VibrationIntesity: 0.1
   m_VibrationDuration: 0.1

@@ -25,6 +25,10 @@ public class CharacterInfos : MonoBehaviour
             {
                 m_InfosEvents.m_EventChangeStateFromMoving.Invoke();
             }
+            if(m_CurrentCharacterState == CharacterState.Hitlag && value != CharacterState.Hitlag)
+            {
+                m_InfosEvents.m_EventChangeEndEjectionState.Invoke();
+            }
             m_CurrentCharacterState = value; 
             if(m_CurrentCharacterState == CharacterState.Grabbed)
             {
@@ -80,6 +84,9 @@ public class InfosEvents
 
     [SerializeField]
     public UnityEvent m_EventChangeStateToGrabbed;
+
+    [SerializeField]
+    public UnityEvent m_EventChangeEndEjectionState;
 }
 #endregion 
 
