@@ -164,7 +164,6 @@ public class PlayersCamera : MonoBehaviour, IUpdateUser
 
         m_CameraTargetPosition.x = m_CameraTargetPosition.x + l_XOffset;
         m_CameraTargetPosition.y = m_CameraTargetPosition.y + l_YOffset;
-        Debug.Log(l_XOffset + "l'autre" + l_YOffset);
         return m_CameraTargetPosition;
     }
     #endregion

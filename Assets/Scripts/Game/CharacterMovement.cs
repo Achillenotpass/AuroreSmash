@@ -30,6 +30,8 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     private Vector3 m_PlayerDesiredDirection = Vector3.zero;
     private Vector3 m_PlayerExternalDirection = Vector3.zero;
     private Vector3 m_PlayerEjectionDirection = Vector3.zero;
+
+    private Vector3 m_JoystickValue = Vector3.zero;
     private float m_BaseZ = 0.0f;
     public float BaseZ { get { return m_BaseZ; } set { m_BaseZ = value; } }
     #endregion
@@ -214,21 +216,25 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             }
             if (p_Context.performed)
             {
-                if (p_Context.ReadValue<Vector2>().x >= 0.2f && p_Context.ReadValue<Vector2>().y < 0.9f && p_Context.ReadValue<Vector2>().y > -0.7f || p_Context.ReadValue<Vector2>().x <= -0.2f && p_Context.ReadValue<Vector2>().y < 0.9f && p_Context.ReadValue<Vector2>().y > -0.7f)
+                m_JoystickValue = p_Context.ReadValue<Vector2>();
+                if (m_JoystickValue.x >= 0.2f && m_JoystickValue.y < 0.9f && m_JoystickValue.y > -0.7f || m_JoystickValue.x <= -0.2f && m_JoystickValue.y < 0.9f && m_JoystickValue.y > -0.7f)
                 {
-                    m_PlayerDesiredDirection = new Vector3(p_Context.ReadValue<Vector2>().x/Mathf.Abs(p_Context.ReadValue<Vector2>().x), 0, 0);
+                    m_PlayerDesiredDirection = new Vector3(m_JoystickValue.x/Mathf.Abs(m_JoystickValue.x), 0, 0);
                     m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f;
                     m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f;
                     m_PastDirection = m_PlayerDesiredDirection;
-                    m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
+                    if (m_CharacterInfos.CurrentCharacterState != CharacterState.Attacking)
+                    {
+                        m_CharacterInfos.CurrentCharacterState = CharacterState.Moving;
+                    }
                     m_MovementEvents.m_EventMovement.Invoke();
 
                 }
-                if (p_Context.ReadValue<Vector2>().y >= 0.9f || p_Context.ReadValue<Vector2>().y <= -0.7f)
+                if (m_JoystickValue.y >= 0.9f || m_JoystickValue.y <= -0.7f)
                 {
                     m_PlayerDesiredDirection = Vector3.zero;
-                    m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(p_Context.ReadValue<Vector2>().x);
-                    m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(p_Context.ReadValue<Vector2>().x);
+                    m_GroundJumpCurve.keys[m_GroundJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(m_JoystickValue.x);
+                    m_AirJumpCurve.keys[m_AirJumpCurve.keys.Length - 1].time = 0.41f + 0.6f * Mathf.Abs(m_JoystickValue.x);
                 }
             }
         }
@@ -492,17 +498,17 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
     #endregion
     private void CheckAnimation()
     {
-        //if (m_IsGroundJumping || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
-        //{
-        //    //Ground jump
-        //    //m_MovementEvents.m_EventBeginGroundJump.Invoke();
-        //}
-        //else if(m_IsAirJumping || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
-        //{
-        //    //Air jump
-        //    //m_MovementEvents.m_EventBeginAirJump.Invoke();
-        //}
-        if (m_IsGrounded)
+        if (m_IsGroundJumping && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        {
+            //Ground jump
+            m_MovementEvents.m_EventBeginGroundJump.Invoke();
+        }
+        else if (m_IsAirJumping && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
+        {
+            //Air jump
+            m_MovementEvents.m_EventBeginAirJump.Invoke();
+        }
+        else if (m_IsGrounded)
         {
             if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle)
             {
