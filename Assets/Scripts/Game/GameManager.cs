@@ -301,7 +301,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private void CheckTimer(float p_DeltaTime)
     {
         m_CurrentGameTimer = m_CurrentGameTimer - p_DeltaTime;
-        m_TimerText.text = ((int)m_CurrentGameTimer).ToString();
+        int l_Minutes = (int)m_CurrentGameTimer / 60;
+        int l_Seconds = (int)m_CurrentGameTimer % 60;
+        m_TimerText.text = l_Minutes + ":" + l_Seconds;
 
         Color l_NewColor = m_BeginningTimer.color;
 
