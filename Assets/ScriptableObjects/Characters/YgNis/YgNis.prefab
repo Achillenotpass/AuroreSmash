@@ -1517,13 +1517,13 @@ MonoBehaviour:
     m_Ejection:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: FeedbackCaller, Assembly-CSharp
-          m_MethodName: CallFeedback
+        - m_Target: {fileID: 11400000, guid: 582119a7b1fa92b4ab51da17ddc5565d, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 582119a7b1fa92b4ab51da17ddc5565d, type: 2}
-            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_ObjectArgument: {fileID: 7499569879883571794}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -1532,13 +1532,13 @@ MonoBehaviour:
     m_EjectionPowerfull:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: FeedbackCaller, Assembly-CSharp
-          m_MethodName: CallFeedback
+        - m_Target: {fileID: 11400000, guid: 98d081be2b40aac4d891ddf0d17d767d, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 98d081be2b40aac4d891ddf0d17d767d, type: 2}
-            m_ObjectArgumentAssemblyTypeName: SO_Feedback, Assembly-CSharp
+            m_ObjectArgument: {fileID: 7499569879883571794}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
