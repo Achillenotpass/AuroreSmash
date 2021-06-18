@@ -65,7 +65,11 @@ public class GameManager : MonoBehaviour, IUpdateUser
     [SerializeField]
     private List<Sprite> m_EndTimerSprites = new List<Sprite>();
     [SerializeField]
+    private Sprite m_EndGameTimer = null;
+    [SerializeField]
     private Sprite m_EndGameLives = null;
+    [SerializeField]
+    private Image m_EndgameFeedback = null;
     [SerializeField]
     private Text m_TimerText = null;
     [SerializeField]
@@ -301,12 +305,16 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
         Color l_NewColor = m_BeginningTimer.color;
 
-        if (m_CurrentGameTimer <= 3.0f)
+        if (m_CurrentGameTimer <= 3.0f && m_CurrentGameTimer > 0.0f)
         {
             m_BeginningTimer.gameObject.SetActive(true);
             m_BeginningTimer.sprite = m_EndTimerSprites[(int)m_CurrentGameTimer];
             l_NewColor.a = (m_CurrentGameTimer % 1);
             m_BeginningTimer.color = l_NewColor;
+        }
+        else if (m_CurrentGameTimer <= 0.0f)
+        {
+            m_BeginningTimer.gameObject.SetActive(false);
         }
         if (m_CurrentGameTimer <= 0.0f)
         {
@@ -378,6 +386,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
             m_BeginningTimer.sprite = m_EndGameLives;
         }
 
+        m_EndgameFeedback.gameObject.SetActive(true);
+        m_EndgameFeedback.sprite = m_EndGameLives;
+
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = p_WinnerPlayerInfo.GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
         UsersManager.m_WinnerCharacter.m_PlayerIndex = p_WinnerPlayerInfo.PlayerIndex;
@@ -401,6 +412,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
             m_BeginningTimer.gameObject.SetActive(true);
             m_BeginningTimer.sprite = m_EndGameLives;
         }
+
+        m_EndgameFeedback.gameObject.SetActive(true);
+        m_EndgameFeedback.sprite = m_EndGameTimer; ;
 
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = m_PlayersAlive[0].GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = m_PlayersAlive[0].GetComponent<Health>().CurrentLives;
