@@ -293,11 +293,15 @@ public class SO_Feedback : ScriptableObject
                     {
                         Vector3 l_VFXAnimationSpecificPosition = m_VFXAnimationSpecificPosition[i];
                         if (l_VFXAnimationSpecificPosition.x / Mathf.Abs(l_VFXAnimationSpecificPosition.x) == p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]).localScale.x))
+                        {
+                            Debug.Log("aaa");
                             l_VFXAnimationSpecificPosition.x *= -1;
+                        }
 
-                        GameObject l_VFXAnimation = Instantiate(m_VFXAnimationList[i], p_Instantiator.transform.position + l_VFXAnimationSpecificPosition, Quaternion.Euler(Quaternion.identity.x + m_VFXAnimationSpecificRotation[i].x, Quaternion.identity.y + m_VFXAnimationSpecificRotation[i].y, Quaternion.identity.z + m_VFXAnimationSpecificRotation[i].z));
+                        GameObject l_VFXAnimation = Instantiate(m_VFXAnimationList[i], p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]));
+                        l_VFXAnimation.transform.position = p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]).transform.position + l_VFXAnimationSpecificPosition;
+                        l_VFXAnimation.transform.rotation = Quaternion.Euler(Quaternion.identity.x + m_VFXAnimationSpecificRotation[i].x, Quaternion.identity.y + m_VFXAnimationSpecificRotation[i].y, Quaternion.identity.z + m_VFXAnimationSpecificRotation[i].z);
                         l_VFXAnimation.name = m_VFXAnimationList[i].name;
-                        l_VFXAnimation.transform.parent = p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]);
                     }
                 }
             }
