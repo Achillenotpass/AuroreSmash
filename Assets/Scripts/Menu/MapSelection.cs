@@ -116,7 +116,6 @@ public class MapSelection : MonoBehaviour
         l_Scene.allowSceneActivation = false;
         while (l_Scene.progress < 0.9f)
         {
-            Debug.Log(l_Scene.progress);
             yield return null;
         }
         l_Scene.allowSceneActivation = true;

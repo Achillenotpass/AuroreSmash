@@ -15,8 +15,8 @@ public class HealthBarFeedback : MonoBehaviour
     }
     private void Start()
     {
-        m_RedHealthBar.maxValue = m_HealthBar.maxValue;
-        m_RedHealthBar.value = m_HealthBar.value;
+        m_RedHealthBar.maxValue = 100.0f;
+        m_RedHealthBar.value = 100.0f;
     }
 
 
