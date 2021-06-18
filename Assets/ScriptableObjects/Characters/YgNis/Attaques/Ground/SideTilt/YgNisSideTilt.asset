@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9429130b45672f544a28491ecf3e44f1, type: 3}
   m_Name: YgNisSideTilt
   m_EditorClassIdentifier: 
-  m_AfterLag: 11
+  m_AfterLag: 2
   m_Hits:
   - {fileID: 11400000, guid: 188ff702ae8a3d44fa2963a91d66ccf9, type: 2}
   m_Projectiles: []
