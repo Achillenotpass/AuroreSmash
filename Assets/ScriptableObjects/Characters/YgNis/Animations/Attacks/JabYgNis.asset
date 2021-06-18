@@ -25,17 +25,17 @@ MonoBehaviour:
   - m_FrameSprite: {fileID: 21300000, guid: 371a176872382564fa135b12524b5954, type: 3}
     m_FramesAfterLastSprite: 3
   - m_FrameSprite: {fileID: 21300000, guid: 4535e12f487224a4ab400a5fb3dc7fbd, type: 3}
-    m_FramesAfterLastSprite: 3
+    m_FramesAfterLastSprite: 1
   - m_FrameSprite: {fileID: 21300000, guid: 8f44fc70b3a20914da3c6587e868b95e, type: 3}
     m_FramesAfterLastSprite: 6
   - m_FrameSprite: {fileID: 21300000, guid: 9632e73877fbba045a7d64843d96f7ea, type: 3}
     m_FramesAfterLastSprite: 6
   - m_FrameSprite: {fileID: 21300000, guid: 3b560c4f7822dac40a58ff494245fd99, type: 3}
-    m_FramesAfterLastSprite: 3
+    m_FramesAfterLastSprite: 1
   - m_FrameSprite: {fileID: 21300000, guid: 4f35b5cb1c9f8eb42a59e17ecd5ba884, type: 3}
-    m_FramesAfterLastSprite: 3
+    m_FramesAfterLastSprite: 1
   - m_FrameSprite: {fileID: 21300000, guid: 03c898fbb110a32449fa50ecfdc0df1f, type: 3}
-    m_FramesAfterLastSprite: 3
+    m_FramesAfterLastSprite: 6
   - m_FrameSprite: {fileID: 21300000, guid: 7d56abd1c89a48648b09a3d6f05b9990, type: 3}
     m_FramesAfterLastSprite: 6
   - m_FrameSprite: {fileID: 21300000, guid: 47cd31002a178df449658d91c6a81f6e, type: 3}

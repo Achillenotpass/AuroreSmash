@@ -25,7 +25,6 @@ public class CharacterSelector : MonoBehaviour
     {
         m_UserInfos.UserInputDevice = GetComponent<PlayerInput>().devices[0];
         m_CurrentCharacter = m_CharacterManager.GetRandomCharacter(this);
-        Debug.Log("Currently on " + m_CurrentCharacter.name);
     }
     #endregion
 
