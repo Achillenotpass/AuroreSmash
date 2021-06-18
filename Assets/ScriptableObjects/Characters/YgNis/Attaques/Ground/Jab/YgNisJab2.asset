@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9429130b45672f544a28491ecf3e44f1, type: 3}
   m_Name: YgNisJab2
   m_EditorClassIdentifier: 
-  m_AfterLag: 6
+  m_AfterLag: 1
   m_Hits:
   - {fileID: 11400000, guid: b4f71e4b99f09134e8695849aa051a7c, type: 2}
   m_Projectiles: []

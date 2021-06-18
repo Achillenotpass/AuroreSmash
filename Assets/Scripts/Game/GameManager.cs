@@ -301,7 +301,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
     private void CheckTimer(float p_DeltaTime)
     {
         m_CurrentGameTimer = m_CurrentGameTimer - p_DeltaTime;
-        m_TimerText.text = ((int)m_CurrentGameTimer).ToString();
+        int l_Minutes = (int)m_CurrentGameTimer / 60;
+        int l_Seconds = (int)m_CurrentGameTimer % 60;
+        m_TimerText.text = l_Minutes + ":" + l_Seconds;
 
         Color l_NewColor = m_BeginningTimer.color;
 
@@ -315,9 +317,9 @@ public class GameManager : MonoBehaviour, IUpdateUser
         else if (m_CurrentGameTimer <= 0.0f)
         {
             m_BeginningTimer.gameObject.SetActive(false);
-        }
-        if (m_CurrentGameTimer <= 0.0f)
-        {
+            m_EndgameFeedback.gameObject.SetActive(true);
+            m_EndgameFeedback.sprite = m_EndGameTimer;
+
             //On vérifie les vies de tous les joueurs
             //Celui qui a le plus de vies a gagné
             Health l_LowestLives = null;
@@ -380,14 +382,11 @@ public class GameManager : MonoBehaviour, IUpdateUser
         //}
         m_GameState = EGameState.Ended;
 
-        if (!m_BeginningTimer.gameObject.activeInHierarchy)
+        if (!m_EndgameFeedback.gameObject.activeInHierarchy)
         {
-            m_BeginningTimer.gameObject.SetActive(true);
-            m_BeginningTimer.sprite = m_EndGameLives;
+            m_EndgameFeedback.gameObject.SetActive(true);
+            m_EndgameFeedback.sprite = m_EndGameLives;
         }
-
-        m_EndgameFeedback.gameObject.SetActive(true);
-        m_EndgameFeedback.sprite = m_EndGameLives;
 
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = p_WinnerPlayerInfo.GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = p_WinnerPlayerInfo.GetComponent<Health>().CurrentLives;
@@ -407,14 +406,11 @@ public class GameManager : MonoBehaviour, IUpdateUser
         //}
         m_GameState = EGameState.Ended;
 
-        if (!m_BeginningTimer.gameObject.activeInHierarchy)
+        if (!m_EndgameFeedback.gameObject.activeInHierarchy)
         {
-            m_BeginningTimer.gameObject.SetActive(true);
-            m_BeginningTimer.sprite = m_EndGameLives;
+            m_EndgameFeedback.gameObject.SetActive(true);
+            m_EndgameFeedback.sprite = m_EndGameLives;
         }
-
-        m_EndgameFeedback.gameObject.SetActive(true);
-        m_EndgameFeedback.sprite = m_EndGameTimer; ;
 
         UsersManager.m_WinnerCharacter.m_PlayedCharacter = m_PlayersAlive[0].GetComponent<CharacterInfos>().Character;
         UsersManager.m_WinnerCharacter.m_RemainingLives = m_PlayersAlive[0].GetComponent<Health>().CurrentLives;
