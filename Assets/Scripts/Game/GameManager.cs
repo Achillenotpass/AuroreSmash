@@ -307,10 +307,10 @@ public class GameManager : MonoBehaviour, IUpdateUser
 
         Color l_NewColor = m_BeginningTimer.color;
 
-        if (m_CurrentGameTimer <= 3.0f && m_CurrentGameTimer > 0.0f)
+        if (m_CurrentGameTimer < 3.0f && m_CurrentGameTimer > 0.0f)
         {
             m_BeginningTimer.gameObject.SetActive(true);
-            m_BeginningTimer.sprite = m_EndTimerSprites[(int)m_CurrentGameTimer];
+            m_BeginningTimer.sprite = m_EndTimerSprites[Mathf.FloorToInt(m_CurrentGameTimer)];
             l_NewColor.a = (m_CurrentGameTimer % 1);
             m_BeginningTimer.color = l_NewColor;
         }
