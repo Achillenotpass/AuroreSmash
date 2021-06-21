@@ -261,10 +261,16 @@ public class SO_Feedback : ScriptableObject
         {
             for(int i = 0; i < m_VFXAnimationList.Length; i++)
             {
-
                 if (!m_VFXAnimationHasToBeChild[i] && !m_VFXAnimationHasToBeChildOfChild[i])
                 {
-                    if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && FindObjectOfType<FramePerfectAnimator>().gameObject.name != m_VFXAnimationList[i].name)
+                    FramePerfectAnimator[] l_FramePerfectAnimatorInScene = FindObjectsOfType<FramePerfectAnimator>();
+                    int l_ThisFeedbacksInScene = 0;
+                    for (int b = 0; b < l_FramePerfectAnimatorInScene.Length; b++)
+                    {
+                        if (l_FramePerfectAnimatorInScene[b].gameObject.name == m_VFXAnimationList[i].name)
+                            l_ThisFeedbacksInScene += 1;
+                    }
+                    if (!m_VFXAnimationIsAlone || m_VFXAnimationIsAlone && l_ThisFeedbacksInScene == 0)
                     {
                         Vector3 l_VFXAnimationSpecificPosition = m_VFXAnimationSpecificPosition[i];
                         if (l_VFXAnimationSpecificPosition.x / Mathf.Abs(l_VFXAnimationSpecificPosition.x) == p_Instantiator.transform.localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(0).localScale.x))
@@ -294,7 +300,6 @@ public class SO_Feedback : ScriptableObject
                         Vector3 l_VFXAnimationSpecificPosition = m_VFXAnimationSpecificPosition[i];
                         if (l_VFXAnimationSpecificPosition.x / Mathf.Abs(l_VFXAnimationSpecificPosition.x) == p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]).localScale.x / Mathf.Abs(p_Instantiator.transform.GetChild(m_VFXAnimationChildOfChildNumber[i]).localScale.x))
                         {
-                            Debug.Log("aaa");
                             l_VFXAnimationSpecificPosition.x *= -1;
                         }
 
@@ -325,10 +330,13 @@ public class SO_Feedback : ScriptableObject
         FramePerfectAnimator[] l_FPAInInstantiator = p_Instantiator.GetComponentsInChildren<FramePerfectAnimator>();
         for (int i = 0; i < l_FPAInInstantiator.Length; i++)
         {
-            for (int v = 0; v < m_VFXList.Length; v++)
+            Debug.Log("aaa");
+            for (int v = 0; v < m_VFXAnimationList.Length; v++)
             {
+                Debug.Log("bbb");
                 if (l_FPAInInstantiator[i].name == m_VFXAnimationList[v].name)
                 {
+                    Debug.Log("ccc");
                     Destroy(l_FPAInInstantiator[i].gameObject);
                     break;
                 }
