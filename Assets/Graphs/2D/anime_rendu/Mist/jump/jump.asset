@@ -12,6 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
   m_Name: jump
   m_EditorClassIdentifier: 
-  m_Loop: 1
-  m_AnimationFrames: []
-  m_LastFrameDuration: 0
+  m_Loop: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: f7b1498963360f648b0da626a9d7424f, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 9261ef9097e24094c87418f94418f4db, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 93979fd96567abc4794991be8bc3f801, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 4c0bf050cf40368438ecd2b90ae6d19b, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: a9869e614c98c8746a4836f33c3c6196, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 30025f1fc3671054787a08c61a2b7c41, type: 3}
+    m_FramesAfterLastSprite: 4
+  m_LastFrameDuration: 4
