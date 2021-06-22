@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa44d5ae9bd814745b3d784d32d00ea5, type: 3}
+  m_Name: GoToCharacterSelection
+  m_EditorClassIdentifier: 
+  m_ButtonPrefab: {fileID: 607929546481088764, guid: 938c16d10b942a342bc2b3b9a4b4d6db, type: 3}
+  m_SceneName: character_selection

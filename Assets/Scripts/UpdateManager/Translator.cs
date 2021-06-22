@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class Translator : MonoBehaviour, IUpdateUser
 {
     private PlayerInfos m_PlayerInfos = null;
-    public bool m_PassThrough = false;
     private Vector2 m_Direction = Vector2.zero;
 
     //Everything from here,
@@ -24,16 +23,7 @@ public class Translator : MonoBehaviour, IUpdateUser
     //to here is necessary for the Update manager
     
 
-    private void Awake()
-    {
-        m_PlayerInfos = GetComponent<PlayerInfos>();
-        //m_InputMaster.Player.Attack.performed += ctx => PressButton();
-        //m_InputMaster.Player.Attack.canceled += ctx => ReleaseButton();
-    }
-    private void Start()
-    {
-
-    }
+    
     //Use this function instead of the usual update
     public void CustomUpdate(float p_DeltaTime)
     {
@@ -43,9 +33,6 @@ public class Translator : MonoBehaviour, IUpdateUser
 
     public void mescouilles(InputAction.CallbackContext p_Context)
     {
-        if (m_PlayerInfos.DeviceID == p_Context.control.device.deviceId || m_PassThrough)
-        {
-            m_Direction = p_Context.ReadValue<Vector2>();
-        }
+        m_Direction = p_Context.ReadValue<Vector2>();
     }
 }

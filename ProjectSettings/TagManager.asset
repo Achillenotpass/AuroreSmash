@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -11,7 +12,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Pixel
   - 
   - PostProcessing
   - Not in Reflection
@@ -19,8 +20,8 @@ TagManager:
   - Player2
   - Player3
   - Player4
-  - 
-  - 
+  - RaycastPlane
+  - RaycastPlaneOut
   - 
   - 
   - 

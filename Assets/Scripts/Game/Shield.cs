@@ -19,13 +19,14 @@ public class Shield : MonoBehaviour, IUpdateUser
         m_UpdateSettings.Unbind(this);
     }
     #endregion
-
-    private bool m_IsShielding = false;
+    #region Variables
     private Vector2 m_CurrentShieldDirection = Vector2.zero;
     private ShieldState m_CurrentShieldState = ShieldState.NoShield;
     private ShieldState m_NewShieldState = ShieldState.NoShield;
     [SerializeField]
     private float m_DamageReduction = 80.0f;
+
+    private int m_CurrentFrameCount = 0;
     [SerializeField]
     private int m_LagBefore = 1;
     [SerializeField]
@@ -38,6 +39,13 @@ public class Shield : MonoBehaviour, IUpdateUser
     private PlayerInfos m_PlayerInfos = null;
     private CharacterInfos m_CharacterInfos = null;
 
+    [SerializeField]
+    private UnityEvent m_StartShieldEvent = null;
+
+    [SerializeField]
+    private ShieldEvent m_ShieldEvent = new ShieldEvent();
+    #endregion
+
 
     private void Awake()
     {
@@ -48,13 +56,44 @@ public class Shield : MonoBehaviour, IUpdateUser
     {
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Shielding)
         {
-            m_NewShieldState = GetShieldState(m_CurrentShieldDirection);
+            m_StartShieldEvent.Invoke();
+            switch (m_CurrentShieldState)
+            {
+                case ShieldState.LagBefore:
+                    m_CurrentFrameCount = m_CurrentFrameCount + 1;
+                    if (m_CurrentFrameCount > m_LagBefore)
+                    {
+                        m_NewShieldState = GetShieldState(m_CurrentShieldDirection);
+                        m_CurrentFrameCount = 0;
+                    }
+                    break;
+                case ShieldState.LagAfter:
+                    m_CurrentFrameCount = m_CurrentFrameCount + 1;
+                    if (m_CurrentFrameCount > m_LagAfter)
+                    {
+                        m_NewShieldState = ShieldState.NoShield;
+                        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+                        m_CurrentFrameCount = 0;
+                    }
+                    break;
+                case ShieldState.LagAfterOmni:
+                    m_CurrentFrameCount = m_CurrentFrameCount + 1;
+                    if (m_CurrentFrameCount > m_LagAfterOmni)
+                    {
+                        m_NewShieldState = ShieldState.NoShield;
+                        m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+                        m_CurrentFrameCount = 0;
+                    }
+                    break;
+                default:
+                    m_NewShieldState = GetShieldState(m_CurrentShieldDirection);
+                    break;
+            }
         }
         else
         {
             m_NewShieldState = ShieldState.NoShield;
         }
-
         if (m_CurrentShieldState != m_NewShieldState)
         {
             m_CurrentShieldState = m_NewShieldState;
@@ -63,30 +102,46 @@ public class Shield : MonoBehaviour, IUpdateUser
     }
     public void ShieldInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+        if (p_Context.ReadValueAsButton())
         {
-            if (p_Context.performed)
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Idle || m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
             {
                 m_CharacterInfos.CurrentCharacterState = CharacterState.Shielding;
+                m_CurrentShieldState = ShieldState.LagBefore;
+                m_NewShieldState = ShieldState.LagBefore;
             }
-            else if (p_Context.canceled)
+        }
+        else
+        {
+            if (m_CharacterInfos.CurrentCharacterState == CharacterState.Shielding)
             {
-                m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
+                switch (m_CurrentShieldState)
+                {
+                    case ShieldState.Omni:
+                        m_NewShieldState = ShieldState.LagAfterOmni;
+                        m_CurrentShieldState = ShieldState.LagAfterOmni;
+                        SetShieldRotation(ShieldState.NoShield);
+                        m_CurrentFrameCount = 0;
+                        break;
+                    default:
+                        m_NewShieldState = ShieldState.LagAfter;
+                        m_CurrentShieldState = ShieldState.LagAfter;
+                        SetShieldRotation(ShieldState.NoShield);
+                        m_CurrentFrameCount = 0;
+                        break;
+                }
             }
         }
     }
     public void ShieldDirectionInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.control.device.deviceId == m_PlayerInfos.DeviceID)
+        if (p_Context.ReadValue<Vector2>().magnitude > 0.2f)
         {
-            if (p_Context.ReadValue<Vector2>().magnitude > 0.2f)
-            {
-                m_CurrentShieldDirection = p_Context.ReadValue<Vector2>();
-            }
-            else
-            {
-                m_CurrentShieldDirection = Vector2.zero;
-            }
+            m_CurrentShieldDirection = p_Context.ReadValue<Vector2>();
+        }
+        else
+        {
+            m_CurrentShieldDirection = Vector2.zero;
         }
     }
     private ShieldState GetShieldState(Vector2 p_ShieldInputDirection)
@@ -161,29 +216,64 @@ public class Shield : MonoBehaviour, IUpdateUser
         }
     }
 
-    public void TakeShieldDamages(SO_HitBox p_Hitbox)
+    public void TakeShieldDamages(SO_HitBox p_Hitbox, Vector3 p_AttackerPosition)
     {
         SO_HitBox l_ShieldedHitBox = new SO_HitBox();
-        l_ShieldedHitBox.Damages = p_Hitbox.Damages * m_DamageReduction / 100.0f;
+        l_ShieldedHitBox.Damages = p_Hitbox.Damages * (1.0f - m_DamageReduction / 100.0f);
         l_ShieldedHitBox.EjectionPower = 0.0f;
-        GetComponent<Health>().TakeDamages(l_ShieldedHitBox);
+        GetComponent<Health>().TakeDamages(l_ShieldedHitBox, p_AttackerPosition);
+        CallBlockEvent();
     }
-    public void TakeShieldDamages(SO_Projectile p_Projectile)
+    public void TakeShieldDamages(SO_Projectile p_Projectile, Vector3 p_ProjectileObjectPosition)
     {
         SO_Projectile l_ShieldedProjectile = new SO_Projectile();
-        l_ShieldedProjectile.Damages = p_Projectile.Damages * m_DamageReduction / 100.0f;
+        l_ShieldedProjectile.Damages = p_Projectile.Damages * (1.0f - m_DamageReduction / 100.0f);
         l_ShieldedProjectile.EjectionPower = 0.0f;
-        GetComponent<Health>().TakeDamages(l_ShieldedProjectile);
+        GetComponent<Health>().TakeDamages(l_ShieldedProjectile, p_ProjectileObjectPosition);
+        CallBlockEvent();
+    }
+
+    private void CallBlockEvent()
+    {
+        if(m_CurrentShieldState == ShieldState.Right)
+            m_ShieldEvent.m_BlockRight.Invoke();
+        else if(m_CurrentShieldState == ShieldState.UpRight)
+            m_ShieldEvent.m_BlockUpRight.Invoke();
+        else if (m_CurrentShieldState == ShieldState.Up)
+            m_ShieldEvent.m_BlockUp.Invoke();
+        else if (m_CurrentShieldState == ShieldState.UpLeft)
+            m_ShieldEvent.m_BlockUpLeft.Invoke();
+        else if (m_CurrentShieldState == ShieldState.Left)
+            m_ShieldEvent.m_BlockLeft.Invoke();
+    }
+
+    public enum ShieldState
+    {
+        NoShield,
+        LagBefore,
+        LagAfter,
+        LagAfterOmni,
+        Right,
+        UpRight,
+        Up,
+        UpLeft,
+        Left,
+        Omni,
     }
 }
 
-public enum ShieldState
+[System.Serializable]
+public class ShieldEvent
 {
-    NoShield,
-    Right,
-    UpRight,
-    Up,
-    UpLeft,
-    Left,
-    Omni,
+    [SerializeField]
+    public UnityEvent m_BlockRight;
+    [SerializeField]
+    public UnityEvent m_BlockUpRight;
+    [SerializeField]
+    public UnityEvent m_BlockUp;
+    [SerializeField]
+    public UnityEvent m_BlockUpLeft;
+    [SerializeField]
+    public UnityEvent m_BlockLeft;
+
 }
