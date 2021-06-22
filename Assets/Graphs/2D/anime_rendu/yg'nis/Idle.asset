@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
-  m_Name: jump
+  m_Name: Idle
   m_EditorClassIdentifier: 
   m_Loop: 0
   m_AnimationFrames:
-  - m_FrameSprite: {fileID: 21300000, guid: a9869e614c98c8746a4836f33c3c6196, type: 3}
-    m_FramesAfterLastSprite: 4
-  - m_FrameSprite: {fileID: 21300000, guid: 30025f1fc3671054787a08c61a2b7c41, type: 3}
+  - m_FrameSprite: {fileID: 21300000, guid: d23449a95608e844f9a2a863c451639a, type: 3}
     m_FramesAfterLastSprite: 4
   m_LastFrameDuration: 4

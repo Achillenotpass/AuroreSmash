@@ -15,7 +15,7 @@ MonoBehaviour:
   m_FeedbackName: EjectionPowerfull
   m_HasVFX: 1
   m_VFXList:
-  - {fileID: 558812738879498381, guid: e062dd7d603037649b96438b3175e95d, type: 3}
+  - {fileID: 558812738879498381, guid: cf442418f84422743bf3566035116b30, type: 3}
   m_VFXSpecificPosition:
   - {x: 0, y: 0, z: 0}
   m_VFXSpecificRotation:
@@ -25,6 +25,7 @@ MonoBehaviour:
   m_VfxChildOfChild: 00000000
   m_VFXChildOfChildNumber: 00000000
   m_VFXIsAlone: 1
+  m_VFXHasToDisappearSmoothly: 0
   m_HasSFX: 0
   m_SFXList: []
   m_HasVFXAnimation: 0
