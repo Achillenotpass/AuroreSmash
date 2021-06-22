@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4378798136327600082}
   m_LocalRotation: {x: -0, y: -0, z: 0.13052596, w: 0.99144495}
-  m_LocalPosition: {x: 0.4, y: -0.54, z: 0}
-  m_LocalScale: {x: 0.7978025, y: 0.7978025, z: 0.7978025}
+  m_LocalPosition: {x: 1.16539, y: -1.5732782, z: 0}
+  m_LocalScale: {x: 2.3243804, y: 2.3243804, z: 2.32438}
   m_Children: []
   m_Father: {fileID: 4808374153321281763}
   m_RootOrder: 0
@@ -136,8 +136,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4808374153321281692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.38, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalPosition: {x: 0.00000011921, y: 0.38, z: 0}
+  m_LocalScale: {x: 0.120131336, y: 0.120131336, z: 0.120131336}
   m_Children:
   - {fileID: 8206994272591624812}
   m_Father: {fileID: 7326282991860863283}
@@ -183,7 +183,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 05593b2dfac078b47b3cc389f91289ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7b1498963360f648b0da626a9d7424f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -211,35 +211,35 @@ MonoBehaviour:
   m_StartingAnimation: Idle
   m_Animations:
   - m_AnimationName: Idle
-    m_Animation: {fileID: 11400000, guid: 949b1943576567c47a42b3706aded053, type: 2}
+    m_Animation: {fileID: 11400000, guid: 55931f1111a0bf944bdd94d5ebf030d3, type: 2}
   - m_AnimationName: Jab
-    m_Animation: {fileID: 11400000, guid: 65bab7eee9ef6e64ba208431b9d89dc3, type: 2}
+    m_Animation: {fileID: 11400000, guid: 5bf76b2dcc6013b4da59ed5c44e3d2c4, type: 2}
   - m_AnimationName: UpTilt
-    m_Animation: {fileID: 11400000, guid: 728c42b72888f574f9f4a6a9c3aceb07, type: 2}
+    m_Animation: {fileID: 11400000, guid: c98682a63a5f75948984dfd1b01d18a8, type: 2}
   - m_AnimationName: SideTilt
-    m_Animation: {fileID: 11400000, guid: 9dc0e2f48fac33d429016c616e6abb77, type: 2}
+    m_Animation: {fileID: 11400000, guid: 45e26fac310f6c741b7981f4bac456aa, type: 2}
   - m_AnimationName: DownTilt
-    m_Animation: {fileID: 11400000, guid: ea7fd9b3e4c44b745abd88e9d3d0cd3a, type: 2}
+    m_Animation: {fileID: 11400000, guid: bf9c177f07331234b8c5c0585323c6fc, type: 2}
   - m_AnimationName: NeutralAir
-    m_Animation: {fileID: 11400000, guid: 0b24d5d9e482ee24094b7de6cd2853ca, type: 2}
+    m_Animation: {fileID: 11400000, guid: f68b8100ed477554e88cf2beec70dd24, type: 2}
   - m_AnimationName: ForwardAir
-    m_Animation: {fileID: 11400000, guid: bff32702620e7664ca99f52a514e1cdd, type: 2}
+    m_Animation: {fileID: 11400000, guid: f06fa811787458e4ca71bbfed999899d, type: 2}
   - m_AnimationName: BackAir
-    m_Animation: {fileID: 11400000, guid: 18b355b6eb2d311488e027c8a7833ec0, type: 2}
+    m_Animation: {fileID: 11400000, guid: fe3aec8b71abec343956d33d7d7bed47, type: 2}
   - m_AnimationName: UpAir
-    m_Animation: {fileID: 11400000, guid: c2df1855b04c0c542a06ff4bf6ae39e7, type: 2}
+    m_Animation: {fileID: 11400000, guid: fd636ca3c26560640b46379a4570c9dc, type: 2}
   - m_AnimationName: DownAir
-    m_Animation: {fileID: 11400000, guid: afa63c57e8589e149b0494b85473f18f, type: 2}
+    m_Animation: {fileID: 11400000, guid: aa949bf66be4b6b45b72bfc2fda5674d, type: 2}
   - m_AnimationName: Grab
     m_Animation: {fileID: 11400000, guid: 3db5cbf36d669914783cf537f4020f15, type: 2}
   - m_AnimationName: Throw
     m_Animation: {fileID: 11400000, guid: 3e37022eb195856479862af639c54c52, type: 2}
   - m_AnimationName: Move
-    m_Animation: {fileID: 11400000, guid: 5361619d10a319f4c8190e828f98687d, type: 2}
+    m_Animation: {fileID: 11400000, guid: 0538800a3f47ca5449914750268e2a7a, type: 2}
   - m_AnimationName: GroundJump
-    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
+    m_Animation: {fileID: 11400000, guid: 392b040df594fc24e8ef6d5a8bd52571, type: 2}
   - m_AnimationName: AirJump
-    m_Animation: {fileID: 11400000, guid: d9dd60e67d181aa4e8e38b661863b965, type: 2}
+    m_Animation: {fileID: 11400000, guid: 392b040df594fc24e8ef6d5a8bd52571, type: 2}
   - m_AnimationName: Shield
     m_Animation: {fileID: 11400000, guid: 227fbc3b3e6f84f4394db4afcb56217b, type: 2}
   m_TemporaryFramePerfectAnimator: 0
@@ -279,7 +279,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4808374154157479746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.97, z: 0}
+  m_LocalPosition: {x: 0, y: -0.729, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7326282991860863283}
@@ -797,6 +797,9 @@ MonoBehaviour:
             m_StringArgument: GroundJump
             m_BoolArgument: 0
           m_CallState: 2
+    m_EventBeginGroundJumpFeedback:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 11400000, guid: 67c9cef03dba1c742a26837c7eb3b027, type: 2}
           m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
           m_MethodName: PlayFeedback
@@ -824,6 +827,9 @@ MonoBehaviour:
             m_StringArgument: AirJump
             m_BoolArgument: 0
           m_CallState: 2
+    m_EventBeginAirJumpFeedback:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 11400000, guid: 1cc93e494e2c4144097f86002ca6b27c, type: 2}
           m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
           m_MethodName: PlayFeedback
@@ -1153,13 +1159,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.5
-  m_Radius: 0.5
+  m_Height: 1.8
+  m_Radius: 0.6
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.09, z: 0}
 --- !u!114 &7326282991860863275
 MonoBehaviour:
   m_ObjectHideFlags: 0

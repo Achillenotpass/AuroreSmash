@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
   m_Name: aerial_up
   m_EditorClassIdentifier: 
-  m_Loop: 1
-  m_AnimationFrames: []
-  m_LastFrameDuration: 0
+  m_Loop: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 013defdfb8346874482e180304bc3a44, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 6f5ce7d161b73d944b4305df92294f7f, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: ba748ef17c7da654684a0010b0d40cfc, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: fd5e0e33f6926ca46863be678636ae06, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 8292887b847c3df4a93f63742a29734c, type: 3}
+    m_FramesAfterLastSprite: 4
+  m_LastFrameDuration: 4
