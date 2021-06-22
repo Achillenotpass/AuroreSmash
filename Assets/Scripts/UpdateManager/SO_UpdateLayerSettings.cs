@@ -21,5 +21,9 @@ public class SO_UpdateLayerSettings : ScriptableObject
 
     public EUpdateType UpdateType => m_UpdateType;
     public float CustomInterval => m_CustomInterval;
-    public float Multiplier => m_Multiplier;
+    public float Multiplier
+    {
+        get { return m_CustomInterval; }
+        set { m_Multiplier = Multiplier; }
+    }
 }

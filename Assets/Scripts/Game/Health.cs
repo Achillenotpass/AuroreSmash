@@ -1,17 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Health : MonoBehaviour
 {
     #region Variables
     [SerializeField]
+    private int m_MaxLives = 3;
+    public int MaxLives { get { return m_MaxLives; } }
+    [SerializeField]
+    private int m_CurrentLives = 3;
+    public int CurrentLives { get { return m_CurrentLives; } set { m_CurrentLives = Mathf.Clamp(value, 0, m_MaxLives); } }
+
+    [SerializeField]
     private float m_MaxHealth = 100.0f;
     [SerializeField]
     private float m_CurrentHealth = 100.0f;
     private CharacterInfos m_CharacterInfos = null;
+
+    [SerializeField]
+    private HealthEvents m_HealthEvents = new HealthEvents();
+
+    //Feedbacks
+    private Slider m_HealthBar = null;
+    public Slider HealthBar { set { m_HealthBar = value; } }
+    private List<GameObject> m_LivesCount = new List<GameObject>();
+    public List<GameObject> LivesCounts { get { return m_LivesCount; } set { m_LivesCount = value; } }
     #endregion
 
+    #region Awake/Start/Update
     private void Awake()
     {
         m_CharacterInfos = GetComponent<CharacterInfos>();
@@ -19,28 +39,110 @@ public class Health : MonoBehaviour
     private void Start()
     {
         m_CurrentHealth = m_MaxHealth;
+        m_CurrentLives = m_MaxLives;
     }
+    private void Update()
+    {
+        if (m_HealthBar != null)
+        {
+            m_HealthBar.value = m_CurrentHealth;
+        }
+        if(CurrentHealth/m_MaxHealth * 100 <= 25f)
+        {
+            m_HealthEvents.m_LowLife.Invoke();
+        }
+    }
+    #endregion
 
 
     #region Functions
-    public void TakeDamages(SO_HitBox p_HitBox)
+    public void TakeDamages(SO_HitBox p_HitBox, Vector3 p_AttackerPosition)
     {
         m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_HitBox.Damages, 0.0f, m_MaxHealth);
 
-        m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
-        Invoke(nameof(StopHitLag), p_HitBox.HitLag);
-        GetComponent<MeshRenderer>().enabled = true;
+        //EJECTION DE QUAND ON TOMBE A 0 PVS
+        if (m_CurrentHealth <= 0.0f)
+        {
+            DeathByHPs();
+            return;
+        }
+
+        if(p_HitBox.EjectionPower > 0.0f)
+        {
+            //On appelle la fonction apliquant l'�jection sur le joueur touch� 
+            GetComponent<CharacterEjection>().Ejection(p_HitBox.EjectionPower, p_HitBox.EjectionAngle, p_AttackerPosition, p_HitBox.HitLag);
+        }
     }
-    public void TakeDamages(SO_Projectile p_Projectile)
+    public void TakeDamages(SO_Projectile p_Projectile, Vector3 p_ProjectileObjectPosition)
     {
-        m_CharacterInfos.CurrentCharacterState = CharacterState.Hitlag;
-        Invoke(nameof(StopHitLag), p_Projectile.HitLag);
-        GetComponent<MeshRenderer>().enabled = true;
+        m_CurrentHealth = Mathf.Clamp(m_CurrentHealth - p_Projectile.Damages, 0.0f, m_MaxHealth);
+
+        //EJECTION DE QUAND ON TOMBE A 0 PVS
+        if (m_CurrentHealth <= 0.0f)
+        {
+            DeathByHPs();
+            return;
+        }
+
+        if (p_Projectile.EjectionPower > 0.0f)
+        {
+            GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObjectPosition, p_Projectile.HitLag);
+        }
     }
-    public void StopHitLag()
+    /*public void Death()
     {
+        for (int i = 0; i < FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray.Length; i++)
+        {
+            if (FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].name == "Ejection")
+            {
+                FindObjectOfType<FeedbackListenner>().FeedbackList.FeedbackArray[i].Shaking(FindObjectOfType<Shake>(), 0.3f, 0.7f, FindObjectOfType<Camera>().gameObject);
+            }
+        }
+    }*/
+    private void DeathByHPs()
+    {
+        m_HealthEvents.m_Death.Invoke();
+        Death();
+    }
+    public void DeathByEjection()
+    {
+        m_HealthEvents.m_DeathEjection.Invoke();
+        Death();
+    }
+    private void Death()
+    {
+        CurrentLives = CurrentLives - 1;
+        m_LivesCount[m_CurrentLives].SetActive(false);
+
+        GetComponent<CharacterEjection>().InterruptEjection();
+        CurrentHealth = MaxHealth;
         m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
-        GetComponent<MeshRenderer>().enabled = false;
+
+        Component[] l_Components = GetComponentsInChildren<Component>();
+        foreach (Component l_Component in l_Components)
+        {
+            if (l_Component is CharacterController)
+            {
+                ((CharacterController)l_Component).enabled = false;
+            }
+            else if (l_Component is PlayerInput)
+            {
+                ((PlayerInput)l_Component).DeactivateInput();
+            }
+            else if (l_Component is MonoBehaviour)
+            {
+                ((MonoBehaviour)l_Component).enabled = false;
+            }
+            else if (l_Component is SpriteRenderer)
+            {
+                ((SpriteRenderer)l_Component).enabled = false;
+            }
+        }
+
+        if (m_CurrentLives > 0)
+        {
+            FindObjectOfType<GameManager>().StartCoroutine(FindObjectOfType<GameManager>().RespawnTimer(this.gameObject));   
+        }
     }
     #endregion
 
@@ -52,5 +154,19 @@ public class Health : MonoBehaviour
     public float CurrentHealth
     {
         get { return m_CurrentHealth; }
+        set { m_CurrentHealth = Mathf.Clamp(value, 0.0f, MaxHealth); }
     }
+}
+
+[System.Serializable]
+public class HealthEvents
+{
+    [SerializeField]
+    public UnityEvent m_Death;
+
+    [SerializeField]
+    public UnityEvent m_DeathEjection;
+
+    [SerializeField]
+    public UnityEvent m_LowLife;
 }

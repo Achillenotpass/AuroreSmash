@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f6191350edc6f4ea5e1d16e60d5014, type: 3}
+  m_Name: Mist
+  m_EditorClassIdentifier: 
+  m_CharacterName: Mist
+  m_CharacterPrefab: {fileID: 7326282991860863268, guid: a54c1ec3efd3d2e458ee52f601622c08, type: 3}
+  m_CharacterSelectionDatas:
+    m_SelectionSprite: {fileID: 21300000, guid: 85b8553eebf37db47baf0d010a856017, type: 3}
+    m_InGameSprite: {fileID: 21300000, guid: f99c8606999284c45b9b099d8a83714e, type: 3}
+  m_HealthBarDatas:
+    m_HealthBarImage: {fileID: 21300000, guid: beeb81c538a645e44bbd24eb461ba1ce, type: 3}
+    m_HealthBarLogo: {fileID: 21300000, guid: dc6e379e082b27548a19edfaf3c09236, type: 3}
+    m_HealtBarNameHolder: {fileID: 21300000, guid: 5051157e7b0c78943bafd8e34db9fa84, type: 3}
+  m_VictoryScreenDatas:
+    m_WinnerSprite: {fileID: 21300000, guid: 85b8553eebf37db47baf0d010a856017, type: 3}
+    m_LoserSprite: {fileID: 21300000, guid: 8b758d76c070a2243b9b5beb3fb8b538, type: 3}
+    m_FaceSprite: {fileID: 21300000, guid: 9dd569b2af26dd74784cf50d9f393b1a, type: 3}
+    m_DrawSprite: {fileID: 21300000, guid: 85b8553eebf37db47baf0d010a856017, type: 3}

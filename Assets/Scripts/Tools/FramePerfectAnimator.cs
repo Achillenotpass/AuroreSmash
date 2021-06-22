@@ -24,9 +24,12 @@ public class FramePerfectAnimator : MonoBehaviour, IUpdateUser
     private string m_StartingAnimation = string.Empty;
     [SerializeField]
     private List<Animation> m_Animations = new List<Animation>();
+    public List<Animation> Animations { get { return m_Animations; } set { m_Animations = value; } }
     private Animation m_CurrentAnimation = null;
     private int m_CurrentFrameCount = 0;
     private Sprite m_CurrentSprite = null;
+    [SerializeField]
+    private bool m_TemporaryFramePerfectAnimator = false;
     #endregion
 
     #region Update and stuff
@@ -50,6 +53,10 @@ public class FramePerfectAnimator : MonoBehaviour, IUpdateUser
             if (m_CurrentAnimation.m_Animation.Loop)
             {
                 m_CurrentFrameCount = 0;
+            }
+            else if(m_TemporaryFramePerfectAnimator)
+            {
+                Destroy(gameObject);
             }
         }
         else
@@ -78,6 +85,11 @@ public class FramePerfectAnimator : MonoBehaviour, IUpdateUser
     }
     public void ChangeAnimationTo(string p_AnimationName)
     {
+        if (m_CurrentAnimation != null
+            && m_CurrentAnimation.m_AnimationName == p_AnimationName)
+        {
+            return;
+        }
         foreach (Animation l_Animation in m_Animations)
         {
             if (l_Animation.m_AnimationName == p_AnimationName)
