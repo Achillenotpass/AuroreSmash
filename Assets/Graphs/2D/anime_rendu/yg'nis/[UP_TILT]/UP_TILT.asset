@@ -13,5 +13,23 @@ MonoBehaviour:
   m_Name: UP_TILT
   m_EditorClassIdentifier: 
   m_Loop: 1
-  m_AnimationFrames: []
-  m_LastFrameDuration: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 465dc8ae243e6ad45875bf9b38d587d0, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: b4a453336352ff14399ee0f18b6f464a, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 2e6ee3fa711c80940b1aae7a5abab3cd, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: f491c75944cae9b4390bab4e82ccd46a, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: dd5aa01d3ade2a0459fb1f97c9b6469b, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: eba84504c111c2c40860d52ce034d6b7, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: e3765a287f8505348996fa74ac4ccce5, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 80f511fd38bc3bf40a2f95dde18555c7, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 8345a2ba864aa334ea9f8dee7e7bb923, type: 3}
+    m_FramesAfterLastSprite: 4
+  m_LastFrameDuration: 4

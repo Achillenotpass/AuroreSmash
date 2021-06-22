@@ -13,5 +13,19 @@ MonoBehaviour:
   m_Name: SILDE_TILT
   m_EditorClassIdentifier: 
   m_Loop: 1
-  m_AnimationFrames: []
-  m_LastFrameDuration: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 9de9d6c2322c71141b8fb8fd89d2559d, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: e5f24d4f169ed11498f0a360c5b97e6f, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 31e38a8cf796a7a4fb69719543be099a, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 1d2e673be8597db488916dc91e743711, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: ef9f871aa94c95048aca2a086303e786, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 247c273359d9c254c8785de37c65b183, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 1813e11fa5b64de4394fb82980a75d6c, type: 3}
+    m_FramesAfterLastSprite: 4
+  m_LastFrameDuration: 4

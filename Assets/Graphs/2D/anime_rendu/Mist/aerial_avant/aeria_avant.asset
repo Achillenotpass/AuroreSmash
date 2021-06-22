@@ -12,6 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
   m_Name: aeria_avant
   m_EditorClassIdentifier: 
-  m_Loop: 1
-  m_AnimationFrames: []
-  m_LastFrameDuration: 0
+  m_Loop: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 050115093d5f32148894086b4c1e1a46, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 6bee4aa1ec2759748bae024cf918c458, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: a160784910addc54f843fdfba834c51f, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 25d0bc06e33004143a34abf4a65c9802, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 47b0293e00d0d1d468156a15e46297a4, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 311077f8d6b7bd245919e93073dbe9ef, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 67bab93e9845e9140861a8a8ad265fc5, type: 3}
+    m_FramesAfterLastSprite: 4
+  m_LastFrameDuration: 4

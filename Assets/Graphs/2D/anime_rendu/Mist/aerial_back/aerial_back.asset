@@ -12,6 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
   m_Name: aerial_back
   m_EditorClassIdentifier: 
-  m_Loop: 1
-  m_AnimationFrames: []
-  m_LastFrameDuration: 0
+  m_Loop: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: 486a688b43e222442915bcf912f8c387, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 683052c6e695faa4d8c02bebb49e1abb, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: a73f7cefabb1ea747b0ec9279632bb95, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 4a47bc32a4a2934449ec2b086a204b59, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 3f822bd59f64dcd458d95d942d6ce632, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 9675005f9f50bec4e86bbaff53224084, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 53e2eccf65426d04d84cb632c58b8926, type: 3}
+    m_FramesAfterLastSprite: 4
+  m_LastFrameDuration: 4

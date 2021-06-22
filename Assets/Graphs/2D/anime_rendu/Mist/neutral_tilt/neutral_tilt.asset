@@ -12,6 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
   m_Name: neutral_tilt
   m_EditorClassIdentifier: 
-  m_Loop: 1
-  m_AnimationFrames: []
-  m_LastFrameDuration: 0
+  m_Loop: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: eec4c2fd9eca90747af8f6232b49bc2a, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 01f04cccb1b1b5744b135ebc691ea98d, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 16a0792cd682031499df68c05622fd67, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: f20809a1576051f4eaa81523f0296072, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: cdb3c6c9e0df5ba4299910a682d963e5, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 411f2d728d8df7546b12bd411db8ea3d, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: eb28d536c378439478b4e9862e2fe628, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: a82389b38919ead4fb065e8492de4be0, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 7e75f0dd1f8b2634894655508d37b2aa, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 802f547dd4f011b4c91d82a167460eda, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: d52c2048cd9847d49a943d35fd1a1b9f, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 2ec39959164f5fc4cb99b0725d5ba9f2, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: fa09ab384f9b58a40be0129a548f23bb, type: 3}
+    m_FramesAfterLastSprite: 4
+  m_LastFrameDuration: 4
