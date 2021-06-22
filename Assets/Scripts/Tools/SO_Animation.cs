@@ -25,7 +25,7 @@ public class SO_Animation : ScriptableObject
             {
                 if (i == 0)
                 {
-                    m_AnimationFrames[i].m_GlobalFramePosition = m_AnimationFrames[i].m_FramesAfterLastSprite;
+                    m_AnimationFrames[i].m_GlobalFramePosition = 0;
                 }
                 else
                 {
