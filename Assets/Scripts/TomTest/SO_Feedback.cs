@@ -30,6 +30,8 @@ public class SO_Feedback : ScriptableObject
     private int[] m_VFXChildOfChildNumber = null;
     [SerializeField]
     private bool m_VFXIsAlone = false;
+    [SerializeField]
+    private bool m_VFXHasToDisappearSmoothly = false;
 
     public void InstantiateVFX(GameObject p_Instantiator, int p_NumberInTheList)
     {
@@ -150,7 +152,10 @@ public class SO_Feedback : ScriptableObject
             while (p_Instantiator.transform.Find(m_VFXList[n].name))
             {
                 Transform l_ParticleSystemInInstantiator = p_Instantiator.transform.Find(m_VFXList[n].name);
-                Destroy(l_ParticleSystemInInstantiator.gameObject);
+                if(m_VFXHasToDisappearSmoothly)
+                    StopVFXToDeath(l_ParticleSystemInInstantiator.GetComponent<ParticleSystem>());
+                else
+                    Destroy(l_ParticleSystemInInstantiator.gameObject);
                 if (p_Instantiator.transform.Find(m_VFXList[n].name))
                 {
                     return;
@@ -164,11 +169,19 @@ public class SO_Feedback : ScriptableObject
             {
                 if(l_ParticleSystemInScene[i].name == m_VFXList[v].name)
                 {
-                    Destroy(l_ParticleSystemInScene[i].gameObject);
+                    if(m_VFXHasToDisappearSmoothly)
+                        StopVFXToDeath(l_ParticleSystemInScene[i]);
+                    else
+                        Destroy(l_ParticleSystemInScene[i].gameObject);
                     break;
                 }
             }
         }
+    }
+
+    private void StopVFXToDeath(ParticleSystem p_ParticleSystem)
+    {
+        p_ParticleSystem.Stop();
     }
 
     [Header("SFX")]
@@ -330,13 +343,10 @@ public class SO_Feedback : ScriptableObject
         FramePerfectAnimator[] l_FPAInInstantiator = p_Instantiator.GetComponentsInChildren<FramePerfectAnimator>();
         for (int i = 0; i < l_FPAInInstantiator.Length; i++)
         {
-            Debug.Log("aaa");
             for (int v = 0; v < m_VFXAnimationList.Length; v++)
             {
-                Debug.Log("bbb");
                 if (l_FPAInInstantiator[i].name == m_VFXAnimationList[v].name)
                 {
-                    Debug.Log("ccc");
                     Destroy(l_FPAInInstantiator[i].gameObject);
                     break;
                 }
