@@ -797,6 +797,9 @@ MonoBehaviour:
             m_StringArgument: GroundJump
             m_BoolArgument: 0
           m_CallState: 2
+    m_EventBeginGroundJumpFeedback:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 11400000, guid: 67c9cef03dba1c742a26837c7eb3b027, type: 2}
           m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
           m_MethodName: PlayFeedback
@@ -824,6 +827,9 @@ MonoBehaviour:
             m_StringArgument: AirJump
             m_BoolArgument: 0
           m_CallState: 2
+    m_EventBeginAirJumpFeedback:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 11400000, guid: 1cc93e494e2c4144097f86002ca6b27c, type: 2}
           m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
           m_MethodName: PlayFeedback
