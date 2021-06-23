@@ -231,9 +231,9 @@ MonoBehaviour:
   - m_AnimationName: DownAir
     m_Animation: {fileID: 11400000, guid: aa949bf66be4b6b45b72bfc2fda5674d, type: 2}
   - m_AnimationName: Grab
-    m_Animation: {fileID: 11400000, guid: 3db5cbf36d669914783cf537f4020f15, type: 2}
+    m_Animation: {fileID: 11400000, guid: 09cef00ad3ef400408515b79c27e68ea, type: 2}
   - m_AnimationName: Throw
-    m_Animation: {fileID: 11400000, guid: 3e37022eb195856479862af639c54c52, type: 2}
+    m_Animation: {fileID: 11400000, guid: 0ebb062e770a3324fb2024d041c21875, type: 2}
   - m_AnimationName: Move
     m_Animation: {fileID: 11400000, guid: 0538800a3f47ca5449914750268e2a7a, type: 2}
   - m_AnimationName: GroundJump
@@ -241,7 +241,7 @@ MonoBehaviour:
   - m_AnimationName: AirJump
     m_Animation: {fileID: 11400000, guid: 392b040df594fc24e8ef6d5a8bd52571, type: 2}
   - m_AnimationName: Shield
-    m_Animation: {fileID: 11400000, guid: cef9482b8a2b3ed4b9e3f4b3f33f8e8e, type: 2}
+    m_Animation: {fileID: 11400000, guid: e8cb6ed669b6bc44b96a7bc331e0d540, type: 2}
   m_TemporaryFramePerfectAnimator: 0
 --- !u!114 &3971138652160698703
 MonoBehaviour:
