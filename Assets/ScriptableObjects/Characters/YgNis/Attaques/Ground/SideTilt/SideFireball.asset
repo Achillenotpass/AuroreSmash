@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ProjectilePrefab: {fileID: 2936408420116369740, guid: df2bb7acbf4acb7418b30905bcea13e5, type: 3}
   m_Damages: 4
-  m_EjectionPower: 3
+  m_EjectionPower: 0
   m_EjectionAngle: 20
-  m_HitLag: 0.1
+  m_HitLag: 0
   m_RelativeStartPosition: {x: 0, y: 0, z: 0}
   m_ShootAngle: 0
-  m_Speed: 20
+  m_Speed: 15
   m_InstantiationFrame: 15

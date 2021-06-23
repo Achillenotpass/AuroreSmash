@@ -1539,10 +1539,10 @@ MonoBehaviour:
   m_HitboxRelativePosition: {x: 0, y: 0, z: 0}
   m_HitboxRadius: 0.85
   m_ThrowDamage: 10
-  m_EjectionPower: 10
-  m_UpEjectionAngle: 90
-  m_LeftEjectionAngle: 125
-  m_RightEjectionAngle: 55
+  m_EjectionPower: 7
+  m_UpEjectionAngle: 180
+  m_LeftEjectionAngle: 150
+  m_RightEjectionAngle: 30
   m_PreLag: 10
   m_GrabDuration: 10
   m_GrabHoldDuration: 120
