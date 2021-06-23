@@ -241,7 +241,7 @@ MonoBehaviour:
   - m_AnimationName: AirJump
     m_Animation: {fileID: 11400000, guid: 392b040df594fc24e8ef6d5a8bd52571, type: 2}
   - m_AnimationName: Shield
-    m_Animation: {fileID: 11400000, guid: 227fbc3b3e6f84f4394db4afcb56217b, type: 2}
+    m_Animation: {fileID: 11400000, guid: cef9482b8a2b3ed4b9e3f4b3f33f8e8e, type: 2}
   m_TemporaryFramePerfectAnimator: 0
 --- !u!114 &3971138652160698703
 MonoBehaviour:
@@ -1634,6 +1634,21 @@ MonoBehaviour:
   m_LagBefore: 10
   m_LagAfter: 10
   m_ShieldObject: {fileID: 4378798136327600082}
+  m_StartShieldEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4808374153321281693}
+        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+        m_MethodName: ChangeAnimationTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shield
+          m_BoolArgument: 0
+        m_CallState: 2
   m_BlockEvent:
     m_PersistentCalls:
       m_Calls:

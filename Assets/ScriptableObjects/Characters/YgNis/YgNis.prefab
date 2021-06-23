@@ -227,7 +227,7 @@ MonoBehaviour:
   - m_AnimationName: BackAir
     m_Animation: {fileID: 11400000, guid: 3e9e7a75c1930e5489118441c6817600, type: 2}
   - m_AnimationName: UpAir
-    m_Animation: {fileID: 11400000, guid: 797e54efb4143e14bb38c4d2dc542bce, type: 2}
+    m_Animation: {fileID: 11400000, guid: d181c1dc5d9d5f145b221d93f6b729e2, type: 2}
   - m_AnimationName: DownAir
     m_Animation: {fileID: 11400000, guid: ad5a46ac44adb0c4fa469219ce782dcd, type: 2}
   - m_AnimationName: Move
@@ -236,6 +236,8 @@ MonoBehaviour:
     m_Animation: {fileID: 11400000, guid: 9bc8c6f31606bf54197823d96aa19a4a, type: 2}
   - m_AnimationName: Grab
     m_Animation: {fileID: 11400000, guid: d18eca96065f4584c8970088b6923f7b, type: 2}
+  - m_AnimationName: Shield
+    m_Animation: {fileID: 11400000, guid: 75669196e0092434e9a10672a91f3e72, type: 2}
   m_TemporaryFramePerfectAnimator: 0
 --- !u!114 &5106707915495274647
 MonoBehaviour:
@@ -1580,6 +1582,21 @@ MonoBehaviour:
   m_LagBefore: 10
   m_LagAfter: 10
   m_ShieldObject: {fileID: 2867766636217688546}
+  m_StartShieldEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6393736191229132231}
+        m_TargetAssemblyTypeName: FramePerfectAnimator, Assembly-CSharp
+        m_MethodName: ChangeAnimationTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shield
+          m_BoolArgument: 0
+        m_CallState: 2
   m_BlockEvent:
     m_PersistentCalls:
       m_Calls:
