@@ -73,14 +73,17 @@ public class MapSelection : MonoBehaviour
     }
     public void SelectInput(InputAction.CallbackContext p_Context)
     {
-        if (p_Context.started)
+        if (p_Context.started && !m_InAnimation)
         {
-            StartCoroutine(AsyncLoading(m_MapNames[m_CurrentMap], 2.0f));
+            StartCoroutine(AsyncLoading(m_MapNames[m_CurrentMap], 1.0f));
         }
     }
     public void ReturnInput(InputAction.CallbackContext p_Context)
     {
-        StartCoroutine(AsyncLoading("CharacterSelection", 2.0f));
+        if (p_Context.started && !m_InAnimation)
+        {
+            StartCoroutine(AsyncLoading("CharacterSelection", 1.0f));
+        }
     }
     #endregion
 
