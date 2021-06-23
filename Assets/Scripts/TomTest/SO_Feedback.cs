@@ -203,6 +203,11 @@ public class SO_Feedback : ScriptableObject
                 FindObjectOfType<AudioSource>().PlayOneShot(l_AudioClip);
     }
 
+    public void StopAllAudioClip()
+    {
+
+    }
+
 
     [Header("VFX Animation")]
     [SerializeField]

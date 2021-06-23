@@ -1204,6 +1204,18 @@ MonoBehaviour:
             m_StringArgument: Jab
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 64eaedadf94efd44b814a52887932835, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_StartSideTilt:
       m_PersistentCalls:
         m_Calls:
@@ -1217,6 +1229,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: SideTilt
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 49a419c2442425e4c9dcca9bae288b0a, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     m_StartUpTilt:
@@ -1234,6 +1258,18 @@ MonoBehaviour:
             m_StringArgument: UpTilt
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 52700f09b6db9bb4ca1a85fe9600f93e, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_StartDownTilt:
       m_PersistentCalls:
         m_Calls:
@@ -1247,6 +1283,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: DownTilt
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: ed0d2ac1ceae02d4d88e3466acac84e2, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     m_StartNeutralAir:
@@ -1264,6 +1312,18 @@ MonoBehaviour:
             m_StringArgument: NeutralAir
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 272e4bfd66b2e1c418415012b54f4ba9, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_StartForwardAir:
       m_PersistentCalls:
         m_Calls:
@@ -1277,6 +1337,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: ForwardAir
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 73a1b16f98a63ab4fb128ddf57828105, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     m_StartUpAir:
@@ -1294,6 +1366,18 @@ MonoBehaviour:
             m_StringArgument: UpAir
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 2a1d7a4edfae4284aae142ccbe1f75d0, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_StartDownAir:
       m_PersistentCalls:
         m_Calls:
@@ -1307,6 +1391,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: DownAir
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 466bfc53472b2e64994cc4294a9c2a81, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     m_StartBackAir:
@@ -1324,6 +1420,21 @@ MonoBehaviour:
             m_StringArgument: BackAir
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 07228b483da2fc24d975de4fcce807e2, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    m_EndAttack:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &9200278381566710896
 MonoBehaviour:
   m_ObjectHideFlags: 0
