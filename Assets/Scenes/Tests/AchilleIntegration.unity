@@ -337,9 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a389296bebb6141b8d2563f051f28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CurrentFrame: 18
-  m_Attack: {fileID: 11400000, guid: d617fc35793e61348ad920c1869f9492, type: 2}
-  m_Animation: {fileID: 11400000, guid: 3e9e7a75c1930e5489118441c6817600, type: 2}
+  m_CurrentFrame: 16
+  m_Attack: {fileID: 11400000, guid: 43aaaadae9e75ea4797cb53b99577c08, type: 2}
+  m_Animation: {fileID: 11400000, guid: 5e699bd44a38a4f4aa43e645dd7230ac, type: 2}
 --- !u!212 &889230854
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -380,7 +380,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 05772d5980c6f9f4ebb709d22003402f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 710bca292c6b44e49a6aa585b0a07d5a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
