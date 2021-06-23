@@ -24,7 +24,9 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     private float m_EjectionAngle = 0;
     private float m_EjectionPower = 0;
     [SerializeField]
-    private float m_MaxTimerEjection = 1;
+    private float m_MinTimerEjection = 1;
+    [SerializeField]
+    private float m_MultiplicatorAt0HP = 3.0f;
     private float m_TimerEjection = 1;
 
     private bool m_IsEjected = false;
@@ -80,7 +82,7 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
             m_EjectionAngle = p_EjectionAngle;
             m_BasePosition = transform.position;
             m_IsEjected = true;
-            m_TimerEjection = (m_MaxTimerEjection + ((100f - (m_Health.CurrentHealth / m_Health.MaxHealth * 100f)) / 400f)) * p_HitLagTime;
+            m_TimerEjection = m_MinTimerEjection + p_HitLagTime * (m_MultiplicatorAt0HP * ((m_Health.MaxHealth - m_Health.CurrentHealth) / m_Health.MaxHealth));
 
             if (p_AttackerPosition.x > transform.position.x)
             {

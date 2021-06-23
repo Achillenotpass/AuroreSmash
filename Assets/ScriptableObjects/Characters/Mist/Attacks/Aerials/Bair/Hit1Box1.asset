@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hit1Box1
   m_EditorClassIdentifier: 
   m_Damages: 11
-  m_EjectionPower: 14
+  m_EjectionPower: 15
   m_EjectionAngle: 20
   m_HitLag: 0.25
   m_HitBoxType: 1

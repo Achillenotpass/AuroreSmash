@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2867766636217688546}
   m_LocalRotation: {x: -0, y: -0, z: 0.13052596, w: 0.99144495}
-  m_LocalPosition: {x: 1.85, y: -1.19, z: 0}
-  m_LocalScale: {x: 0.79780006, y: 0.79780006, z: 0.79779994}
+  m_LocalPosition: {x: 5.32, y: -1.3728862, z: 0}
+  m_LocalScale: {x: 2.5738938, y: 2.5738938, z: 2.5738935}
   m_Children: []
   m_Father: {fileID: 6393736191229132217}
   m_RootOrder: 0
@@ -137,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 6393736191229132230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.38, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalScale: {x: 0.11191522, y: 0.11191522, z: 0.11191522}
   m_Children:
   - {fileID: 8756501146180665214}
   m_Father: {fileID: 9200278381566710889}
@@ -183,7 +183,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f96b9221a7d04af4faa8550bd83fb951, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d23449a95608e844f9a2a863c451639a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -211,29 +211,29 @@ MonoBehaviour:
   m_StartingAnimation: Idle
   m_Animations:
   - m_AnimationName: Idle
-    m_Animation: {fileID: 11400000, guid: 3ade321a4987288429fdaab1cf2233c2, type: 2}
+    m_Animation: {fileID: 11400000, guid: 31d53f01d7e416f4eafc1ddb4e9faaa5, type: 2}
   - m_AnimationName: Jab
-    m_Animation: {fileID: 11400000, guid: eaf204ba8c646d84391021d3ea539d2a, type: 2}
+    m_Animation: {fileID: 11400000, guid: be7bddb6bcd67db4fa36a4134f580ac8, type: 2}
   - m_AnimationName: UpTilt
-    m_Animation: {fileID: 11400000, guid: 633aca9d181ad584d90a0ca836386930, type: 2}
+    m_Animation: {fileID: 11400000, guid: 05f26e593d6ac564dbcdac46f099be7e, type: 2}
   - m_AnimationName: SideTilt
-    m_Animation: {fileID: 11400000, guid: 95ec7d4dfc2ae8941b00b03fcaffdc1e, type: 2}
+    m_Animation: {fileID: 11400000, guid: 3821bd38809321143b00e336ce41ac35, type: 2}
   - m_AnimationName: DownTilt
-    m_Animation: {fileID: 11400000, guid: fef9e0437366ff445aef72bc8e47da29, type: 2}
+    m_Animation: {fileID: 11400000, guid: f5bce91255d8cce47bcb9631667f2d9b, type: 2}
   - m_AnimationName: NeutralAir
-    m_Animation: {fileID: 11400000, guid: 82cb7888e46217c4d8ee84d5ecec58b0, type: 2}
+    m_Animation: {fileID: 11400000, guid: 5e699bd44a38a4f4aa43e645dd7230ac, type: 2}
   - m_AnimationName: ForwardAir
-    m_Animation: {fileID: 11400000, guid: 46c1dd22fe9687649a00eb8ef0c6ddbe, type: 2}
+    m_Animation: {fileID: 11400000, guid: 3fadd726e6701ed4f8f7dcb99e6c8977, type: 2}
   - m_AnimationName: BackAir
-    m_Animation: {fileID: 11400000, guid: c635cec33c2027a4e8477d9865e36ed4, type: 2}
+    m_Animation: {fileID: 11400000, guid: 3e9e7a75c1930e5489118441c6817600, type: 2}
   - m_AnimationName: UpAir
     m_Animation: {fileID: 11400000, guid: 797e54efb4143e14bb38c4d2dc542bce, type: 2}
   - m_AnimationName: DownAir
-    m_Animation: {fileID: 11400000, guid: bac81ec84c8b81548ac726600c64d6ce, type: 2}
+    m_Animation: {fileID: 11400000, guid: ad5a46ac44adb0c4fa469219ce782dcd, type: 2}
   - m_AnimationName: Move
-    m_Animation: {fileID: 11400000, guid: d979c99b947532a4b9f91fcfde026623, type: 2}
+    m_Animation: {fileID: 11400000, guid: 3ed645ab08780044dacaa670fda15441, type: 2}
   - m_AnimationName: Jump
-    m_Animation: {fileID: 11400000, guid: 870f04baacf4ad440b3753a06622df1e, type: 2}
+    m_Animation: {fileID: 11400000, guid: 9bc8c6f31606bf54197823d96aa19a4a, type: 2}
   - m_AnimationName: Grab
     m_Animation: {fileID: 11400000, guid: d18eca96065f4584c8970088b6923f7b, type: 2}
   m_TemporaryFramePerfectAnimator: 0
@@ -1141,13 +1141,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.75
+  m_Height: 1.6
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.09, z: 0}
 --- !u!114 &9200278381566710897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1575,7 +1575,8 @@ MonoBehaviour:
   m_ReboundLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  m_MaxTimerEjection: 1
+  m_MinTimerEjection: 0.45
+  m_MultiplicatorAt0HP: 3
   m_EjectionEvents:
     m_TakeHit:
       m_PersistentCalls:
