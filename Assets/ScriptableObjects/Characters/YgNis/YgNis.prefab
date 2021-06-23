@@ -1464,7 +1464,8 @@ MonoBehaviour:
   m_ReboundLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  m_MaxTimerEjection: 1
+  m_MinTimerEjection: 0.45
+  m_MultiplicatorAt0HP: 3
   m_EjectionEvents:
     m_TakeHit:
       m_PersistentCalls:
