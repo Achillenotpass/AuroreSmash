@@ -413,12 +413,10 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
             {
                 if (p_Context.started)
                 {
-                    m_MovementEvents.m_EventBeginGroundJump.Invoke();
+                    m_MovementEvents.m_EventBeginGroundJumpFeedback.Invoke();
                     m_JumpMark = m_PlayerGroundCheck.position;
                     m_IsGroundJumping = true;
                     m_TimerGroundJump = 0;
-                    
-                    
                 }
             }
             else
@@ -427,7 +425,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
                 {
                     if (p_Context.started)
                     {
-                        m_MovementEvents.m_EventBeginAirJump.Invoke();
+                        m_MovementEvents.m_EventBeginAirJumpFeedback.Invoke();
                         m_CharacterAirJump -= 1;
                         m_JumpMark = m_PlayerGroundCheck.position;
                         m_IsAirJumping = true;
@@ -503,6 +501,7 @@ public class CharacterMovement : MonoBehaviour, IUpdateUser
         if (m_IsGroundJumping && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
         {
             //Ground jump
+            Debug.Log("aaa");
             m_MovementEvents.m_EventBeginGroundJump.Invoke();
         }
         else if (m_IsAirJumping && m_CharacterInfos.CurrentCharacterState == CharacterState.Moving)
@@ -610,7 +609,11 @@ public class MovementEvents
     [SerializeField]
     public UnityEvent m_EventBeginGroundJump;
     [SerializeField]
+    public UnityEvent m_EventBeginGroundJumpFeedback;
+    [SerializeField]
     public UnityEvent m_EventBeginAirJump;
+    [SerializeField]
+    public UnityEvent m_EventBeginAirJumpFeedback;
     [SerializeField]
     public UnityEvent m_EventJump;
     [SerializeField]

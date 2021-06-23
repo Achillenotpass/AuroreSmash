@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc41325cbc517c42831b6af5b2cede5, type: 3}
+  m_Name: aerial_down
+  m_EditorClassIdentifier: 
+  m_Loop: 0
+  m_AnimationFrames:
+  - m_FrameSprite: {fileID: 21300000, guid: b893b7d799a2bba49b62adb490722b64, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 5bc71a8a6c0308c4b8432bd90aa04a10, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: 2cc82331332dbd34898435450200e754, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: c6fffba19a06928439da84b2741d58fb, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: d1f804b57a5478149a71aa868934c848, type: 3}
+    m_FramesAfterLastSprite: 4
+  - m_FrameSprite: {fileID: 21300000, guid: fcaa11c251995034fb38e6d769e67fe3, type: 3}
+    m_FramesAfterLastSprite: 4
+  m_LastFrameDuration: 4

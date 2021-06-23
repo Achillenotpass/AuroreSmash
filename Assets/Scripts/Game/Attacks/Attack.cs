@@ -139,7 +139,7 @@ public class Attack : MonoBehaviour, IUpdateUser
             m_PlayersHit.Clear();
             //On envoie les feedbacks
             m_AttackEvents.m_InterruptAttack.Invoke();
-
+            m_AttackEvents.m_EndAttack.Invoke();
 
             //On permet joueur de se retourner pendant l'attaque
             m_CharacterInfos.CurrentCharacterState = CharacterState.Idle;
@@ -639,5 +639,7 @@ public class AttackEvents
     public UnityEvent m_StartDownAir = null;
     [SerializeField]
     public UnityEvent m_StartBackAir = null;
+    [SerializeField]
+    public UnityEvent m_EndAttack = null;
 }
 #endregion

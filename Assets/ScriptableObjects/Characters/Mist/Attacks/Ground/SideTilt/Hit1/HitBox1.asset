@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e4d1e5bce45b743966423002cae695, type: 3}
   m_Name: HitBox1
   m_EditorClassIdentifier: 
-  m_Damages: 11
-  m_EjectionPower: 6
-  m_EjectionAngle: 30
-  m_HitLag: 0.25
+  m_Damages: 12
+  m_EjectionPower: 7
+  m_EjectionAngle: 40
+  m_HitLag: 0.2
   m_HitBoxType: 0
   m_RelativePosition: {x: 1.28, y: 0.18, z: 0}
   m_Radius: 0.5
