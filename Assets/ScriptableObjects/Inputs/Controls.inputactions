@@ -299,6 +299,71 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "FreeCamera",
+            "id": "70cd4dc0-8bd8-41dd-ac21-24175eceb04e",
+            "actions": [
+                {
+                    "name": "Moving",
+                    "type": "Value",
+                    "id": "1bf3acf8-825a-4bb7-8f86-e2d317ce0bdc",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GoUp",
+                    "type": "Value",
+                    "id": "869b2f9a-630a-428e-9e50-fe3a2ba4c975",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GoDown",
+                    "type": "Value",
+                    "id": "24356a6b-a54b-4d45-87b0-3324798a1919",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "699ccb71-d6de-4a02-a3a7-05d25816dbd1",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Moving",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9b3d1da4-a7bd-4413-bea5-9039d50acaa2",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GoUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e94fdf1-c2d5-477b-a7e6-de3c6296d531",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GoDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

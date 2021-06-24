@@ -312,6 +312,71 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""FreeCamera"",
+            ""id"": ""70cd4dc0-8bd8-41dd-ac21-24175eceb04e"",
+            ""actions"": [
+                {
+                    ""name"": ""Moving"",
+                    ""type"": ""Value"",
+                    ""id"": ""1bf3acf8-825a-4bb7-8f86-e2d317ce0bdc"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""GoUp"",
+                    ""type"": ""Value"",
+                    ""id"": ""869b2f9a-630a-428e-9e50-fe3a2ba4c975"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""GoDown"",
+                    ""type"": ""Value"",
+                    ""id"": ""24356a6b-a54b-4d45-87b0-3324798a1919"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""699ccb71-d6de-4a02-a3a7-05d25816dbd1"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Moving"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b3d1da4-a7bd-4413-bea5-9039d50acaa2"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GoUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e94fdf1-c2d5-477b-a7e6-de3c6296d531"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GoDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -332,6 +397,11 @@ public class @Controls : IInputActionCollection, IDisposable
         m_UI_Return = m_UI.FindAction("Return", throwIfNotFound: true);
         m_UI_Joysticks = m_UI.FindAction("Joysticks", throwIfNotFound: true);
         m_UI_Start = m_UI.FindAction("Start", throwIfNotFound: true);
+        // FreeCamera
+        m_FreeCamera = asset.FindActionMap("FreeCamera", throwIfNotFound: true);
+        m_FreeCamera_Moving = m_FreeCamera.FindAction("Moving", throwIfNotFound: true);
+        m_FreeCamera_GoUp = m_FreeCamera.FindAction("GoUp", throwIfNotFound: true);
+        m_FreeCamera_GoDown = m_FreeCamera.FindAction("GoDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -523,6 +593,55 @@ public class @Controls : IInputActionCollection, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // FreeCamera
+    private readonly InputActionMap m_FreeCamera;
+    private IFreeCameraActions m_FreeCameraActionsCallbackInterface;
+    private readonly InputAction m_FreeCamera_Moving;
+    private readonly InputAction m_FreeCamera_GoUp;
+    private readonly InputAction m_FreeCamera_GoDown;
+    public struct FreeCameraActions
+    {
+        private @Controls m_Wrapper;
+        public FreeCameraActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Moving => m_Wrapper.m_FreeCamera_Moving;
+        public InputAction @GoUp => m_Wrapper.m_FreeCamera_GoUp;
+        public InputAction @GoDown => m_Wrapper.m_FreeCamera_GoDown;
+        public InputActionMap Get() { return m_Wrapper.m_FreeCamera; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FreeCameraActions set) { return set.Get(); }
+        public void SetCallbacks(IFreeCameraActions instance)
+        {
+            if (m_Wrapper.m_FreeCameraActionsCallbackInterface != null)
+            {
+                @Moving.started -= m_Wrapper.m_FreeCameraActionsCallbackInterface.OnMoving;
+                @Moving.performed -= m_Wrapper.m_FreeCameraActionsCallbackInterface.OnMoving;
+                @Moving.canceled -= m_Wrapper.m_FreeCameraActionsCallbackInterface.OnMoving;
+                @GoUp.started -= m_Wrapper.m_FreeCameraActionsCallbackInterface.OnGoUp;
+                @GoUp.performed -= m_Wrapper.m_FreeCameraActionsCallbackInterface.OnGoUp;
+                @GoUp.canceled -= m_Wrapper.m_FreeCameraActionsCallbackInterface.OnGoUp;
+                @GoDown.started -= m_Wrapper.m_FreeCameraActionsCallbackInterface.OnGoDown;
+                @GoDown.performed -= m_Wrapper.m_FreeCameraActionsCallbackInterface.OnGoDown;
+                @GoDown.canceled -= m_Wrapper.m_FreeCameraActionsCallbackInterface.OnGoDown;
+            }
+            m_Wrapper.m_FreeCameraActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Moving.started += instance.OnMoving;
+                @Moving.performed += instance.OnMoving;
+                @Moving.canceled += instance.OnMoving;
+                @GoUp.started += instance.OnGoUp;
+                @GoUp.performed += instance.OnGoUp;
+                @GoUp.canceled += instance.OnGoUp;
+                @GoDown.started += instance.OnGoDown;
+                @GoDown.performed += instance.OnGoDown;
+                @GoDown.canceled += instance.OnGoDown;
+            }
+        }
+    }
+    public FreeCameraActions @FreeCamera => new FreeCameraActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -540,5 +659,11 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnReturn(InputAction.CallbackContext context);
         void OnJoysticks(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
+    }
+    public interface IFreeCameraActions
+    {
+        void OnMoving(InputAction.CallbackContext context);
+        void OnGoUp(InputAction.CallbackContext context);
+        void OnGoDown(InputAction.CallbackContext context);
     }
 }
