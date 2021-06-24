@@ -2276,7 +2276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1567474884727769817, guid: 5ae5cb05d4bcbe549a5c1fdeef173281, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Overridden
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2713873266674617849, guid: 5ae5cb05d4bcbe549a5c1fdeef173281, type: 3}
       propertyPath: m_Materials.Array.data[0]
