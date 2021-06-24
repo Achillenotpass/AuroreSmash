@@ -25,6 +25,7 @@ MonoBehaviour:
   m_VfxChildOfChild: 00000000
   m_VFXChildOfChildNumber: 00000000
   m_VFXIsAlone: 0
+  m_VFXHasToDisappearSmoothly: 0
   m_HasSFX: 0
   m_SFXList: []
   m_HasVFXAnimation: 0

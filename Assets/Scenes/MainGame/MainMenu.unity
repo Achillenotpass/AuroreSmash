@@ -6284,6 +6284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingBackground
       objectReference: {fileID: 0}
+    - target: {fileID: 7227627123946064259, guid: d6e36c6fb3bd829429fb511d17f2ccbb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7227627123946064260, guid: d6e36c6fb3bd829429fb511d17f2ccbb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

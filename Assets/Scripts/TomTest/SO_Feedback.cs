@@ -204,7 +204,21 @@ public class SO_Feedback : ScriptableObject
 
     public void StopAllAudioClip()
     {
-
+        Debug.Log("rrr");
+        AudioClip[] l_AudioClipArray = FindObjectsOfType<AudioClip>();
+        for(int i = 0; i < l_AudioClipArray.Length; i++)
+        {
+            Debug.Log("ttt");
+            for (int v = 0; v < m_SFXList.Length; v++)
+            {
+                Debug.Log("yyy");
+                if (l_AudioClipArray[i].name == m_SFXList[v].name)
+                {
+                    Debug.Log("uuu");
+                    Destroy(l_AudioClipArray[i]);
+                }
+            }
+        }
     }
 
 
