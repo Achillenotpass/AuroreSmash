@@ -7,7 +7,6 @@ public class Blink : MonoBehaviour
     public IEnumerator Blinking(GameObject p_ObjectToBlink, float p_BlinkDuration, float p_BlinkSpeed, float p_BlinkIntesity)
     {
         float l_BlinkTimer = p_BlinkDuration;
-        Debug.Log("aaa");
         while (l_BlinkTimer > 0)
         {
             p_ObjectToBlink.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, p_BlinkIntesity);

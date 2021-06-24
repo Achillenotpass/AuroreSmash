@@ -1580,6 +1580,33 @@ MonoBehaviour:
   m_MinTimerEjection: 0.45
   m_MultiplicatorAt0HP: 3
   m_EjectionEvents:
+    m_TakeLightHit:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 7eb1143d3e5865441838efa020759a15, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: PlayFeedback
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 9200278381566710910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 7eb1143d3e5865441838efa020759a15, type: 2}
+          m_TargetAssemblyTypeName: SO_Feedback, Assembly-CSharp
+          m_MethodName: Blink
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6393736191229132230}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     m_TakeHit:
       m_PersistentCalls:
         m_Calls:

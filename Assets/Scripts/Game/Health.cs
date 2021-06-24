@@ -88,6 +88,10 @@ public class Health : MonoBehaviour
         {
             GetComponent<CharacterEjection>().Ejection(p_Projectile.EjectionPower, p_Projectile.EjectionAngle, p_ProjectileObjectPosition, p_Projectile.HitLag);
         }
+        else
+        {
+            GetComponent<CharacterEjection>().LightHit();
+        }
     }
     /*public void Death()
     {

@@ -98,7 +98,6 @@ public class SO_Feedback : ScriptableObject
                             l_VFXSpecificPosition.x *= -1;
                         }
                         GameObject l_VFXInstiated = Instantiate(m_VFXList[i], p_Instantiator.transform.position + l_VFXSpecificPosition, Quaternion.Euler(Quaternion.identity.x + m_VFXSpecificRotation[i].x, Quaternion.identity.y + m_VFXSpecificRotation[i].y, Quaternion.identity.z + m_VFXSpecificRotation[i].z));
-                        l_VFXInstiated.name = m_VFXList[i].name;
                     }
                 }
                 else if (m_VFXHasToBeChild[i])
