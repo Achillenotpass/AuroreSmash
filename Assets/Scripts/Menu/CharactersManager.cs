@@ -126,11 +126,17 @@ public class CharactersManager : MonoBehaviour
         }
 
         //Puis on va sur la scène de combat
-        StartCoroutine(AsyncLoading("MapSelection", 2.0f));
+        if (!m_InAnimation)
+        {
+            StartCoroutine(AsyncLoading("MapSelection", 2.0f));
+        }
     }
     public void GoToMainMenu()
     {
-        StartCoroutine(AsyncLoading("MainMenu", 1.0f));
+        if (!m_InAnimation)
+        {
+            StartCoroutine(AsyncLoading("MainMenu", 1.0f));
+        }
     }
     private IEnumerator AsyncLoading(string p_SceneName, float p_MinimumLoadingTime)
     {
@@ -142,7 +148,6 @@ public class CharactersManager : MonoBehaviour
         l_Scene.allowSceneActivation = false;
         while (l_Scene.progress < 0.9f)
         {
-            Debug.Log(l_Scene.progress);
             yield return null;
         }
         l_Scene.allowSceneActivation = true;

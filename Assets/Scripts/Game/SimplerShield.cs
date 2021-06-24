@@ -32,6 +32,8 @@ public class SimplerShield : MonoBehaviour, IUpdateUser
     private CharacterMovement m_CharacterMovement = null;
     private ESubShieldState m_SubShieldState = ESubShieldState.BeforeLag;
     [SerializeField]
+    private UnityEvent m_StartShieldEvent = null;
+    [SerializeField]
     private UnityEvent m_BlockEvent = null;
 
     #endregion
@@ -47,6 +49,7 @@ public class SimplerShield : MonoBehaviour, IUpdateUser
         if (m_CharacterInfos.CurrentCharacterState == CharacterState.Shielding)
         {
             CalculateShieldFrames(p_DeltaTime);
+            m_StartShieldEvent.Invoke();
         }
     }
     #endregion

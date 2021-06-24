@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8769545e9ac692d418ee7f673645095f, type: 3}
+  m_Name: TakeLightHit
+  m_EditorClassIdentifier: 
+  m_FeedbackName: TakeHit
+  m_HasVFX: 1
+  m_VFXList:
+  - {fileID: 6559282236501915301, guid: 5ae5cb05d4bcbe549a5c1fdeef173281, type: 3}
+  m_VFXSpecificPosition:
+  - {x: 0, y: 0, z: 0}
+  m_VFXSpecificRotation:
+  - {x: 0, y: 0, z: 0}
+  m_VFXHasToBeChild: 01
+  m_VFXHasToBeChildOfChild: 00
+  m_VfxChildOfChild: 00000000
+  m_VFXChildOfChildNumber: 00000000
+  m_VFXIsAlone: 0
+  m_VFXHasToDisappearSmoothly: 0
+  m_HasSFX: 0
+  m_SFXList: []
+  m_HasVFXAnimation: 0
+  m_VFXAnimationList: []
+  m_VFXAnimationSpecificPosition: []
+  m_VFXAnimationSpecificRotation: []
+  m_VFXAnimationHasToBeChild: 
+  m_VFXAnimationHasToBeChildOfChild: 
+  m_VFXAnimationChildOfChildNumber: 
+  m_VFXAnimationIsAlone: 0
+  m_HasToShake: 0
+  m_ObjectToShakeIsCamera: 0
+  m_ShakeIntesity: 0.1
+  m_ShakeDuration: 0.1
+  m_HasToBlink: 1
+  m_BlinkIntensity: 0.5
+  m_BlinkDuration: 0.5
+  m_BlinkSpeed: 0.05
+  m_HasToFreezeFrame: 0
+  m_FreezeFrameDuration: 0.1
+  m_HasToVibrate: 0
+  m_VibrationIntesity: 0.1
+  m_VibrationDuration: 0.1

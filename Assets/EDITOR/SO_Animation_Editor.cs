@@ -41,6 +41,7 @@ public class SO_Animation_Editor : Editor
                 m_TargetAnimation.AnimationFrames.Add(new AnimationFrame());
                 m_TargetAnimation.AnimationFrames[i].m_FrameSprite = m_AnimationSprites[i];
             }
+            EditorUtility.SetDirty((SO_Animation)target);
         }
         DropAreaGUI();
     }

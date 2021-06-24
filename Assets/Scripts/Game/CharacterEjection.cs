@@ -72,7 +72,10 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
     }
     #endregion
 
-
+    public void LightHit()
+    {
+        m_EjectionEvents.m_TakeLightHit.Invoke();
+    }
     public void Ejection(float p_EjectionPower, float p_EjectionAngle, Vector3 p_AttackerPosition, float p_HitLagTime)
     {
         if (!m_IsEjected)
@@ -158,6 +161,9 @@ public class CharacterEjection : MonoBehaviour, IUpdateUser
 [System.Serializable]
 public class EjectionEvents
 {
+    [SerializeField]
+    public UnityEvent m_TakeLightHit;
+
     [SerializeField]
     public UnityEvent m_TakeHit;
 
